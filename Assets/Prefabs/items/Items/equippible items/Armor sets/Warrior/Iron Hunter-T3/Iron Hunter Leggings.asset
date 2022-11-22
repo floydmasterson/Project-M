@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
+  m_Name: Iron Hunter Leggings
+  m_EditorClassIdentifier: 
+  id: 314af3824e26b2546af45bf21c893eef
+  ItemName: Iron Hunter Leggings
+  Icon: {fileID: 21300000, guid: 9bd49c404e772c241a68ae4a7e9021ba, type: 3}
+  MaximumStacks: 1
+  StrengthBonus: 5
+  AgilityBonus: 0
+  IntelligenceBonus: 0
+  VitalityBonus: 5
+  StrengthPercentBonus: 0
+  AgilityPercentBonus: -0.05
+  IntelligencePercentBonus: 0
+  VitalityPercentBonus: 0
+  BoundSpell: {fileID: 0}
+  Passive: {fileID: 0}
+  EquipmentType: 8

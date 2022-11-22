@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
+  m_Name: Cultist Robes
+  m_EditorClassIdentifier: 
+  id: 466625d219c014940a8905c180836a01
+  ItemName: Cultist Robes
+  Icon: {fileID: 21300000, guid: 6a28a5c550e590a4ba9519a8d477b9d7, type: 3}
+  MaximumStacks: 1
+  StrengthBonus: 0
+  AgilityBonus: 0
+  IntelligenceBonus: 10
+  VitalityBonus: 1
+  StrengthPercentBonus: 0
+  AgilityPercentBonus: 0.1
+  IntelligencePercentBonus: 0
+  VitalityPercentBonus: 0
+  BoundSpell: {fileID: 0}
+  Passive: {fileID: 11400000, guid: 5a5866b95a315074280760266b9487d3, type: 2}
+  EquipmentType: 1

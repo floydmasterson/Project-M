@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2700d015c6462f048ac79e3404dd457a, type: 3}
+  m_Name: Small Mana potion
+  m_EditorClassIdentifier: 
+  id: 1fbc0ed48191fc04280712a021fb5f1c
+  ItemName: Small Mana Potion
+  Icon: {fileID: 21300000, guid: 97bfd260cea0aab41af6f63384ab786f, type: 3}
+  MaximumStacks: 20
+  IsConsumable: 1
+  Effects:
+  - {fileID: 11400000, guid: de16edcedc431044093d33c593618db3, type: 2}
