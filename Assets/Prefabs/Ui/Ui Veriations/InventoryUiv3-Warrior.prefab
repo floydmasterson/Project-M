@@ -4548,7 +4548,7 @@ MonoBehaviour:
   Strength:
     BaseValue: 35
   Agility:
-    BaseValue: 1
+    BaseValue: 2
   Intelligence:
     BaseValue: 20
   Vitality:
@@ -6560,9 +6560,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 94b0b717223e73947b0d1f6e08a59465, type: 2}
   - {fileID: 11400000, guid: 561276e27b519ab4b91fc41463ea2780, type: 2}
   - {fileID: 11400000, guid: d7dd9d1482473654097dcfe5b9eaf1bd, type: 2}
-  - {fileID: 11400000, guid: ed71683d3f77cdb4aa942734a0a41b0d, type: 2}
-  - {fileID: 11400000, guid: 34be5fa9bf373ec42bac3101c670207a, type: 2}
-  - {fileID: 11400000, guid: 1a02f345517942f448116300f8093879, type: 2}
+  - {fileID: 11400000, guid: 468992fb2b51e6f4ba0cdccefab2c8f3, type: 2}
+  - {fileID: 11400000, guid: 7c17528e1dcd72748a40f28e8edb3419, type: 2}
+  - {fileID: 11400000, guid: f48881b58bcb2c348b7e66d3112cc813, type: 2}
   - {fileID: 11400000, guid: 1a02f345517942f448116300f8093879, type: 2}
   - {fileID: 11400000, guid: 1a02f345517942f448116300f8093879, type: 2}
   - {fileID: 11400000, guid: 6d147b557fb92864db0e4931570581d0, type: 2}

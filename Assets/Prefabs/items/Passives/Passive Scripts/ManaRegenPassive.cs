@@ -32,7 +32,7 @@ public class ManaRegenPassive : PassiveSO
     public override string GetDescription()
     {
         sb.Length = 0;
-        if(PassiveLvl > 1)
+        if(PassiveLvl > 0)
         {
             sb.Append("Mana Flow " + RomanNumerals.RomanNumeralGenerator(PassiveLvl) + ":Gain an additonal " + RegenAmount + " mana a second");
             return sb.ToString();

@@ -275,7 +275,7 @@ public class Enemys : MonoBehaviourPun
         Collider[] rangeChecks = Physics.OverlapSphere(transform.position, radius, targetMask);
 
         if (rangeChecks.Length != 0)
-        {
+        { 
             Transform target = rangeChecks[0].transform;
 
             Vector3 directionToTarget = (target.position - transform.position).normalized;
@@ -294,7 +294,7 @@ public class Enemys : MonoBehaviourPun
                         if (target.GetComponent<PlayerManger>().CurrentHealth != 0)
                             Target = target.transform;
                         StartRotating();
-                        if (agent != null)
+                        if (agent != null && target != null)
                             agent.SetDestination(Target.position);
                     }
                 }

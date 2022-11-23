@@ -45,7 +45,7 @@ public class RegenPassive : PassiveSO
     {
         sb.Length = 0;
 
-        if (PassiveLvl > 1)
+        if (PassiveLvl > 0)
         {
             sb.Append("Natural Fortitude " + RomanNumerals.RomanNumeralGenerator(PassiveLvl) + ": Regen " + regenAmount + " health every " + regenRate + " seconds.");
             return sb.ToString();

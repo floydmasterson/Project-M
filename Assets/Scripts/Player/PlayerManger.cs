@@ -9,10 +9,10 @@ public class PlayerManger : MonoBehaviourPun
     //Partds
     [SerializeField] private CinemachineFreeLook cineCamera;
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject cam;
+    [SerializeField] private Collider col;
+    private GameObject cam;
     private CharacterController characterController;
     private Animator animator;
-    [SerializeField] private Collider col;
     private Rigidbody Rb;
 
     [Space]
@@ -34,7 +34,8 @@ public class PlayerManger : MonoBehaviourPun
     private float _defense;
     public float Defense
     {
-        get { return CheckDefense();}
+        get { return _defense; }
+        set { _defense = value; }
     }
 
     public float MaxHealth
@@ -43,8 +44,9 @@ public class PlayerManger : MonoBehaviourPun
         set { _maxHealth = value; }
     }
     public bool isAlive = true;
-    private bool isInvulnerable = false;
+    public bool isInvulnerable = false;
     [Space]
+
     //Movment
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private float SprintSpeed = 12f;
@@ -65,13 +67,16 @@ public class PlayerManger : MonoBehaviourPun
     private float ActCooldown;
     private bool isRollExecuting = false;
     [Space]
+
     //attacking
-    [SerializeField] public float attackRange = .5f;
     [SerializeField] private float attackCoolDown = 1f;
-    public bool canAttack = true;
     private bool isAttackSetExecuting = false;
+    public float attackRange = .5f;
+    public bool LifeSteal = false;
+    public bool canAttack = true;
     public Transform attackPoint;
     public LayerMask enemyLayers;
+
     [Space]
     //PLayer UI
     [SerializeField] private GameObject UiPrefab;
@@ -101,7 +106,14 @@ public class PlayerManger : MonoBehaviourPun
                 yield break;
             isAttackSetExecuting = true;
             canAttack = false;
-            GetComponent<IAttack>().Attack();
+            if (LifeSteal == true)
+            {
+                GetComponent<MeeleController>().AttackLifeSteal();
+            }
+            else
+            {
+                GetComponent<IAttack>().Attack();
+            }
             yield return new WaitForSeconds(attackCoolDown);
             canAttack = true;
             isAttackSetExecuting = false;
@@ -333,7 +345,12 @@ public class PlayerManger : MonoBehaviourPun
             }
         }
     }
-
+    [PunRPC]
+    private void SetName()
+    {
+        gameObject.name = PhotonNetwork.NickName;
+    }
+    #region Animations
     public void UpdateMoving(bool moving)
     {
         if (canMove == true)
@@ -357,16 +374,8 @@ public class PlayerManger : MonoBehaviourPun
         if (photonView.IsMine)
             animator.SetTrigger("Attack 0");
     }
-    [PunRPC]
-    private void SetName()
-    {
-        gameObject.name = PhotonNetwork.NickName;
-    }
-
-    public void TakeDamge(float damage)
-    {
-        photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
-    }
+    #endregion
+    #region UI
     public void UiLockOut()
     {
         canMove = false;
@@ -384,6 +393,12 @@ public class PlayerManger : MonoBehaviourPun
         cineCamera.m_YAxis.m_MaxSpeed = 0.5f;
         Cursor.lockState = CursorLockMode.Locked;
 
+    }
+    #endregion
+    #region Damage and Healing
+    public void TakeDamge(float damage)
+    {
+        photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
     }
 
     [PunRPC]
@@ -425,6 +440,15 @@ public class PlayerManger : MonoBehaviourPun
 
     }
 
+    public void Heal(int amount)
+    {
+        CurrentHealth += amount;
+    }
+
+    #endregion
+
+    #region StatChecks
+
     public void CheckMaxHealth()
     {
         _maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (Character.Instance.Vitality.Value / 2f)));
@@ -447,6 +471,8 @@ public class PlayerManger : MonoBehaviourPun
         SprintSpeed = speed;
         return SprintSpeed;
     }
+
+    #endregion
 
 
     private void OnTriggerEnter(Collider other)

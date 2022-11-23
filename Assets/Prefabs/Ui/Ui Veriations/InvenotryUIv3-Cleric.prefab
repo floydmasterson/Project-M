@@ -190,22 +190,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8f533d982af27f544825137296da2715, type: 2}
   - {fileID: 11400000, guid: 98b14bf10a5ef18489efdb3d720b9351, type: 2}
   - {fileID: 11400000, guid: d38bd014f45ee8846bf155787296b4cf, type: 2}
-  - {fileID: 11400000, guid: 48fffdfc5210bc347923b90d0b46965a, type: 2}
-  - {fileID: 11400000, guid: ff2bb7ee69f49734595c3595561d5f80, type: 2}
-  - {fileID: 11400000, guid: 0ef4f434e0f7c7d4bab4a08a279841d9, type: 2}
-  - {fileID: 11400000, guid: 0ef4f434e0f7c7d4bab4a08a279841d9, type: 2}
-  - {fileID: 11400000, guid: 0ef4f434e0f7c7d4bab4a08a279841d9, type: 2}
-  - {fileID: 11400000, guid: 9390fd0eeec36ab48add38f984daacae, type: 2}
-  - {fileID: 11400000, guid: 9390fd0eeec36ab48add38f984daacae, type: 2}
-  - {fileID: 11400000, guid: 9390fd0eeec36ab48add38f984daacae, type: 2}
-  - {fileID: 11400000, guid: 9390fd0eeec36ab48add38f984daacae, type: 2}
-  - {fileID: 11400000, guid: 9390fd0eeec36ab48add38f984daacae, type: 2}
-  - {fileID: 11400000, guid: 1fbc0ed48191fc04280712a021fb5f1c, type: 2}
-  - {fileID: 11400000, guid: 1fbc0ed48191fc04280712a021fb5f1c, type: 2}
-  - {fileID: 11400000, guid: 1fbc0ed48191fc04280712a021fb5f1c, type: 2}
-  - {fileID: 11400000, guid: 1fbc0ed48191fc04280712a021fb5f1c, type: 2}
-  - {fileID: 11400000, guid: 1fbc0ed48191fc04280712a021fb5f1c, type: 2}
-  - {fileID: 11400000, guid: f925ecce9f3501d40945cf5cf3ba1e16, type: 2}
+  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
+  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
+  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
+  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
+  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
+  - {fileID: 11400000, guid: 36f161c307c86bb4c8ea024aa1bf2688, type: 2}
+  - {fileID: 11400000, guid: 36f161c307c86bb4c8ea024aa1bf2688, type: 2}
+  - {fileID: 11400000, guid: 36f161c307c86bb4c8ea024aa1bf2688, type: 2}
+  - {fileID: 11400000, guid: 36f161c307c86bb4c8ea024aa1bf2688, type: 2}
+  - {fileID: 11400000, guid: 36f161c307c86bb4c8ea024aa1bf2688, type: 2}
+  - {fileID: 11400000, guid: 650a55ada548fff4ab057eb4631792ea, type: 2}
+  - {fileID: 11400000, guid: 650a55ada548fff4ab057eb4631792ea, type: 2}
+  - {fileID: 11400000, guid: 650a55ada548fff4ab057eb4631792ea, type: 2}
+  - {fileID: 11400000, guid: 5358a78e95807cf438acf1e1ca65be94, type: 2}
+  - {fileID: 11400000, guid: 55304758ed5ef3146b7982dc8b7d4e04, type: 2}
+  - {fileID: 11400000, guid: 85b4068574efc7b49852d27c0aff1d78, type: 2}
   itemsParent: {fileID: 3739851514311218612}
 --- !u!1 &205821401821493792
 GameObject:
@@ -7345,7 +7345,7 @@ MonoBehaviour:
   Strength:
     BaseValue: 10
   Agility:
-    BaseValue: 2
+    BaseValue: 3
   Intelligence:
     BaseValue: 25
   Vitality:

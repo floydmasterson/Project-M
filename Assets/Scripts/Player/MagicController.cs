@@ -17,14 +17,22 @@ public class MagicController : MonoBehaviour, IAttack
     private float _additonalRegenRate;
     public float ManaRegenRate
     {
-        get {  return _BasemanaRegenRate; }
-        set { _BasemanaRegenRate = value ; }
+        get { return _BasemanaRegenRate; }
+        set { _BasemanaRegenRate = value; }
     }
-    
+
 
     public float MaxMana
     {
         get { return _maxMana; }
+        set
+        {
+            _maxMana = value;
+            if (_currMana > _maxMana)
+            {
+                CurrMana = MaxMana;
+            }
+        }
     }
     public float CurrMana
     {

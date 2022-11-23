@@ -1394,10 +1394,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cineCamera: {fileID: 5273921415785056940}
   player: {fileID: 3286286095955913799}
-  cam: {fileID: 0}
   col: {fileID: 5702467469400378118}
   _currentHealth: 0
   isAlive: 1
+  isInvulnerable: 0
   turnSmoothTime: 0.1
   SprintSpeed: 12
   speed: 6
@@ -1410,8 +1410,9 @@ MonoBehaviour:
   isGrounded: 0
   canMove: 1
   canLook: 1
-  attackRange: 0.5
   attackCoolDown: 1
+  attackRange: 0.5
+  LifeSteal: 0
   canAttack: 1
   attackPoint: {fileID: 4068259712656919644}
   enemyLayers:
@@ -1435,8 +1436,8 @@ MonoBehaviour:
   castPoint: {fileID: 4068259712656919644}
   _maxMana: 100
   _currMana: 0
-  _manaRegenRate: 2
   _timeToWaitForRecharge: 1.5
+  _BasemanaRegenRate: 2
   _castCooldown: 0.25
   isCasting: 0
 --- !u!114 &6042793191951214474

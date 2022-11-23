@@ -873,10 +873,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cineCamera: {fileID: 8226536733148169854}
   player: {fileID: 2951597269558399559}
-  cam: {fileID: 0}
   col: {fileID: 8226536732763159447}
   _currentHealth: 0
   isAlive: 1
+  isInvulnerable: 0
   turnSmoothTime: 0.1
   SprintSpeed: 12
   speed: 8
@@ -889,8 +889,9 @@ MonoBehaviour:
   isGrounded: 0
   canMove: 1
   canLook: 1
-  attackRange: 1.01
   attackCoolDown: 2
+  attackRange: 1.01
+  LifeSteal: 0
   canAttack: 1
   attackPoint: {fileID: 8024760268945827698}
   enemyLayers:

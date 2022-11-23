@@ -6,7 +6,7 @@ public class HealItemEffect : UseableItemEffect
     public int HealAmount;
     public override void ExecuteEffect(UsableItem parentItem, Character character)
     {
-        PlayerUi.Instance.target.CurrentHealth += HealAmount;
+        PlayerUi.Instance.target.Heal(HealAmount);
     }
 
     public override string GetDescription()

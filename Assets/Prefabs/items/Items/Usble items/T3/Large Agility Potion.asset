@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2700d015c6462f048ac79e3404dd457a, type: 3}
   m_Name: Large Agility Potion
   m_EditorClassIdentifier: 
-  id: 
-  ItemName: 
-  Icon: {fileID: 0}
-  MaximumStacks: 1
-  IsConsumable: 0
-  Effects: []
+  id: a4f629126af176b4bb98064859226ecb
+  ItemName: Icarus Potion
+  Icon: {fileID: 21300000, guid: 9ee2b17f70242f245b1cb9a8f073635e, type: 3}
+  MaximumStacks: 5
+  IsConsumable: 1
+  Effects:
+  - {fileID: 11400000, guid: 15013e7e99ba42b4d967450efdbc8cf9, type: 2}

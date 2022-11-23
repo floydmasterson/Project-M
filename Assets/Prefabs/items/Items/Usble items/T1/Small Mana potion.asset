@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 36f161c307c86bb4c8ea024aa1bf2688
   ItemName: Small Mana Potion
-  Icon: {fileID: 21300000, guid: 97bfd260cea0aab41af6f63384ab786f, type: 3}
+  Icon: {fileID: 21300000, guid: fde3df6f75fb3b64b83b1e1a0876dc4c, type: 3}
   MaximumStacks: 20
   IsConsumable: 1
   Effects:
