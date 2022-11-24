@@ -856,7 +856,7 @@ NavMeshObstacle:
   m_Extents: {x: 0.185, y: 0.16, z: 0.185}
   m_MoveThreshold: 0.1
   m_Carve: 0
-  m_CarveOnlyStationary: 1
+  m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 1.33, z: -0.05}
   m_TimeToStationary: 0.5
 --- !u!114 &8226536733875796429
@@ -889,7 +889,7 @@ MonoBehaviour:
   isGrounded: 0
   canMove: 1
   canLook: 1
-  attackCoolDown: 2
+  attackCoolDown: 1.5
   attackRange: 1.01
   LifeSteal: 0
   canAttack: 1
@@ -2630,7 +2630,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8226536733450629783}
-  m_LocalRotation: {x: 0.20865855, y: 0.029002784, z: -0.0061907233, w: 0.9775388}
+  m_LocalRotation: {x: 0.20865855, y: 0.029002784, z: -0.006190723, w: 0.9775388}
   m_LocalPosition: {x: -6.4623485e-27, y: 0.0000009536743, z: -2.8421712e-13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2882,7 +2882,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8226536734151661654}
-  m_LocalRotation: {x: 0.18845078, y: 0.02912431, z: -0.005591177, w: 0.9816348}
+  m_LocalRotation: {x: 0.18845078, y: 0.029124325, z: -0.005591179, w: 0.9816348}
   m_LocalPosition: {x: -6.4623485e-27, y: 0.0000009536743, z: -2.8421712e-13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

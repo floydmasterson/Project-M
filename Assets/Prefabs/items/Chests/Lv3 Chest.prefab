@@ -270,7 +270,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1447595565522781464}
-  m_LocalRotation: {x: 0.70594996, y: 0.012296033, z: 0.012259789, w: -0.7080489}
+  m_LocalRotation: {x: 0.7059567, y: 0.012297308, z: 0.012261307, w: -0.7080421}
   m_LocalPosition: {x: 52, y: 0.28, z: -155.6}
   m_LocalScale: {x: 400, y: 400, z: 400}
   m_ConstrainProportionsScale: 0
@@ -383,7 +383,7 @@ MonoBehaviour:
   open: {fileID: 9104530304119377906, guid: bfe1ad93928ff174ba957741efcd2f9e, type: 3}
   itemsParent: {fileID: 3955399380283665994}
   inventory: {fileID: 3955399381236164396}
-  amount: 5
+  amount: 3
   randomAmount: 0
   BetterRandomAmount: 0
   lootTable:
@@ -434,46 +434,88 @@ MonoBehaviour:
       weight: 1
     - item: {fileID: 11400000, guid: 3fe165998f2be6d4ea3a0c2a6e73d02e, type: 2}
       weight: 3
+    - item: {fileID: 11400000, guid: a4f629126af176b4bb98064859226ecb, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 5358a78e95807cf438acf1e1ca65be94, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: aa6d6773c86b7ba4d873c41050c5f279, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 9fdfa63eb6a6f3045a9d9f116c149f66, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: a56501d3bed4f6d47b2e8e95ffccc862, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: dc9e45904fde3ac4e8989c343fd6bf8c, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 1c1f4cbf0c9933542bd79423a561e179, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: f3f5166697a1b004aad276434cbd51c9, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: dfc20e350b84f3647bbe14e84ad8c658, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 468992fb2b51e6f4ba0cdccefab2c8f3, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 8fd91becf5bce09408fd129374d8a011, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 1d639a663fc2b4541bdb13f09341970b, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: c163f742b21d71949bc005c0f9334cc5, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 80ea5cda5b9a37c4596bf25b651544e2, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: f48881b58bcb2c348b7e66d3112cc813, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 85b4068574efc7b49852d27c0aff1d78, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 7c17528e1dcd72748a40f28e8edb3419, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 31981f503a35fc04ba4674648d121434, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: a5ceacf560d95254cb3ba228a7a13434, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 01cb0688080e73642b3b740e41aa3fd3, type: 2}
+      weight: 1
     - item: {fileID: 11400000, guid: a8d342645f9444349b035e006568ccb0, type: 2}
-      weight: 2
+      weight: 1
     - item: {fileID: 11400000, guid: dbebec35808c85744a9902ec0bd32d40, type: 2}
-      weight: 2
-    - item: {fileID: 11400000, guid: 5469e3bb13c4f6042ad7a64cd27c757c, type: 2}
-      weight: 3
+      weight: 1
     - item: {fileID: 11400000, guid: 533f5d3238990834fa00023f21cd7403, type: 2}
-      weight: 2
+      weight: 1
     - item: {fileID: 11400000, guid: 3ca546833f8477d4086b26571403228c, type: 2}
-      weight: 2
+      weight: 1
+    - item: {fileID: 11400000, guid: 5469e3bb13c4f6042ad7a64cd27c757c, type: 2}
+      weight: 1
     - item: {fileID: 11400000, guid: 01b62c03a2db3de458f5813fcff35c11, type: 2}
-      weight: 2
+      weight: 1
     - item: {fileID: 11400000, guid: 44c0c17a537dfb5469a831c0ef6ec388, type: 2}
-      weight: 2
+      weight: 1
     - item: {fileID: 11400000, guid: a66e5a1f0e3b56842bb1fdd6a7ae7d0e, type: 2}
-      weight: 3
+      weight: 1
     - item: {fileID: 11400000, guid: 1801ae4e27def9c40bd48859f529b1f3, type: 2}
-      weight: 2
-    - item: {fileID: 11400000, guid: d8ce206b55b45e24ea7236b93535f022, type: 2}
-      weight: 3
-    - item: {fileID: 11400000, guid: 453c92a8b893fd64ba65574562187b24, type: 2}
-      weight: 2
-    - item: {fileID: 11400000, guid: 5a741862a5b601b4cb62bb9f51746ee5, type: 2}
-      weight: 2
-    - item: {fileID: 11400000, guid: 75c3e1e7843988648af99c688ffd6d8d, type: 2}
-      weight: 3
-    - item: {fileID: 11400000, guid: db685dbd9086ebe4a9270ebbca140c4f, type: 2}
-      weight: 2
-    - item: {fileID: 11400000, guid: 8dad8eed1382770469d728c24d977d12, type: 2}
-      weight: 2
-    - item: {fileID: 11400000, guid: 204577c7f80f08e46aaa8743130a155b, type: 2}
-      weight: 2
+      weight: 1
     - item: {fileID: 11400000, guid: f70dc47ec0ab0e54b909057996a039a8, type: 2}
-      weight: 2
+      weight: 1
+    - item: {fileID: 11400000, guid: 204577c7f80f08e46aaa8743130a155b, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 8dad8eed1382770469d728c24d977d12, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: db685dbd9086ebe4a9270ebbca140c4f, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 75c3e1e7843988648af99c688ffd6d8d, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 5a741862a5b601b4cb62bb9f51746ee5, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 453c92a8b893fd64ba65574562187b24, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: d8ce206b55b45e24ea7236b93535f022, type: 2}
+      weight: 1
     - item: {fileID: 11400000, guid: 55304758ed5ef3146b7982dc8b7d4e04, type: 2}
-      weight: 3
+      weight: 2
     - item: {fileID: 11400000, guid: 2ee42e65b61b2eb45b924a061d64c678, type: 2}
-      weight: 3
+      weight: 2
     - item: {fileID: 11400000, guid: 650a55ada548fff4ab057eb4631792ea, type: 2}
-      weight: 3
+      weight: 2
+    - item: {fileID: 11400000, guid: 4eb855ba292208a4a8321a0738496a94, type: 2}
+      weight: 2
 --- !u!1 &2366080784137747790
 GameObject:
   m_ObjectHideFlags: 0

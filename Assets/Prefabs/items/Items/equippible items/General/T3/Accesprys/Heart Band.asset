@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Heart Band
   m_EditorClassIdentifier: 
   id: 1c1f4cbf0c9933542bd79423a561e179
-  ItemName: 
+  ItemName: Heart Band
   Icon: {fileID: 21300000, guid: 3c50e727f0ccec7498158b52a559b95a, type: 3}
   MaximumStacks: 1
   StrengthBonus: 0

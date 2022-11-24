@@ -13,7 +13,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
     {
         manger.photonView.RPC("UpdateAttack", RpcTarget.All);
         StartCoroutine(manger.IFrames(.6f));
-        StartCoroutine(manger.MoveLock());
+        StartCoroutine(manger.MoveLock(.8f));
         Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
         foreach (Collider enemy in hitEnemins)
         {
@@ -28,17 +28,18 @@ public class MeeleController : MonoBehaviourPun, IAttack
     {
         manger.photonView.RPC("UpdateAttack", RpcTarget.All);
         StartCoroutine(manger.IFrames(.6f));
-        StartCoroutine(manger.MoveLock());
+        StartCoroutine(manger.MoveLock(.8f));
         Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
         foreach (Collider enemy in hitEnemins)
         {
-            int damage = (Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (enemy.GetComponent<Enemys>().Defense / Character.Instance.Strength.Value))));
-            enemy.GetComponent<Enemys>().TakeDamge(damage);
+            Enemys target = enemy.GetComponent<Enemys>();
+            int damage = (Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (target.Defense / Character.Instance.Strength.Value))));
+           target.TakeDamge(damage);
             manger.Heal(damage / 3);
             Debug.Log(damage);
             Debug.Log(damage/3);
-            if (!enemy.GetComponent<Enemys>().isDead)
-                enemy.GetComponent<Enemys>().Target = manger.transform;
+            if (!target.isDead)
+                target.Target = manger.transform;
         }
     }
 }

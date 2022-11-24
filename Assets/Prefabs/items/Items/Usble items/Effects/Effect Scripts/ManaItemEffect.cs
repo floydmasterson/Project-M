@@ -6,10 +6,13 @@ using UnityEngine;
 public class ManaItemEffect : UseableItemEffect
 {
     public int amount;
+    MagicController MC;
+
+
     public override void ExecuteEffect(UsableItem parentItem, Character character)
     {
-        if (PlayerUi.Instance.target.gameObject.GetComponent<MagicController>() != null)
-            PlayerUi.Instance.target.gameObject.GetComponent<MagicController>().CurrMana += amount;
+        if (MC != null)
+            MC.CurrMana += amount;
         else
         {
             Debug.Log("You dont have mana");
@@ -19,5 +22,19 @@ public class ManaItemEffect : UseableItemEffect
     public override string GetDescription()
     {
        return "Recover " + amount + " mana.";
+    }
+    public override bool canBeUsed()
+    {
+        MC = PlayerUi.Instance.target.gameObject.GetComponent<MagicController>();
+        if (MC != null)
+        {
+            if (MC.CurrMana == MC.MaxMana)
+                return false;
+            else
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

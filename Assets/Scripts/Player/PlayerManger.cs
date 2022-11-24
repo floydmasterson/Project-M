@@ -28,6 +28,10 @@ public class PlayerManger : MonoBehaviourPun
             {
                 _currentHealth = MaxHealth;
             }
+            if (_currentHealth > 0 && !isAlive)
+            {
+                _currentHealth = 0;
+            }
         }
     }
     private float _maxHealth;
@@ -121,10 +125,10 @@ public class PlayerManger : MonoBehaviourPun
 
 
     }
-    public IEnumerator MoveLock()
+    public IEnumerator MoveLock(float time)
     {
         canMove = false;
-        yield return new WaitForSecondsRealtime(.8f);
+        yield return new WaitForSecondsRealtime(time);
         canMove = true;
 
     }
@@ -153,7 +157,7 @@ public class PlayerManger : MonoBehaviourPun
         isRollExecuting = false;
     }
     #endregion
-
+    #region Mono
     void Awake()
     {
 
@@ -345,11 +349,7 @@ public class PlayerManger : MonoBehaviourPun
             }
         }
     }
-    [PunRPC]
-    private void SetName()
-    {
-        gameObject.name = PhotonNetwork.NickName;
-    }
+    #endregion
     #region Animations
     public void UpdateMoving(bool moving)
     {
@@ -446,7 +446,6 @@ public class PlayerManger : MonoBehaviourPun
     }
 
     #endregion
-
     #region StatChecks
 
     public void CheckMaxHealth()
@@ -473,8 +472,7 @@ public class PlayerManger : MonoBehaviourPun
     }
 
     #endregion
-
-
+    #region Trigger
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Chest"))
@@ -491,10 +489,18 @@ public class PlayerManger : MonoBehaviourPun
             chestControl = null;
         }
     }
+    #endregion
+    #region Misc
     private void OnDrawGizmosSelected()
     {
         if (attackPoint == null)
             return;
         Gizmos.DrawSphere(attackPoint.position, attackRange);
     }
+    [PunRPC]
+    private void SetName()
+    {
+        gameObject.name = PhotonNetwork.NickName;
+    }
+    #endregion
 }

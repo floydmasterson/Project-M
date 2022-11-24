@@ -107,4 +107,9 @@ public class StatBuffItemEffect : UseableItemEffect
             sb.AppendLine();
         }
     }
+
+    public override bool canBeUsed()
+    {
+        return true;
+    }
 }

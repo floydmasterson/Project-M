@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 [CreateAssetMenu(menuName = "Items/Usable Item")]
 public class UsableItem : Item
@@ -13,12 +14,25 @@ public class UsableItem : Item
         foreach (UseableItemEffect effect in Effects)
         {
             effect.ExecuteEffect(this, character);
+
         }
     }
 
     public override string GetItemType()
     {
         return IsConsumable ? "Consumable" : "Usable";
+    }
+   
+   public bool UseableCheck()
+    {
+        foreach (UseableItemEffect effect in Effects)
+        {
+           if (effect.canBeUsed())
+                return true;
+           else
+                return false;
+        }
+        return false;
     }
 
     public override string GetDescription()

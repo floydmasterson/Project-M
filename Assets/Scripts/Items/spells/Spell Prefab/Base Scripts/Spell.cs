@@ -1,39 +1,46 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
 public class Spell : MonoBehaviour
 {
     public SpellScriptableObject spellToCast;
+    [SerializeField] ParticleSystem ps;
     [SerializeField] StatusEffectSO[] statusEffects;
-    private SphereCollider sphereCollider;
     [Space]
     [Tooltip("If unchecked all below is not needed")]
     public bool homing;
     [SerializeField] private LayerMask EnemyMask;
     public Rigidbody rb;
-    [SerializeField] private Transform origin;
-    [SerializeField] private float homingRange;
-    [SerializeField] private float rotForce;
-    [SerializeField] private float force;
-    private Transform target;
+    [SerializeField]  Transform origin;
+    [SerializeField]  float homingRange;
+    [SerializeField] float rotForce;
+    [SerializeField] float force;
+    SphereCollider sphereCollider;
+  Transform target;
+    bool poof = false;
 
-
+    private IEnumerator LifeTime()
+    {
+        yield return new WaitForSecondsRealtime(spellToCast.lifeTime);
+        Poof();
+    }
     private void Awake()
     {
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.isTrigger = true;
         sphereCollider.radius = spellToCast.spellRadius;
 
-        Destroy(this.gameObject, spellToCast.lifeTime);
+        StartCoroutine(LifeTime());
     }
 
     private void FixedUpdate()
     {
-        if (homing == false)
+        if (homing == false && poof == false)
         {
             if (spellToCast.speed > 0) transform.Translate(Vector3.forward * spellToCast.speed * Time.fixedDeltaTime);
         }
-        else
+        else if (homing == true && poof == false)
         {
             Collider[] hitEnemins = Physics.OverlapSphere(origin.position, homingRange, EnemyMask);
             foreach (Collider enemy in hitEnemins)
@@ -64,7 +71,7 @@ public class Spell : MonoBehaviour
 
         if (other.gameObject.layer == Obstruction)
         {
-            Destroy(this.gameObject);
+            Poof();
         }
         if (other.CompareTag("enemy"))
         {
@@ -74,25 +81,31 @@ public class Spell : MonoBehaviour
             if (!enemy.isDead)
             {
                 enemy.Target = PlayerUi.Instance.target.transform;
-
             }
             if (statusEffects != null)
             {
-                Debug.Log("foreach apply"); 
                 foreach (StatusEffectSO effect in statusEffects)
                 {
-                    Debug.Log("spell apply");
-                    effect.ApplyEffect(enemy);
+                    StatusEffectSO eCopy = effect.GetCopy();
+                    if (eCopy != null)
+                        eCopy.ApplyEffect(enemy);
+                    Debug.Log(eCopy);
                 }
             }
             else
             {
                 Debug.Log("spell status empy");
             }
-
-            Debug.Log("destory");
-            Destroy(this.gameObject);
+            Poof();
         }
+    }
+    private void Poof()
+    {
+        transform.GetChild(0).gameObject.SetActive(false);
+        poof = true;
+        if (ps != null)
+            ps.Play();
+        Destroy(this.gameObject, .5f);
     }
 
     private void OnDrawGizmosSelected()

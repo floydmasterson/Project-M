@@ -1,22 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Item Effects/ Max Mana Gain")]
 public class MaxManaItemEffect : UseableItemEffect
-{ 
+{
+    MagicController MC;
     public override void ExecuteEffect(UsableItem parentItem, Character character)
     {
-        if (PlayerUi.Instance.target.gameObject.GetComponent<MagicController>() != null)
-            PlayerUi.Instance.target.gameObject.GetComponent<MagicController>().CurrMana = PlayerUi.Instance.target.gameObject.GetComponent<MagicController>().MaxMana;
-        else
-        {
-            Debug.Log("You dont have mana");
-        }
+        if (MC != null)
+            MC.CurrMana = MC.MaxMana;
     }
 
     public override string GetDescription()
     {
         return "Fully recover all mana.";
+    }
+    public override bool canBeUsed()
+    {
+        MC = PlayerUi.Instance.target.gameObject.GetComponent<MagicController>();
+        if (MC != null)
+        {
+            if (MC.CurrMana == MC.MaxMana)
+                return false;
+            else
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -107,7 +107,8 @@ public class EquippableItem : Item
         if (BoundSpell != null)
         {
             sb.AppendLine();
-            sb.Append(BoundSpell + "is bound to this weapon").Replace("(Spell)", "");
+            sb.Append(BoundSpell + "is bound to this weapon").Replace("(Spell)", "").Replace("S-", "");
+       
         }
         if (Passive != null)
         {

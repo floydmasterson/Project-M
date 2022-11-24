@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 278920307575328711}
   - component: {fileID: 4813815455045916204}
   m_Layer: 0
-  m_Name: Tracer Missile
+  m_Name: S-Tracer Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

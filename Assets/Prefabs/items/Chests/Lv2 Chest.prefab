@@ -385,7 +385,7 @@ MonoBehaviour:
   inventory: {fileID: 3955399381236164396}
   amount: 0
   randomAmount: 1
-  BetterRandomAmount: 0
+  BetterRandomAmount: 1
   lootTable:
     list: []
 --- !u!1 &2366080784137747790

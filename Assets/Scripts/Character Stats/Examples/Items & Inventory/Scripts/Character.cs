@@ -80,12 +80,15 @@ public class Character : MonoBehaviour
         else if (itemSlot.Item is UsableItem)
         {
             UsableItem usableItem = (UsableItem)itemSlot.Item;
+            if(usableItem.UseableCheck())
+            {
             usableItem.Use(this);
 
             if (usableItem.IsConsumable)
             {
                 itemSlot.Amount--;
                 usableItem.Destroy();
+            }
             }
         }
     }

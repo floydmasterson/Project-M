@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2581630659162678018}
   - component: {fileID: 8741371335570146659}
   m_Layer: 0
-  m_Name: Acrid posion
+  m_Name: S-Acrid posion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spellToCast: {fileID: 11400000, guid: 2dfaafff4c4d72f4d99ab222f9cef836, type: 2}
+  ps: {fileID: 0}
   statusEffects:
   - {fileID: 11400000, guid: 5be3890a1adb2e947a2eb81d103fa184, type: 2}
   homing: 0

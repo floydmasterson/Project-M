@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L Agilty Potion
   m_EditorClassIdentifier: 
   StrengthBuff: 0
-  AgilityBuff: 3
+  AgilityBuff: 2
   IntelligenceBuff: 0
   VitalityBuff: 0
   Duration: 0

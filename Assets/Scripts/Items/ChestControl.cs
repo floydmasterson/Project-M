@@ -17,7 +17,9 @@ public class ChestControl : ItemContainer
     [SerializeField] Inventory inventory;
 
     [SerializeField][Range(0, 17)] private int amount = 0;
+    [Tooltip("1-5 Drops")]
     [SerializeField] bool randomAmount;
+    [Tooltip(" 3-5 *Must enable both for better drops")]
     [SerializeField] bool BetterRandomAmount;
     public WeightedRandomList<Item> lootTable;
 
@@ -104,7 +106,7 @@ public class ChestControl : ItemContainer
         else if (randomAmount && !BetterRandomAmount)
         {
             Debug.Log("random");
-            float Ramount = Random.Range(1, 6);
+            float Ramount = Random.Range(1, 5);
             for (int i = 0; i <= Ramount - 1; i++)
             {
                 inventory.startingItems[i] = lootTable.GetRandom();
@@ -114,7 +116,7 @@ public class ChestControl : ItemContainer
         else if (BetterRandomAmount && randomAmount)
         {
             Debug.Log("Better random");
-            float Ramount = Random.Range(3, 8);
+            float Ramount = Random.Range(3, 5);
             for (int i = 0; i <= Ramount - 1; i++)
             {
                 inventory.startingItems[i] = lootTable.GetRandom();

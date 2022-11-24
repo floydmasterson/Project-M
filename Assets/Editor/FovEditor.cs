@@ -9,6 +9,8 @@ public class FovEditor : Editor
         Enemys fov = (Enemys)target;
         Handles.color = Color.white;
         Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.radius);
+         Handles.color = Color.red;
+        Handles.DrawWireArc(fov.transform.position, Vector3.up, Vector3.forward, 360, fov.runRadius);
 
         Vector3 viewAngle01 = DirectionFromAngle(fov.transform.eulerAngles.y, -fov.angle / 2);
         Vector3 viewAngle02 = DirectionFromAngle(fov.transform.eulerAngles.y, fov.angle / 2);
@@ -20,7 +22,7 @@ public class FovEditor : Editor
         if (fov.canSeePlayer)
         {
             Handles.color = Color.green;
-            Handles.DrawLine(fov.transform.position, fov.playerRef.transform.position);
+            Handles.DrawLine(fov.transform.position, fov.Target.transform.position);
         }
     }
 
