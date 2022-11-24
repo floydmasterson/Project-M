@@ -1975,7 +1975,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeSetting: 1
-  Vitality: 85
+  Vitality: 89.1
   Defense: 0
   currentHealth: 0
   isDead: 0

@@ -6,7 +6,7 @@ public class MaxHealItemEffect : UseableItemEffect
     PlayerManger player;
     public override void ExecuteEffect(UsableItem parentItem, Character character)
     {
-       
+        player = PlayerUi.Instance.target;
         player.CurrentHealth += player.MaxHealth;
     }
 
