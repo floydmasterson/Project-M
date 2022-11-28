@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FireBall III
   m_EditorClassIdentifier: 
   dmgAmt: 3
-  ManaCost: 30
-  lifeTime: 2
+  ManaCost: 25
+  lifeTime: 1
   speed: 50
   spellRadius: 0.5

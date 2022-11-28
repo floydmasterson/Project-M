@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68fd2dc7d5c11848b366d461cff7f7e, type: 3}
   m_Name: Acrid Posion
   m_EditorClassIdentifier: 
-  dmgAmt: 5
+  dmgAmt: 1
   ManaCost: 15
   lifeTime: 5
   speed: 40
