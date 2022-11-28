@@ -24,7 +24,6 @@ public class Enemys : MonoBehaviourPun
     [SerializeField][Range(1, 100)] float LSpeed = 1f;
     [Range(0, 360)] public float angle;
     public float radius;
-    [Header("Type 2 Run Settings")]
     [SerializeField] float runDistance = 0f;
     public float runRadius = 0f;
     [SerializeField] int runTime;
