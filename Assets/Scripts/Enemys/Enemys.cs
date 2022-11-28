@@ -174,7 +174,7 @@ public class Enemys : MonoBehaviourPun
             isTRangedAttackExecuting = true;
             if (agent != null)
             {
-                
+
                 UpdateMoving(true);
                 if (running)
                 {
@@ -196,7 +196,7 @@ public class Enemys : MonoBehaviourPun
                 }
 
             }
-          
+
             StartCoroutine(TRangedAttack());
         }
     }
@@ -220,7 +220,6 @@ public class Enemys : MonoBehaviourPun
         agent.updateRotation = false;
         if (typeSetting != 0)
             StartCoroutine(FOVRoutine());
-        //playerRef = GameObject.FindGameObjectWithTag("Player");
         currentHealth = maxHealth;
     }
     private void FixedUpdate()
@@ -239,9 +238,10 @@ public class Enemys : MonoBehaviourPun
                 StartRotating();
             }
             if (typeSetting == 2)
+            {
+                StartRotating();
                 StartCoroutine(TRangedAttack());
-            StartRotating();
-            //run range check forcing cour into run state
+            }
 
             if (typeSetting == 3)
                 Debug.Log("?");
@@ -255,7 +255,7 @@ public class Enemys : MonoBehaviourPun
         {
             if (typeSetting == 1)
                 StartCoroutine(TAttack());
-        
+
             if (typeSetting == 3)
                 Debug.Log("?");
         }
@@ -270,7 +270,7 @@ public class Enemys : MonoBehaviourPun
                 StartCoroutine(TAttack());
                 UpdateMoving(false);
             }
-   
+
             if (typeSetting == 3)
                 Debug.Log("?");
         }
@@ -291,8 +291,6 @@ public class Enemys : MonoBehaviourPun
                 }
                 UpdateMoving(false);
             }
-            if (typeSetting == 2)
-                Debug.Log("?");
         }
 
     }
@@ -371,7 +369,7 @@ public class Enemys : MonoBehaviourPun
         if (rangeChecks.Length != 0)
         {
             Transform target = rangeChecks[0].transform;
-
+            PlayerManger player = target.GetComponent<PlayerManger>();
             Vector3 directionToTarget = (target.position - transform.position).normalized;
 
             if (Vector3.Angle(transform.forward, directionToTarget) < angle / 2)
@@ -388,14 +386,17 @@ public class Enemys : MonoBehaviourPun
                         Target = target.transform;
                         if (typeSetting == 1)
                         {
-                            if (target.GetComponent<PlayerManger>().CurrentHealth != 0)
+                            if (player.CurrentHealth != 0)
                                 StartRotating();
                             if (agent != null && target != null)
                                 agent.SetDestination(Target.position);
 
                         }
                         if (typeSetting == 2)
-                            StartCoroutine(TRangedAttack());
+                        {
+                            if (player.CurrentHealth != 0)
+                                StartCoroutine(TRangedAttack());
+                        }
                         if (typeSetting == 3)
                             Debug.Log("?");
                     }

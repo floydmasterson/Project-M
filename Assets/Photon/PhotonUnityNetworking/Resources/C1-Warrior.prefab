@@ -880,7 +880,7 @@ MonoBehaviour:
   turnSmoothTime: 0.1
   SprintSpeed: 12
   speed: 8
-  pushAmt: 6
+  pushAmt: 3
   dodgeCooldown: 2
   groundCheck: {fileID: 8226536733529665997}
   groundMask:

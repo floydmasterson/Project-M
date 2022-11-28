@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72705b82af9a0684786e0dabb8fc42c4, type: 3}
   m_Name: Mana Well II
   m_EditorClassIdentifier: 
-  manaAmount: 100
+  manaAmount: 20
   PassiveLvl: 2

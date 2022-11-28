@@ -28,7 +28,7 @@ public class PlayerManger : MonoBehaviourPun
             {
                 _currentHealth = MaxHealth;
             }
-            if (_currentHealth > 0 && !isAlive)
+            if (_currentHealth < 0 && !isAlive)
             {
                 _currentHealth = 0;
             }
@@ -55,8 +55,8 @@ public class PlayerManger : MonoBehaviourPun
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private float SprintSpeed = 12f;
     [SerializeField] private float speed = 6f;
-    [SerializeField] private float pushAmt = 3;
-    [SerializeField] private float dodgeCooldown = 1;
+    [SerializeField] public float pushAmt = 6f;
+    [SerializeField] private float dodgeCooldown = 1f;
     private readonly float _groundDistance = 1f;
     private readonly float _gravity = -9.81f;
     private float turnSmoothVelc;

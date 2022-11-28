@@ -8,8 +8,12 @@ public class InvunrublePassive : PassiveSO
     public int timeBetween;
     public int invulnerableTime;
     private bool stop = false;
+    private bool isEx = false;
     private IEnumerator TimedInv()
     {
+        if (isEx)
+            yield break;
+        isEx = true;
         if (stop == false)
         {
             Passive(true);
@@ -22,6 +26,7 @@ public class InvunrublePassive : PassiveSO
         {
             Passive(false);
             PlayerUi.Instance.target.StopCoroutine(TimedInv());
+            isEx = false;
             stop = false;
         }
     }
