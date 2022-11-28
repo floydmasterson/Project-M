@@ -11,6 +11,8 @@ public class GameManger : MonoBehaviourPun
     [SerializeField] private GameObject[] enemys = new GameObject[2];
     [SerializeField] private Transform[] spawners = new Transform[3];
     int randomPoint, randomEnemy;
+    [SerializeField]
+    bool spawnEnemys = true;
 
 
     private void Awake()
@@ -25,7 +27,7 @@ public class GameManger : MonoBehaviourPun
         Vector3 playerspawn = new Vector3(25f, 3f, -45f);
         GameObject playerToSpawn = playerPrefab[(int)PhotonNetwork.LocalPlayer.CustomProperties["playerAvatar"]];
         GameObject player = PhotonNetwork.Instantiate(playerToSpawn.name, playerspawn, Quaternion.identity);
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient && spawnEnemys)
         {
             Vector3 enemyspawn = new Vector3(10f, 0f, 10f);
             int count = 30;

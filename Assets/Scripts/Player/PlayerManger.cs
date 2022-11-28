@@ -28,7 +28,7 @@ public class PlayerManger : MonoBehaviourPun
             {
                 _currentHealth = MaxHealth;
             }
-            if (_currentHealth > 0 && !isAlive)
+            if (_currentHealth < 0 && !isAlive)
             {
                 _currentHealth = 0;
             }
