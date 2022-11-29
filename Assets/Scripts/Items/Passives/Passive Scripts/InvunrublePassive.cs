@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Text;
 using UnityEngine;
 
 
@@ -7,8 +8,10 @@ public class InvunrublePassive : PassiveSO
 {
     public int timeBetween;
     public int invulnerableTime;
+    public int PassiveLvl;
     private bool stop = false;
     private bool isEx = false;
+    StringBuilder sb = new StringBuilder();
     private IEnumerator TimedInv()
     {
         if (isEx)
@@ -45,7 +48,17 @@ public class InvunrublePassive : PassiveSO
 
     public override string GetDescription()
     {
-        return "Divine Intervention: You are invulnerable for " + invulnerableTime + " every " + timeBetween + " seconds.";
+        sb.Length = 0;
+        if (PassiveLvl > 0)
+        {
+            sb.Append("Divine Intervention "+ RomanNumerals.RomanNumeralGenerator(PassiveLvl) + ": You are invulnerable for " + invulnerableTime + " every " + timeBetween + " seconds.");
+            return sb.ToString();
+        }
+        else
+        {
+            sb.Append("Divine Intervention: You are invulnerable for " + invulnerableTime + " every " + timeBetween + " seconds.");
+            return sb.ToString();
+        }
     }
     public override void Passive()
     {

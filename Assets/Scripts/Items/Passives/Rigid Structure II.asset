@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503d015ba1acfce418abaf426a48cd64, type: 3}
   m_Name: Rigid Structure II
   m_EditorClassIdentifier: 
-  defenseAmount: 20
+  defenseAmount: 5
   PassiveLvl: 2

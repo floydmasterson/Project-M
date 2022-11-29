@@ -9,7 +9,7 @@ public class DefenseUpPassive : PassiveSO
     StringBuilder sb = new StringBuilder();
     public override void Passive()
     {
-        PlayerUi.Instance.target.Defense += defenseAmount;
+        PlayerUi.Instance.target.DefenseMod += defenseAmount;
     }
 
     public override void ApplyPassive()
@@ -20,7 +20,7 @@ public class DefenseUpPassive : PassiveSO
 
     public override void RemovePassive()
     {
-        PlayerUi.Instance.target.Defense -= defenseAmount;
+        PlayerUi.Instance.target.DefenseMod -= defenseAmount;
     }
     public override string GetDescription()
     {

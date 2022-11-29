@@ -35,12 +35,13 @@ public class PlayerManger : MonoBehaviourPun
         }
     }
     private float _maxHealth;
-    private float _defense;
+    [SerializeField] private float _defense;
     public float Defense
     {
         get { return _defense; }
         set { _defense = value; }
     }
+    public float DefenseMod = 0;
 
     public float MaxHealth
     {
@@ -454,7 +455,7 @@ public class PlayerManger : MonoBehaviourPun
     }
     public float CheckDefense()
     {
-        _defense = Mathf.RoundToInt(Character.Instance.Vitality.Value * 1.1f / 2f);
+        _defense = Mathf.RoundToInt(Character.Instance.Vitality.Value * 1.1f / 2f) + DefenseMod;
         return _defense;
     }
 

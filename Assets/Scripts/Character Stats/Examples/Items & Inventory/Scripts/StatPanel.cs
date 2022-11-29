@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TMPro;
 
 namespace Kryz.CharacterStats.Examples
 {
@@ -6,8 +7,9 @@ namespace Kryz.CharacterStats.Examples
 	{
 		[SerializeField] StatDisplay[] statDisplays;
 		[SerializeField] string[] statNames;
+		[SerializeField] TextMeshProUGUI defenseText;
 
-		private CharacterStat[] stats;
+        private CharacterStat[] stats;
 
 		private void OnValidate()
 		{
@@ -39,7 +41,10 @@ namespace Kryz.CharacterStats.Examples
 				statDisplays[i].ValueText.text = stats[i].Value.ToString("0.0");
 			}
 			PlayerUi.Instance.target.CheckMaxHealth();
-		}
+            PlayerUi.Instance.target.CheckDefense();
+			defenseText.text = PlayerUi.Instance.target.Defense.ToString();
+
+        }
 
 		public void UpdateStatNames()
 		{

@@ -32,7 +32,7 @@ public class EquippableItem : Item
     [Space]
     public Spell BoundSpell;
     [Space]
-    public PassiveSO Passive;
+    public PassiveSO[] Passive;
     [Space]
     public EquipmentType EquipmentType;
 
@@ -69,10 +69,15 @@ public class EquippableItem : Item
             PlayerUi.Instance.target.gameObject.GetComponent<MagicController>().selectedSpell = BoundSpell;
         if (Passive != null)
         {
-            Passive.ApplyPassive();
+            foreach (PassiveSO passive in Passive)
+            {
+                if (passive != null)
+                {
+                    passive.ApplyPassive();
+                }
+            }
         }
     }
-
     public void Unequip(Character c)
     {
         c.Strength.RemoveAllModifiersFromSource(this);
@@ -83,7 +88,16 @@ public class EquippableItem : Item
             PlayerUi.Instance.target.gameObject.GetComponent<MagicController>().selectedSpell = null;
         if (Passive != null)
         {
-            Passive.RemovePassive();
+
+
+            foreach (PassiveSO passive in Passive)
+            {
+                if (passive != null)
+                {
+                    passive.RemovePassive();
+                }
+
+            }
         }
     }
 
@@ -108,12 +122,19 @@ public class EquippableItem : Item
         {
             sb.AppendLine();
             sb.Append(BoundSpell + "is bound to this weapon").Replace("(Spell)", "").Replace("S-", "");
-       
+
         }
         if (Passive != null)
         {
-            sb.AppendLine();
-            sb.Append(Passive.GetDescription());
+            foreach (PassiveSO passive in Passive)
+            {
+                if (passive != null)
+                {
+                    sb.AppendLine();
+                    sb.Append(passive.GetDescription());
+                }
+
+            }
         }
 
         return sb.ToString();

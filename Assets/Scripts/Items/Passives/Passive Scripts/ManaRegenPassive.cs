@@ -34,7 +34,7 @@ public class ManaRegenPassive : PassiveSO
         sb.Length = 0;
         if(PassiveLvl > 0)
         {
-            sb.Append("Mana Flow " + RomanNumerals.RomanNumeralGenerator(PassiveLvl) + ":Gain an additonal " + RegenAmount + " mana a second");
+            sb.Append("Mana Flow " + RomanNumerals.RomanNumeralGenerator(PassiveLvl) + ": Gain an additonal " + RegenAmount + " mana a second");
             return sb.ToString();
         }
         else

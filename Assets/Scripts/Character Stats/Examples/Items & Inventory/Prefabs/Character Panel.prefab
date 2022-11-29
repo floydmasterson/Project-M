@@ -2039,6 +2039,7 @@ MonoBehaviour:
   - agility
   - intelligence
   - vitality
+  defenseText: {fileID: 0}
 --- !u!1 &145630
 GameObject:
   m_ObjectHideFlags: 0
