@@ -4232,6 +4232,7 @@ MonoBehaviour:
   - {fileID: 11400232}
   - {fileID: 11439382}
   - {fileID: 11417996}
+  quickSlot: {fileID: 0}
   equipmentSlotsParent: {fileID: 22488076}
 --- !u!1 &180976
 GameObject:

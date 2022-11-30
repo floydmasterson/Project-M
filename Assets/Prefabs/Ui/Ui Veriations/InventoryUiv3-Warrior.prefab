@@ -5106,6 +5106,7 @@ MonoBehaviour:
   statPanel: {fileID: 0}
   itemTooltip: {fileID: 3739851514503137827}
   draggableItem: {fileID: 9211024839165458771}
+  currentItem: {fileID: 0}
 --- !u!1 &3895017878246767934
 GameObject:
   m_ObjectHideFlags: 0

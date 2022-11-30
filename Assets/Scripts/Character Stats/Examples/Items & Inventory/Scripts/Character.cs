@@ -22,7 +22,7 @@ public class Character : MonoBehaviour
     [SerializeField] ItemTooltip itemTooltip;
     [SerializeField] Image draggableItem;
 
-
+    public Image currentItem;
     private BaseItemSlot dragItemSlot;
 
     private void OnValidate()
@@ -166,8 +166,9 @@ public class Character : MonoBehaviour
     {
         EquippableItem dragEquipItem = dragItemSlot.Item as EquippableItem;
         EquippableItem dropEquipItem = dropItemSlot.Item as EquippableItem;
-
+        UsableItem dropUseItem = dropItemSlot.Item as UsableItem;
         if (dropItemSlot is EquipmentSlot)
+            if (dropItemSlot is EquipmentSlot)
         {
             if (dragEquipItem != null) dragEquipItem.Equip(this);
             if (dropEquipItem != null) dropEquipItem.Unequip(this);
@@ -177,6 +178,10 @@ public class Character : MonoBehaviour
             if (dragEquipItem != null) dragEquipItem.Unequip(this);
             if (dropEquipItem != null) dropEquipItem.Equip(this);
         }
+        if(dropItemSlot is QuickSlot)
+        {
+            if (dropUseItem != null) currentItem.sprite = dropUseItem.Icon;
+        }
         statPanel.UpdateStatValues();
 
         Item draggedItem = dragItemSlot.Item;
@@ -184,6 +189,7 @@ public class Character : MonoBehaviour
 
         dragItemSlot.Item = dropItemSlot.Item;
         dragItemSlot.Amount = dropItemSlot.Amount;
+       
 
         dropItemSlot.Item = draggedItem;
         dropItemSlot.Amount = draggedItemAmount;

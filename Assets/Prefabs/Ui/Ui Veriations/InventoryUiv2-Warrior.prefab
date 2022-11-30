@@ -1351,6 +1351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bddff02af46090b43880a7851ee73f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeText: {fileID: 0}
+  hearts: []
   isOpen: 0
 --- !u!114 &2079767453124844092
 MonoBehaviour:

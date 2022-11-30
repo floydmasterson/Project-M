@@ -15,7 +15,9 @@ public class PlayerUi : MonoBehaviourPun
     [SerializeField] Slider playerManaSlider2;
     [SerializeField] private TextMeshProUGUI ManaText;
     [SerializeField] private TextMeshProUGUI ManaText2;
-
+    [Space]
+    [SerializeField] Image UIquickItem;
+    [SerializeField] GameObject QuickSlot;
     private MagicController MC;
     public static PlayerUi Instance;
     public PlayerManger target;
@@ -92,6 +94,15 @@ public class PlayerUi : MonoBehaviourPun
         {
             Destroy(this.gameObject);
             return;
+        } 
+        UIquickItem.sprite = Character.Instance.currentItem.sprite;
+        if (UIquickItem.sprite != null)
+        {
+            QuickSlot.SetActive(true);
+        }
+        else
+        {
+            QuickSlot.gameObject.SetActive(false);
         }
     }
 

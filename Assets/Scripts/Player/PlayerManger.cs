@@ -276,6 +276,10 @@ public class PlayerManger : MonoBehaviourPun
                     onInventoryClose();
                 }
             }
+            if(Input.GetKeyDown(KeyCode.Q))
+            {
+
+            }
         }
 
 
