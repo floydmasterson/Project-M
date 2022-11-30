@@ -1,11 +1,15 @@
 using Cinemachine;
 using Photon.Pun;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class InventoryUi : MonoBehaviourPun
 {
     public static InventoryUi Instance;
     private PlayerManger target;
+    public TextMeshProUGUI timeText;
+    public Image[] hearts;
     float characterControllerHeight = 0f;
     public bool isOpen = false;
     Transform targetTransform;
@@ -22,11 +26,13 @@ public class InventoryUi : MonoBehaviourPun
     {
         PlayerManger.onInventoryOpen += OpenInv;
         PlayerManger.onInventoryClose += CloseInv;
+        PlayerManger.onDeath += updateHealth;
     }
     private void OnDisable()
     {
         PlayerManger.onInventoryOpen -= OpenInv;
         PlayerManger.onInventoryClose -= CloseInv;
+        PlayerManger.onDeath -= updateHealth;
     }
 
     public void OpenInv()
@@ -57,6 +63,40 @@ public class InventoryUi : MonoBehaviourPun
         {
             characterControllerHeight = characterController.height;
         }
+    }
+    private void Update()
+    {
+        if (GameManger.Instance.GameTimeLeft > 0)
+        {
+            updateTimer(GameManger.Instance.GameTimeLeft);
+        }
+        else
+        {
+            updateTimer(-1);
+        }
+    }
+
+    void updateHealth()
+    {
+        int lifes = PlayerUi.Instance.target.lifes;
+        if(lifes == 3)
+            hearts[2].gameObject.SetActive(false);
+        if (lifes == 2)
+            hearts[1].gameObject.SetActive(false);
+        if (lifes == 1)
+            hearts[0].gameObject.SetActive(false);
+    }
+
+
+
+    private void updateTimer(float currentTime)
+    {
+        currentTime += 1;
+
+        float min = Mathf.FloorToInt(currentTime / 60);
+        float sec = Mathf.FloorToInt(currentTime % 60);
+
+        timeText.text = string.Format("{0:00} : {1:00}", min, sec); 
     }
 
 

@@ -33,7 +33,6 @@ public class Spell : MonoBehaviour
 
         StartCoroutine(LifeTime());
     }
-
     private void FixedUpdate()
     {
         if (homing == false && poof == false)
@@ -63,7 +62,6 @@ public class Spell : MonoBehaviour
         }
 
     }
-
     private void OnTriggerEnter(Collider other)
     {
 
@@ -76,7 +74,6 @@ public class Spell : MonoBehaviour
         if (other.CompareTag("enemy"))
         {
             Enemys enemy = other.GetComponent<Enemys>();
-            Debug.Log("takedamae");
             enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, enemy.Defense / Character.Instance.Intelligence.Value))));
             if (!enemy.isDead)
             {
@@ -88,8 +85,27 @@ public class Spell : MonoBehaviour
                 {
                     StatusEffectSO eCopy = effect.GetCopy();
                     if (eCopy != null)
-                        eCopy.ApplyEffect(enemy);
-                    Debug.Log(eCopy);
+                        eCopy.ApplyEffectE(enemy);
+                }
+            }
+            else
+            {
+                Debug.Log("spell status empy");
+            }
+            Poof();
+        }
+        if (other.CompareTag("Player"))
+        {
+            PlayerManger enemy = other.GetComponent<PlayerManger>();
+            enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, enemy.Defense / Character.Instance.Intelligence.Value))));
+         
+            if (statusEffects != null)
+            {
+                foreach (StatusEffectSO effect in statusEffects)
+                {
+                    StatusEffectSO eCopy = effect.GetCopy();
+                    if (eCopy != null)
+                        eCopy.ApplyEffectP(enemy);
                 }
             }
             else

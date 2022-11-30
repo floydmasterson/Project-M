@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0bf1d755bce38b4baf959385df6485a, type: 3}
   m_Name: Divine Intervention II
   m_EditorClassIdentifier: 
-  timeBetween: 30
-  invulnerableTime: 3
+  timeBetween: 25
+  invulnerableTime: 4
   PassiveLvl: 2

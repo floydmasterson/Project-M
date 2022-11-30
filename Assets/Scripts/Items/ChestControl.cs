@@ -4,26 +4,23 @@ using Debug = UnityEngine.Debug;
 
 public class ChestControl : ItemContainer
 {
-
-    public bool pickUpAllowed;
-    public bool isOpen = false;
+    [Header("Needed Comp")]
+    [SerializeField] Transform itemsParent;
+    [SerializeField] Inventory inventory;
+    [Header("OPen Close GFX")]
     [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private Mesh close;
     [SerializeField] private Mesh open;
-    [Space]
-    [SerializeField] Transform itemsParent;
-    [Space]
+    public bool pickUpAllowed;
+    public bool isOpen = false;
     Character character;
-    [SerializeField] Inventory inventory;
-
+    [Header("Random Loot")]
     [SerializeField][Range(0, 17)] private int amount = 0;
-    [Tooltip("1-5 Drops")]
+    [Tooltip("3-6 Drops")]
     [SerializeField] bool randomAmount;
-    [Tooltip(" 3-5 *Must enable both for better drops")]
+    [Tooltip(" 4-8 *Must enable both for better drops")]
     [SerializeField] bool BetterRandomAmount;
     public WeightedRandomList<Item> lootTable;
-
-
 
     public IEnumerator Despawn()
     {
@@ -47,8 +44,6 @@ public class ChestControl : ItemContainer
             pickUpAllowed = true;
             character = Character.Instance;
         }
-
-
     }
     private void OnTriggerStay(Collider other)
     {
@@ -71,9 +66,6 @@ public class ChestControl : ItemContainer
             pickUpAllowed = false;
             StartCoroutine(Despawn());
         }
-
-
-
     }
     public void Open()
     {
@@ -86,15 +78,11 @@ public class ChestControl : ItemContainer
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
         character.CloseItemContainer(this);
-        checkEmpty();
         meshFilter.mesh = close;
         StartCoroutine(Despawn());
         character = null;
         isOpen = false;
     }
-
-
-
     void LoadItems()
     {
         if (!randomAmount)
@@ -106,7 +94,7 @@ public class ChestControl : ItemContainer
         else if (randomAmount && !BetterRandomAmount)
         {
             Debug.Log("random");
-            float Ramount = Random.Range(1, 5);
+            float Ramount = Random.Range(3, 6);
             for (int i = 0; i <= Ramount - 1; i++)
             {
                 inventory.startingItems[i] = lootTable.GetRandom();
@@ -116,7 +104,7 @@ public class ChestControl : ItemContainer
         else if (BetterRandomAmount && randomAmount)
         {
             Debug.Log("Better random");
-            float Ramount = Random.Range(3, 5);
+            float Ramount = Random.Range(4, 8);
             for (int i = 0; i <= Ramount - 1; i++)
             {
                 inventory.startingItems[i] = lootTable.GetRandom();
@@ -124,37 +112,6 @@ public class ChestControl : ItemContainer
             }
         }
 
-    }
-
-
-
-    private void checkEmpty()
-    {
-
-        int empty = 0;
-        int full = 0;
-        for (int i = 0; i < inventory.startingItems.Length; i++)
-        {
-            if (inventory.startingItems[i] == null)
-            {
-                empty++;
-            }
-            else
-            {
-                full++;
-            }
-        }
-        if (full > 0)
-        {
-            Debug.Log("full");
-            return;
-        }
-        else
-        {
-
-            Destroy(gameObject);
-            //partical  e   
-        }
     }
 }
 

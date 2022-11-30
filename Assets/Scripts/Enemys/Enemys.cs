@@ -16,7 +16,6 @@ public class Enemys : MonoBehaviourPun
     [SerializeField] float currentHealth;
     float maxHealth;
     public bool isDead = false;
-    public bool posioned = false;
     [Space]
     //Fov Detection/Movement
     [Header("Detection and Move Settings")]

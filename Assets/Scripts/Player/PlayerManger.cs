@@ -50,6 +50,10 @@ public class PlayerManger : MonoBehaviourPun
     }
     public bool isAlive = true;
     public bool isInvulnerable = false;
+    public int lifes = 3;
+    public Transform spawnPoint;
+    public delegate void Death();
+    public static event Death onDeath;
     [Space]
 
     //Movment
@@ -79,6 +83,7 @@ public class PlayerManger : MonoBehaviourPun
     public float attackRange = .5f;
     public bool LifeSteal = false;
     public bool canAttack = true;
+    public bool pvp = false;
     public Transform attackPoint;
     public LayerMask enemyLayers;
 
@@ -98,10 +103,20 @@ public class PlayerManger : MonoBehaviourPun
     #region Ienumerators
     IEnumerator ExecuteAfterTime()
     {
-
-        yield return new WaitForSeconds(4);
-        //Particl
-        player.SetActive(false);
+        if (lifes > 0)
+        {
+            yield return new WaitForSeconds(4);
+            //Particl
+            lifes--;
+            player.SetActive(false);
+            onDeath();
+            Respawn();
+        }
+        else
+        {
+            yield return new WaitForSeconds(4);
+            Destroy(this);
+        }
     }
     IEnumerator AttackSet()
     {
@@ -159,10 +174,16 @@ public class PlayerManger : MonoBehaviourPun
     }
     #endregion
     #region Mono
+    private void OnEnable()
+    {
+        GameManger.PvPon += EnbalePvpCombat;
+    }
+    private void OnDisable()
+    {
+        GameManger.PvPon -= EnbalePvpCombat;
+    }
     void Awake()
     {
-
-
         Cursor.lockState = CursorLockMode.Locked;
         DontDestroyOnLoad(this.gameObject);
         if (photonView.IsMine)
@@ -197,12 +218,10 @@ public class PlayerManger : MonoBehaviourPun
         {
             cineCamera.Priority = 0;
         }
-
     }
 
     private void Start()
     {
-
         CheckMaxHealth();
         CheckDefense();
         CurrentHealth = MaxHealth;
@@ -415,7 +434,6 @@ public class PlayerManger : MonoBehaviourPun
                 {
                     CurrentHealth = 0;
                     col.isTrigger = false;
-                    Die();
                     photonView.RPC("Die", RpcTarget.All);
                 }
             }
@@ -444,6 +462,18 @@ public class PlayerManger : MonoBehaviourPun
     public void Heal(int amount)
     {
         CurrentHealth += amount;
+    }
+    private void Respawn()
+    {
+        if (lifes > 0)
+        {
+            this.transform.position = spawnPoint.position;
+            CurrentHealth = MaxHealth;
+            isAlive = true;
+            canMove = true;
+            animator.SetTrigger("Res");
+            player.SetActive(true);
+        }
     }
 
     #endregion
@@ -497,6 +527,11 @@ public class PlayerManger : MonoBehaviourPun
         if (attackPoint == null)
             return;
         Gizmos.DrawSphere(attackPoint.position, attackRange);
+    }
+    private void EnbalePvpCombat()
+    {
+        enemyLayers |= LayerMask.GetMask("enenmyMask") | LayerMask.GetMask("target");
+        pvp = true;
     }
     [PunRPC]
     private void SetName()

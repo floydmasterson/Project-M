@@ -20,9 +20,12 @@ public class InvunrublePassive : PassiveSO
         if (stop == false)
         {
             Passive(true);
+            PlayerUi.Instance.target.GetComponentInChildren<EffectVisualController>().EnableEffect(0);
             yield return new WaitForSecondsRealtime(invulnerableTime);
             Passive(false);
+            PlayerUi.Instance.target.GetComponentInChildren<EffectVisualController>().DisableEffect(0);
             yield return new WaitForSecondsRealtime(timeBetween);
+            isEx = false;
             ApplyPassive();
         }
         else
@@ -35,6 +38,7 @@ public class InvunrublePassive : PassiveSO
     }
     public void Passive(bool state)
     {
+
         PlayerUi.Instance.target.isInvulnerable = state;
     }
     public override void ApplyPassive()
@@ -45,13 +49,12 @@ public class InvunrublePassive : PassiveSO
     {
         stop = true;
     }
-
     public override string GetDescription()
     {
         sb.Length = 0;
         if (PassiveLvl > 0)
         {
-            sb.Append("Divine Intervention "+ RomanNumerals.RomanNumeralGenerator(PassiveLvl) + ": You are invulnerable for " + invulnerableTime + " every " + timeBetween + " seconds.");
+            sb.Append("Divine Intervention " + RomanNumerals.RomanNumeralGenerator(PassiveLvl) + ": You are invulnerable for " + invulnerableTime + " every " + timeBetween + " seconds.");
             return sb.ToString();
         }
         else
@@ -62,6 +65,11 @@ public class InvunrublePassive : PassiveSO
     }
     public override void Passive()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Unused method");
+    }
+    private void Reset()
+    {
+        stop = false;
+        isEx = false;
     }
 }

@@ -17,9 +17,18 @@ public class MeeleController : MonoBehaviourPun, IAttack
         Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
         foreach (Collider enemy in hitEnemins)
         {
-            enemy.GetComponent<Enemys>().TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (enemy.GetComponent<Enemys>().Defense / Character.Instance.Strength.Value))));
-            if (!enemy.GetComponent<Enemys>().isDead)
-                enemy.GetComponent<Enemys>().Target = manger.transform;
+            Enemys Etarget = enemy.GetComponent<Enemys>();
+            PlayerManger Ptarget = enemy.GetComponent<PlayerManger>();
+            if (Ptarget != null)
+            {
+                Ptarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Ptarget.Defense / Character.Instance.Strength.Value)))); ;
+            }
+            if (Etarget != null)
+            {
+                Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
+                if (!Etarget.isDead)
+                    Etarget.Target = manger.transform;
+            }
         }
 
 
@@ -32,14 +41,22 @@ public class MeeleController : MonoBehaviourPun, IAttack
         Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
         foreach (Collider enemy in hitEnemins)
         {
-            Enemys target = enemy.GetComponent<Enemys>();
-            int damage = (Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (target.Defense / Character.Instance.Strength.Value))));
-           target.TakeDamge(damage);
-            manger.Heal(damage / 3);
-            Debug.Log(damage);
-            Debug.Log(damage/3);
-            if (!target.isDead)
-                target.Target = manger.transform;
+            Enemys Etarget = enemy.GetComponent<Enemys>();
+            PlayerManger Ptarget = enemy.GetComponent<PlayerManger>();
+            if (Ptarget != null)
+            {
+                int damage = (Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Ptarget.Defense / Character.Instance.Strength.Value))));
+                Ptarget.TakeDamge(damage);
+                manger.Heal(damage / 3);
+            }
+            if (Etarget != null)
+            {
+                int damage = (Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Etarget.Defense / Character.Instance.Strength.Value))));
+                Etarget.TakeDamge(damage);
+                manger.Heal(damage / 3);
+                if (!Etarget.isDead)
+                    Etarget.Target = manger.transform;
+            }
         }
     }
 }
