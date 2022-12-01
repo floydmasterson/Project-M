@@ -21,8 +21,9 @@ public class Character : MonoBehaviour
     [SerializeField] public StatPanel statPanel;
     [SerializeField] ItemTooltip itemTooltip;
     [SerializeField] Image draggableItem;
+    public Image currentQuickItem;
+    public int currentQuickItemAmount;
 
-    public Image currentItem;
     private BaseItemSlot dragItemSlot;
 
     private void OnValidate()
@@ -180,7 +181,7 @@ public class Character : MonoBehaviour
         }
         if(dropItemSlot is QuickSlot)
         {
-            if (dropUseItem != null) currentItem.sprite = dropUseItem.Icon;
+            if (dropUseItem != null) currentQuickItem.sprite = dropUseItem.Icon;
         }
         statPanel.UpdateStatValues();
 

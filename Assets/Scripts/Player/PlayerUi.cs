@@ -16,8 +16,10 @@ public class PlayerUi : MonoBehaviourPun
     [SerializeField] private TextMeshProUGUI ManaText;
     [SerializeField] private TextMeshProUGUI ManaText2;
     [Space]
-    [SerializeField] Image UIquickItem;
-    [SerializeField] GameObject QuickSlot;
+    [SerializeField] Image quickSlotImage;
+    [SerializeField] GameObject qickSlot;
+    [SerializeField] TextMeshProUGUI quickSlotAmountText;
+    int quickAmount;
     private MagicController MC;
     public static PlayerUi Instance;
     public PlayerManger target;
@@ -53,10 +55,19 @@ public class PlayerUi : MonoBehaviourPun
     }
     private void Start()
     {
-        if (target.gameObject.GetComponent<MagicController>() != null)
+        MC = target.gameObject.GetComponent<MagicController>();
+        if (MC != null)
         {
-            MC = target.gameObject.GetComponent<MagicController>();
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        if (InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Item != null)
+        {
+            quickSlotImage.sprite = Character.Instance.currentQuickItem.sprite;
+            if (quickAmount > 0)
+            {
+                qickSlot.transform.GetChild(2).gameObject.SetActive(true);
+                quickSlotAmountText.text = quickAmount.ToString();
+            }
         }
     }
     // Update is called once per frame
@@ -94,22 +105,24 @@ public class PlayerUi : MonoBehaviourPun
         {
             Destroy(this.gameObject);
             return;
-        } 
-        UIquickItem.sprite = Character.Instance.currentItem.sprite;
-        if (UIquickItem.sprite != null)
-        {
-            QuickSlot.SetActive(true);
         }
-        else
-        {
-            QuickSlot.gameObject.SetActive(false);
-        }
+        quickSlotImage.sprite = Character.Instance.currentQuickItem.sprite;
     }
 
     public void OpenUi()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
         gameObject.transform.GetChild(3).gameObject.SetActive(false);
+        if (quickSlotImage.sprite != null)
+        {
+            qickSlot.SetActive(true);
+            CheckAmount();
+            if (quickAmount > 0)
+            {
+                qickSlot.transform.GetChild(2).gameObject.SetActive(true);
+                CheckAmount();
+            }
+        }
         if (MC != null)
         {
 
@@ -122,18 +135,25 @@ public class PlayerUi : MonoBehaviourPun
         target.canAttack = false;
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
         gameObject.transform.GetChild(3).gameObject.SetActive(true);
+        if (quickSlotImage.sprite != null)
+        {
+            qickSlot.SetActive(false);
+            if (quickAmount > 0)
+            {
+                qickSlot.transform.GetChild(2).gameObject.SetActive(false);
+                CheckAmount();
+            }
+        }
         if (MC != null)
         {
             gameObject.transform.GetChild(1).gameObject.SetActive(false);
             gameObject.transform.GetChild(2).gameObject.SetActive(true);
         }
     }
-
-    public void PopUp(bool state)
+    public void CheckAmount()
     {
-
-        gameObject.transform.GetChild(1).gameObject.SetActive(state);
-
+        quickAmount = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Amount;
+        quickSlotAmountText.text = quickAmount.ToString();
     }
     void LateUpdate()
     {
@@ -150,8 +170,6 @@ public class PlayerUi : MonoBehaviourPun
             targetPosition.y += characterControllerHeight;
         }
     }
-
-
     public void SetTarget(PlayerManger _target)
     {
         if (_target == null)

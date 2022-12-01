@@ -34,7 +34,6 @@ public class InventoryUi : MonoBehaviourPun
         PlayerManger.onInventoryClose -= CloseInv;
         PlayerManger.onDeath -= updateHealth;
     }
-
     public void OpenInv()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
@@ -43,7 +42,6 @@ public class InventoryUi : MonoBehaviourPun
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
     }
-
     public void SetTargetI(PlayerManger _target)
     {
 
@@ -75,7 +73,6 @@ public class InventoryUi : MonoBehaviourPun
             updateTimer(-1);
         }
     }
-
     void updateHealth()
     {
         int lifes = PlayerUi.Instance.target.lifes;
@@ -86,9 +83,6 @@ public class InventoryUi : MonoBehaviourPun
         if (lifes == 1)
             hearts[0].gameObject.SetActive(false);
     }
-
-
-
     private void updateTimer(float currentTime)
     {
         currentTime += 1;
@@ -98,8 +92,5 @@ public class InventoryUi : MonoBehaviourPun
 
         timeText.text = string.Format("{0:00} : {1:00}", min, sec); 
     }
-
-
-
 }
 

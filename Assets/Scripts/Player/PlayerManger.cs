@@ -1,13 +1,16 @@
 using Cinemachine;
 using Photon.Pun;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerManger : MonoBehaviourPun
 {
     #region Vars
     //Partds
     [SerializeField] private CinemachineFreeLook cineCamera;
+    [SerializeField] private CinemachineVirtualCamera lockCamera;
     [SerializeField] private GameObject player;
     [SerializeField] private Collider col;
     private GameObject cam;
@@ -62,6 +65,7 @@ public class PlayerManger : MonoBehaviourPun
     [SerializeField] private float speed = 6f;
     [SerializeField] public float pushAmt = 6f;
     [SerializeField] private float dodgeCooldown = 1f;
+    [SerializeField] Transform orientation;
     private readonly float _groundDistance = 1f;
     private readonly float _gravity = -9.81f;
     private float turnSmoothVelc;
@@ -94,6 +98,8 @@ public class PlayerManger : MonoBehaviourPun
     private bool InvIsOpen = false;
     private bool inChest = false;
     private ChestControl chestControl;
+    private bool locked;
+
     public delegate void inventoryO();
     public static event inventoryO onInventoryOpen;
     public delegate void inventoryC();
@@ -158,6 +164,12 @@ public class PlayerManger : MonoBehaviourPun
 
 
     }
+    public IEnumerator PreLoad()
+    {
+        onInventoryOpen();
+        yield return new WaitForSeconds(.001f);
+        onInventoryClose();
+    }
     IEnumerator Roll()
     {
         if (isRollExecuting)
@@ -218,13 +230,16 @@ public class PlayerManger : MonoBehaviourPun
         {
             cineCamera.Priority = 0;
         }
+
     }
 
     private void Start()
     {
         CheckMaxHealth();
         CheckDefense();
+        StartCoroutine(PreLoad());
         CurrentHealth = MaxHealth;
+
     }
     private void Update()
     {
@@ -276,10 +291,30 @@ public class PlayerManger : MonoBehaviourPun
                     onInventoryClose();
                 }
             }
-            if(Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.F))
             {
+                UsableItem quickItem = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Item as UsableItem;
+                QuickSlot quickSlot = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true);
+                if (quickItem != null)
+                {
+                    if (quickItem.UseableCheck())
+                    {
+                        quickItem.Use(Character.Instance);
+                        quickSlot.Amount--;
+                        PlayerUi.Instance.CheckAmount();
+                        quickItem.Destroy();
 
+                    }
+                }
             }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                if (locked == false)
+                    ForwardCamLock(true);
+                else if (locked == true)
+                    ForwardCamLock(false);
+            }
+
         }
 
 
@@ -324,6 +359,16 @@ public class PlayerManger : MonoBehaviourPun
                         Direction = moveDirection;
                         characterController.Move(speed * Time.fixedDeltaTime * moveDirection.normalized);
                     }
+                    //else if (direction.magnitude >= 0.1f && locked)
+                    //{
+                     
+                    //    characterController.Move(speed * Time.fixedDeltaTime * direction);
+                    //    float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
+                    //    float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelc, turnSmoothTime);
+                    //    transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                    //}
+
+
 
                     UpdateMoving(x != 0f || y != 0f);
                 }
@@ -405,7 +450,6 @@ public class PlayerManger : MonoBehaviourPun
         canMove = false;
         canAttack = false;
         cineCamera.m_XAxis.m_MaxSpeed = 0f;
-        cineCamera.m_YAxis.m_MaxSpeed = 0f;
         Cursor.lockState = CursorLockMode.None;
 
     }
@@ -414,7 +458,6 @@ public class PlayerManger : MonoBehaviourPun
         canMove = true;
         canAttack = true;
         cineCamera.m_XAxis.m_MaxSpeed = 250;
-        cineCamera.m_YAxis.m_MaxSpeed = 0.5f;
         Cursor.lockState = CursorLockMode.Locked;
 
     }
@@ -541,6 +584,22 @@ public class PlayerManger : MonoBehaviourPun
     private void SetName()
     {
         gameObject.name = PhotonNetwork.NickName;
+    }
+    private void ForwardCamLock(bool state)
+    {
+        if (state == true)
+        {
+            locked = true;
+            cineCamera.Priority = 0;
+            lockCamera.Priority = 10;
+
+        }
+        else if (state == false)
+        {
+            locked = false;
+            cineCamera.Priority = 10;
+            lockCamera.Priority = 0;
+        }
     }
     #endregion
 }
