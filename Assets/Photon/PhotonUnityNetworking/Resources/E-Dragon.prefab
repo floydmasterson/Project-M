@@ -432,6 +432,7 @@ GameObject:
   - component: {fileID: 5217242961852479552}
   - component: {fileID: 5217242961852479559}
   - component: {fileID: 5217242961852479558}
+  - component: {fileID: 3560697260157796321}
   - component: {fileID: 5217242961852479557}
   - component: {fileID: 5217242961852479556}
   - component: {fileID: 5217242961852479579}
@@ -529,6 +530,22 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &3560697260157796321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5217242961852479576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 667c46bf21634154caf99fef10c0b3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Effects:
+  - {fileID: 3325382043217493486}
+  - {fileID: 6673519433764467894}
+  posioned: 0
 --- !u!195 &5217242961852479557
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -785,7 +802,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2363107323079567786}
-  - component: {fileID: 890777659457445770}
   m_Layer: 9
   m_Name: Effects Controller
   m_TagString: Untagged
@@ -810,22 +826,6 @@ Transform:
   m_Father: {fileID: 4840400347487789794}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &890777659457445770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7587839140775526128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 667c46bf21634154caf99fef10c0b3dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Effects:
-  - {fileID: 3325382043217493486}
-  - {fileID: 6673519433764467894}
-  posioned: 0
 --- !u!1 &7628473698912057448
 GameObject:
   m_ObjectHideFlags: 0

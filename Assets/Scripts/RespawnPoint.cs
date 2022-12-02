@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RespawnPoint : MonoBehaviour
@@ -10,6 +8,7 @@ public class RespawnPoint : MonoBehaviour
     {
         PlayerManger player = other.GetComponent<PlayerManger>();
         player.spawnPoint = spawnPoint.transform;
-        ps.Play();
+        if (ps != null)
+            ps.Play();
     }
 }

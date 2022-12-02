@@ -15,7 +15,6 @@ public class PosionStatusEffect : StatusEffectSO
     public override IEnumerator DecayTimerE(int time)
     {
         time = debuffDuration;
-        Debug.Log("starting decay and effect");
         Etarget.StartCoroutine(ApplyE());
         yield return new WaitForSeconds(time);
         stop = true;
@@ -39,7 +38,6 @@ public class PosionStatusEffect : StatusEffectSO
         }
         else
         {
-            Debug.Log("effect over");
             Etarget.StopCoroutine(ApplyE());
             EffectVFX.DisableEffect(1);
             EffectVFX.posioned = false;
@@ -70,7 +68,6 @@ public class PosionStatusEffect : StatusEffectSO
     public override IEnumerator DecayTimerP(int time)
     {
         time = debuffDuration;
-        Debug.Log("starting decay and effect");
         Ptarget.StartCoroutine(ApplyP());
         yield return new WaitForSeconds(time);
         stop = true;

@@ -1,26 +1,26 @@
 using Cinemachine;
 using Photon.Pun;
 using System.Collections;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.EventSystems;
+using Cursor = UnityEngine.Cursor;
+using Transform = UnityEngine.Transform;
 
 public class PlayerManger : MonoBehaviourPun
 {
     #region Vars
     //Partds
-    [SerializeField] private CinemachineFreeLook cineCamera;
-    [SerializeField] private CinemachineVirtualCamera lockCamera;
-    [SerializeField] private GameObject player;
-    [SerializeField] private Collider col;
-    private GameObject cam;
-    private CharacterController characterController;
-    private Animator animator;
-    private Rigidbody Rb;
+    [SerializeField] CinemachineFreeLook cineCamera;
+    [SerializeField] CinemachineVirtualCamera lockCamera;
+    [SerializeField] GameObject player;
+    [SerializeField] Collider col;
+    GameObject cam;
+    CharacterController characterController;
+    Animator animator;
+    Rigidbody Rb;
 
     [Space]
     //hp
-    [SerializeField] private float _currentHealth;
+    [SerializeField] float _currentHealth;
     public float CurrentHealth
     {
         get { return _currentHealth; }
@@ -37,8 +37,8 @@ public class PlayerManger : MonoBehaviourPun
             }
         }
     }
-    private float _maxHealth;
-    [SerializeField] private float _defense;
+    float _maxHealth;
+    [SerializeField] float _defense;
     public float Defense
     {
         get { return _defense; }
@@ -60,15 +60,15 @@ public class PlayerManger : MonoBehaviourPun
     [Space]
 
     //Movment
-    [SerializeField] private float turnSmoothTime = 0.1f;
-    [SerializeField] private float SprintSpeed = 12f;
-    [SerializeField] private float speed = 6f;
-    [SerializeField] public float pushAmt = 6f;
-    [SerializeField] private float dodgeCooldown = 1f;
-    [SerializeField] Transform orientation;
-    private readonly float _groundDistance = 1f;
-    private readonly float _gravity = -9.81f;
-    private float turnSmoothVelc;
+    [SerializeField] float turnSmoothTime = 0.1f;
+    [SerializeField] float SprintSpeed = 12f;
+    [SerializeField] float speed = 6f;
+    public float pushAmt = 6f;
+    [SerializeField] float dodgeCooldown = 1f;
+    [SerializeField] Vector2 turn;
+    readonly float _groundDistance = 1f;
+    readonly float _gravity = -9.81f;
+    float turnSmoothVelc;
     [Space]
     public Transform groundCheck;
     public LayerMask groundMask;
@@ -77,13 +77,13 @@ public class PlayerManger : MonoBehaviourPun
     public bool canLook = true;
     Vector3 velocity;
     Vector3 Direction;
-    private float ActCooldown;
-    private bool isRollExecuting = false;
+    float ActCooldown;
+    bool isRollExecuting = false;
     [Space]
 
     //attacking
-    [SerializeField] private float attackCoolDown = 1f;
-    private bool isAttackSetExecuting = false;
+    [SerializeField] float attackCoolDown = 1f;
+    bool isAttackSetExecuting = false;
     public float attackRange = .5f;
     public bool LifeSteal = false;
     public bool canAttack = true;
@@ -93,12 +93,12 @@ public class PlayerManger : MonoBehaviourPun
 
     [Space]
     //PLayer UI
-    [SerializeField] private GameObject UiPrefab;
-    [SerializeField] private GameObject InventoryPrefab;
-    private bool InvIsOpen = false;
-    private bool inChest = false;
-    private ChestControl chestControl;
-    private bool locked;
+    [SerializeField] GameObject UiPrefab;
+    [SerializeField] GameObject InventoryPrefab;
+    bool InvIsOpen = false;
+    bool inChest = false;
+    ChestControl chestControl;
+    bool locked;
 
     public delegate void inventoryO();
     public static event inventoryO onInventoryOpen;
@@ -232,7 +232,6 @@ public class PlayerManger : MonoBehaviourPun
         }
 
     }
-
     private void Start()
     {
         CheckMaxHealth();
@@ -319,7 +318,6 @@ public class PlayerManger : MonoBehaviourPun
 
 
     }
-
     private void FixedUpdate()
     {
         if (photonView.IsMine)
@@ -349,7 +347,7 @@ public class PlayerManger : MonoBehaviourPun
                         characterController.Move(velocity * Time.fixedDeltaTime);
                     }
                     //move and cam smooth
-                    if (direction.magnitude >= 0.1f)
+                    if (direction.magnitude >= 0.1f && !locked)
                     {
                         float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
                         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelc, turnSmoothTime);
@@ -359,19 +357,34 @@ public class PlayerManger : MonoBehaviourPun
                         Direction = moveDirection;
                         characterController.Move(speed * Time.fixedDeltaTime * moveDirection.normalized);
                     }
-                    //else if (direction.magnitude >= 0.1f && locked)
-                    //{
-                     
-                    //    characterController.Move(speed * Time.fixedDeltaTime * direction);
-                    //    float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
-                    //    float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelc, turnSmoothTime);
-                    //    transform.rotation = Quaternion.Euler(0f, angle, 0f);
-                    //}
+                    else if (locked)
+                    {
 
+                        turn.x += Input.GetAxisRaw("Mouse X") * 1.5f;
+                        transform.localRotation = Quaternion.Euler(0f, turn.x, 0f);
+                        if (direction.magnitude >= 0.1f)
+                        {
+                            characterController.Move(speed * Time.fixedDeltaTime * transform.forward * y);
+                            characterController.Move(speed * Time.fixedDeltaTime * transform.right * x);
+                            Vector3 xDir = transform.right * x;
+                            Vector3 yDir = transform.forward * y;
 
-
-                    UpdateMoving(x != 0f || y != 0f);
+                            if (x > 0 || x < 0)
+                                Direction = xDir;
+                            if (y > 0 || y < 0)
+                            {
+                                Direction = yDir;
+                            }
+                            if (x == 0f && y == 0f)
+                            {
+                                Direction = Vector3.zero;
+                            }
+                        }
+                    }
                 }
+                    
+                UpdateMoving(x != 0f || y != 0f);
+
 
                 //sprint
                 if (Input.GetButton("Fire3"))
@@ -518,6 +531,7 @@ public class PlayerManger : MonoBehaviourPun
             CurrentHealth = MaxHealth;
             isAlive = true;
             canMove = true;
+            canAttack = true;
             animator.SetTrigger("Res");
             player.SetActive(true);
         }

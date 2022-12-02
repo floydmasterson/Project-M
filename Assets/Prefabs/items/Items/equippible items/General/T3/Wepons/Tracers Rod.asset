@@ -25,5 +25,6 @@ MonoBehaviour:
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
   BoundSpell: {fileID: 947585446244353802, guid: 0cc57d3184350104e8a80063352ebce0, type: 3}
-  Passive: {fileID: 0}
+  Passive:
+  - {fileID: 0}
   EquipmentType: 6
