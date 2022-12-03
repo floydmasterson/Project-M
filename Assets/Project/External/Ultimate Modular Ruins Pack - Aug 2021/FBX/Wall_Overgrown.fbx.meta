@@ -3,7 +3,27 @@ guid: 1da686c7dc3d2b5459784d388a143128
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Green
+    second: {fileID: -2505642851634945670, guid: e10bd1d6fcc42b341810e285e8934e6d, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Highlights
+    second: {fileID: 7419687304764161565, guid: 6dc64890da1c49240bce4d41f73bf256, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Leaf_Texture
+    second: {fileID: 2100000, guid: 22135ae5027f1f646be4218df1474c6e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Main
+    second: {fileID: 2781410738928257789, guid: c6ce2660ad9be5346bcd90ba3ec3acdc, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
