@@ -2,6 +2,7 @@ using Cinemachine;
 using Photon.Pun;
 using System.Collections;
 using UnityEngine;
+using Sirenix.OdinInspector;
 using Cursor = UnityEngine.Cursor;
 using Transform = UnityEngine.Transform;
 
@@ -9,18 +10,27 @@ public class PlayerManger : MonoBehaviourPun
 {
     #region Vars
     //Partds
+    [TabGroup("Components")]
     [SerializeField] CinemachineFreeLook cineCamera;
+    [TabGroup("Components")]
     [SerializeField] CinemachineVirtualCamera lockCamera;
+    [TabGroup("Components")]
     [SerializeField] GameObject player;
+    [TabGroup("Components")]
     [SerializeField] Collider col;
+    [TabGroup("Components")]
     GameObject cam;
     CharacterController characterController;
     Animator animator;
     Rigidbody Rb;
 
-    [Space]
+   
     //hp
+    float _maxHealth;
+    [TabGroup("Health")]
+    [ProgressBar(0, "MaxHealth" , 0 ,1 ,0)]
     [SerializeField] float _currentHealth;
+    [TabGroup("Health")]
     public float CurrentHealth
     {
         get { return _currentHealth; }
@@ -37,63 +47,90 @@ public class PlayerManger : MonoBehaviourPun
             }
         }
     }
-    float _maxHealth;
+    [TabGroup("Health")]
     [SerializeField] float _defense;
+    [TabGroup("Health")]
     public float Defense
     {
         get { return _defense; }
         set { _defense = value; }
     }
+    [TabGroup("Health")]
     public float DefenseMod = 0;
-
+    [TabGroup("Health")]
     public float MaxHealth
     {
         get { return _maxHealth; }
         set { _maxHealth = value; }
     }
+    [TabGroup("Health")]
     public bool isAlive = true;
+    [TabGroup("Health")]
     public bool isInvulnerable = false;
+    [TabGroup("Health")]
     public int lifes = 3;
+    [TabGroup("Health")]
     public Transform spawnPoint;
     public delegate void Death();
     public static event Death onDeath;
-    [Space]
+   
 
     //Movment
+    [TabGroup("Movement")]
     [SerializeField] float turnSmoothTime = 0.1f;
+    [TabGroup("Movement")]
     [SerializeField] float SprintSpeed = 12f;
+    [TabGroup("Movement")]
     [SerializeField] float speed = 6f;
+    [TabGroup("Movement")]
     public float pushAmt = 6f;
+    [TabGroup("Movement")]
     [SerializeField] float dodgeCooldown = 1f;
+    [TabGroup("Movement")]
     [SerializeField] Vector2 turn;
     readonly float _groundDistance = 1f;
     readonly float _gravity = -9.81f;
     float turnSmoothVelc;
     [Space]
+    [TabGroup("Movement")]
     public Transform groundCheck;
+    [TabGroup("Movement")]
     public LayerMask groundMask;
+    [TabGroup("Movement")]
     public bool isGrounded;
+    [TabGroup("Movement")]
     public bool canMove = true;
+    [TabGroup("Movement")]
     public bool canLook = true;
     Vector3 velocity;
     Vector3 Direction;
     float ActCooldown;
     bool isRollExecuting = false;
-    [Space]
+
 
     //attacking
+    [TabGroup("Attack")]
     [SerializeField] float attackCoolDown = 1f;
     bool isAttackSetExecuting = false;
+    [TabGroup("Attack")]
     public float attackRange = .5f;
+    [TabGroup("Attack")]
     public bool LifeSteal = false;
+    [TabGroup("Attack")]
     public bool canAttack = true;
+    [TabGroup("Attack")]
     public bool pvp = false;
+    [TabGroup("Attack")]
     public Transform attackPoint;
+    [TabGroup("Attack")]
     public LayerMask enemyLayers;
 
-    [Space]
+
     //PLayer UI
+    [TabGroup("Ui")]
     [SerializeField] GameObject UiPrefab;
+    [TabGroup("Ui")]
+    [InlineEditor]
     [SerializeField] GameObject InventoryPrefab;
     bool InvIsOpen = false;
     bool inChest = false;

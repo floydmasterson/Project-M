@@ -1,5 +1,7 @@
 ﻿using Kryz.CharacterStats;
+using Sirenix.OdinInspector;
 using UnityEngine;
+
 
 public enum EquipmentType
 {
@@ -20,21 +22,36 @@ public enum EquipmentType
 [CreateAssetMenu(menuName = "Items/Equippable Item")]
 public class EquippableItem : Item
 {
+    [FoldoutGroup("Flat Stat Modifier", expanded: false)]
     public int StrengthBonus;
+    [FoldoutGroup("Flat Stat Modifier", expanded: false)]
     public int AgilityBonus;
+    [FoldoutGroup("Flat Stat Modifier", expanded: false)]
     public int IntelligenceBonus;
+    [FoldoutGroup("Flat Stat Modifier", expanded: false)]
     public int VitalityBonus;
     [Space]
+    [FoldoutGroup("Percentage Stat Modifier", expanded: false)]
     public float StrengthPercentBonus;
+    [FoldoutGroup("Percentage Stat Modifier", expanded: false)]
     public float AgilityPercentBonus;
+    [FoldoutGroup("Percentage Stat Modifier", expanded: false)]
     public float IntelligencePercentBonus;
+    [FoldoutGroup("Percentage Stat Modifier", expanded: false)]
     public float VitalityPercentBonus;
-    [Space]
-    public Spell BoundSpell;
     [Space]
     public PassiveSO[] Passive;
     [Space]
+    [VerticalGroup("EnumAndSpell")]
+    [EnumToggleButtons, HideLabel]
     public EquipmentType EquipmentType;
+    [Space]
+    [HorizontalGroup("EnumAndSpell/Right")]
+    [ShowIf("EquipmentType", EquipmentType.Magic_Weapon)]
+    public Spell BoundSpell;
+    [TextArea]
+    public string Notes;
+
 
     public override Item GetCopy()
     {

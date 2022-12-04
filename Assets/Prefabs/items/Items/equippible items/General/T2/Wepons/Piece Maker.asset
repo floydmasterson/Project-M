@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Piece Maker
   m_EditorClassIdentifier: 
   id: 167664c8f66fc384f92600277b89dd52
-  ItemName: Piece Maker
   Icon: {fileID: 21300000, guid: d12bef8fdd77d5c42936bb725228b496, type: 3}
+  ItemName: Piece Maker
   MaximumStacks: 1
+  IsConsumable: 0
   StrengthBonus: 4
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -24,6 +25,6 @@ MonoBehaviour:
   AgilityPercentBonus: 0.1
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
-  Passive: {fileID: 0}
+  Passive: []
   EquipmentType: 5
+  BoundSpell: {fileID: 0}

@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(Enemys))]
+//[CustomEditor(typeof(Enemys))]
 public class FovEditor : Editor
 {
     private void OnSceneGUI()

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Binding Mask
   m_EditorClassIdentifier: 
   id: 1d639a663fc2b4541bdb13f09341970b
-  ItemName: Binding Mask
   Icon: {fileID: 21300000, guid: 584502659a0595b468cab49044903e6e, type: 3}
+  ItemName: Binding Mask
   MaximumStacks: 1
+  IsConsumable: 0
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -24,6 +25,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
-  Passive: {fileID: 0}
+  Passive: []
   EquipmentType: 0
+  BoundSpell: {fileID: 0}
+  Notes: 'Scaleing Magic Passive??? '

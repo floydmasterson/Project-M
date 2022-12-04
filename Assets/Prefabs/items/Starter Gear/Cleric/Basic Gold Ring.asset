@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Basic Gold Ring
   m_EditorClassIdentifier: 
   id: d38bd014f45ee8846bf155787296b4cf
-  ItemName: Basic Gold Ring
   Icon: {fileID: 21300000, guid: 852e8a047e5a3914cbe3df82c5a422d4, type: 3}
+  ItemName: Basic Gold Ring
   MaximumStacks: 1
+  IsConsumable: 0
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 1
@@ -24,6 +25,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0.02
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
   Passive: []
   EquipmentType: 10
+  BoundSpell: {fileID: 0}
+  Notes: 

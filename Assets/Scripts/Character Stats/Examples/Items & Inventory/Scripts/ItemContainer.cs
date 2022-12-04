@@ -1,9 +1,11 @@
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class ItemContainer : MonoBehaviour, IItemContainer
 {
+    [TabGroup("Setup")]
     public List<ItemSlot> ItemSlots;
 
     public event Action<BaseItemSlot> OnPointerEnterEvent;

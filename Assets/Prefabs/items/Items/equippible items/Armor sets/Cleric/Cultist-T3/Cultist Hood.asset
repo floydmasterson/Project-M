@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Cultist Hood
   m_EditorClassIdentifier: 
-  id: c568a05823ae5e84f86ab05f59b16172
-  ItemName: Cultist Hood
   Icon: {fileID: 21300000, guid: c907f1b44cf5df14f869d406d663fd04, type: 3}
+  ItemName: Cultist Hood
   MaximumStacks: 1
+  IsConsumable: 0
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 10
@@ -24,7 +24,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
-  Passive:
-  - {fileID: 0}
+  Passive: []
   EquipmentType: 0
+  BoundSpell: {fileID: 0}
+  Notes: 

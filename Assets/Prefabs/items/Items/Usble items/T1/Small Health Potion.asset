@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Small Health Potion
   m_EditorClassIdentifier: 
   id: 21510c815af9ecc4cbacf22bbf0431c3
-  ItemName: Small Health
   Icon: {fileID: 21300000, guid: 1596ce10979230c4eba5169c4c90f895, type: 3}
+  ItemName: Small Health Potion
   MaximumStacks: 20
   IsConsumable: 1
   Effects:

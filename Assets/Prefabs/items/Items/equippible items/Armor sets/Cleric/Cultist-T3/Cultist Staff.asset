@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Cultist Staff
   m_EditorClassIdentifier: 
-  id: 79d858383997e164b96fd3b1d0b6294e
-  ItemName: Cultist Staff
   Icon: {fileID: 21300000, guid: adfbf87999b14d844a5e9b8c0b54eaaf, type: 3}
+  ItemName: Cultist Staff
   MaximumStacks: 1
+  IsConsumable: 0
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 15
@@ -24,7 +24,8 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 8697009232377494978, guid: ec539085a0d3ef2469787f8925b3620b, type: 3}
   Passive:
   - {fileID: 11400000, guid: d9f5de71a22817b429669adb5a05201f, type: 2}
   EquipmentType: 6
+  BoundSpell: {fileID: 8697009232377494978, guid: 054da557ff71ea942b5efde582483235, type: 3}
+  Notes: Needs Diffrent Spell. Summon??

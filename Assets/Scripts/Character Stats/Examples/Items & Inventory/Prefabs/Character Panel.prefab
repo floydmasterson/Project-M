@@ -171,6 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11445142}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &101438
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,6 +341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11456218}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
   EquipmentType: 0
 --- !u!1 &105122
 GameObject:
@@ -547,6 +549,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11437416}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &107656
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,6 +641,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11450520}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &109102
 GameObject:
   m_ObjectHideFlags: 0
@@ -1156,6 +1160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11470402}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
   EquipmentType: 0
 --- !u!1 &118380
 GameObject:
@@ -1248,6 +1253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11471974}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &118912
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,6 +1345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11460484}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &119636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1506,6 +1513,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11423250}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &122106
 GameObject:
   m_ObjectHideFlags: 0
@@ -2326,6 +2334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11431622}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
   EquipmentType: 0
 --- !u!1 &146602
 GameObject:
@@ -2620,6 +2629,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11454458}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
   EquipmentType: 1
 --- !u!1 &148928
 GameObject:
@@ -2712,6 +2722,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11488702}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &151938
 GameObject:
   m_ObjectHideFlags: 0
@@ -2939,6 +2950,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11449316}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
   EquipmentType: 0
 --- !u!1 &157352
 GameObject:
@@ -3031,6 +3043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11496548}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
   EquipmentType: 0
 --- !u!1 &158922
 GameObject:
@@ -3123,6 +3136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11417088}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
   EquipmentType: 6
 --- !u!1 &161292
 GameObject:
@@ -3469,6 +3483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11484396}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &163428
 GameObject:
   m_ObjectHideFlags: 0
@@ -3640,6 +3655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11470824}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &168806
 GameObject:
   m_ObjectHideFlags: 0
@@ -3811,6 +3827,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11415930}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &170592
 GameObject:
   m_ObjectHideFlags: 0
@@ -3902,6 +3919,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11414998}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &170666
 GameObject:
   m_ObjectHideFlags: 0
@@ -3993,6 +4011,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11497654}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &170934
 GameObject:
   m_ObjectHideFlags: 0
@@ -4232,7 +4251,6 @@ MonoBehaviour:
   - {fileID: 11400232}
   - {fileID: 11439382}
   - {fileID: 11417996}
-  quickSlot: {fileID: 0}
   equipmentSlotsParent: {fileID: 22488076}
 --- !u!1 &180976
 GameObject:
@@ -4325,6 +4343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11416594}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
   EquipmentType: 0
 --- !u!1 &183798
 GameObject:
@@ -4417,6 +4436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11416280}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
   EquipmentType: 4
 --- !u!1 &184868
 GameObject:
@@ -4509,6 +4529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11431356}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &190568
 GameObject:
   m_ObjectHideFlags: 0
@@ -4600,6 +4621,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11420024}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &190760
 GameObject:
   m_ObjectHideFlags: 0
@@ -4691,6 +4713,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11427690}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &191176
 GameObject:
   m_ObjectHideFlags: 0
@@ -4782,6 +4805,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11409058}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &194338
 GameObject:
   m_ObjectHideFlags: 0
@@ -4873,6 +4897,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11454324}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
   EquipmentType: 7
 --- !u!1 &194432
 GameObject:
@@ -5045,6 +5070,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11468288}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
 --- !u!1 &195946
 GameObject:
   m_ObjectHideFlags: 0
@@ -5136,6 +5162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11439876}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
   EquipmentType: 0
 --- !u!1 &198604
 GameObject:
@@ -5228,6 +5255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11439462}
   amountText: {fileID: 0}
+  _item: {fileID: 0}
   EquipmentType: 5
 --- !u!1 &198724
 GameObject:
@@ -5320,3 +5348,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 11411774}
   amountText: {fileID: 0}
+  _item: {fileID: 0}

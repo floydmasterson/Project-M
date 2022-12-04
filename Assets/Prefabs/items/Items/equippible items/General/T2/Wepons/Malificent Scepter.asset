@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Malificent Scepter
   m_EditorClassIdentifier: 
   id: ef084a596b3e5e14b9335c2c43fee838
-  ItemName: Malificent Scepter
   Icon: {fileID: 21300000, guid: 8faedfb88893cfe4985ad1454429d485, type: 3}
+  ItemName: Malificent Scepter
   MaximumStacks: 1
+  IsConsumable: 0
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 4
@@ -24,6 +25,6 @@ MonoBehaviour:
   AgilityPercentBonus: 0.05
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 8535670027616370256, guid: 8dc0acc1d33d7364cbe7b1e7cd859586, type: 3}
-  Passive: {fileID: 0}
+  Passive: []
   EquipmentType: 6
+  BoundSpell: {fileID: 8535670027616370256, guid: 8dc0acc1d33d7364cbe7b1e7cd859586, type: 3}

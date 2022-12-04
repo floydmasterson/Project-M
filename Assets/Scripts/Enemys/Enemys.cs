@@ -2,48 +2,70 @@ using Photon.Pun;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEditor;
+using Sirenix.OdinInspector;
+
 
 public class Enemys : MonoBehaviourPun
 {
     #region Vars
+    [BoxGroup]
     [Tooltip(" 0= target dummy 1 = Chase & Melee 2 = Avoid & Ranged !3 = Chase & Boom! not set !4 = hybrid! not set")]
     [Range(0, 4)] public int typeSetting = 0;
-    [Space]
+   
     //Health
-    [Header("Health Settings")]
+    [TabGroup("Health")]
     [Range(68, 100)] public float Vitality;
+    [TabGroup("Health")]
     public float Defense;
+    [TabGroup("Health")]
+    [ProgressBar(0, "maxHealth", 0, 1, 0)]
     [SerializeField] float currentHealth;
     float maxHealth;
+    [TabGroup("Health")]
     public bool isDead = false;
-    [Space]
+
     //Fov Detection/Movement
-    [Header("Detection and Move Settings")]
+    [TabGroup("Detection")]
     public Transform Target;
+    [TabGroup("Movement")]
     [SerializeField][Range(1, 100)] float LSpeed = 1f;
+    [TabGroup("Detection")]
     [Range(0, 360)] public float angle;
+    [TabGroup("Detection")]
     public float radius;
+    [TabGroup("Movement")]
+    [ShowIf("@typeSetting == 2")]
     [SerializeField] float runDistance = 0f;
+    [TabGroup("Movement")]
+    [ShowIf("@typeSetting == 2")]
     public float runRadius = 0f;
+    [TabGroup("Movement")]
+    [ShowIf("@typeSetting == 2")]
     [SerializeField] int runTime;
+    [TabGroup("Detection")]
     public bool canSeePlayer;
     bool isLoseTargetExecuting = false;
     Coroutine LookCoroutine;
-    //[HideInInspector] public GameObject playerRef;
-    [Space]
+
     //attacking
-    [Header("Attack Settings")]
+    [TabGroup("Attack")]
     [Range(25, 150)] public int Power = 25;
+    [TabGroup("Attack")]
     public Transform attackPoint;
+    [TabGroup("Attack")]
     [SerializeField][Range(0, 20)] float attackRange;
+    [TabGroup("Attack")]
     [SerializeField][Range(1, 5)] float attackCooldown = 2f;
+    [TabGroup("Attack")]
+    [ShowIf("@typeSetting == 2")]
     [SerializeField] GameObject rangedProjectile;
     bool isTAttackExecuting = false;
     bool isTRangedAttackExecuting = false;
-    [Space]
     //masks
-    [Header("Layer Masks")]
+    [TabGroup("Detection")]
     [SerializeField] LayerMask targetMask;
+    [TabGroup("Detection")]
     [SerializeField] LayerMask obstructionMask;
     //Comps
     private Animator animator;
@@ -451,8 +473,9 @@ public class Enemys : MonoBehaviourPun
             return;
         Gizmos.DrawSphere(attackPoint.position, attackRange);
     }
-    #endregion
-
-}
+  
+   
+    }
+#endregion
 
 

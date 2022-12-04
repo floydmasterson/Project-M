@@ -1,8 +1,12 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 public class Inventory : ItemContainer
 {
+    [TabGroup("Starting Inventory")]
+    [TableList]
     [SerializeField] public Item[] startingItems;
+    [TabGroup("Setup")]
     [SerializeField] protected Transform itemsParent;
 
     protected override void OnValidate()

@@ -1,5 +1,6 @@
 ﻿using Kryz.CharacterStats;
 using Kryz.CharacterStats.Examples;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,21 +8,34 @@ public class Character : MonoBehaviour
 {
     public static Character Instance;
 
-    [Header("Stats")]
+    [TabGroup("Stats")]
     public CharacterStat Strength;
+    [TabGroup("Stats")]
     public CharacterStat Agility;
+    [TabGroup("Stats")]
     public CharacterStat Intelligence;
+    [TabGroup("Stats")]
     public CharacterStat Vitality;
 
-    [Header("Public")]
+    [TabGroup("Inventory")]
+    [InlineEditor(ObjectFieldMode = InlineEditorObjectFieldModes.Hidden)]
     public Inventory Inventory;
+    [TabGroup("Setup")]
     public EquipmentPanel EquipmentPanel;
 
-    [Header("Serialize Field")]
+    [TabGroup("Setup")]
     [SerializeField] public StatPanel statPanel;
+    [TabGroup("Setup")]
     [SerializeField] ItemTooltip itemTooltip;
+    [TabGroup("Setup")]
     [SerializeField] Image draggableItem;
+    [TabGroup("Setup")]
+    [TabGroup("Inventory")]
+    [PreviewField]
+    [HorizontalGroup("Split", 60)]
     public Image currentQuickItem;
+    [TabGroup("Inventory")]
+    [HorizontalGroup("Split/right"), HideLabel]
     public int currentQuickItemAmount;
 
     private BaseItemSlot dragItemSlot;

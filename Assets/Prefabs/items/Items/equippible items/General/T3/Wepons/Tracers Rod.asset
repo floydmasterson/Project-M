@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Tracers Rod
   m_EditorClassIdentifier: 
   id: 01cb0688080e73642b3b740e41aa3fd3
-  ItemName: Tracers Rod
   Icon: {fileID: 21300000, guid: effcabc31d57322488f92a2a6654ee72, type: 3}
+  ItemName: Tracers Rod
   MaximumStacks: 1
+  IsConsumable: 0
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 10
@@ -24,7 +25,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 947585446244353802, guid: 0cc57d3184350104e8a80063352ebce0, type: 3}
-  Passive:
-  - {fileID: 0}
+  Passive: []
   EquipmentType: 6
+  BoundSpell: {fileID: 947585446244353802, guid: 0cc57d3184350104e8a80063352ebce0, type: 3}
+  Notes: 

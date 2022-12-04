@@ -894,7 +894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cineCamera: {fileID: 8226536733148169854}
-  lockCamera: {fileID: 0}
+  lockCamera: {fileID: 4154674173261169487}
   player: {fileID: 2951597269558399559}
   col: {fileID: 8226536732763159447}
   _currentHealth: 0
