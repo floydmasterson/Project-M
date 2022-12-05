@@ -12,16 +12,21 @@ public class Item : ScriptableObject
     string id;
     public string ID { get { return id; } }
     [PreviewField(60), HideLabel]
-    [HorizontalGroup("Split",60)]
+    [TableColumnWidth(300, resizable: false)]
+    [HorizontalGroup("Item",60)]
     public Sprite Icon;
-    [VerticalGroup("Split/Right"), LabelWidth(65)]
+    [VerticalGroup("Item/Right"), LabelWidth(65)]
     public string ItemName;
-    [VerticalGroup("Split/Right"), LabelWidth(105)]
+    [VerticalGroup("Item/Right"), LabelWidth(105)]
     [Range(1, 20)]
     public int MaximumStacks = 1;
-    [VerticalGroup("Split/Right"), LabelWidth(90)]
+    [VerticalGroup("Item/Right"), LabelWidth(90)]
     [ShowIf("@MaximumStacks > 1")]
     public bool IsConsumable;
+    [PropertyOrder(8)]
+    [TableColumnWidth(160, resizable: true)]
+    [TextArea]
+    public string Notes;
 
 
     protected static readonly StringBuilder sb = new StringBuilder();

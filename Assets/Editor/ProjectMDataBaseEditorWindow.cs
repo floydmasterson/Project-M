@@ -4,10 +4,7 @@ using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using System.Linq;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEditor;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
@@ -16,23 +13,34 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
     private static void OpenWindow()
     {
         var window = GetWindow<ProjectMDataBaseEditorWindow>();
-        window.position = GUIHelper.GetEditorWindowRect().AlignCenter(800, 500);
+        window.position = GUIHelper.GetEditorWindowRect().AlignCenter(1920, 1080);
     }
+
+    public static SdfIcon trash;
 
     protected override OdinMenuTree BuildMenuTree()
     {
         var tree = new OdinMenuTree();
         tree.DefaultMenuStyle.IconSize = 28.00f;
         tree.Config.DrawSearchToolbar = true;
-   
         
-        tree.AddAllAssetsAtPath("Items/Equippable Items", "Assets/Prefabs/items/Items/equippible items", typeof(EquippableItem), includeSubDirectories: true);
-        tree.AddAllAssetsAtPath("Items/Useable Items", "Assets/Prefabs/items/Items/Usble items", typeof(UsableItem), includeSubDirectories: true);
-        tree.AddAllAssetsAtPath("Classes", "Assets/Photon/PhotonUnityNetworking/Resources", typeof(PlayerManger));
-        tree.AddAllAssetsAtPath("Enemys", "Assets/Photon/PhotonUnityNetworking/Resources", typeof(Enemys));
-        tree.AddAllAssetsAtPath("Classes/Inventory", "Assets/Prefabs/Ui/Ui Veriations", typeof(Character));
+
+
+        tree.AddAllAssetsAtPath("Items/Equippable Items", "Assets/Prefabs/items/Items/equippible items", typeof(EquippableItem), includeSubDirectories: true).SortMenuItemsByName();
+        tree.AddAllAssetsAtPath("Items/Useable Items", "Assets/Prefabs/items/Items/Usble items", typeof(UsableItem), includeSubDirectories: true).SortMenuItemsByName();
+        tree.AddAllAssetsAtPath("Items/Addons/Item Effects", "Assets/Prefabs/items/Items/Usble items/Effects", typeof(UseableItemEffect), includeSubDirectories: true).SortMenuItemsByName();
+        tree.AddAllAssetsAtPath("Items/Addons/Status Effects", "Assets/Scripts/Items/Status Effects", typeof(StatusEffectSO), includeSubDirectories: true).SortMenuItemsByName();
+        tree.AddAllAssetsAtPath("Items/Addons/Passives", "Assets/Scripts/Items/Passives", typeof(PassiveSO), includeSubDirectories: true).SortMenuItemsByName();
+        tree.AddAllAssetsAtPath("Classes", "Assets/Photon/PhotonUnityNetworking/Resources", typeof(PlayerManger)).SortMenuItemsByName().AddThumbnailIcons();
+        tree.AddAllAssetsAtPath("Classes/Inventory", "Assets/Prefabs/Ui/Ui Veriations", typeof(Character)).SortMenuItemsByName().AddThumbnailIcons();
+        tree.AddAllAssetsAtPath("Enemys", "Assets/Photon/PhotonUnityNetworking/Resources", typeof(Enemys)).SortMenuItemsByName().AddThumbnailIcons();
+        tree.AddAllAssetsAtPath("Items/Chests", "Assets/Prefabs/items/Chests", typeof(ChestControl)).SortMenuItemsByName();
 
         tree.EnumerateTree().Where(x => x.Value as Item).ForEach(AddDragHandles);
+        tree.EnumerateTree().Where(x => x.Value as PassiveSO).ForEach(AddDragHandles);
+        tree.EnumerateTree().Where(x => x.Value as UseableItemEffect).ForEach(AddDragHandles);
+        tree.EnumerateTree().Where(x => x.Value as StatusEffectSO).ForEach(AddDragHandles);
+
 
         tree.EnumerateTree().AddIcons<UsableItem>(x => x.Icon);
         tree.EnumerateTree().AddIcons<EquippableItem>(x => x.Icon);
@@ -44,12 +52,14 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
     }
     protected override void OnBeginDrawEditors()
     {
-        var selected = this.MenuTree.Selection.FirstOrDefault();
+        var selected = this.MenuTree.Selection.First();
         var toolbarHeight = this.MenuTree.Config.SearchToolbarHeight;
+        var selected1 = this.MenuTree.Selection;
 
         // Draws a toolbar with the name of the currently selected menu item.
         SirenixEditorGUI.BeginHorizontalToolbar(toolbarHeight);
         {
+
             if (selected != null)
             {
                 GUILayout.Label(selected.Name);
@@ -57,9 +67,11 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
 
             if (SirenixEditorGUI.ToolbarButton(new GUIContent("Create Equippable Item")))
             {
+
                 ScriptableObjectCreator.ShowDialog<EquippableItem>("Assets/Prefabs/items/Items/equippible items", obj =>
                 {
                     obj.ItemName = obj.name;
+
                     base.TrySelectMenuItemWithObject(obj); // Selects the newly created item in the editor
                 });
             }
@@ -71,6 +83,16 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
                     obj.ItemName = obj.name;
                     base.TrySelectMenuItemWithObject(obj); // Selects the newly created item in the editor
                 });
+            }
+            if (selected1 != null)
+            {
+                if (SirenixEditorGUI.ToolbarButton(new GUIContent("Delete")))
+                    {
+                    Object assest = selected1.SelectedValue as Object;
+                    string path = AssetDatabase.GetAssetPath(assest);
+                    AssetDatabase.DeleteAsset(path);
+                    AssetDatabase.SaveAssets();
+                }
             }
         }
         SirenixEditorGUI.EndHorizontalToolbar();

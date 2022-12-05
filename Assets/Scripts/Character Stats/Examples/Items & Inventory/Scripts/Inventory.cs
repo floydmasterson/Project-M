@@ -4,7 +4,8 @@ using UnityEngine;
 public class Inventory : ItemContainer
 {
     [TabGroup("Starting Inventory")]
-    [TableList]
+    [PropertyOrder(-1)]
+    [TableList(AlwaysExpanded = true, NumberOfItemsPerPage = 30, ShowPaging = true), HideLabel]
     [SerializeField] public Item[] startingItems;
     [TabGroup("Setup")]
     [SerializeField] protected Transform itemsParent;

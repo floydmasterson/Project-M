@@ -5,6 +5,7 @@ using UnityEngine;
 
 public enum EquipmentType
 {
+    [GUIColor(0, 1, 0)]
     Helmet,
     Chest,
     Gloves,
@@ -22,15 +23,17 @@ public enum EquipmentType
 [CreateAssetMenu(menuName = "Items/Equippable Item")]
 public class EquippableItem : Item
 {
-    [FoldoutGroup("Flat Stat Modifier", expanded: false)]
+    [TableColumnWidth(190, resizable: false)]
+    [FoldoutGroup("Flat Stat Modifier", expanded: true)]
     public int StrengthBonus;
-    [FoldoutGroup("Flat Stat Modifier", expanded: false)]
+    [FoldoutGroup("Flat Stat Modifier", expanded: true)]
     public int AgilityBonus;
-    [FoldoutGroup("Flat Stat Modifier", expanded: false)]
+    [FoldoutGroup("Flat Stat Modifier", expanded: true)]
     public int IntelligenceBonus;
-    [FoldoutGroup("Flat Stat Modifier", expanded: false)]
+    [FoldoutGroup("Flat Stat Modifier", expanded: true)]
     public int VitalityBonus;
-    [Space]
+
+    [TableColumnWidth(190, resizable: false)]
     [FoldoutGroup("Percentage Stat Modifier", expanded: false)]
     public float StrengthPercentBonus;
     [FoldoutGroup("Percentage Stat Modifier", expanded: false)]
@@ -39,18 +42,17 @@ public class EquippableItem : Item
     public float IntelligencePercentBonus;
     [FoldoutGroup("Percentage Stat Modifier", expanded: false)]
     public float VitalityPercentBonus;
-    [Space]
+    [TableColumnWidth(190, resizable: false)]
     public PassiveSO[] Passive;
-    [Space]
-    [VerticalGroup("EnumAndSpell")]
+    [TableColumnWidth(300, resizable: false)]
+    [VerticalGroup("Equipment Type")]
     [EnumToggleButtons, HideLabel]
     public EquipmentType EquipmentType;
-    [Space]
-    [HorizontalGroup("EnumAndSpell/Right")]
+
+    [HorizontalGroup("Equipment Type/Right")]
     [ShowIf("EquipmentType", EquipmentType.Magic_Weapon)]
     public Spell BoundSpell;
-    [TextArea]
-    public string Notes;
+
 
 
     public override Item GetCopy()

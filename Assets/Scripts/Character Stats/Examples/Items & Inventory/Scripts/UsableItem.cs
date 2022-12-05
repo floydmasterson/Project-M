@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,7 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Items/Usable Item")]
 public class UsableItem : Item
 {
-
+    [InlineEditor(Expanded = true, ObjectFieldMode = InlineEditorObjectFieldModes.Boxed)]
+    [TableColumnWidth(190, resizable: false)]
     public List<UseableItemEffect> Effects;
 
     public virtual void Use(Character character)

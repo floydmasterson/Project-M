@@ -7303,14 +7303,14 @@ MonoBehaviour:
   - {fileID: 1072771939840293861}
   - {fileID: 4090366481961466387}
   startingItems:
+  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
+  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
+  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
+  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
+  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
   - {fileID: 11400000, guid: 94b0b717223e73947b0d1f6e08a59465, type: 2}
   - {fileID: 11400000, guid: 561276e27b519ab4b91fc41463ea2780, type: 2}
   - {fileID: 11400000, guid: d7dd9d1482473654097dcfe5b9eaf1bd, type: 2}
-  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
-  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
-  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
-  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
-  - {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
   - {fileID: 11400000, guid: 650a55ada548fff4ab057eb4631792ea, type: 2}
   - {fileID: 11400000, guid: 650a55ada548fff4ab057eb4631792ea, type: 2}
   - {fileID: 11400000, guid: 650a55ada548fff4ab057eb4631792ea, type: 2}

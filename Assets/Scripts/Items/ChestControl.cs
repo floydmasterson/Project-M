@@ -1,25 +1,34 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
 public class ChestControl : ItemContainer
 {
-    [Header("Needed Comp")]
+    [TabGroup("Setup")]
     [SerializeField] Transform itemsParent;
+    [TabGroup("Setup")]
     [SerializeField] Inventory inventory;
-    [Header("OPen Close GFX")]
+    [TabGroup("GFX")]
     [SerializeField] private MeshFilter meshFilter;
+    [TabGroup("GFX")]
     [SerializeField] private Mesh close;
+    [TabGroup("GFX")]
     [SerializeField] private Mesh open;
+    [TabGroup("GFX")]
     public bool pickUpAllowed;
     public bool isOpen = false;
     Character character;
-    [Header("Random Loot")]
+    [TabGroup("Loot Generation")]
     [SerializeField][Range(0, 17)] private int amount = 0;
+    [TabGroup("Loot Generation")]
     [Tooltip("3-6 Drops")]
     [SerializeField] bool randomAmount;
+    [TabGroup("Loot Generation")]
     [Tooltip(" 4-8 *Must enable both for better drops")]
     [SerializeField] bool BetterRandomAmount;
+    [TabGroup("Loot Generation")]
+    [TableList(AlwaysExpanded = true), HideLabel]
     public WeightedRandomList<Item> lootTable;
 
     public IEnumerator Despawn()

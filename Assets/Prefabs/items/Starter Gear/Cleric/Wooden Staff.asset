@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Wooden Staff
   m_EditorClassIdentifier: 
-  id: 8f533d982af27f544825137296da2715
   Icon: {fileID: 21300000, guid: bdc38e6cb5640f644b4ba5d024fed04b, type: 3}
   ItemName: Wooden Staff
   MaximumStacks: 1
   IsConsumable: 0
+  Notes: 
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 1
@@ -28,4 +28,3 @@ MonoBehaviour:
   Passive: []
   EquipmentType: 6
   BoundSpell: {fileID: 8535670027616370256, guid: 67ca924aa0e06b147a77b9fa9ca1e4ca, type: 3}
-  Notes: 

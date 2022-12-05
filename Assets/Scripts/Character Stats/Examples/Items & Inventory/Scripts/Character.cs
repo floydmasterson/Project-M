@@ -29,13 +29,10 @@ public class Character : MonoBehaviour
     [SerializeField] ItemTooltip itemTooltip;
     [TabGroup("Setup")]
     [SerializeField] Image draggableItem;
-    [TabGroup("Setup")]
-    [TabGroup("Inventory")]
+    [TabGroup("Quick Slot")]
     [PreviewField]
-    [HorizontalGroup("Split", 60)]
     public Image currentQuickItem;
-    [TabGroup("Inventory")]
-    [HorizontalGroup("Split/right"), HideLabel]
+    [TabGroup("Quick Slot")]
     public int currentQuickItemAmount;
 
     private BaseItemSlot dragItemSlot;

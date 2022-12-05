@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Tattered Robes
   m_EditorClassIdentifier: 
-  id: 98b14bf10a5ef18489efdb3d720b9351
   Icon: {fileID: 21300000, guid: 74f44705437cbb24daf285791645b82c, type: 3}
   ItemName: Tattered Robes
   MaximumStacks: 1
   IsConsumable: 0
+  Notes: 
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 1
@@ -28,4 +28,3 @@ MonoBehaviour:
   Passive: []
   EquipmentType: 1
   BoundSpell: {fileID: 0}
-  Notes: 

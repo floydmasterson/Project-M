@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2700d015c6462f048ac79e3404dd457a, type: 3}
   m_Name: Primal Rage Potion
   m_EditorClassIdentifier: 
-  id: a56501d3bed4f6d47b2e8e95ffccc862
-  ItemName: Primal Rage Potion
   Icon: {fileID: 21300000, guid: 5f50f2a4a34f3ea4db65daf9352cef36, type: 3}
+  ItemName: Primal Rage Potion
   MaximumStacks: 5
   IsConsumable: 1
   Effects:

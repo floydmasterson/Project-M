@@ -12,14 +12,19 @@ public class PlayerManger : MonoBehaviourPun
     //Partds
     [TabGroup("Components")]
     [SerializeField] CinemachineFreeLook cineCamera;
+
     [TabGroup("Components")]
     [SerializeField] CinemachineVirtualCamera lockCamera;
+
     [TabGroup("Components")]
     [SerializeField] GameObject player;
+
     [TabGroup("Components")]
     [SerializeField] Collider col;
+
     [TabGroup("Components")]
     GameObject cam;
+
     CharacterController characterController;
     Animator animator;
     Rigidbody Rb;
@@ -68,6 +73,7 @@ public class PlayerManger : MonoBehaviourPun
     [TabGroup("Health")]
     public bool isInvulnerable = false;
     [TabGroup("Health")]
+    [ProgressBar(0, 3, 1, 0, 0, Segmented = true)]
     public int lifes = 3;
     [TabGroup("Health")]
     public Transform spawnPoint;
@@ -130,7 +136,6 @@ public class PlayerManger : MonoBehaviourPun
     [TabGroup("Ui")]
     [SerializeField] GameObject UiPrefab;
     [TabGroup("Ui")]
-    [InlineEditor]
     [SerializeField] GameObject InventoryPrefab;
     bool InvIsOpen = false;
     bool inChest = false;

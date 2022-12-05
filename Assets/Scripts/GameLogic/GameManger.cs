@@ -1,24 +1,30 @@
 using Photon.Pun;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class GameManger : MonoBehaviourPun
 {
     public static GameManger Instance;
+    [TabGroup("Prefabs")]
     public GameObject[] playerPrefab;
     public static GameObject LocalPlayerInstance;
-    public GameObject enemyPrefab;
+    GameObject enemyPrefab;
     public static GameObject LocalenemyInstance;
+    [TabGroup("Prefabs")]
     [SerializeField] GameObject[] enemys = new GameObject[2];
+    [TabGroup("Spawners")]
     [SerializeField] Transform[] spawners = new Transform[3];
     int randomPoint, randomEnemy;
-    [Space]
+    [TabGroup("Spawning")]
     public bool spawnEnemys = false;
-    [SerializeField] int enemyAmount; 
+    [TabGroup("Spawning")]
+    [SerializeField] int enemyAmount;
     public delegate void PvPEnable();
     public static event PvPEnable PvPon;
-    [Space]
+    [TabGroup("Spawning")]
     public float GameTimeLeft = 0f;
+    [TabGroup("Spawning")]
     [SerializeField] int gameTime;
     bool timerOn = false;
 
@@ -67,7 +73,7 @@ public class GameManger : MonoBehaviourPun
             {
                 Debug.Log("time is up");
                 GameTimeLeft = 0;
-                timerOn= false;
+                timerOn = false;
                 PvPon();
                 //despawn enemys 
                 //despawn chests?
@@ -75,6 +81,6 @@ public class GameManger : MonoBehaviourPun
         }
     }
 
-    
+
 
 }
