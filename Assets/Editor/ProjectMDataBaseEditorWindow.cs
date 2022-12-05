@@ -52,7 +52,7 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
     }
     protected override void OnBeginDrawEditors()
     {
-        var selected = this.MenuTree.Selection.First();
+        var selected = this.MenuTree.Selection.FirstOrDefault();
         var toolbarHeight = this.MenuTree.Config.SearchToolbarHeight;
         var selected1 = this.MenuTree.Selection;
 
