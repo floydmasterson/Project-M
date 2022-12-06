@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2700d015c6462f048ac79e3404dd457a, type: 3}
   m_Name: Large Health Potion
   m_EditorClassIdentifier: 
-  id: 5358a78e95807cf438acf1e1ca65be94
-  ItemName: Max Health Potion
   Icon: {fileID: 21300000, guid: dc2d66b0ba5092b4aa1c7783e1bce80b, type: 3}
+  ItemName: Max Health Potion
   MaximumStacks: 5
   IsConsumable: 1
+  Notes: 
   Effects:
   - {fileID: 11400000, guid: e515c6c74ee9d1540b2d8d5a08166743, type: 2}

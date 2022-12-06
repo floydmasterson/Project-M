@@ -1909,7 +1909,7 @@ GameObject:
   - component: {fileID: 7723048807801664092}
   - component: {fileID: 7723048807801664093}
   m_Layer: 7
-  m_Name: E-BlueDemon
+  m_Name: E-BlueDemonT3
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

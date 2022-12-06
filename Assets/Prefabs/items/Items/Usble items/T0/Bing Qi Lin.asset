@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2700d015c6462f048ac79e3404dd457a, type: 3}
+  m_Name: Bing Qi Lin
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: d8a99ef57fb3c9744a71400cac02c747, type: 3}
+  ItemName: Bing Qi Lin
+  MaximumStacks: 2
+  IsConsumable: 1
+  Notes: "Z\u01CEoshang h\u01CEo zh\u014Dnggu\xF3 xi\xE0nz\xE0i w\u01D2 y\u01D2u
+    BING CHILLING \U0001F976\U0001F366 w\u01D2 h\u011Bn x\u01D0hu\u0101n BING CHILLING
+    \U0001F976\U0001F366 d\xE0nsh\xEC s\xF9d\xF9 y\u01D4 j\u012Bq\xEDng 9 b\u01D0
+    BING CHILLING \U0001F976\U0001F366 s\xF9d\xF9 y\u01D4 j\u012Bq\xEDng s\xF9d\xF9
+    y\u01D4 j\u012Bq\xEDng 9 w\u01D2 zu\xEC x\u01D0hu\u0101n su\u01D2y\u01D0\u2026xi\xE0nz\xE0i
+    sh\xEC y\u012Bnyu\xE8 sh\xEDji\u0101n zh\u01D4nb\xE8i 1 2 3 li\u01CEng g\xE8
+    l\u01D0b\xE0i y\u01D0h\xF2u s\xF9d\xF9 y\u01D4 j\u012Bq\xEDng 9 \xD73 b\xF9y\xE0o
+    w\xE0ngj\xEC b\xF9y\xE0o cu \xF2gu\xF2 j\xECd\xE9 q\xF9 di\xE0ny\u01D0ngyu\xE0n
+    k\xE0n s\xF9d\xF9 y\u01D4 j\u012Bq\xEDng 9 y\u012Bn w\xE9i f\u0113ich\xE1ng h\u01CEo
+    di\xE0ny\u01D0ng d\xF2ngzu\xF2 f\u0113ich\xE1ng h\u01CEo ch\xE0b\xF9du\u014D
+    y\u012By\xE0ng BING CHILLING \U0001F976\U0001F366z\xE0iji\xE0n \U0001F976\U0001F366\n"
+  Effects:
+  - {fileID: 11400000, guid: 0bb877165b136b84184366064ffe8e19, type: 2}
+  - {fileID: 11400000, guid: af0351c871cedc7488f4eb89a556b3e8, type: 2}

@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 6996912839998734169}
   - component: {fileID: 4795042355106390697}
   m_Layer: 7
-  m_Name: E-Mushnub
+  m_Name: E-MushnubT1
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

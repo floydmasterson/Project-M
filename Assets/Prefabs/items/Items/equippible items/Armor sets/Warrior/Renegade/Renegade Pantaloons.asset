@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Renegade Pantaloons
   m_EditorClassIdentifier: 
-  id: 44c0c17a537dfb5469a831c0ef6ec388
-  ItemName: Renegade Pantaloons
   Icon: {fileID: 21300000, guid: f799b499b881256409adae85c73e7d54, type: 3}
+  ItemName: Renegade Pantaloons
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
   StrengthBonus: 5
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -24,7 +25,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0.05
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
   Passive:
   - {fileID: 0}
   EquipmentType: 8
+  BoundSpell: {fileID: 0}

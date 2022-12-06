@@ -106,7 +106,11 @@ public class PlayerUi : MonoBehaviourPun
             Destroy(this.gameObject);
             return;
         }
-        quickSlotImage.sprite = Character.Instance.currentQuickItem.sprite;
+        if (Character.Instance.currentQuickItem.sprite != null)
+            quickSlotImage.sprite = Character.Instance.currentQuickItem.sprite;
+        else
+            qickSlot.SetActive(false);
+
     }
 
     public void OpenUi()

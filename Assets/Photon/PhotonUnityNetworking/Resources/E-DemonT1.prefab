@@ -1828,7 +1828,7 @@ GameObject:
   - component: {fileID: 6814886940248751545}
   - component: {fileID: 6814886940248751544}
   m_Layer: 7
-  m_Name: E-Demon
+  m_Name: E-DemonT1
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

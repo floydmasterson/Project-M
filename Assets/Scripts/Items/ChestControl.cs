@@ -1,7 +1,6 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 public class ChestControl : ItemContainer
 {
@@ -49,7 +48,8 @@ public class ChestControl : ItemContainer
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            meshFilter.mesh = open;
+            if (meshFilter.sharedMesh != null)
+                meshFilter.sharedMesh = open;
             pickUpAllowed = true;
             character = Character.Instance;
         }
@@ -64,14 +64,16 @@ public class ChestControl : ItemContainer
         }
         if (isOpen == false && other.gameObject.CompareTag("Player"))
         {
-            meshFilter.mesh = open;
+            if (meshFilter.sharedMesh != null)
+                meshFilter.sharedMesh = open;
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            meshFilter.mesh = close;
+            if (meshFilter.sharedMesh != null)
+                meshFilter.sharedMesh = close;
             pickUpAllowed = false;
             StartCoroutine(Despawn());
         }
@@ -87,7 +89,8 @@ public class ChestControl : ItemContainer
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
         character.CloseItemContainer(this);
-        meshFilter.mesh = close;
+        if (meshFilter.sharedMesh != null)
+            meshFilter.sharedMesh = close;
         StartCoroutine(Despawn());
         character = null;
         isOpen = false;
@@ -102,7 +105,6 @@ public class ChestControl : ItemContainer
             }
         else if (randomAmount && !BetterRandomAmount)
         {
-            Debug.Log("random");
             float Ramount = Random.Range(3, 6);
             for (int i = 0; i <= Ramount - 1; i++)
             {
@@ -112,7 +114,7 @@ public class ChestControl : ItemContainer
         }
         else if (BetterRandomAmount && randomAmount)
         {
-            Debug.Log("Better random");
+
             float Ramount = Random.Range(4, 8);
             for (int i = 0; i <= Ramount - 1; i++)
             {

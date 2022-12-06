@@ -9,24 +9,20 @@ public class GameManger : MonoBehaviourPun
     [TabGroup("Prefabs")]
     public GameObject[] playerPrefab;
     public static GameObject LocalPlayerInstance;
-    GameObject enemyPrefab;
-    public static GameObject LocalenemyInstance;
-    [TabGroup("Prefabs")]
-    [SerializeField] GameObject[] enemys = new GameObject[2];
-    [TabGroup("Spawners")]
-    [SerializeField] Transform[] spawners = new Transform[3];
-    int randomPoint, randomEnemy;
     [TabGroup("Spawning")]
-    public bool spawnEnemys = false;
+    public bool spawnEnemys;
     [TabGroup("Spawning")]
-    [SerializeField] int enemyAmount;
+    [SerializeField] Vector3[] playerSpawnPoints;
     public delegate void PvPEnable();
     public static event PvPEnable PvPon;
-    [TabGroup("Spawning")]
+    public delegate void spawn();
+    public static event spawn spawnMobs;
+    [TabGroup("Game Time")]
     public float GameTimeLeft = 0f;
-    [TabGroup("Spawning")]
+    [TabGroup("Game Time")]
     [SerializeField] int gameTime;
     bool timerOn = false;
+    bool[] picked = new bool[2];
 
     private void Awake()
     {
@@ -36,30 +32,41 @@ public class GameManger : MonoBehaviourPun
 
     void Start()
     {
+        SpawnPlayers();
         //MusicClass.Instance.StopMusic();
-        SpawnPlayer();
         if (PhotonNetwork.IsMasterClient && spawnEnemys)
         {
-            SpawnEnemys(enemyAmount);
+            spawnMobs();
         }
         GameTimeLeft = gameTime;
         timerOn = true;
     }
-    private void SpawnPlayer()
+    private void SpawnPlayers()
     {
-        Vector3 playerspawn = new Vector3(25f, 3f, -45f);
         GameObject playerToSpawn = playerPrefab[(int)PhotonNetwork.LocalPlayer.CustomProperties["playerAvatar"]];
-        GameObject player = PhotonNetwork.Instantiate(playerToSpawn.name, playerspawn, Quaternion.identity);
+        PhotonNetwork.Instantiate(playerToSpawn.name, RandomSpawn(), Quaternion.identity);
     }
-    private void SpawnEnemys(int count)
+
+
+    Vector3 RandomSpawn()
     {
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < playerSpawnPoints.Length; i++)
         {
-            randomPoint = Random.Range(0, spawners.Length);
-            randomEnemy = Random.Range(0, enemys.Length);
-            GameObject enemy = PhotonNetwork.Instantiate(enemys[randomEnemy].name, spawners[randomPoint].position, Quaternion.identity);
-            enemy.transform.position = new Vector3(enemy.transform.position.x + (Random.Range(-5, 5)), enemy.transform.position.y, enemy.transform.position.z + Random.Range(-5, 5));
+            int selected = Random.Range(0, playerSpawnPoints.Length);
+            Debug.Log(selected);
+            Vector3 selectedSpawn;
+            if (!picked[selected])
+            {
+                picked[selected] = true;
+                selectedSpawn = playerSpawnPoints[selected];
+                return selectedSpawn;
+            }
+            else
+            {
+                RandomSpawn();
+            }
         }
+        return Vector3.zero;
     }
     private void Update()
     {

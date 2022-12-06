@@ -20,7 +20,7 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     protected Color normalColor = Color.white;
     protected Color disabledColor = new Color(1, 1, 1, 0);
     [Tooltip("DONT TOUCH")]
-    [SerializeField] protected Item _item;
+    protected Item _item;
     public Item Item
     {
         get { return _item; }

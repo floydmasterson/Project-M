@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Iron Hunter Greaves
   m_EditorClassIdentifier: 
-  id: 4acf1492d666217438b9410218d01c70
-  ItemName: Iron Hunter Greaves
   Icon: {fileID: 21300000, guid: 2fa8d7140c5f9184cb36c242882a58a4, type: 3}
+  ItemName: Iron Hunter Greaves
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
   StrengthBonus: 5
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -24,6 +25,7 @@ MonoBehaviour:
   AgilityPercentBonus: -0.05
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
-  Passive: {fileID: 0}
+  Passive:
+  - {fileID: 0}
   EquipmentType: 3
+  BoundSpell: {fileID: 0}

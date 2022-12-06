@@ -30,7 +30,6 @@ public class Character : MonoBehaviour
     [TabGroup("Setup")]
     [SerializeField] Image draggableItem;
     [TabGroup("Quick Slot")]
-    [PreviewField]
     public Image currentQuickItem;
     [TabGroup("Quick Slot")]
     public int currentQuickItemAmount;

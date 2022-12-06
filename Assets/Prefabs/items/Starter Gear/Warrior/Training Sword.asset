@@ -16,6 +16,7 @@ MonoBehaviour:
   ItemName: Training Sword
   MaximumStacks: 1
   IsConsumable: 0
+  Notes: 
   StrengthBonus: 1
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -27,4 +28,3 @@ MonoBehaviour:
   Passive: []
   EquipmentType: 5
   BoundSpell: {fileID: 0}
-  Notes: 

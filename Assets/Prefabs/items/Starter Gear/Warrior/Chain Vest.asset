@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Chain Vest
   m_EditorClassIdentifier: 
-  id: 561276e27b519ab4b91fc41463ea2780
-  ItemName: Chain Vest
   Icon: {fileID: 21300000, guid: 46fdd1732435bb045bc116291bd70766, type: 3}
+  ItemName: Chain Vest
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -24,6 +25,6 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
   Passive: []
   EquipmentType: 1
+  BoundSpell: {fileID: 0}

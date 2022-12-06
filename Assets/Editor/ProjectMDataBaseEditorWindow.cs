@@ -34,7 +34,7 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
         tree.AddAllAssetsAtPath("Classes", "Assets/Photon/PhotonUnityNetworking/Resources", typeof(PlayerManger)).SortMenuItemsByName().AddThumbnailIcons();
         tree.AddAllAssetsAtPath("Classes/Inventory", "Assets/Prefabs/Ui/Ui Veriations", typeof(Character)).SortMenuItemsByName().AddThumbnailIcons();
         tree.AddAllAssetsAtPath("Enemys", "Assets/Photon/PhotonUnityNetworking/Resources", typeof(Enemys)).SortMenuItemsByName().AddThumbnailIcons();
-        tree.AddAllAssetsAtPath("Items/Chests", "Assets/Prefabs/items/Chests", typeof(ChestControl)).SortMenuItemsByName();
+        tree.AddAllAssetsAtPath("Items/Chests", "Assets/Photon/PhotonUnityNetworking/Resources", typeof(ChestControl)).SortMenuItemsByName();
 
         tree.EnumerateTree().Where(x => x.Value as Item).ForEach(AddDragHandles);
         tree.EnumerateTree().Where(x => x.Value as PassiveSO).ForEach(AddDragHandles);
@@ -72,7 +72,7 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
                 {
                     obj.ItemName = obj.name;
 
-                    base.TrySelectMenuItemWithObject(obj); // Selects the newly created item in the editor
+                    base.TrySelectMenuItemWithObject(obj); 
                 });
             }
 
@@ -81,7 +81,7 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
                 ScriptableObjectCreator.ShowDialog<UsableItem>("Assets/Prefabs/items/Items/Usble items", obj =>
                 {
                     obj.ItemName = obj.name;
-                    base.TrySelectMenuItemWithObject(obj); // Selects the newly created item in the editor
+                    base.TrySelectMenuItemWithObject(obj);
                 });
             }
             if (selected1 != null)

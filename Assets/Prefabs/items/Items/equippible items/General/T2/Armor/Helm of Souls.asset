@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Helm of Souls
   m_EditorClassIdentifier: 
-  id: 7742978c91a0a834fb915c153fdc602b
-  ItemName: Helm of Souls
   Icon: {fileID: 21300000, guid: 8c4fd0aa4f587dd4aaa995ca21097e21, type: 3}
+  ItemName: Helm of Souls
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
   StrengthBonus: 3
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -24,7 +25,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
   Passive:
   - {fileID: 11400000, guid: 1855a17ecfa67074381be97378f7618d, type: 2}
   EquipmentType: 0
+  BoundSpell: {fileID: 0}

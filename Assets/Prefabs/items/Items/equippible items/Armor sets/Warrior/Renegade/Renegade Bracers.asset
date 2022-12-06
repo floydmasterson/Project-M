@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Renegade Bracers
   m_EditorClassIdentifier: 
-  id: 5469e3bb13c4f6042ad7a64cd27c757c
-  ItemName: Renegade Bracers
   Icon: {fileID: 21300000, guid: 0455c67851318d24fbcd60d2c26d16d3, type: 3}
+  ItemName: Renegade Bracers
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
   StrengthBonus: 5
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -24,7 +25,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
   Passive:
   - {fileID: 0}
   EquipmentType: 10
+  BoundSpell: {fileID: 0}

@@ -1113,7 +1113,7 @@ GameObject:
   - component: {fileID: 5346512203780297046}
   - component: {fileID: 5346512203780297045}
   m_Layer: 7
-  m_Name: E-Dragon_Evolved
+  m_Name: E-Dragon_EvolvedT3
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
