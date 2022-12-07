@@ -11,6 +11,11 @@ public class RegenPassive : PassiveSO
     private bool remove;
     public int PassiveLvl;
     private StringBuilder sb = new StringBuilder();
+
+    private void OnEnable()
+    {
+        PlayerManger.OnDeath += healthRestart;
+    }
     public IEnumerator HealOT()
     {
         if (remove)
@@ -27,6 +32,19 @@ public class RegenPassive : PassiveSO
             PlayerUi.Instance.target.StartCoroutine(HealOT());
 
         }
+    }
+
+    public IEnumerator HealRestart()
+    {
+        RemovePassive();
+        yield return new WaitForSecondsRealtime(4);
+        ApplyPassive();
+    }
+    void healthRestart(PlayerManger player)
+    {
+        PlayerUi.Instance.target.StopCoroutine(HealOT());
+        if (player == PlayerUi.Instance.target)
+            PlayerUi.Instance.StartCoroutine(HealRestart());
     }
     public override void Passive()
     {

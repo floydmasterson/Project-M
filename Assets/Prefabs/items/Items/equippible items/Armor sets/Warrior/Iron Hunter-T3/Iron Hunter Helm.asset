@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Iron Hunter Helm
   m_EditorClassIdentifier: 
-  id: c849f77cae660a443ab2ba26a5648059
-  ItemName: Iron Hunter Helm
   Icon: {fileID: 21300000, guid: 572ef71e2d98c0b479f7cb0a6ea270ad, type: 3}
+  ItemName: Iron Hunter Helm
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
   StrengthBonus: 5
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -24,7 +25,7 @@ MonoBehaviour:
   AgilityPercentBonus: -0.05
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
   Passive:
   - {fileID: 0}
   EquipmentType: 0
+  BoundSpell: {fileID: 0}

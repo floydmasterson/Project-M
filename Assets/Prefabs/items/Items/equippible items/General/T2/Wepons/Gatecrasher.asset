@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Gatecrasher
   m_EditorClassIdentifier: 
-  id: ce2581e6484d6514f9aadccdb2758416
   Icon: {fileID: 21300000, guid: 394936cf86ea20a4991122c2d6e07262, type: 3}
   ItemName: Gatecrasher
   MaximumStacks: 1
   IsConsumable: 0
+  Notes: 
   StrengthBonus: 6
   AgilityBonus: 0
   IntelligenceBonus: 0

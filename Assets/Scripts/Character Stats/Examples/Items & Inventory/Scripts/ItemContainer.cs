@@ -18,7 +18,6 @@ public abstract class ItemContainer : MonoBehaviour, IItemContainer
 
     protected virtual void OnValidate()
     {
-        
     }
 
     protected virtual void Start()

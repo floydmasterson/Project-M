@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Crimson Templar Wraps
   m_EditorClassIdentifier: 
-  id: f70dc47ec0ab0e54b909057996a039a8
-  ItemName: Crimson Templar Wraps
   Icon: {fileID: 21300000, guid: 03fc828eda35c5d45829e98215f1c8e6, type: 3}
+  ItemName: Crimson Templar Wraps
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 4
@@ -24,6 +25,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0.1
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
-  Passive: {fileID: 0}
+  Passive:
+  - {fileID: 0}
   EquipmentType: 3
+  BoundSpell: {fileID: 0}

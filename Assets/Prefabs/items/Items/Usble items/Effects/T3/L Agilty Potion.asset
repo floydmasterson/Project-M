@@ -16,4 +16,4 @@ MonoBehaviour:
   AgilityBuff: 2
   IntelligenceBuff: 0
   VitalityBuff: 0
-  Duration: 0
+  Duration: 60

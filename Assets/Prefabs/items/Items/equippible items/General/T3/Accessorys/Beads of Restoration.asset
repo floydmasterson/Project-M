@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Beads of Restoration
   m_EditorClassIdentifier: 
-  id: dc9e45904fde3ac4e8989c343fd6bf8c
   Icon: {fileID: 21300000, guid: 366f6203584841d4d8140a8a3111ef14, type: 3}
   ItemName: Beads of Restoration
   MaximumStacks: 1
   IsConsumable: 0
+  Notes: 
+  id: dc9e45904fde3ac4e8989c343fd6bf8c
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 0

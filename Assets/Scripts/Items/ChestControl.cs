@@ -21,11 +21,11 @@ public class ChestControl : ItemContainer
     [TabGroup("Loot Generation")]
     [SerializeField][Range(0, 17)] private int amount = 0;
     [TabGroup("Loot Generation")]
-    [Tooltip("3-6 Drops")]
-    [SerializeField] bool randomAmount;
+    [Tooltip("2-4 Drops")]
+    [SerializeField] bool randomAmount = false;
     [TabGroup("Loot Generation")]
-    [Tooltip(" 4-8 *Must enable both for better drops")]
-    [SerializeField] bool BetterRandomAmount;
+    [Tooltip(" 3-5 *Must enable both for better drops")]
+    [SerializeField] bool BetterRandomAmount = false;
     [TabGroup("Loot Generation")]
     [TableList(AlwaysExpanded = true), HideLabel]
     public WeightedRandomList<Item> lootTable;
@@ -44,6 +44,7 @@ public class ChestControl : ItemContainer
     {
         LoadItems();
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -95,34 +96,31 @@ public class ChestControl : ItemContainer
         character = null;
         isOpen = false;
     }
-    void LoadItems()
+    public void LoadItems()
     {
-        if (!randomAmount)
-            for (int i = 0; i <= amount - 1; i++)
-            {
-                inventory.startingItems[i] = lootTable.GetRandom();
-
-            }
-        else if (randomAmount && !BetterRandomAmount)
+        if (amount > 0 && randomAmount == false && BetterRandomAmount == false)
         {
-            float Ramount = Random.Range(3, 6);
-            for (int i = 0; i <= Ramount - 1; i++)
+            for (int i = 0; i < amount; i++)
             {
                 inventory.startingItems[i] = lootTable.GetRandom();
-
             }
         }
-        else if (BetterRandomAmount && randomAmount)
+        if (randomAmount == true && BetterRandomAmount == false)
         {
-
-            float Ramount = Random.Range(4, 8);
-            for (int i = 0; i <= Ramount - 1; i++)
+            float Ramount = Random.Range(2, 4);
+            for (int i = 0; i < Ramount; i++)
             {
                 inventory.startingItems[i] = lootTable.GetRandom();
-
             }
         }
-
+        if (BetterRandomAmount == true && randomAmount == true)
+        {
+            float Ramount = Random.Range(3, 5);
+            for (int i = 0; i < Ramount; i++)
+            {
+                inventory.startingItems[i] = lootTable.GetRandom();
+            }
+        }
     }
 }
 

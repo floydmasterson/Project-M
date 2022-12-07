@@ -9,11 +9,10 @@ using UnityEditor;
 [CreateAssetMenu(menuName = "Items/Item")]
 public class Item : ScriptableObject
 {
-    string id;
     public string ID { get { return id; } }
     [PreviewField(60), HideLabel]
     [TableColumnWidth(300, resizable: false)]
-    [HorizontalGroup("Item",60)]
+    [HorizontalGroup("Item", 60)]
     public Sprite Icon;
     [VerticalGroup("Item/Right"), LabelWidth(65)]
     public string ItemName;
@@ -27,6 +26,8 @@ public class Item : ScriptableObject
     [TableColumnWidth(160, resizable: true)]
     [TextArea]
     public string Notes;
+    [HideIf("@1 == 1")]
+    [SerializeField] string id;
 
 
     protected static readonly StringBuilder sb = new StringBuilder();

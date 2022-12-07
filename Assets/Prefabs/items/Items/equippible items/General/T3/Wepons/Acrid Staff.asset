@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Acrid Staff
   m_EditorClassIdentifier: 
-  id: 85b4068574efc7b49852d27c0aff1d78
   Icon: {fileID: 21300000, guid: c2c9c91f3cec3af449c390f8eee77026, type: 3}
   ItemName: Acrid Staff
   MaximumStacks: 1
   IsConsumable: 0
+  Notes: 
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 10
@@ -28,4 +28,3 @@ MonoBehaviour:
   Passive: []
   EquipmentType: 6
   BoundSpell: {fileID: 462844546168389021, guid: 1eee41e2c35236541bd42be50cb73d64, type: 3}
-  Notes: 

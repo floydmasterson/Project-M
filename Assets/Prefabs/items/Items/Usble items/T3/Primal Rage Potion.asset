@@ -16,5 +16,6 @@ MonoBehaviour:
   ItemName: Primal Rage Potion
   MaximumStacks: 5
   IsConsumable: 1
+  Notes: 
   Effects:
   - {fileID: 11400000, guid: 88928115249a70d468b2fa0e37a41591, type: 2}

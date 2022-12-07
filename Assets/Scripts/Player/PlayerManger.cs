@@ -77,8 +77,8 @@ public class PlayerManger : MonoBehaviourPun
     public int lifes = 3;
     [TabGroup("Health")]
     public Transform spawnPoint;
-    public delegate void Death();
-    public static event Death onDeath;
+    public delegate void Death(PlayerManger player);
+    public static event Death OnDeath;
    
 
     //Movment
@@ -141,11 +141,11 @@ public class PlayerManger : MonoBehaviourPun
     bool inChest = false;
     ChestControl chestControl;
     bool locked;
-
     public delegate void inventoryO();
     public static event inventoryO onInventoryOpen;
     public delegate void inventoryC();
     public static event inventoryC onInventoryClose;
+
 
     #endregion
     #region Ienumerators
@@ -153,11 +153,12 @@ public class PlayerManger : MonoBehaviourPun
     {
         if (lifes > 0)
         {
+            OnDeath(this);
             yield return new WaitForSeconds(4);
             //Particl
             lifes--;
-            player.SetActive(false);
-            onDeath();
+            player.transform.GetChild(0).gameObject.SetActive(false);
+            player.transform.GetChild(1).gameObject.SetActive(false);
             Respawn();
         }
         else
@@ -286,7 +287,7 @@ public class PlayerManger : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
-            if (Input.GetKeyDown(KeyCode.Tab) && inChest == false)
+            if (Input.GetKeyDown(KeyCode.Tab) && inChest == false && isAlive == true)
             {
                 if (InvIsOpen == false)
                 {
@@ -548,6 +549,7 @@ public class PlayerManger : MonoBehaviourPun
         {
 
             Debug.Log("you die");
+            onInventoryClose();
             animator.SetTrigger("Die");
             canAttack = false;
             canMove = false;
@@ -555,12 +557,7 @@ public class PlayerManger : MonoBehaviourPun
 
             StartCoroutine(ExecuteAfterTime());
         }
-
-
-
-
     }
-
     public void Heal(int amount)
     {
         CurrentHealth += amount;
@@ -569,13 +566,15 @@ public class PlayerManger : MonoBehaviourPun
     {
         if (lifes > 0)
         {
-            this.transform.position = spawnPoint.position;
+            gameObject.transform.position = spawnPoint.position;
             CurrentHealth = MaxHealth;
             isAlive = true;
             canMove = true;
             canAttack = true;
+            col.isTrigger = true;
             animator.SetTrigger("Res");
-            player.SetActive(true);
+            player.transform.GetChild(0).gameObject.SetActive(true);
+            player.transform.GetChild(1).gameObject.SetActive(true);
         }
     }
 

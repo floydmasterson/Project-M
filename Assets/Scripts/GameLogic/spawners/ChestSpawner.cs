@@ -10,7 +10,7 @@ public class ChestSpawner : Spawner
         if (spawnChance <= 6)
         {
             GameObject chestToSpawn = chestTable.GetRandom();
-            PhotonNetwork.Instantiate(chestToSpawn.name, gameObject.transform.position, chestToSpawn.transform.rotation);
+            PhotonNetwork.Instantiate(chestToSpawn.name, gameObject.transform.position, gameObject.transform.rotation);
         }
         Destroy(gameObject);
 

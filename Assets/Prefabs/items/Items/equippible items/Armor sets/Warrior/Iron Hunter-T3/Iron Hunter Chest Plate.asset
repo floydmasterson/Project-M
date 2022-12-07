@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Iron Hunter Chest Plate
   m_EditorClassIdentifier: 
-  id: a545bc68b6370254cb327ea30bc1bf1f
-  ItemName: Iron Hunter Chest Plate
   Icon: {fileID: 21300000, guid: 30c2de2d71aa0da49852ea8e3720d100, type: 3}
+  ItemName: Iron Hunter Chest Plate
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
   StrengthBonus: 20
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -24,7 +25,7 @@ MonoBehaviour:
   AgilityPercentBonus: -0.1
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
   Passive:
   - {fileID: 11400000, guid: e4e89a5a64509b5439b8e4a6cd38843a, type: 2}
   EquipmentType: 1
+  BoundSpell: {fileID: 0}

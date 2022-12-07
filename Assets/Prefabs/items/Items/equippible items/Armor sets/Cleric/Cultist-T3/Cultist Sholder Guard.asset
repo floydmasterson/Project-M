@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Cultist Sholder Guard
   m_EditorClassIdentifier: 
-  id: 0b2bdc3fa1247864f822098bae0a3166
-  ItemName: Cultist Sholder Guard
   Icon: {fileID: 21300000, guid: 9f833b94e248f2c40942fcce06fd8af8, type: 3}
+  ItemName: Cultist Sholder Guard
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 5
@@ -24,6 +25,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
-  Passive: {fileID: 0}
+  Passive:
+  - {fileID: 0}
   EquipmentType: 11
+  BoundSpell: {fileID: 0}

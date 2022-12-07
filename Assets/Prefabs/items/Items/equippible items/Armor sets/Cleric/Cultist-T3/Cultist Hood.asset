@@ -16,6 +16,7 @@ MonoBehaviour:
   ItemName: Cultist Hood
   MaximumStacks: 1
   IsConsumable: 0
+  Notes: 
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 10
@@ -27,4 +28,3 @@ MonoBehaviour:
   Passive: []
   EquipmentType: 0
   BoundSpell: {fileID: 0}
-  Notes: 

@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Piece Maker
   m_EditorClassIdentifier: 
-  id: 167664c8f66fc384f92600277b89dd52
   Icon: {fileID: 21300000, guid: d12bef8fdd77d5c42936bb725228b496, type: 3}
   ItemName: Piece Maker
   MaximumStacks: 1
   IsConsumable: 0
+  Notes: 
   StrengthBonus: 4
   AgilityBonus: 0
   IntelligenceBonus: 0

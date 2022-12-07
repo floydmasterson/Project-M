@@ -359,26 +359,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemSlots:
-  - {fileID: 3955399380153341536, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399381551555338, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399379849154671, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399380363920562, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399381155037887, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399380573761800, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399381785471544, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399381910633723, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399379953572123, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399381193006366, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399380827706348, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399381514738982, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399381429796712, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399381128567962, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399381869774957, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399380005261741, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399380446306293, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  - {fileID: 3955399380390851442, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  itemsParent: {fileID: 3955399380283665994, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
-  inventory: {fileID: 3955399381236164396, guid: 91fa0403fb13e4a4da0dda2ed87288df, type: 3}
+  - {fileID: 3955399380153341536}
+  - {fileID: 3955399381551555338}
+  - {fileID: 3955399379849154671}
+  - {fileID: 3955399380363920562}
+  - {fileID: 3955399381155037887}
+  - {fileID: 3955399380573761800}
+  - {fileID: 3955399381785471544}
+  - {fileID: 3955399381910633723}
+  - {fileID: 3955399379953572123}
+  - {fileID: 3955399381193006366}
+  - {fileID: 3955399380827706348}
+  - {fileID: 3955399381514738982}
+  - {fileID: 3955399381429796712}
+  - {fileID: 3955399381128567962}
+  - {fileID: 3955399381869774957}
+  - {fileID: 3955399380005261741}
+  - {fileID: 3955399380446306293}
+  - {fileID: 3955399380390851442}
+  itemsParent: {fileID: 3955399380283665994}
+  inventory: {fileID: 3955399381236164396}
   meshFilter: {fileID: 2950683792388771847}
   close: {fileID: 211121305254445819, guid: 5558c09e1f7985d48a12a443cc6aab1e, type: 3}
   open: {fileID: 9104530304119377906, guid: bfe1ad93928ff174ba957741efcd2f9e, type: 3}
@@ -2288,17 +2288,6 @@ MonoBehaviour:
   - {fileID: 3955399380446306293}
   - {fileID: 3955399380390851442}
   startingItems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

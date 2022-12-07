@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class GameManger : MonoBehaviourPun
+public class GameManger : MonoBehaviourPunCallbacks
 {
     public static GameManger Instance;
     [TabGroup("Prefabs")]
@@ -23,7 +23,9 @@ public class GameManger : MonoBehaviourPun
     [SerializeField] int gameTime;
     bool timerOn = false;
     bool[] picked = new bool[2];
+ 
 
+  
     private void Awake()
     {
         Instance = this;
@@ -33,31 +35,32 @@ public class GameManger : MonoBehaviourPun
     void Start()
     {
         SpawnPlayers();
-        //MusicClass.Instance.StopMusic();
+        MusicClass.Instance.StopMusic();
         if (PhotonNetwork.IsMasterClient && spawnEnemys)
         {
-            spawnMobs();
+            Debug.Log("event fire");
+                spawnMobs();
         }
-        GameTimeLeft = gameTime;
-        timerOn = true;
+            GameTimeLeft = gameTime;
+            timerOn = true;
+
     }
+
+
     private void SpawnPlayers()
     {
         GameObject playerToSpawn = playerPrefab[(int)PhotonNetwork.LocalPlayer.CustomProperties["playerAvatar"]];
         PhotonNetwork.Instantiate(playerToSpawn.name, RandomSpawn(), Quaternion.identity);
     }
-
-
-    Vector3 RandomSpawn()
+     Vector3 RandomSpawn()
     {
         for (int i = 0; i < playerSpawnPoints.Length; i++)
         {
             int selected = Random.Range(0, playerSpawnPoints.Length);
-            Debug.Log(selected);
             Vector3 selectedSpawn;
             if (!picked[selected])
             {
-                picked[selected] = true;
+                photonView.RPC("PickedRPC", RpcTarget.All, selected);
                 selectedSpawn = playerSpawnPoints[selected];
                 return selectedSpawn;
             }
@@ -67,6 +70,11 @@ public class GameManger : MonoBehaviourPun
             }
         }
         return Vector3.zero;
+    }
+    [PunRPC]
+    void PickedRPC(int number)
+    {
+        picked[number] = true;
     }
     private void Update()
     {

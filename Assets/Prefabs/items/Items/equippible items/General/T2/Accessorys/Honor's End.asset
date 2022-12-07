@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Honor's End
   m_EditorClassIdentifier: 
-  id: 26e5a8bcb434bad41a4903959b1a6c7c
-  ItemName: Honor's End
   Icon: {fileID: 21300000, guid: 86067e09489c1d34f839aff2861022fe, type: 3}
+  ItemName: Honor's End
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
   StrengthBonus: 2
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -24,8 +25,8 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
   Passive:
   - {fileID: 11400000, guid: 1855a17ecfa67074381be97378f7618d, type: 2}
   - {fileID: 11400000, guid: af30f775828cdc64e8c5c126d4120b11, type: 2}
   EquipmentType: 9
+  BoundSpell: {fileID: 0}

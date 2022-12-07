@@ -16,5 +16,6 @@ MonoBehaviour:
   ItemName: Large Mana Potion
   MaximumStacks: 5
   IsConsumable: 1
+  Notes: 
   Effects:
   - {fileID: 11400000, guid: 25471352fbd85744bae80bbe048b939a, type: 2}

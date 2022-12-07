@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Spectral Cane
   m_EditorClassIdentifier: 
-  id: 729a5d6ce55a7154496c97eb48c69ee5
-  ItemName: Spectral Cane
   Icon: {fileID: 21300000, guid: effcabc31d57322488f92a2a6654ee72, type: 3}
+  ItemName: Spectral Cane
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 6
@@ -24,7 +25,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 8535670027616370256, guid: 8dc0acc1d33d7364cbe7b1e7cd859586, type: 3}
   Passive:
   - {fileID: 11400000, guid: 2ca3c61b45617a043ba8163a5bb9a097, type: 2}
   EquipmentType: 6
+  BoundSpell: {fileID: 8535670027616370256, guid: 8dc0acc1d33d7364cbe7b1e7cd859586, type: 3}

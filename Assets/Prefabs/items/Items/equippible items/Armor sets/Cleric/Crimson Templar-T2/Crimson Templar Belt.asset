@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Crimson Templar Belt
   m_EditorClassIdentifier: 
-  id: d8ce206b55b45e24ea7236b93535f022
-  ItemName: Crimson Templar Belt
   Icon: {fileID: 21300000, guid: 6dfabd7c955bb9942b5a1cada93e11fa, type: 3}
+  ItemName: Crimson Templar Belt
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 4
@@ -24,6 +25,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
-  Passive: {fileID: 0}
+  Passive:
+  - {fileID: 0}
   EquipmentType: 4
+  BoundSpell: {fileID: 0}

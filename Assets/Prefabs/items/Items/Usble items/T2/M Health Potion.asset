@@ -17,5 +17,6 @@ MonoBehaviour:
   MaximumStacks: 10
   IsConsumable: 1
   Notes: 
+  id: 650a55ada548fff4ab057eb4631792ea
   Effects:
   - {fileID: 11400000, guid: 2ce01fbcd39e2c744af69cce35f6d7e4, type: 2}

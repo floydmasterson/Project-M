@@ -26,13 +26,13 @@ public class InventoryUi : MonoBehaviourPun
     {
         PlayerManger.onInventoryOpen += OpenInv;
         PlayerManger.onInventoryClose += CloseInv;
-        PlayerManger.onDeath += updateHealth;
+        PlayerManger.OnDeath += updateHealth;
     }
     private void OnDisable()
     {
         PlayerManger.onInventoryOpen -= OpenInv;
         PlayerManger.onInventoryClose -= CloseInv;
-        PlayerManger.onDeath -= updateHealth;
+        PlayerManger.OnDeath -= updateHealth;
     }
     public void OpenInv()
     {
@@ -73,7 +73,7 @@ public class InventoryUi : MonoBehaviourPun
             updateTimer(-1);
         }
     }
-    void updateHealth()
+    void updateHealth(PlayerManger player)
     {
         int lifes = PlayerUi.Instance.target.lifes;
         if(lifes == 3)

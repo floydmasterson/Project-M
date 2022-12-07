@@ -1192,7 +1192,7 @@ MonoBehaviour:
   runRadius: 18
   runTime: 4
   canSeePlayer: 0
-  Power: 45
+  Power: 40
   attackPoint: {fileID: 5112651366664207226}
   attackRange: 0.1
   attackCooldown: 1
