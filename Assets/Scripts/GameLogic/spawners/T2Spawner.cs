@@ -16,6 +16,11 @@ public class T2Spawner : Spawner
             GameObject enemy = PhotonNetwork.Instantiate(enemys[randomEnemy].name, gameObject.transform.position, Quaternion.identity);
         }
 
+        this.photonView.RPC("deleteSpawner", RpcTarget.All);
+    }
+    [PunRPC]
+    public override void deleteSpawner()
+    {
         Destroy(gameObject);
     }
 }

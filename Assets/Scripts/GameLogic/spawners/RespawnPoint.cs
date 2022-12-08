@@ -7,7 +7,7 @@ public class RespawnPoint : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         PlayerManger player = other.GetComponent<PlayerManger>();
-        if (player.spawnPoint != spawnPoint)
+        if (player != null && player.spawnPoint != spawnPoint)
         {
             player.spawnPoint = spawnPoint.transform;
             if (ps != null)

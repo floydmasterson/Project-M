@@ -13,12 +13,22 @@ namespace Kryz.CharacterStats.Examples
 		[SerializeField] Text modifiersListText;
 
 		private StringBuilder sb = new StringBuilder();
-
+		private void OnEnable()
+		{
+			PlayerManger.onInventoryClose += HideTooltip;
+		}
+		private void OnDisable()
+		{
+			PlayerManger.onInventoryClose -= HideTooltip;
+		}
 		private void Awake()
 		{
-			if (Instance == null) {
+			if (Instance == null)
+			{
 				Instance = this;
-			} else {
+			}
+			else
+			{
 				Destroy(this);
 			}
 			gameObject.SetActive(false);
@@ -62,18 +72,23 @@ namespace Kryz.CharacterStats.Examples
 				sb.Append(((Item)mod.Source).name.Replace("(Clone)", "").Trim());
 				sb.Append(": ");
 
-				if (mod.Value > 0) {
+				if (mod.Value > 0)
+				{
 					sb.Append("+");
 				}
 
-				if (mod.Type == StatModType.Flat) {
+				if (mod.Type == StatModType.Flat)
+				{
 					sb.Append(mod.Value);
-				} else {
+				}
+				else
+				{
 					sb.Append(mod.Value * 100);
 					sb.Append("%");
 				}
 
-				if (i < stat.StatModifiers.Count - 1) {
+				if (i < stat.StatModifiers.Count - 1)
+				{
 					sb.AppendLine();
 				}
 			}

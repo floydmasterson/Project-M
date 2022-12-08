@@ -12,43 +12,43 @@ public class PosionStatusEffect : StatusEffectSO
     public int debuffDuration;
 
     #region Enemy
-    public override IEnumerator DecayTimerE(int time)
+    public override IEnumerator DecayTimerEnemy(int time)
     {
         time = debuffDuration;
-        Etarget.StartCoroutine(ApplyE());
+        Etarget.StartCoroutine(ApplyEnemy());
         yield return new WaitForSeconds(time);
         stop = true;
     }
-    public override IEnumerator ApplyE()
+    public override IEnumerator ApplyEnemy()
     {
         if (stop == false)
         {
             
             if (!Etarget.isDead)
             {
-                StatusEffectE();
+                StatusEffectEnemy();
                 yield return new WaitForSeconds(timeBetweenTicks);
-                Etarget.StartCoroutine(ApplyE());
+                Etarget.StartCoroutine(ApplyEnemy());
             }
             else
             {
                 stop = true;
-                Etarget.StartCoroutine(ApplyE());
+                Etarget.StartCoroutine(ApplyEnemy());
             }
         }
         else
         {
-            Etarget.StopCoroutine(ApplyE());
+            Etarget.StopCoroutine(ApplyEnemy());
             EffectVFX.DisableEffect(1);
             EffectVFX.posioned = false;
             stop = false;
         }
     }
-    public override void StatusEffectE()
+    public override void StatusEffectEnemy()
     {
         Etarget.TakeDamge(tickDamage);
     }
-    public override void ApplyEffectE(Enemys enenmy)
+    public override void ApplyEffectEnemy(Enemys enenmy)
     {
         Etarget = enenmy;
         EffectVFX = Etarget.GetComponentInChildren<EffectVisualController>(); ;
@@ -56,7 +56,7 @@ public class PosionStatusEffect : StatusEffectSO
         {
             EffectVFX.EnableEffect(1);
             EffectVFX.posioned = true;
-            Etarget.StartCoroutine(DecayTimerE(debuffDuration));
+            Etarget.StartCoroutine(DecayTimerEnemy(debuffDuration));
         }
         else
         {
@@ -65,44 +65,44 @@ public class PosionStatusEffect : StatusEffectSO
     }
     #endregion
     #region Player
-    public override IEnumerator DecayTimerP(int time)
+    public override IEnumerator DecayTimerPlayer(int time)
     {
         time = debuffDuration;
-        Ptarget.StartCoroutine(ApplyP());
+        Ptarget.StartCoroutine(ApplyPlayer());
         yield return new WaitForSeconds(time);
         stop = true;
     }
-    public override IEnumerator ApplyP()
+    public override IEnumerator ApplyPlayer()
     {
         if (stop == false)
         {
 
             if (Ptarget.isAlive)
             {
-                StatusEffectP();
+                StatusEffectPlayer();
                 yield return new WaitForSeconds(timeBetweenTicks);
-                Ptarget.StartCoroutine(ApplyP());
+                Ptarget.StartCoroutine(ApplyPlayer());
             }
             else
             {
                 stop = true;
-                Ptarget.StartCoroutine(ApplyP());
+                Ptarget.StartCoroutine(ApplyPlayer());
             }
         }
         else
         {
             Debug.Log("effect over");
-            Ptarget.StopCoroutine(ApplyE());
+            Ptarget.StopCoroutine(ApplyEnemy());
             EffectVFX.DisableEffect(1);
             EffectVFX.posioned = false;
             stop = false;
         }
     }
-    public override void StatusEffectP()
+    public override void StatusEffectPlayer()
     {
         Ptarget.TakeDamge(tickDamage);
     }
-    public override void ApplyEffectP(PlayerManger enemy)
+    public override void ApplyEffectPlayer(PlayerManger enemy)
     {
         Ptarget = enemy;
         EffectVFX = Ptarget.GetComponentInChildren<EffectVisualController>();
@@ -110,7 +110,7 @@ public class PosionStatusEffect : StatusEffectSO
         {
             EffectVFX.EnableEffect(1);
             EffectVFX.posioned = true;
-            Ptarget.StartCoroutine(DecayTimerP(debuffDuration));
+            Ptarget.StartCoroutine(DecayTimerPlayer(debuffDuration));
         }
         else
         {

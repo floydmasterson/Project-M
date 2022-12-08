@@ -157,8 +157,6 @@ public class PlayerManger : MonoBehaviourPun
             yield return new WaitForSeconds(4);
             //Particl
             lifes--;
-            player.transform.GetChild(0).gameObject.SetActive(false);
-            player.transform.GetChild(1).gameObject.SetActive(false);
             Respawn();
         }
         else
@@ -365,6 +363,7 @@ public class PlayerManger : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
+        
             if (isAlive == true)
             {
 
@@ -547,8 +546,6 @@ public class PlayerManger : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
-
-            Debug.Log("you die");
             onInventoryClose();
             animator.SetTrigger("Die");
             canAttack = false;
@@ -567,14 +564,16 @@ public class PlayerManger : MonoBehaviourPun
         if (lifes > 0)
         {
             gameObject.transform.position = spawnPoint.position;
+            
+            Debug.Log(spawnPoint.position);
             CurrentHealth = MaxHealth;
             isAlive = true;
             canMove = true;
             canAttack = true;
             col.isTrigger = true;
             animator.SetTrigger("Res");
-            player.transform.GetChild(0).gameObject.SetActive(true);
-            player.transform.GetChild(1).gameObject.SetActive(true);
+
+          
         }
     }
 

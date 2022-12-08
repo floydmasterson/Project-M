@@ -33,7 +33,7 @@ public class Inventory : ItemContainer
             if (item != null)
                 item.name = item.name.Replace("(Clone", "").Trim();
             if (item != null)
-                AddItem(item.GetCopy());
+                AddItem(item.GetCopy(), 0);
         }
 
     }

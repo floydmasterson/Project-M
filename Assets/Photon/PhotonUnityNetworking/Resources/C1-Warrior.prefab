@@ -858,7 +858,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: d6b86310061c299488845c9544186cb9, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 1
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -906,9 +906,9 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   turnSmoothTime: 0.1
   SprintSpeed: 12
-  speed: 8
+  speed: 6
   pushAmt: 3
-  dodgeCooldown: 2
+  dodgeCooldown: 1.5
   turn: {x: 0, y: 0}
   groundCheck: {fileID: 8226536733529665997}
   groundMask:
@@ -995,7 +995,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!114 &8226536733875796416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1030,7 +1030,7 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: Attack 0
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: roll
   m_SynchronizeLayers:
   - SynchronizeType: 2

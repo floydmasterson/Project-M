@@ -82,9 +82,7 @@ public class LobbyManger : MonoBehaviourPunCallbacks
         {
             UpdateRoomList(roomList);
             nextUpdate = Time.time + timeBUpdate;
-        }
-
-       
+        } 
     }
 
     public void UpdateRoomList(List<RoomInfo> list)
@@ -103,7 +101,6 @@ public class LobbyManger : MonoBehaviourPunCallbacks
         }
 
     }
-
     public void JoinRoom(string room)
     {
         PhotonNetwork.JoinRoom(room);

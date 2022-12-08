@@ -1365,8 +1365,8 @@ GameObject:
   - component: {fileID: 2170729952929388269}
   - component: {fileID: 7328307953978105399}
   - component: {fileID: 5702467469400378118}
-  - component: {fileID: 4683882745482091911}
   - component: {fileID: 3446699536730749563}
+  - component: {fileID: 4683882745482091911}
   - component: {fileID: 4710430420612019959}
   - component: {fileID: 3392248826132175094}
   - component: {fileID: 1634687762457129801}
@@ -1448,22 +1448,6 @@ CapsuleCollider:
   m_Height: 3.88
   m_Direction: 1
   m_Center: {x: 0, y: 1.5, z: 0}
---- !u!208 &4683882745482091911
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3286286095955913799}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.185, y: 0.16, z: 0.185}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1.33, z: -0.05}
-  m_TimeToStationary: 0.5
 --- !u!95 &3446699536730749563
 Animator:
   serializedVersion: 4
@@ -1484,6 +1468,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!208 &4683882745482091911
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3286286095955913799}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.185, y: 0.16, z: 0.185}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.33, z: -0.05}
+  m_TimeToStationary: 0.5
 --- !u!114 &4710430420612019959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1606,7 +1606,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
-  m_UseLocal: 1
+  m_UseLocal: 0
 --- !u!114 &3978384470329099181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1629,16 +1629,16 @@ MonoBehaviour:
     SynchronizeType: 2
     Name: running
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: wasHurt
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Res
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Die
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Attack 0
   - Type: 9
     SynchronizeType: 2

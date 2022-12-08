@@ -12,12 +12,12 @@ public class Spell : MonoBehaviour
     public bool homing;
     [SerializeField] private LayerMask EnemyMask;
     public Rigidbody rb;
-    [SerializeField]  Transform origin;
-    [SerializeField]  float homingRange;
+    [SerializeField] Transform origin;
+    [SerializeField] float homingRange;
     [SerializeField] float rotForce;
     [SerializeField] float force;
     SphereCollider sphereCollider;
-  Transform target;
+    Transform target;
     bool poof = false;
 
     private IEnumerator LifeTime()
@@ -30,7 +30,6 @@ public class Spell : MonoBehaviour
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.isTrigger = true;
         sphereCollider.radius = spellToCast.spellRadius;
-
         StartCoroutine(LifeTime());
     }
     private void FixedUpdate()
@@ -64,9 +63,7 @@ public class Spell : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-
         int Obstruction = LayerMask.NameToLayer("Obstruction");
-
         if (other.gameObject.layer == Obstruction)
         {
             Poof();
@@ -83,9 +80,9 @@ public class Spell : MonoBehaviour
             {
                 foreach (StatusEffectSO effect in statusEffects)
                 {
-                    StatusEffectSO eCopy = effect.GetCopy();
-                    if (eCopy != null)
-                        eCopy.ApplyEffectE(enemy);
+                    StatusEffectSO effectCopy = effect.GetCopy();
+                    if (effectCopy != null)
+                        effectCopy.ApplyEffectEnemy(enemy);
                 }
             }
             else
@@ -97,22 +94,20 @@ public class Spell : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerManger enemy = other.GetComponent<PlayerManger>();
-            enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, enemy.Defense / Character.Instance.Intelligence.Value))));
-         
-            if (statusEffects != null)
+            if (enemy != PlayerUi.Instance.target)
             {
-                foreach (StatusEffectSO effect in statusEffects)
+                enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, enemy.Defense / Character.Instance.Intelligence.Value))));
+                if (statusEffects != null)
                 {
-                    StatusEffectSO eCopy = effect.GetCopy();
-                    if (eCopy != null)
-                        eCopy.ApplyEffectP(enemy);
+                    foreach (StatusEffectSO effect in statusEffects)
+                    {
+                        StatusEffectSO eCopy = effect.GetCopy();
+                        if (eCopy != null)
+                            eCopy.ApplyEffectPlayer(enemy);
+                    }
                 }
+                Poof();
             }
-            else
-            {
-                Debug.Log("spell status empy");
-            }
-            Poof();
         }
     }
     private void Poof()
@@ -123,12 +118,10 @@ public class Spell : MonoBehaviour
             ps.Play();
         Destroy(this.gameObject, .5f);
     }
-
     private void OnDrawGizmosSelected()
     {
         if (origin == null)
             return;
         Gizmos.DrawSphere(origin.position, homingRange);
     }
-
 }

@@ -38,12 +38,10 @@ public class GameManger : MonoBehaviourPunCallbacks
         MusicClass.Instance.StopMusic();
         if (PhotonNetwork.IsMasterClient && spawnEnemys)
         {
-            Debug.Log("event fire");
                 spawnMobs();
         }
             GameTimeLeft = gameTime;
             timerOn = true;
-
     }
 
 

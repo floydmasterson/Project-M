@@ -17,14 +17,16 @@ MonoBehaviour:
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 'Scaleing Magic Passive??? '
-  StrengthBonus: 0
+  id: 1d639a663fc2b4541bdb13f09341970b
+  StrengthBonus: 10
   AgilityBonus: 0
-  IntelligenceBonus: 0
-  VitalityBonus: 0
+  IntelligenceBonus: 10
+  VitalityBonus: -5
   StrengthPercentBonus: 0
-  AgilityPercentBonus: 0
+  AgilityPercentBonus: 0.1
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  Passive: []
+  Passive:
+  - {fileID: 11400000, guid: 4843d0d6d9397e448954967d76f4bded, type: 2}
   EquipmentType: 0
   BoundSpell: {fileID: 0}

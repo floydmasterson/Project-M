@@ -1,7 +1,7 @@
-using Sirenix.OdinInspector;
+using Photon.Pun;
 using UnityEngine;
 
-public abstract class Spawner : MonoBehaviour
+public abstract class Spawner : MonoBehaviourPun
 {
     [HideInInspector]
     public int spawnChance;
@@ -16,5 +16,5 @@ public abstract class Spawner : MonoBehaviour
     }
     #endregion
     public abstract void Spawn();
-    
+    public abstract void deleteSpawner();
 }

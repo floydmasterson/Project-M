@@ -42,11 +42,11 @@ public class Character : MonoBehaviour
             itemTooltip = FindObjectOfType<ItemTooltip>(true);
     }
 
-    private void Awake()    
+    private void Awake()
     {
         Instance = this;
         statPanel.SetStats(Strength, Agility, Intelligence, Vitality);
-       
+
 
         // Setup Events:
         // Right Click
@@ -91,15 +91,15 @@ public class Character : MonoBehaviour
         else if (itemSlot.Item is UsableItem)
         {
             UsableItem usableItem = (UsableItem)itemSlot.Item;
-            if(usableItem.UseableCheck())
+            if (usableItem.UseableCheck())
             {
-            usableItem.Use(this);
+                usableItem.Use(this);
 
-            if (usableItem.IsConsumable)
-            {
-                itemSlot.Amount--;
-                usableItem.Destroy();
-            }
+                if (usableItem.IsConsumable)
+                {
+                    itemSlot.Amount--;
+                    usableItem.Destroy();
+                }
             }
         }
     }
@@ -179,7 +179,6 @@ public class Character : MonoBehaviour
         EquippableItem dropEquipItem = dropItemSlot.Item as EquippableItem;
         UsableItem dropUseItem = dropItemSlot.Item as UsableItem;
         if (dropItemSlot is EquipmentSlot)
-            if (dropItemSlot is EquipmentSlot)
         {
             if (dragEquipItem != null) dragEquipItem.Equip(this);
             if (dropEquipItem != null) dropEquipItem.Unequip(this);
@@ -189,7 +188,7 @@ public class Character : MonoBehaviour
             if (dragEquipItem != null) dragEquipItem.Unequip(this);
             if (dropEquipItem != null) dropEquipItem.Equip(this);
         }
-        if(dropItemSlot is QuickSlot)
+        if (dropItemSlot is QuickSlot)
         {
             if (dropUseItem != null) currentQuickItem.sprite = dropUseItem.Icon;
         }
@@ -200,7 +199,7 @@ public class Character : MonoBehaviour
 
         dragItemSlot.Item = dropItemSlot.Item;
         dragItemSlot.Amount = dropItemSlot.Amount;
-       
+
 
         dropItemSlot.Item = draggedItem;
         dropItemSlot.Amount = draggedItemAmount;
@@ -237,7 +236,7 @@ public class Character : MonoBehaviour
             {
                 if (previousItem != null)
                 {
-                    Inventory.AddItem(previousItem);
+                    Inventory.AddItem(previousItem, 0);
                     previousItem.Unequip(this);
                     statPanel.UpdateStatValues();
                 }
@@ -246,7 +245,7 @@ public class Character : MonoBehaviour
             }
             else
             {
-                Inventory.AddItem(item);
+                Inventory.AddItem(item, 0);
             }
         }
     }
@@ -257,7 +256,7 @@ public class Character : MonoBehaviour
         {
             item.Unequip(this);
             statPanel.UpdateStatValues();
-            Inventory.AddItem(item);
+            Inventory.AddItem(item, 0);
         }
     }
 
@@ -269,7 +268,7 @@ public class Character : MonoBehaviour
         if (item != null && openItemContainer.CanAddItem(item))
         {
             Inventory.RemoveItem(item);
-            openItemContainer.AddItem(item);
+            openItemContainer.AddItem(item, 0);
         }
     }
 
@@ -279,7 +278,7 @@ public class Character : MonoBehaviour
         if (item != null && Inventory.CanAddItem(item))
         {
             openItemContainer.RemoveItem(item);
-            Inventory.AddItem(item);
+            Inventory.AddItem(item, 1);
         }
     }
 

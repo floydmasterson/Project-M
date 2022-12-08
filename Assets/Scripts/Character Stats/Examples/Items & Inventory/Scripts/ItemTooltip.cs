@@ -7,6 +7,14 @@ public class ItemTooltip : MonoBehaviour
     [SerializeField] Text ItemTypeText;
     [SerializeField] Text ItemDescriptionText;
 
+    private void OnEnable()
+    {
+        PlayerManger.onInventoryClose += HideTooltip;
+    }
+    private void OnDisable()
+    {
+        PlayerManger.onInventoryClose -= HideTooltip;
+    }
     private void Awake()
     {
         gameObject.SetActive(false);

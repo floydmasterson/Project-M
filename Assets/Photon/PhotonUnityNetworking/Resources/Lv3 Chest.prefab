@@ -448,7 +448,7 @@ MonoBehaviour:
     - item: {fileID: 11400000, guid: dc9e45904fde3ac4e8989c343fd6bf8c, type: 2}
       weight: 2
     - item: {fileID: 11400000, guid: 1c1f4cbf0c9933542bd79423a561e179, type: 2}
-      weight: 3
+      weight: 2
     - item: {fileID: 11400000, guid: f3f5166697a1b004aad276434cbd51c9, type: 2}
       weight: 2
     - item: {fileID: 11400000, guid: dfc20e350b84f3647bbe14e84ad8c658, type: 2}

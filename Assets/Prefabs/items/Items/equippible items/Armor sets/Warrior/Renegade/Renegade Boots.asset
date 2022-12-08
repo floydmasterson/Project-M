@@ -17,6 +17,7 @@ MonoBehaviour:
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: dbebec35808c85744a9902ec0bd32d40
   StrengthBonus: 5
   AgilityBonus: 0
   IntelligenceBonus: 0
