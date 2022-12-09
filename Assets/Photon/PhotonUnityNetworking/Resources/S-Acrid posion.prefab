@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 462844546168389021}
   - component: {fileID: -2581630659162678018}
   - component: {fileID: 8741371335570146659}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: S-Acrid posion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,9 +120,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3783692630809905835}
     m_Modifications:
+    - target: {fileID: 100000, guid: 391ec6f1311384e75b4888fd6fc26b7e, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 391ec6f1311384e75b4888fd6fc26b7e, type: 3}
       propertyPath: m_Name
       value: ErekiBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 391ec6f1311384e75b4888fd6fc26b7e, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 391ec6f1311384e75b4888fd6fc26b7e, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 391ec6f1311384e75b4888fd6fc26b7e, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 391ec6f1311384e75b4888fd6fc26b7e, type: 3}
       propertyPath: m_RootOrder

@@ -94,7 +94,7 @@ public class PlayerManger : MonoBehaviourPun
     [SerializeField] float dodgeCooldown = 1f;
     [TabGroup("Movement")]
     [SerializeField] Vector2 turn;
-    readonly float _groundDistance = 1f;
+    readonly float _groundDistance = .0001f;
     readonly float _gravity = -9.81f;
     float turnSmoothVelc;
     [Space]
@@ -156,13 +156,15 @@ public class PlayerManger : MonoBehaviourPun
             OnDeath(this);
             yield return new WaitForSeconds(4);
             //Particl
-            lifes--;
+            //lifes--;
             Respawn();
+            yield return new WaitForSeconds(1.5f);
+            isInvulnerable = false;
         }
         else
         {
             yield return new WaitForSeconds(4);
-            Destroy(this);
+            Destroy(photonView);
         }
     }
     IEnumerator AttackSet()
@@ -318,6 +320,7 @@ public class PlayerManger : MonoBehaviourPun
                 chestControl.Open();
                 inChest = true;
                 onInventoryOpen();
+                PlayerUi.Instance.gameObject.transform.GetChild(5).gameObject.SetActive(false);
 
 
             }
@@ -329,6 +332,7 @@ public class PlayerManger : MonoBehaviourPun
                     inChest = false;
                     UiUnlock();
                     onInventoryClose();
+                    PlayerUi.Instance.gameObject.transform.GetChild(5).gameObject.SetActive(true);
                 }
             }
             if (Input.GetKeyDown(KeyCode.F))
@@ -374,10 +378,10 @@ public class PlayerManger : MonoBehaviourPun
                 Vector3 direction = new Vector3(x, 0f, y).normalized;
 
 
+                    isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
                 //gravity
                 if (InvIsOpen == false && canMove == true)
                 {
-                    isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
                     if (isGrounded && velocity.y < 0)
                     {
                         velocity.y = -2f;
@@ -401,13 +405,11 @@ public class PlayerManger : MonoBehaviourPun
                     }
                     else if (locked)
                     {
-
                         turn.x += Input.GetAxisRaw("Mouse X") * 1.5f;
-                        transform.localRotation = Quaternion.Euler(0f, turn.x, 0f);
-                        if (direction.magnitude >= 0.1f)
+                        transform.rotation = Quaternion.Euler(0f, turn.x, 0f);
+                        if (direction.magnitude >= 0.1f) 
                         {
-                            characterController.Move(speed * Time.fixedDeltaTime * transform.forward * y);
-                            characterController.Move(speed * Time.fixedDeltaTime * transform.right * x);
+                            characterController.Move(speed * Time.fixedDeltaTime * (transform.forward * y + transform.right * x).normalized);
                             Vector3 xDir = transform.right * x;
                             Vector3 yDir = transform.forward * y;
 
@@ -530,6 +532,7 @@ public class PlayerManger : MonoBehaviourPun
         {
             if (isInvulnerable == false)
             {
+                Debug.Log(this + "takes " + damage + " damage.");
                 CurrentHealth -= damage;
                 animator.SetTrigger("wasHurt");
                 if (CurrentHealth <= 0 && isAlive == true)
@@ -551,7 +554,7 @@ public class PlayerManger : MonoBehaviourPun
             canAttack = false;
             canMove = false;
             isAlive = false;
-
+            isInvulnerable = true;
             StartCoroutine(ExecuteAfterTime());
         }
     }

@@ -1,5 +1,7 @@
 using Photon.Pun;
+using Photon.Realtime;
 using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,7 +14,7 @@ public class GameManger : MonoBehaviourPunCallbacks
     [TabGroup("Spawning")]
     public bool spawnEnemys;
     [TabGroup("Spawning")]
-    [SerializeField] Vector3[] playerSpawnPoints;
+    [SerializeField] List<Vector3> playerSpawnPoints = new List<Vector3>();
     public delegate void PvPEnable();
     public static event PvPEnable PvPon;
     public delegate void spawn();
@@ -23,9 +25,9 @@ public class GameManger : MonoBehaviourPunCallbacks
     [SerializeField] int gameTime;
     bool timerOn = false;
     bool[] picked = new bool[2];
- 
 
-  
+
+
     private void Awake()
     {
         Instance = this;
@@ -34,45 +36,55 @@ public class GameManger : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        SpawnPlayers();
+
         MusicClass.Instance.StopMusic();
-        if (PhotonNetwork.IsMasterClient && spawnEnemys)
+        if (PhotonNetwork.IsMasterClient)
         {
+            int index = 0;
+            
+            if (spawnEnemys == true)
                 spawnMobs();
+            foreach (Player player in PhotonNetwork.PlayerList)
+            {
+                if (index >= 2)
+                    index = 0;
+                photonView.RPC("InstantiationPlayer", player, index);
+                index++;
+
+            }
         }
-            GameTimeLeft = gameTime;
-            timerOn = true;
+        GameTimeLeft = gameTime;
+        timerOn = true;
     }
-
-
+    [PunRPC]
+    void InstantiationPlayer(int index)
+    {
+        GameObject playerToSpawn = playerPrefab[(int)PhotonNetwork.LocalPlayer.CustomProperties["playerAvatar"]];
+        PhotonNetwork.Instantiate(playerToSpawn.name, playerSpawnPoints[index], Quaternion.identity);
+    }
     private void SpawnPlayers()
     {
         GameObject playerToSpawn = playerPrefab[(int)PhotonNetwork.LocalPlayer.CustomProperties["playerAvatar"]];
         PhotonNetwork.Instantiate(playerToSpawn.name, RandomSpawn(), Quaternion.identity);
     }
-     Vector3 RandomSpawn()
+
+    Vector3 RandomSpawn()
     {
-        for (int i = 0; i < playerSpawnPoints.Length; i++)
+        foreach (Vector3 spawn in playerSpawnPoints)
         {
-            int selected = Random.Range(0, playerSpawnPoints.Length);
+            int selected = Random.Range(0, 1);
             Vector3 selectedSpawn;
-            if (!picked[selected])
-            {
-                photonView.RPC("PickedRPC", RpcTarget.All, selected);
-                selectedSpawn = playerSpawnPoints[selected];
-                return selectedSpawn;
-            }
-            else
-            {
-                RandomSpawn();
-            }
+
+            photonView.RPC("PickedRPC", RpcTarget.AllBufferedViaServer, selected);
+            selectedSpawn = playerSpawnPoints[selected];
+            return selectedSpawn;
         }
         return Vector3.zero;
     }
     [PunRPC]
-    void PickedRPC(int number)
+    public void PickedRPC(int number)
     {
-        picked[number] = true;
+        playerSpawnPoints.RemoveAt(number);
     }
     private void Update()
     {

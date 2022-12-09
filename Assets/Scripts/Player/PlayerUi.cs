@@ -136,7 +136,6 @@ public class PlayerUi : MonoBehaviourPun
     }
     public void CloseUi()
     {
-        target.canAttack = false;
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
         gameObject.transform.GetChild(3).gameObject.SetActive(true);
         if (quickSlotImage.sprite != null)

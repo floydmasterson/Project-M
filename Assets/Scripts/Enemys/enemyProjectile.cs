@@ -1,6 +1,7 @@
 using UnityEngine;
+using Photon.Pun;
 
-public class enemyProjectile : MonoBehaviour
+public class enemyProjectile : MonoBehaviourPun
 {
     public int speed;
     Enemys origin;
@@ -20,17 +21,19 @@ public class enemyProjectile : MonoBehaviour
         {
             Poof();
         }
-        PlayerManger target = other.GetComponent<PlayerManger>();
         if (other.CompareTag("Player"))
         {
+        PlayerManger target = other.GetComponent<PlayerManger>();
             Poof();
-            target.TakeDamge(Mathf.RoundToInt(origin.Power / Mathf.Pow(2f, (target.Defense / origin.Power)))); ;
+            target.TakeDamge(Mathf.RoundToInt(origin.Power / Mathf.Pow(2f, (target.Defense / origin.Power))));
+            return;
         }
     }
     public void setOrigin(Enemys enemy)
     {
         origin = enemy;
     }
+   
     private void Poof()
     {
         transform.GetChild(0).gameObject.SetActive(false);

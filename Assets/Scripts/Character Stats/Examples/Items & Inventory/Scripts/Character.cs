@@ -204,49 +204,55 @@ public class Character : MonoBehaviour
         dropItemSlot.Item = draggedItem;
         dropItemSlot.Amount = draggedItemAmount;
     }
-
-    //private void DropItemOutsideUI()
-    //{
-    //    if (dragItemSlot == null) return;
-
-    //    reallyDropItemDialog.Show();
-    //    BaseItemSlot slot = dragItemSlot;
-    //    reallyDropItemDialog.OnYesEvent += () => DestroyItemInSlot(slot);
-    //}
-
-    private void DestroyItemInSlot(BaseItemSlot itemSlot)
-    {
-        // If the item is equiped, unequip first
-        if (itemSlot is EquipmentSlot)
-        {
-            EquippableItem equippableItem = (EquippableItem)itemSlot.Item;
-            equippableItem.Unequip(this);
-        }
-
-        itemSlot.Item.Destroy();
-        itemSlot.Item = null;
-    }
-
     public void Equip(EquippableItem item)
     {
         if (Inventory.RemoveItem(item))
         {
             EquippableItem previousItem;
-            if (EquipmentPanel.AddItem(item, out previousItem))
+            if (EquipmentPanel.AddItem(item, out previousItem)) //&& item.EquipmentType != EquipmentType.Minor_Accessory)
             {
                 if (previousItem != null)
                 {
                     Inventory.AddItem(previousItem, 0);
                     previousItem.Unequip(this);
-                    statPanel.UpdateStatValues();
                 }
                 item.Equip(this);
-                statPanel.UpdateStatValues();
+
             }
+            //else if (item.EquipmentType == EquipmentType.Minor_Accessory)
+            //{
+            //    if (EquipmentPanel.EquipmentSlots[10].Item == null && EquipmentPanel.EquipmentSlots[11].Item == null)
+            //    {
+            //        EquipmentPanel.EquipmentSlots[10].Item = item;
+            //        EquipmentPanel.EquipmentSlots[10].Amount = 1;
+            //    }
+            //    else if (EquipmentPanel.EquipmentSlots[10].Item != null && EquipmentPanel.EquipmentSlots[11].Item == null)
+            //    {
+            //        EquipmentPanel.EquipmentSlots[11].Item = item;
+            //        EquipmentPanel.EquipmentSlots[11].Amount = 1;
+            //    }
+
+            //    else if (EquipmentPanel.EquipmentSlots[10].Item == null && EquipmentPanel.EquipmentSlots[11].Item != null)
+            //    {
+            //        EquipmentPanel.EquipmentSlots[10].Item = item;
+            //        EquipmentPanel.EquipmentSlots[10].Amount = 1;
+            //    }
+            //    else if (EquipmentPanel.EquipmentSlots[10].Item != null && EquipmentPanel.EquipmentSlots[11].Item != null)
+            //    {
+            //        EquipmentPanel.AddItem(item, out previousItem);
+            //        if (previousItem != null)
+            //        {
+            //            Inventory.AddItem(previousItem, 0);
+            //            previousItem.Unequip(this);
+            //        } 
+            //    }
+                //item.Equip(this);
+          //  }
             else
             {
                 Inventory.AddItem(item, 0);
             }
+            statPanel.UpdateStatValues();
         }
     }
 

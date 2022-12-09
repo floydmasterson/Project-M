@@ -166,10 +166,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.7671223
+  m_Radius: 2.226795
   m_Height: 6.219626
   m_Direction: 1
-  m_Center: {x: -0.06571388, y: 2.609813, z: 0.007009506}
+  m_Center: {x: -0.29943132, y: 2.609813, z: 0.0061719418}
 --- !u!114 &2484127176252581974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,8 +189,8 @@ MonoBehaviour:
   isDead: 0
   Target: {fileID: 0}
   LSpeed: 4
-  angle: 299
-  radius: 25
+  angle: 222
+  radius: 20
   runDistance: 0
   runRadius: 0
   runTime: 0
@@ -236,7 +236,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 3.33
+  m_StoppingDistance: 4.55
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

@@ -14,8 +14,6 @@ public class Inventory : ItemContainer
     {
         if (itemsParent != null)
             itemsParent.GetComponentsInChildren(includeInactive: true, result: ItemSlots);
-
-
     }
 
     protected override void Start()

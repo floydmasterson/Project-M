@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8697009232377494978}
   - component: {fileID: 2572052445641751294}
   - component: {fileID: 4062908064502644406}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: S-Fire Ball II
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 2811331541045009329}
   - component: {fileID: 142502537696780978}
   - component: {fileID: 3053740772649421987}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4956,7 +4956,7 @@ GameObject:
   - component: {fileID: 8551408310212524711}
   - component: {fileID: 4743617588169721085}
   - component: {fileID: 6790611335533170474}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: FireVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5048,9 +5048,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6471349741218224066}
     m_Modifications:
+    - target: {fileID: 1525146781120702, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1876375917517166, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
       propertyPath: m_Name
       value: Fire02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1876375917517166, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4765786546748092, guid: ef30331bc4c461842a1da74c1c8052ab, type: 3}
       propertyPath: m_RootOrder
@@ -5166,9 +5174,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6471349741218224066}
     m_Modifications:
+    - target: {fileID: 1504668045266566, guid: 2dc5347a44240ea4597cafb2d1d7c160, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1685874166552172, guid: 2dc5347a44240ea4597cafb2d1d7c160, type: 3}
       propertyPath: m_Name
       value: Explosion02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1685874166552172, guid: 2dc5347a44240ea4597cafb2d1d7c160, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4248089855141994, guid: 2dc5347a44240ea4597cafb2d1d7c160, type: 3}
       propertyPath: m_RootOrder

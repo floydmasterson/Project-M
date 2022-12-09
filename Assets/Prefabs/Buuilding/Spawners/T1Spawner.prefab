@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8129993519104126900}
   - component: {fileID: 8129993519104126899}
   - component: {fileID: 8129993519104126898}
+  - component: {fileID: 8550373414445691096}
   m_Layer: 0
   m_Name: T1Spawner
   m_TagString: Untagged
@@ -101,3 +102,25 @@ MonoBehaviour:
   - {fileID: 5470480257527468444, guid: e93264d49aa34434dace8863930ccf53, type: 3}
   - {fileID: 4881724292769951579, guid: 87b599ad47e97cf4b9318464f172bbe2, type: 3}
   - {fileID: 7078023688006145852, guid: bca6dad7370f39d49aa8316d08903d93, type: 3}
+--- !u!114 &8550373414445691096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8129993519104126897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

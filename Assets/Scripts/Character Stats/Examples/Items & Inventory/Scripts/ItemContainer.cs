@@ -55,9 +55,9 @@ public abstract class ItemContainer : MonoBehaviour, IItemContainer
         return freeSpaces >= amount;
     }
 
-    public virtual bool AddItem(Item item, int i)
+    public virtual bool AddItem(Item item, int num )
     {
-        for (i = 0; i < ItemSlots.Count; i++)
+        for (int i = num; i < ItemSlots.Count; i++)
         {
             if (ItemSlots[i].CanAddStack(item))
             {
@@ -67,7 +67,7 @@ public abstract class ItemContainer : MonoBehaviour, IItemContainer
             }
         }
 
-        for (i = 0; i < ItemSlots.Count; i++)
+        for (int i = num; i < ItemSlots.Count; i++)
         {
             if (ItemSlots[i].Item == null)
             {

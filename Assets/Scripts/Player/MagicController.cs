@@ -67,7 +67,7 @@ public class MagicController : MonoBehaviour, IAttack
     private void Awake()
     {
 
-        manger = gameObject.GetComponent<PlayerManger>();
+        manger = PlayerUi.Instance.target;
         _currMana = _maxMana;
     }
 

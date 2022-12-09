@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5760970661059649262}
   - component: {fileID: 733080225747232379}
   - component: {fileID: 1765660148338573404}
+  - component: {fileID: 332267924482791896}
   m_Layer: 0
   m_Name: T2Spawner
   m_TagString: Untagged
@@ -100,3 +101,25 @@ MonoBehaviour:
   enemys:
   - {fileID: 7805774187989588748, guid: 7f62602e07fa8ab45a3c13954798169a, type: 3}
   - {fileID: 5217242961852479576, guid: a170ecd883a9a0f468b4a24d3471bfd3, type: 3}
+--- !u!114 &332267924482791896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6184117119615490761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

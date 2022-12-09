@@ -7,10 +7,12 @@ public class MeeleController : MonoBehaviourPun, IAttack
 
     private void Awake()
     {
-        manger = gameObject.GetComponent<PlayerManger>();
+        manger = PlayerUi.Instance.target;
     }
     public void Attack()
     {
+        if(manger == null)
+            manger = PlayerUi.Instance.target;
         manger.photonView.RPC("UpdateAttack", RpcTarget.All);
         StartCoroutine(manger.IFrames(.6f));
         StartCoroutine(manger.MoveLock(.8f));
@@ -26,8 +28,6 @@ public class MeeleController : MonoBehaviourPun, IAttack
             if (Etarget != null)
             {
                 Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
-                if (!Etarget.isDead)
-                    Etarget.Target = manger.transform;
             }
         }
 
@@ -54,8 +54,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
                 int damage = (Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Etarget.Defense / Character.Instance.Strength.Value))));
                 Etarget.TakeDamge(damage);
                 manger.Heal(damage / 3);
-                if (!Etarget.isDead)
-                    Etarget.Target = manger.transform;
+               
             }
         }
     }

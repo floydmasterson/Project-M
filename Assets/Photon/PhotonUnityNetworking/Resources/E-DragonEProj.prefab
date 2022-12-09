@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2572052445641751294}
   - component: {fileID: 4062908064502644406}
   - component: {fileID: 6470809834473197434}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: E-DragonEProj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 733796626544041417}
   - component: {fileID: 3628518333058367781}
   - component: {fileID: 251613357885901687}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,9 +224,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6471349741218224066}
     m_Modifications:
+    - target: {fileID: 100000, guid: 6836f5eaa96f845c4ac0909f84272556, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 6836f5eaa96f845c4ac0909f84272556, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 6836f5eaa96f845c4ac0909f84272556, type: 3}
       propertyPath: m_Name
       value: frameBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 6836f5eaa96f845c4ac0909f84272556, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 100006, guid: 6836f5eaa96f845c4ac0909f84272556, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 6836f5eaa96f845c4ac0909f84272556, type: 3}
       propertyPath: m_LocalPosition.x
@@ -483,9 +499,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6471349741218224066}
     m_Modifications:
+    - target: {fileID: 1504668045266566, guid: 2dc5347a44240ea4597cafb2d1d7c160, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 1685874166552172, guid: 2dc5347a44240ea4597cafb2d1d7c160, type: 3}
       propertyPath: m_Name
       value: Explosion02
+      objectReference: {fileID: 0}
+    - target: {fileID: 1685874166552172, guid: 2dc5347a44240ea4597cafb2d1d7c160, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4248089855141994, guid: 2dc5347a44240ea4597cafb2d1d7c160, type: 3}
       propertyPath: m_RootOrder

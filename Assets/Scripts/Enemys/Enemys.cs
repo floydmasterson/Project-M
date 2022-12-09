@@ -1,9 +1,8 @@
 using Photon.Pun;
+using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEditor;
-using Sirenix.OdinInspector;
 
 
 public class Enemys : MonoBehaviourPun
@@ -12,7 +11,7 @@ public class Enemys : MonoBehaviourPun
     [BoxGroup]
     [Tooltip(" 0= target dummy 1 = Chase & Melee 2 = Avoid & Ranged !3 = Chase & Boom! not set !4 = hybrid! not set")]
     [Range(0, 4)] public int typeSetting = 0;
-   
+
     //Health
     [TabGroup("Health")]
     [Range(68, 100)] public float Vitality;
@@ -119,19 +118,26 @@ public class Enemys : MonoBehaviourPun
     {
         if (isLoseTargetExecuting)
             yield break;
-        if (isTAttackExecuting)
-            yield break;
         isLoseTargetExecuting = true;
-        WaitForSecondsRealtime wait = new WaitForSecondsRealtime(3f);
-        yield return wait;
-        agent.SetDestination(agent.transform.position);
+        yield return new WaitForSecondsRealtime(5f);
         Target = null;
-        Debug.Log("lost");
+        agent.SetDestination(agent.transform.position);
+        Debug.Log(this + " is lost");
         animator.SetTrigger("lost");
         UpdateMoving(false);
-        Debug.Log("UpdateMove");
         isLoseTargetExecuting = false;
 
+    }
+    private IEnumerator RangeExpand()
+    {
+        radius = 100;
+        angle = 360;
+        yield return new WaitForSecondsRealtime(1);
+        angle = 222;
+        if (typeSetting == 1)
+            radius = 20;
+        if (typeSetting == 2)
+            radius = 45;
     }
     #endregion
     #region Type 1 IEnumerators 
@@ -159,7 +165,6 @@ public class Enemys : MonoBehaviourPun
                 {
                     Target = null;
                     Lost();
-
                 }
 #pragma warning disable CS0618 // Type or member is obsolete
                 agent.Resume();
@@ -179,20 +184,22 @@ public class Enemys : MonoBehaviourPun
     {
         if (isTRangedAttackExecuting)
             yield break;
-        if (Target != null && runCheck() == false)
+        if (Target != null && runCheck() == false && canSeePlayer == true)
         {
-            isTRangedAttackExecuting = true;
+            if (Target)
+                photonView.RPC("rangedCoroutineCheckRPC", RpcTarget.All, true);
             photonView.RPC("UpdateAttack", RpcTarget.All);
             GameObject projectile = PhotonNetwork.Instantiate(rangedProjectile.name, attackPoint.position, attackPoint.rotation);
             projectile.gameObject.GetComponent<enemyProjectile>().setOrigin(this);
             yield return new WaitForSecondsRealtime(attackCooldown);
-            isTRangedAttackExecuting = false;
+            photonView.RPC("rangedCoroutineCheckRPC", RpcTarget.All, false);
             StartCoroutine(TRangedAttack());
+
         }
         else if (Target != null && runCheck() == true)
         {
             bool running = false;
-            isTRangedAttackExecuting = true;
+            photonView.RPC("rangedCoroutineCheckRPC", RpcTarget.All, true);
             if (agent != null)
             {
 
@@ -204,7 +211,7 @@ public class Enemys : MonoBehaviourPun
                         UpdateMoving(false);
                         agent.SetDestination(agent.transform.position);
                         running = false;
-                        isTRangedAttackExecuting = false;
+                        photonView.RPC("rangedCoroutineCheckRPC", RpcTarget.All, false);
                     }
                 }
                 else
@@ -212,8 +219,9 @@ public class Enemys : MonoBehaviourPun
                     agent.SetDestination(RandomNavLocal());
                     UpdateMoving(true);
                     running = true;
+                    Target = null;
                     yield return new WaitForSecondsRealtime(runTime);
-                    isTRangedAttackExecuting = false;
+                    photonView.RPC("rangedCoroutineCheckRPC", RpcTarget.All, false);
                 }
 
             }
@@ -221,7 +229,12 @@ public class Enemys : MonoBehaviourPun
             StartCoroutine(TRangedAttack());
         }
     }
-
+    [PunRPC]
+    private bool rangedCoroutineCheckRPC(bool state)
+    {
+        isTRangedAttackExecuting = state;
+        return isTRangedAttackExecuting;
+    }
     #endregion
     #region Type 3 IEnumerators 
     #endregion
@@ -256,11 +269,11 @@ public class Enemys : MonoBehaviourPun
                 agent.Resume();
 #pragma warning restore CS0618 // Type or member is obsolete
                 agent.SetDestination(Target.position);
-                StartRotating();
+                photonView.RPC("StartRotating", RpcTarget.All);
             }
             if (typeSetting == 2)
             {
-                StartRotating();
+                photonView.RPC("StartRotating", RpcTarget.All);
                 StartCoroutine(TRangedAttack());
             }
 
@@ -326,15 +339,16 @@ public class Enemys : MonoBehaviourPun
     public void TakeDamge_Rpc(float damage)
     {
         currentHealth -= damage;
-        Debug.Log(damage);
+        Debug.Log(this + "takes " + damage + " damage.");
         animator.SetTrigger("wasHurt");
-
+        if (isDead == false)
+            StartCoroutine(RangeExpand());
         if (currentHealth <= 0)
         {
             animator.SetBool("Dead", true);
             photonView.RPC("Die", RpcTarget.All);
         }
-
+       
     }
 
     [PunRPC]
@@ -366,7 +380,7 @@ public class Enemys : MonoBehaviourPun
         UpdateMoving(false);
         Debug.Log("UpdateMove");
     }
-
+    [PunRPC]
     public void StartRotating()
     {
         LookCoroutine = StartCoroutine(LookAt());
@@ -399,7 +413,6 @@ public class Enemys : MonoBehaviourPun
 
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
                 {
-
                     if (isDead == false)
                     {
                         canSeePlayer = true;
@@ -407,16 +420,17 @@ public class Enemys : MonoBehaviourPun
                         Target = target.transform;
                         if (typeSetting == 1)
                         {
-                            if (player.CurrentHealth != 0)
-                                StartRotating();
+                            if (player.CurrentHealth <= 0)
+                                photonView.RPC("StartRotating", RpcTarget.All); ;
                             if (agent != null && target != null)
                                 agent.SetDestination(Target.position);
 
                         }
                         if (typeSetting == 2)
                         {
-                            if (player.CurrentHealth != 0)
+                            if (player.CurrentHealth <= 0)
                                 StartCoroutine(TRangedAttack());
+
                         }
                         if (typeSetting == 3)
                             Debug.Log("?");
@@ -426,12 +440,14 @@ public class Enemys : MonoBehaviourPun
                 else
                 {
                     canSeePlayer = false;
+
                 }
 
             }
             else
             {
                 canSeePlayer = false;
+
             }
 
 
@@ -439,7 +455,7 @@ public class Enemys : MonoBehaviourPun
         else if (canSeePlayer)
         {
             canSeePlayer = false;
-            StartRotating();
+            photonView.RPC("StartRotating", RpcTarget.All);
             UpdateMoving(true);
             StartCoroutine(LoseTarget());
         }
@@ -473,9 +489,7 @@ public class Enemys : MonoBehaviourPun
             return;
         Gizmos.DrawSphere(attackPoint.position, attackRange);
     }
-  
-   
-    }
+
+
+}
 #endregion
-
-

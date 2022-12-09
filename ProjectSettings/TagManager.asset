@@ -8,6 +8,7 @@ TagManager:
   - UIDraggable
   - enemy
   - Chest
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -21,8 +22,8 @@ TagManager:
   - target
   - Obstruction
   - overlay
-  - 
-  - 
+  - minimap
+  - projectile
   - 
   - 
   - 

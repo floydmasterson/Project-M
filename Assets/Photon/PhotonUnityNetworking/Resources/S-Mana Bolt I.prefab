@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 372709010967796339}
   - component: {fileID: 3237992874623745554}
   - component: {fileID: 8988733684635454875}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: vfx
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4829,7 +4829,7 @@ GameObject:
   - component: {fileID: 8535670027616370256}
   - component: {fileID: 8734594580704472144}
   - component: {fileID: 7218739000803056920}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: S-Mana Bolt I
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4969,7 +4969,7 @@ GameObject:
   - component: {fileID: 6914732239131693220}
   - component: {fileID: 6914732239131693218}
   - component: {fileID: 6914732239131693221}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9790,7 +9790,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3993145013029326776}
   - component: {fileID: 9122193356590601802}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9861,7 +9861,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 11263
   m_RenderingLayerMask: 1
   m_Lightmapping: 2
   m_LightShadowCasterMode: 0
@@ -9869,7 +9869,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 1e-45}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -9884,6 +9884,14 @@ PrefabInstance:
     - target: {fileID: 1599718021928974, guid: 21461e6c060baf044ac3e717ed4170cb, type: 3}
       propertyPath: m_Name
       value: Puff
+      objectReference: {fileID: 0}
+    - target: {fileID: 1599718021928974, guid: 21461e6c060baf044ac3e717ed4170cb, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890613005357938, guid: 21461e6c060baf044ac3e717ed4170cb, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 4777701302679384, guid: 21461e6c060baf044ac3e717ed4170cb, type: 3}
       propertyPath: m_RootOrder

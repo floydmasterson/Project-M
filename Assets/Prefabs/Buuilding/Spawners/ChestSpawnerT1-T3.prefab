@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2169819633300006339}
   - component: {fileID: 2169819633300006343}
   - component: {fileID: 2897176854776269626}
+  - component: {fileID: -620098004500261618}
   m_Layer: 0
   m_Name: ChestSpawnerT1-T3
   m_TagString: Untagged
@@ -120,6 +121,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.1878185, y: 3.9140306, z: 3.7485976}
   m_Center: {x: -0.042588115, y: 0.011677027, z: 1.374299}
+--- !u!114 &-620098004500261618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2169819633300006337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6692413952028022166
 GameObject:
   m_ObjectHideFlags: 0

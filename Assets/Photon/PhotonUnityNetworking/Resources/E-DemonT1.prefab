@@ -1902,7 +1902,7 @@ MonoBehaviour:
   isDead: 0
   Target: {fileID: 0}
   LSpeed: 4
-  angle: 273
+  angle: 222
   radius: 20
   runDistance: 0
   runRadius: 0

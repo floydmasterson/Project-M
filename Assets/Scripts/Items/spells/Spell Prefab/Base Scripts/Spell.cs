@@ -19,6 +19,7 @@ public class Spell : MonoBehaviour
     SphereCollider sphereCollider;
     Transform target;
     bool poof = false;
+    bool hit = false;
 
     private IEnumerator LifeTime()
     {
@@ -64,49 +65,50 @@ public class Spell : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         int Obstruction = LayerMask.NameToLayer("Obstruction");
-        if (other.gameObject.layer == Obstruction)
+        if (hit == false)
         {
-            Poof();
-        }
-        if (other.CompareTag("enemy"))
-        {
-            Enemys enemy = other.GetComponent<Enemys>();
-            enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, enemy.Defense / Character.Instance.Intelligence.Value))));
-            if (!enemy.isDead)
+            if (other.gameObject.layer == Obstruction)
             {
-                enemy.Target = PlayerUi.Instance.target.transform;
+                Poof();
             }
-            if (statusEffects != null)
+            if (other.CompareTag("enemy"))
             {
-                foreach (StatusEffectSO effect in statusEffects)
-                {
-                    StatusEffectSO effectCopy = effect.GetCopy();
-                    if (effectCopy != null)
-                        effectCopy.ApplyEffectEnemy(enemy);
-                }
-            }
-            else
-            {
-                Debug.Log("spell status empy");
-            }
-            Poof();
-        }
-        if (other.CompareTag("Player"))
-        {
-            PlayerManger enemy = other.GetComponent<PlayerManger>();
-            if (enemy != PlayerUi.Instance.target)
-            {
-                enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, enemy.Defense / Character.Instance.Intelligence.Value))));
+                hit = true;
+                Enemys enemy = other.GetComponent<Enemys>();
+                enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, enemy.Defense / Character.Instance.Intelligence.Value) )));
                 if (statusEffects != null)
                 {
                     foreach (StatusEffectSO effect in statusEffects)
                     {
-                        StatusEffectSO eCopy = effect.GetCopy();
-                        if (eCopy != null)
-                            eCopy.ApplyEffectPlayer(enemy);
+                        StatusEffectSO effectCopy = effect.GetCopy();
+                        if (effectCopy != null)
+                            effectCopy.ApplyEffectEnemy(enemy);
                     }
                 }
+                else
+                {
+                    Debug.Log("spell status empy");
+                }
                 Poof();
+            }
+            if (other.CompareTag("Player") && PlayerUi.Instance.target.pvp == true)
+            {
+                hit = true;
+                PlayerManger enemy = other.GetComponent<PlayerManger>();
+                if (enemy != PlayerUi.Instance.target)
+                {
+                    enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, enemy.Defense / Character.Instance.Intelligence.Value))));
+                    if (statusEffects != null)
+                    {
+                        foreach (StatusEffectSO effect in statusEffects)
+                        {
+                            StatusEffectSO eCopy = effect.GetCopy();
+                            if (eCopy != null)
+                                eCopy.ApplyEffectPlayer(enemy);
+                        }
+                    }
+                    Poof();
+                }
             }
         }
     }

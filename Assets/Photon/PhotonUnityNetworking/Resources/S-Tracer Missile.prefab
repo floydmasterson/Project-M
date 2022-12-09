@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6796097936554431914}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Origin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 947585446244353802}
   - component: {fileID: 278920307575328711}
   - component: {fileID: 4813815455045916204}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: S-Tracer Missile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -140,7 +140,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 4813815455045916204}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -167,9 +168,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3421952933427409782}
     m_Modifications:
+    - target: {fileID: 100000, guid: 200e650fba6c8492b87e96e4bc273510, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 200e650fba6c8492b87e96e4bc273510, type: 3}
       propertyPath: m_Name
       value: ErekiBall2
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 200e650fba6c8492b87e96e4bc273510, type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 200e650fba6c8492b87e96e4bc273510, type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 200e650fba6c8492b87e96e4bc273510, type: 3}
       propertyPath: m_RootOrder

@@ -30,8 +30,6 @@ public class UsableItem : Item
         {
            if (effect.canBeUsed())
                 return true;
-           else
-                return false;
         }
         return false;
     }
