@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: ee2b5d24d84da2347b6f951d890317fe, type: 3}
   ItemName: Forge Gods Hammer
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: 31981f503a35fc04ba4674648d121434
   StrengthBonus: 10
   AgilityBonus: 0
   IntelligenceBonus: 0

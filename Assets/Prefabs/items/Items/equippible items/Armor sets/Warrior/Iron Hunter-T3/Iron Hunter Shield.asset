@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: c4d2af5b63c5b7242ae523e0293a538c, type: 3}
   ItemName: Iron Hunter Shield
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: 014252559617d164f8de4c2880989680
   StrengthBonus: 10
   AgilityBonus: 0
   IntelligenceBonus: 0

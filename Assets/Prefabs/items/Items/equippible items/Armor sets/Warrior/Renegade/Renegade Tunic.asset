@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: b942be6749d102a45b197eb253de65dd, type: 3}
   ItemName: Renegade Tunic
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: 1801ae4e27def9c40bd48859f529b1f3
   StrengthBonus: 5
   AgilityBonus: 0
   IntelligenceBonus: 0

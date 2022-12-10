@@ -9,6 +9,8 @@ TagManager:
   - enemy
   - Chest
   - FxTemporaire
+  - GameManger
+  - console
   layers:
   - Default
   - TransparentFX

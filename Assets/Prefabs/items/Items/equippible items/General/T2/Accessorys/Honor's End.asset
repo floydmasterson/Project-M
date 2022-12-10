@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 86067e09489c1d34f839aff2861022fe, type: 3}
   ItemName: Honor's End
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

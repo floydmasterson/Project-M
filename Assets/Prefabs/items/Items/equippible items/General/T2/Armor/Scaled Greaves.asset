@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 7966701381d39804c8e92c94f6297f59, type: 3}
   ItemName: Scaled Greaves
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: be5adf0f38c779a488ba7fe0b463901f
   StrengthBonus: 2
   AgilityBonus: 0
   IntelligenceBonus: 0

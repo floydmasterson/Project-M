@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 606b04b3b76269142b2dc03a8d212b4e, type: 3}
   ItemName: Medium Agility Potion
+  ItemTier: 2
   MaximumStacks: 20
   IsConsumable: 1
   Notes: 
+  id: 2393146b0ed524a4fb3c5155a570aef7
   Effects:
   - {fileID: 11400000, guid: 1e9b867203fc8344bac5902136ccc2a9, type: 2}

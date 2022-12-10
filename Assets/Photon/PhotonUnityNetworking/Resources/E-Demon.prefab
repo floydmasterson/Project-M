@@ -1828,7 +1828,7 @@ GameObject:
   - component: {fileID: 6814886940248751545}
   - component: {fileID: 6814886940248751544}
   m_Layer: 7
-  m_Name: E-DemonT1
+  m_Name: E-Demon
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1896,6 +1896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeSetting: 1
+  EnemyTier: 0
   Vitality: 70
   Defense: 0
   currentHealth: 0
@@ -1911,7 +1912,7 @@ MonoBehaviour:
   Power: 30
   attackPoint: {fileID: 3607765826210357134}
   attackRange: 1.5
-  attackCooldown: 1.3
+  attackCooldown: 1.47
   rangedProjectile: {fileID: 0}
   targetMask:
     serializedVersion: 2

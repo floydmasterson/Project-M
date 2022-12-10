@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: ea7cd8a9d92f5bb479977f7e48bfec50, type: 3}
   ItemName: Rhino Guard
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: c163f742b21d71949bc005c0f9334cc5
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 0

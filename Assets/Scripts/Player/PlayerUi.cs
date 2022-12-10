@@ -30,6 +30,10 @@ public class PlayerUi : MonoBehaviourPun
     CanvasGroup _canvasGroup;
     Vector3 targetPosition;
 
+    public delegate void setTarget();
+    public static event setTarget targetSet;
+
+
 
 
 
@@ -190,5 +194,6 @@ public class PlayerUi : MonoBehaviourPun
         {
             characterControllerHeight = characterController.height;
         }
+        targetSet();
     }
 }

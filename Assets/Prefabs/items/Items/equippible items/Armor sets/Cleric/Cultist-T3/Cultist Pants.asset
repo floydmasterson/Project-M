@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 1783761f3af063a44881552166944bfb, type: 3}
   ItemName: Cultist Pants
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
+  Notes: 
+  id: f8cb83e4cd89d3e4ab09f8cdc98966c5
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 5
@@ -27,4 +30,3 @@ MonoBehaviour:
   Passive: []
   EquipmentType: 8
   BoundSpell: {fileID: 0}
-  Notes: 

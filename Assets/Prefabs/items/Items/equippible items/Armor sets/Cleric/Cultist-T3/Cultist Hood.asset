@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: c907f1b44cf5df14f869d406d663fd04, type: 3}
   ItemName: Cultist Hood
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: c568a05823ae5e84f86ab05f59b16172
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 10

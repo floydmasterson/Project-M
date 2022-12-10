@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 394936cf86ea20a4991122c2d6e07262, type: 3}
   ItemName: Gatecrasher
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: ce2581e6484d6514f9aadccdb2758416
   StrengthBonus: 6
   AgilityBonus: 0
   IntelligenceBonus: 0

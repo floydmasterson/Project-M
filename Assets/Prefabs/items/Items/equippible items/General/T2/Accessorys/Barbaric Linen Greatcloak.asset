@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Barbaric Linen Greatcloak
   m_EditorClassIdentifier: 
-  id: 96d75646e81e70c4794983ed62a533ce
   Icon: {fileID: 21300000, guid: 1e57b040d0c57be42a53d955041c58e3, type: 3}
   ItemName: Barbaric Linen Greatcloak
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
+  Notes: 
+  id: 96d75646e81e70c4794983ed62a533ce
   StrengthBonus: 4
   AgilityBonus: 0
   IntelligenceBonus: 0

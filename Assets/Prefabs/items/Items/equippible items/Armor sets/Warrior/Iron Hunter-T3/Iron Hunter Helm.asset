@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 572ef71e2d98c0b479f7cb0a6ea270ad, type: 3}
   ItemName: Iron Hunter Helm
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: c849f77cae660a443ab2ba26a5648059
   StrengthBonus: 5
   AgilityBonus: 0
   IntelligenceBonus: 0

@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: ec7ae2ae0fe267b4b83d4de50a2d12c2, type: 3}
   ItemName: Ram Rod
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: a5ceacf560d95254cb3ba228a7a13434
   StrengthBonus: 8
   AgilityBonus: 0
   IntelligenceBonus: 0

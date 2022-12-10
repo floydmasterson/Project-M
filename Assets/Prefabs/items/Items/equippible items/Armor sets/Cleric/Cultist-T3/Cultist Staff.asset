@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: adfbf87999b14d844a5e9b8c0b54eaaf, type: 3}
   ItemName: Cultist Staff
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
+  Notes: Needs Diffrent Spell. Summon??
+  id: 79d858383997e164b96fd3b1d0b6294e
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 15
@@ -28,4 +31,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9f5de71a22817b429669adb5a05201f, type: 2}
   EquipmentType: 6
   BoundSpell: {fileID: 8697009232377494978, guid: 054da557ff71ea942b5efde582483235, type: 3}
-  Notes: Needs Diffrent Spell. Summon??

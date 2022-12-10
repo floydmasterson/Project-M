@@ -1,3 +1,4 @@
+using Newtonsoft.Json.Bson;
 using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
@@ -8,9 +9,19 @@ using UnityEngine.AI;
 public class Enemys : MonoBehaviourPun
 {
     #region Vars
+    public enum Tier
+    {
+        T1,
+        T2,
+        T3,
+    }
+
     [BoxGroup]
     [Tooltip(" 0= target dummy 1 = Chase & Melee 2 = Avoid & Ranged !3 = Chase & Boom! not set !4 = hybrid! not set")]
     [Range(0, 4)] public int typeSetting = 0;
+
+    [EnumToggleButtons]
+    public Tier EnemyTier; 
 
     //Health
     [TabGroup("Health")]
@@ -154,14 +165,16 @@ public class Enemys : MonoBehaviourPun
         agent.Stop();
 #pragma warning restore CS0618 // Type or member is obsolete
         Collider[] hitPlayers = Physics.OverlapSphere(attackPoint.position, attackRange, targetMask);
-        foreach (Collider player in hitPlayers)
+        if (hitPlayers.Length != 0)
         {
-            if (player.GetComponent<PlayerManger>().isAlive == true)
+            Transform target = hitPlayers[0].transform;
+            PlayerManger player = target.GetComponent<PlayerManger>();
+            if (player.isAlive == true)
             {
                 photonView.RPC("UpdateAttack", RpcTarget.All);
                 yield return new WaitForSecondsRealtime(.5f);
-                player.GetComponent<PlayerManger>().TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2f, (player.GetComponent<PlayerManger>().Defense / Power)))); ;
-                if (player.GetComponent<PlayerManger>().CurrentHealth == 0)
+                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2f, (player.Defense / Power)))); ;
+                if (player.CurrentHealth <= 0)
                 {
                     Target = null;
                     Lost();
@@ -171,7 +184,7 @@ public class Enemys : MonoBehaviourPun
 #pragma warning restore CS0618 // Type or member is obsolete
                 yield return new WaitForSecondsRealtime(attackCooldown);
             }
-            break;
+         
         }
 
         isTAttackExecuting = false;
@@ -288,7 +301,7 @@ public class Enemys : MonoBehaviourPun
         if (isDead == false)
         {
             if (typeSetting == 1)
-                StartCoroutine(TAttack());
+                StartCoroutine("TAttack");
 
             if (typeSetting == 3)
                 Debug.Log("?");
@@ -301,7 +314,7 @@ public class Enemys : MonoBehaviourPun
         {
             if (typeSetting == 1)
             {
-                StartCoroutine(TAttack());
+                StartCoroutine("TAttack");
                 UpdateMoving(false);
             }
 
@@ -317,7 +330,6 @@ public class Enemys : MonoBehaviourPun
         {
             if (typeSetting == 1)
             {
-                StopCoroutine(TAttack());
                 if (Target != null)
                 {
                     agent.SetDestination(Target.position);
@@ -490,6 +502,10 @@ public class Enemys : MonoBehaviourPun
         Gizmos.DrawSphere(attackPoint.position, attackRange);
     }
 
+    public string GetEnemyTier()
+    {
+        return EnemyTier.ToString();
+    }
 
 }
 #endregion

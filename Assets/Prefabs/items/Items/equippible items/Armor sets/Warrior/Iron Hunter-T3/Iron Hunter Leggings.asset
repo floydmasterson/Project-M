@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Iron Hunter Leggings
   m_EditorClassIdentifier: 
-  id: 314af3824e26b2546af45bf21c893eef
-  ItemName: Iron Hunter Leggings
   Icon: {fileID: 21300000, guid: 9bd49c404e772c241a68ae4a7e9021ba, type: 3}
+  ItemName: Iron Hunter Leggings
+  ItemTier: 3
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
+  id: 314af3824e26b2546af45bf21c893eef
   StrengthBonus: 5
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -24,6 +27,7 @@ MonoBehaviour:
   AgilityPercentBonus: -0.05
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
-  Passive: {fileID: 0}
+  Passive:
+  - {fileID: 0}
   EquipmentType: 8
+  BoundSpell: {fileID: 0}

@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: fe4226cf60ce04f4eaaa8d6e4b18b995, type: 3}
   ItemName: Primal Aegis
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: 002486eb6fc80f343a2ab2a98cc6151a
   StrengthBonus: 5
   AgilityBonus: 0
   IntelligenceBonus: 0

@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: effcabc31d57322488f92a2a6654ee72, type: 3}
   ItemName: Spectral Cane
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: 729a5d6ce55a7154496c97eb48c69ee5
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 6

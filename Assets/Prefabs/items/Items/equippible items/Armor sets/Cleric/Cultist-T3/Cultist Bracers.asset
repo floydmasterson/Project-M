@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 81ae545786d6e404dbf0d3b7b3489ae7, type: 3}
   ItemName: Cultist Bracers
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: a925750e8d031d441b64bfe5709d32a2
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 5

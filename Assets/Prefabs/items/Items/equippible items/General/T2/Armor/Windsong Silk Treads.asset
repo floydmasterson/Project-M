@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Windsong Silk Treads
   m_EditorClassIdentifier: 
-  id: 759e477ccaf0b2f429c25af0ff804a26
-  ItemName: Windsong Silk Treads
   Icon: {fileID: 21300000, guid: 2c5773e6c8e755241b758ede79e14330, type: 3}
+  ItemName: Windsong Silk Treads
+  ItemTier: 2
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
+  id: 759e477ccaf0b2f429c25af0ff804a26
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -24,7 +27,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0.1
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
   Passive:
   - {fileID: 11400000, guid: ea0c12f00f020bc44967847e7146580d, type: 2}
   EquipmentType: 3
+  BoundSpell: {fileID: 0}

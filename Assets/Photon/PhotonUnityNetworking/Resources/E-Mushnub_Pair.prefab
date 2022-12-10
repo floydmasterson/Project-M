@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8043789917940822606}
   m_Layer: 0
-  m_Name: E-Mushnub PairT1
+  m_Name: E-Mushnub_Pair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

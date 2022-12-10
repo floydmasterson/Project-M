@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 6a28a5c550e590a4ba9519a8d477b9d7, type: 3}
   ItemName: Cultist Robes
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

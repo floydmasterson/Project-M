@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: f799b499b881256409adae85c73e7d54, type: 3}
   ItemName: Renegade Pantaloons
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: 44c0c17a537dfb5469a831c0ef6ec388
   StrengthBonus: 5
   AgilityBonus: 0
   IntelligenceBonus: 0

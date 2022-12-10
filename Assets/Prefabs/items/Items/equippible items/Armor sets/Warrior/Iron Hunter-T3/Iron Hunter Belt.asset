@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
   m_Name: Iron Hunter Belt
   m_EditorClassIdentifier: 
-  id: 41b476013a2bedf41ab0c0f4d43790b0
-  ItemName: Iron Hunter Belt
   Icon: {fileID: 21300000, guid: 46efe880fe4adc44697ceb4b88778f38, type: 3}
+  ItemName: Iron Hunter Belt
+  ItemTier: 3
   MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
+  id: 41b476013a2bedf41ab0c0f4d43790b0
   StrengthBonus: 5
   AgilityBonus: 0
   IntelligenceBonus: 0
@@ -24,7 +27,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  BoundSpell: {fileID: 0}
   Passive:
   - {fileID: 0}
   EquipmentType: 4
+  BoundSpell: {fileID: 0}

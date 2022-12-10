@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 36688db1dfe7cf941bcab66e3380bb73, type: 3}
   ItemName: Flux Ring
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: 2126bb12c2a6d6e46877ec11b7fef4ec
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 6

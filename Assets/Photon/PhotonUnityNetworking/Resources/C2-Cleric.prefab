@@ -404,12 +404,12 @@ MonoBehaviour:
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
-  m_CameraRadius: 1e-11
+  m_CameraRadius: 1.39
   m_Strategy: 0
-  m_MaximumEffort: 4
-  m_SmoothingTime: 0.5
-  m_Damping: 0.5
-  m_DampingWhenOccluded: 0.5
+  m_MaximumEffort: 10
+  m_SmoothingTime: 0.135
+  m_Damping: 1.13
+  m_DampingWhenOccluded: 0.63
   m_OptimalTargetDistance: 0
 --- !u!1 &1015548974003493828
 GameObject:
@@ -730,7 +730,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: -145.60942
+    Value: -54.919434
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
@@ -865,8 +865,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2026704764038884736}
-  m_LocalRotation: {x: -0.054240428, y: 0.94280005, z: -0.19094174, w: -0.26781967}
-  m_LocalPosition: {x: 0.00000047683716, y: 0.0000009536743, z: -5.684347e-14}
+  m_LocalRotation: {x: 0.17880355, y: -0.4330976, z: 0.088096485, w: 0.8790306}
+  m_LocalPosition: {x: 0.0000009536743, y: 0.0000009536743, z: 1.7053018e-13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1131,7 +1131,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: -145.60942
+    Value: -54.919434
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
@@ -1203,8 +1203,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2938025898321339499}
-  m_LocalRotation: {x: -0.05975312, y: 0.9386609, z: -0.21034794, w: -0.2666439}
-  m_LocalPosition: {x: 0.00000047683716, y: 0.0000009536743, z: -5.684347e-14}
+  m_LocalRotation: {x: 0.196897, y: -0.43118834, z: 0.09701112, w: 0.87515545}
+  m_LocalPosition: {x: 0.0000009536743, y: 0.0000009536743, z: 1.7053018e-13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1532,6 +1532,7 @@ MonoBehaviour:
     m_Bits: 128
   UiPrefab: {fileID: 8443476667934544336, guid: b141b3a8020372548b5513d5146efa28, type: 3}
   InventoryPrefab: {fileID: 3739851515273236426, guid: 5603264b687c1ee40a212f083b3a932a, type: 3}
+  MiniMapIcon: {fileID: 4087455718341830161}
 --- !u!114 &3392248826132175094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1734,8 +1735,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3776485762190193921}
-  m_LocalRotation: {x: -0.06525916, y: 0.9341062, z: -0.22973071, w: -0.26535007}
-  m_LocalPosition: {x: 0.0000009536743, y: 0.0000019073486, z: -1.1368695e-13}
+  m_LocalRotation: {x: 0.21496823, y: -0.42908806, z: 0.105914794, w: 0.87089276}
+  m_LocalPosition: {x: 0.0000019073486, y: 0.0000019073486, z: 3.4106035e-13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1804,7 +1805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8047018489115215466
 Transform:
   m_ObjectHideFlags: 0
@@ -2351,7 +2352,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6953210969980944686}
   m_LocalRotation: {x: 0.00000014901163, y: 0.00000023841855, z: -3.552714e-14, w: 1}
-  m_LocalPosition: {x: 4.5186567, y: 6.819935, z: 20.707582}
+  m_LocalPosition: {x: 6.5467653, y: 6.819935, z: 9.508108}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2424,7 +2425,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: -145.60942
+    Value: -54.919434
     m_SpeedMode: 0
     m_MaxSpeed: 250
     m_AccelTime: 2
@@ -2504,12 +2505,12 @@ MonoBehaviour:
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
-  m_CameraRadius: 1e-11
+  m_CameraRadius: 1.39
   m_Strategy: 0
-  m_MaximumEffort: 4
-  m_SmoothingTime: 0.5
-  m_Damping: 0.5
-  m_DampingWhenOccluded: 0.5
+  m_MaximumEffort: 10
+  m_SmoothingTime: 0.135
+  m_Damping: 1.13
+  m_DampingWhenOccluded: 0.63
   m_OptimalTargetDistance: 0
 --- !u!1 &6987934985888591558
 GameObject:
@@ -2622,7 +2623,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: -145.60942
+    Value: -54.919434
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1

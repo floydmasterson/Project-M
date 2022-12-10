@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: d0747202ce0dc214cb7dd216063313d5, type: 3}
   ItemName: Dream Whisper Tome
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: dfe12ef3e368c8e4d892914c83292f1b
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 4

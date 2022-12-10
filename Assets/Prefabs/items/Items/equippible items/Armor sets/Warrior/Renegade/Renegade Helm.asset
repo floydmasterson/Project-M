@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 8384302556db00c4b883b229446b2b91, type: 3}
   ItemName: Renegade Helm
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: 01b62c03a2db3de458f5813fcff35c11
   StrengthBonus: 5
   AgilityBonus: 0
   IntelligenceBonus: 0

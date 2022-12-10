@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: c2c9c91f3cec3af449c390f8eee77026, type: 3}
   ItemName: Acrid Staff
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: 85b4068574efc7b49852d27c0aff1d78
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 10

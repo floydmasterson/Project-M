@@ -9,6 +9,13 @@ using UnityEditor;
 [CreateAssetMenu(menuName = "Items/Item")]
 public class Item : ScriptableObject
 {
+    public enum Tier
+    {
+        T0,
+        T1,
+        T2,
+        T3,
+    }
     public string ID { get { return id; } }
     [PreviewField(60), HideLabel]
     [TableColumnWidth(300, resizable: false)]
@@ -16,6 +23,9 @@ public class Item : ScriptableObject
     public Sprite Icon;
     [VerticalGroup("Item/Right"), LabelWidth(65)]
     public string ItemName;
+    [VerticalGroup("Item/Right"), LabelWidth(65)]
+    [EnumToggleButtons]
+    public Tier ItemTier;
     [VerticalGroup("Item/Right"), LabelWidth(105)]
     [Range(1, 20)]
     public int MaximumStacks = 1;
@@ -49,7 +59,10 @@ public class Item : ScriptableObject
     {
 
     }
-
+    public virtual string GetTier()
+    {
+        return ItemTier.ToString();
+    }
     public virtual string GetItemType()
     {
         return "";

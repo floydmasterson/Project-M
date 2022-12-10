@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: d94c5278b8c622947af99ab64ed1606d, type: 3}
   ItemName: Gift of the Void
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: d20a4ae3a39dd5545b5887d4a4bcdc54
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 3

@@ -27,6 +27,7 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
 
 
         tree.AddAllAssetsAtPath("Items/Equippable Items", "Assets/Prefabs/items/Items/equippible items", typeof(EquippableItem), includeSubDirectories: true).SortMenuItemsByName();
+        tree.AddAllAssetsAtPath("Items/Starter Items", "Assets/Prefabs/items/Starter Gear", typeof(EquippableItem), includeSubDirectories: true).SortMenuItemsByName();
         tree.AddAllAssetsAtPath("Items/Useable Items", "Assets/Prefabs/items/Items/Usble items", typeof(UsableItem), includeSubDirectories: true).SortMenuItemsByName();
         tree.AddAllAssetsAtPath("Items/Addons/Item Effects", "Assets/Prefabs/items/Items/Usble items/Effects", typeof(UseableItemEffect), includeSubDirectories: true).SortMenuItemsByName();
         tree.AddAllAssetsAtPath("Items/Addons/Status Effects", "Assets/Scripts/Items/Status Effects", typeof(StatusEffectSO), includeSubDirectories: true).SortMenuItemsByName();
@@ -52,18 +53,12 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
     }
     protected override void OnBeginDrawEditors()
     {
-        var selected = this.MenuTree.Selection.FirstOrDefault();
         var toolbarHeight = this.MenuTree.Config.SearchToolbarHeight;
-        var selected1 = this.MenuTree.Selection;
+        var selected = this.MenuTree.Selection;
 
         // Draws a toolbar with the name of the currently selected menu item.
         SirenixEditorGUI.BeginHorizontalToolbar(toolbarHeight);
         {
-
-            if (selected != null)
-            {
-                GUILayout.Label(selected.Name);
-            }
 
             if (SirenixEditorGUI.ToolbarButton(new GUIContent("Create Equippable Item")))
             {
@@ -84,11 +79,11 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
                     base.TrySelectMenuItemWithObject(obj);
                 });
             }
-            if (selected1 != null)
+            if (selected != null)
             {
                 if (SirenixEditorGUI.ToolbarButton(new GUIContent("Delete")))
                     {
-                    Object assest = selected1.SelectedValue as Object;
+                    Object assest = selected.SelectedValue as Object;
                     string path = AssetDatabase.GetAssetPath(assest);
                     AssetDatabase.DeleteAsset(path);
                     AssetDatabase.SaveAssets();

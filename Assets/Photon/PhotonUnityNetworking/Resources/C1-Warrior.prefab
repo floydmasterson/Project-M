@@ -522,7 +522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8463055578556485514
 Transform:
   m_ObjectHideFlags: 0
@@ -1014,6 +1014,7 @@ MonoBehaviour:
     m_Bits: 128
   UiPrefab: {fileID: 8443476667934544336, guid: b141b3a8020372548b5513d5146efa28, type: 3}
   InventoryPrefab: {fileID: 3739851515273236426, guid: 50a588a86166d58478a61a04b2a274e8, type: 3}
+  MiniMapIcon: {fileID: 1772679886139300683}
 --- !u!114 &6132935923249197628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1357,7 +1358,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4259742736131513746}
-  m_LocalRotation: {x: 0.22767991, y: 0.033747934, z: -0.007895963, w: 0.973119}
+  m_LocalRotation: {x: 0.22767991, y: 0.033747934, z: -0.007895962, w: 0.973119}
   m_LocalPosition: {x: -0.08398139, y: 6.819935, z: 6.064}
   m_LocalScale: {x: 0.6666667, y: 0.66666675, z: 0.6666666}
   m_ConstrainProportionsScale: 0
@@ -1427,12 +1428,12 @@ MonoBehaviour:
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
-  m_CameraRadius: 1e-11
+  m_CameraRadius: 1.39
   m_Strategy: 0
-  m_MaximumEffort: 4
-  m_SmoothingTime: 0.5
-  m_Damping: 0.5
-  m_DampingWhenOccluded: 0.5
+  m_MaximumEffort: 10
+  m_SmoothingTime: 0.135
+  m_Damping: 1.13
+  m_DampingWhenOccluded: 0.63
   m_OptimalTargetDistance: 0
 --- !u!1 &4359149126250052845
 GameObject:
@@ -2884,12 +2885,12 @@ MonoBehaviour:
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
-  m_CameraRadius: 1e-12
+  m_CameraRadius: 1.39
   m_Strategy: 0
-  m_MaximumEffort: 4
-  m_SmoothingTime: 0.5
-  m_Damping: 0.5
-  m_DampingWhenOccluded: 0.5
+  m_MaximumEffort: 10
+  m_SmoothingTime: 0.135
+  m_Damping: 1.13
+  m_DampingWhenOccluded: 0.63
   m_OptimalTargetDistance: 0
 --- !u!1 &8226536733450629783
 GameObject:

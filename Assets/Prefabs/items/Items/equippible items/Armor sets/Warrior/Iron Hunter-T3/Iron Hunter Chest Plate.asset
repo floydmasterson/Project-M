@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 30c2de2d71aa0da49852ea8e3720d100, type: 3}
   ItemName: Iron Hunter Chest Plate
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: a545bc68b6370254cb327ea30bc1bf1f
   StrengthBonus: 20
   AgilityBonus: 0
   IntelligenceBonus: 0

@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 1300f094e3ff9a4419ebf88129db18cb, type: 3}
   ItemName: Cultist Tome
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: f925ecce9f3501d40945cf5cf3ba1e16
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 10

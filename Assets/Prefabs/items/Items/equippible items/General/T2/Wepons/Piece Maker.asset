@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: d12bef8fdd77d5c42936bb725228b496, type: 3}
   ItemName: Piece Maker
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: 167664c8f66fc384f92600277b89dd52
   StrengthBonus: 4
   AgilityBonus: 0
   IntelligenceBonus: 0

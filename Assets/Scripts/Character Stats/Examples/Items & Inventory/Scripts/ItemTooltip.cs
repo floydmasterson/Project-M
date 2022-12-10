@@ -23,7 +23,22 @@ public class ItemTooltip : MonoBehaviour
     public void ShowTooltip(Item item)
     {
         ItemNameText.text = item.ItemName;
-        ItemTypeText.text = item.GetItemType().Replace("_", " ");
+        if (item.ItemTier == Item.Tier.T0)
+        {
+            ItemTypeText.text = "<color=#CABFAA>" + item.GetTier() + " </color>" + item.GetItemType().Replace("_", " ");
+        }
+        if (item.ItemTier == Item.Tier.T1)
+        {
+            ItemTypeText.text = "<color=#B2C895>" + item.GetTier() + " </color>" + item.GetItemType().Replace("_", " ");
+        }
+        if (item.ItemTier == Item.Tier.T2)
+        {
+            ItemTypeText.text = "<color=#9A4355>" + item.GetTier() + " </color>" + item.GetItemType().Replace("_", " ");
+        }
+        if (item.ItemTier == Item.Tier.T3)
+        {
+            ItemTypeText.text = "<color=#532B47>" + item.GetTier() + " </color>" + item.GetItemType().Replace("_", " ");
+        }
         ItemDescriptionText.text = item.GetDescription();
         gameObject.SetActive(true);
     }

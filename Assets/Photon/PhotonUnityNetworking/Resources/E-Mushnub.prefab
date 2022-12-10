@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 6996912839998734169}
   - component: {fileID: 4795042355106390697}
   m_Layer: 7
-  m_Name: E-MushnubT1
+  m_Name: E-Mushnub
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeSetting: 1
+  EnemyTier: 0
   Vitality: 68
   Defense: 0
   currentHealth: 0
@@ -198,7 +199,7 @@ MonoBehaviour:
   Power: 28
   attackPoint: {fileID: 1732396280113547390}
   attackRange: 1.23
-  attackCooldown: 2.5
+  attackCooldown: 2.02
   rangedProjectile: {fileID: 0}
   targetMask:
     serializedVersion: 2

@@ -1,8 +1,9 @@
 using Cinemachine;
 using Photon.Pun;
+using Sirenix.OdinInspector;
+using SmartConsole.Components;
 using System.Collections;
 using UnityEngine;
-using Sirenix.OdinInspector;
 using Cursor = UnityEngine.Cursor;
 using Transform = UnityEngine.Transform;
 
@@ -29,11 +30,11 @@ public class PlayerManger : MonoBehaviourPun
     Animator animator;
     Rigidbody Rb;
 
-   
+
     //hp
     float _maxHealth;
     [TabGroup("Health")]
-    [ProgressBar(0, "MaxHealth" , 0 ,1 ,0)]
+    [ProgressBar(0, "MaxHealth", 0, 1, 0)]
     [SerializeField] float _currentHealth;
     [TabGroup("Health")]
     public float CurrentHealth
@@ -79,7 +80,7 @@ public class PlayerManger : MonoBehaviourPun
     public Transform spawnPoint;
     public delegate void Death(PlayerManger player);
     public static event Death OnDeath;
-   
+
 
     //Movment
     [TabGroup("Movement")]
@@ -137,6 +138,8 @@ public class PlayerManger : MonoBehaviourPun
     [SerializeField] GameObject UiPrefab;
     [TabGroup("Ui")]
     [SerializeField] GameObject InventoryPrefab;
+    [TabGroup("Ui")]
+    [SerializeField] GameObject MiniMapIcon;
     bool InvIsOpen = false;
     bool inChest = false;
     ChestControl chestControl;
@@ -232,10 +235,12 @@ public class PlayerManger : MonoBehaviourPun
     private void OnEnable()
     {
         GameManger.PvPon += EnbalePvpCombat;
+        ConsoleSystem.ConsoleOpenClose += UiLockOut;
     }
     private void OnDisable()
     {
         GameManger.PvPon -= EnbalePvpCombat;
+        ConsoleSystem.ConsoleOpenClose -= UiLockOut;
     }
     void Awake()
     {
@@ -243,8 +248,8 @@ public class PlayerManger : MonoBehaviourPun
         DontDestroyOnLoad(this.gameObject);
         if (photonView.IsMine)
         {
-            photonView.RPC("SetName", RpcTarget.All);
-            //gather comp set cam
+            gameObject.name = PhotonNetwork.NickName;
+            MiniMapIcon.SetActive(true);
             cam = GameObject.FindGameObjectWithTag("MainCamera");
             characterController = GetComponent<CharacterController>();
             animator = GetComponent<Animator>();
@@ -289,18 +294,18 @@ public class PlayerManger : MonoBehaviourPun
         {
             if (Input.GetKeyDown(KeyCode.Tab) && inChest == false && isAlive == true)
             {
-                if (InvIsOpen == false)
+                if (InvIsOpen == false && UIlock == false)
                 {
                     UpdateMoving(false);
-                    UiLockOut();
+                    UiLockOut(true);
                     InvIsOpen = true;
                     onInventoryOpen();
                 }
-                else
+                else if (InvIsOpen == true && UIlock == true)
                 {
                     onInventoryClose();
                     InvIsOpen = false;
-                    UiUnlock();
+                    UiLockOut(false);
                 }
             }
 
@@ -315,7 +320,7 @@ public class PlayerManger : MonoBehaviourPun
 
             if (chestControl != null && chestControl.pickUpAllowed && chestControl.isOpen == false && Input.GetKeyDown(KeyCode.E))
             {
-                UiLockOut();
+                UiLockOut(true);
                 UpdateMoving(false);
                 chestControl.Open();
                 inChest = true;
@@ -330,7 +335,7 @@ public class PlayerManger : MonoBehaviourPun
                 {
                     chestControl.Close();
                     inChest = false;
-                    UiUnlock();
+                    UiLockOut(false);
                     onInventoryClose();
                     PlayerUi.Instance.gameObject.transform.GetChild(5).gameObject.SetActive(true);
                 }
@@ -367,7 +372,7 @@ public class PlayerManger : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
-        
+
             if (isAlive == true)
             {
 
@@ -378,7 +383,7 @@ public class PlayerManger : MonoBehaviourPun
                 Vector3 direction = new Vector3(x, 0f, y).normalized;
 
 
-                    isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
+                isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
                 //gravity
                 if (InvIsOpen == false && canMove == true)
                 {
@@ -407,7 +412,7 @@ public class PlayerManger : MonoBehaviourPun
                     {
                         turn.x += Input.GetAxisRaw("Mouse X") * 1.5f;
                         transform.rotation = Quaternion.Euler(0f, turn.x, 0f);
-                        if (direction.magnitude >= 0.1f) 
+                        if (direction.magnitude >= 0.1f)
                         {
                             characterController.Move(speed * Time.fixedDeltaTime * (transform.forward * y + transform.right * x).normalized);
                             Vector3 xDir = transform.right * x;
@@ -426,7 +431,7 @@ public class PlayerManger : MonoBehaviourPun
                         }
                     }
                 }
-                    
+
                 UpdateMoving(x != 0f || y != 0f);
 
 
@@ -502,27 +507,35 @@ public class PlayerManger : MonoBehaviourPun
     }
     #endregion
     #region UI
-    public void UiLockOut()
+    bool UIlock;
+    public void UiLockOut(bool state)
     {
-        canMove = false;
-        canAttack = false;
-        cineCamera.m_XAxis.m_MaxSpeed = 0f;
-        Cursor.lockState = CursorLockMode.None;
-
-    }
-    public void UiUnlock()
-    {
-        canMove = true;
-        canAttack = true;
-        cineCamera.m_XAxis.m_MaxSpeed = 250;
-        Cursor.lockState = CursorLockMode.Locked;
+        if (state == true)
+        {
+            UIlock = true;
+            canMove = false;
+            canAttack = false;
+            cineCamera.m_XAxis.m_MaxSpeed = 0f;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else if (state == false)
+        {
+            canMove = true;
+            UIlock = false;
+            canAttack = true;
+            cineCamera.m_XAxis.m_MaxSpeed = 250;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
 
     }
     #endregion
     #region Damage and Healing
     public void TakeDamge(float damage)
     {
-        photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
+        if (photonView.IsMine)
+        {
+            photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
+        }
     }
 
     [PunRPC]
@@ -567,7 +580,7 @@ public class PlayerManger : MonoBehaviourPun
         if (lifes > 0)
         {
             gameObject.transform.position = spawnPoint.position;
-            
+
             Debug.Log(spawnPoint.position);
             CurrentHealth = MaxHealth;
             isAlive = true;
@@ -576,7 +589,7 @@ public class PlayerManger : MonoBehaviourPun
             col.isTrigger = true;
             animator.SetTrigger("Res");
 
-          
+
         }
     }
 
@@ -637,11 +650,7 @@ public class PlayerManger : MonoBehaviourPun
         enemyLayers |= LayerMask.GetMask("enenmyMask") | LayerMask.GetMask("target");
         pvp = true;
     }
-    [PunRPC]
-    private void SetName()
-    {
-        gameObject.name = PhotonNetwork.NickName;
-    }
+
     private void ForwardCamLock(bool state)
     {
         if (state == true)

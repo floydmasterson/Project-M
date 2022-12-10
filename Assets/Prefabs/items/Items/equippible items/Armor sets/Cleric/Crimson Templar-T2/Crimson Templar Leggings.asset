@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 1078197190d71404b8e51036fb2cbbc1, type: 3}
   ItemName: Crimson Templar Leggings
+  ItemTier: 2
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: 8dad8eed1382770469d728c24d977d12
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 4

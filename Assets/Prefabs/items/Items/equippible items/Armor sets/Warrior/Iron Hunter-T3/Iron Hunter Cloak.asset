@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 4e8c64be50095b94896059d21fbca983, type: 3}
   ItemName: Iron Hunter Cloak
+  ItemTier: 3
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
+  id: 42eb647f9cf3800499d968a712085e58
   StrengthBonus: 10
   AgilityBonus: 0
   IntelligenceBonus: 0
