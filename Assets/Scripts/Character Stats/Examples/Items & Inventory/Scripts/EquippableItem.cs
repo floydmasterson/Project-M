@@ -43,7 +43,7 @@ public class EquippableItem : Item
     [FoldoutGroup("Percentage Stat Modifier", expanded: false)]
     public float VitalityPercentBonus;
     [TableColumnWidth(190, resizable: false)]
-    public PassiveSO[] Passive;
+    public PassiveSO[] Passives;
     [TableColumnWidth(300, resizable: false)]
     [VerticalGroup("Equipment Type")]
     [EnumToggleButtons, HideLabel]
@@ -86,9 +86,9 @@ public class EquippableItem : Item
             c.Vitality.AddModifier(new StatModifier(VitalityPercentBonus, StatModType.PercentMult, this));
         if (BoundSpell != null)
             PlayerUi.Instance.target.gameObject.GetComponent<MagicController>().selectedSpell = BoundSpell;
-        if (Passive != null)
+        if (Passives != null)
         {
-            foreach (PassiveSO passive in Passive)
+            foreach (PassiveSO passive in Passives)
             {
                 if (passive != null)
                 {
@@ -105,11 +105,11 @@ public class EquippableItem : Item
         c.Vitality.RemoveAllModifiersFromSource(this);
         if (BoundSpell != null)
             PlayerUi.Instance.target.gameObject.GetComponent<MagicController>().selectedSpell = null;
-        if (Passive != null)
+        if (Passives != null)
         {
 
 
-            foreach (PassiveSO passive in Passive)
+            foreach (PassiveSO passive in Passives)
             {
                 if (passive != null)
                 {
@@ -118,6 +118,7 @@ public class EquippableItem : Item
 
             }
         }
+        PlayerUi.Instance.target.CheckMaxHealth();
     }
 
     public override string GetItemType()
@@ -143,9 +144,9 @@ public class EquippableItem : Item
             sb.Append(BoundSpell + "is bound to this weapon").Replace("(Spell)", "").Replace("S-", "");
 
         }
-        if (Passive != null)
+        if (Passives != null)
         {
-            foreach (PassiveSO passive in Passive)
+            foreach (PassiveSO passive in Passives)
             {
                 if (passive != null)
                 {

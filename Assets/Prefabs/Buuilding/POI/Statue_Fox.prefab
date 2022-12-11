@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 9143839588805068302}
   - component: {fileID: 9143839588805068300}
   - component: {fileID: 9143839588805068303}
+  - component: {fileID: 339657596040075618}
   m_Layer: 0
   m_Name: Statue_Fox
   m_TagString: Untagged
@@ -140,11 +141,24 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7342430730029295579}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.043657757, y: 0.0481811, z: 0.03985539}
   m_Center: {x: 0.00042074677, y: 0.0013425238, z: 0.01992787}
+--- !u!65 &339657596040075618
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7342430730029295579}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.013506493, y: 0.016786048, z: 0.037524536}
+  m_Center: {x: -0.00078753114, y: 0.0006289121, z: 0.018762266}
 --- !u!1001 &922239202608628087
 PrefabInstance:
   m_ObjectHideFlags: 0

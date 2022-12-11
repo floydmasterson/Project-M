@@ -25,7 +25,7 @@ public class enemyProjectile : MonoBehaviourPun
         {
         PlayerManger target = other.GetComponent<PlayerManger>();
             Poof();
-            target.TakeDamge(Mathf.RoundToInt(origin.Power / Mathf.Pow(2f, (target.Defense / origin.Power))));
+            target.TakeDamge(Mathf.RoundToInt(origin.Power / Mathf.Pow(2f, (target.Defense / origin.Power))), origin);
             return;
         }
     }
@@ -40,6 +40,6 @@ public class enemyProjectile : MonoBehaviourPun
         poof = true;
         if (ps != null)
             ps.Play();
-        Destroy(this.gameObject, .5f);
+       Destroy(gameObject, .5f);
     }
 }

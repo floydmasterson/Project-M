@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class ProjectMCommands : CommandBehaviour
 {
     PlayerManger localPlayer;
-    GameManger GameManger;
+    [SerializeField] GameManger GameManger;
+    [SerializeField] PhotonView photonView;
     #region SetUp
     private void OnEnable()
     {
@@ -24,8 +25,11 @@ public class ProjectMCommands : CommandBehaviour
     private void SetLocalPlayer()
     {
         localPlayer = PlayerUi.Instance.target;
-        GameObject gm = GameObject.FindGameObjectWithTag("GameManger");
-        GameManger = gm.GetComponent<GameManger>();
+        if (localPlayer != null)
+            Debug.Log("Local Player Set");
+        else if (localPlayer == null)
+            Debug.LogError("Failed to set Local Player");
+
     }
     #endregion
     #region Commands
@@ -52,9 +56,17 @@ public class ProjectMCommands : CommandBehaviour
     private void kill()
     {
         if (localPlayer != null)
-            localPlayer.TakeDamge(999);
+            localPlayer.TakeDamge(999, null);
         else
-            Debug.Log("Local Player does not exist yet");
+            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
+    }
+    [Command]
+    private void damage_player(int damage)
+    {
+        if (localPlayer != null)
+            localPlayer.TakeDamge(damage, null);
+        else
+            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
     }
     [Command]
     private void max_heal()
@@ -62,7 +74,7 @@ public class ProjectMCommands : CommandBehaviour
         if (localPlayer != null)
             localPlayer.CurrentHealth = localPlayer.MaxHealth;
         else
-            Debug.Log("Local Player does not exist yet");
+            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
     }
     [Command]
     private void god_mode(bool state)
@@ -84,7 +96,7 @@ public class ProjectMCommands : CommandBehaviour
             }
         }
         else
-            Debug.Log("Local Player does not exist yet");
+            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
     }
     [Command]
     private void set_spawn_to_self()
@@ -96,7 +108,7 @@ public class ProjectMCommands : CommandBehaviour
             Debug.Log("Spawn has been set to current location");
         }
         else
-            Debug.Log("Local Player does not exist yet");
+            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
     }
     #endregion
     #region Spawn Things
@@ -109,7 +121,7 @@ public class ProjectMCommands : CommandBehaviour
             PhotonNetwork.Instantiate("Lv" + chestlevel + " Chest", spawnPoint, Quaternion.Euler(-90, 0, 0));
         }
         else
-            Debug.Log("Local Player does not exist yet");
+            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
     }
     [Command]
     private void spawn_enemy(string enemyname)
@@ -120,7 +132,7 @@ public class ProjectMCommands : CommandBehaviour
             PhotonNetwork.Instantiate("E-" + enemyname, spawnPoint, Quaternion.identity);
         }
         else
-            Debug.Log("Local Player does not exist yet");
+            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
     }
     #endregion
     #region Game Manger
@@ -129,13 +141,23 @@ public class ProjectMCommands : CommandBehaviour
     {
         if (GameManger != null)
         {
-            GameManger.GameTimeLeft = timeinseconds;
-            if (timeinseconds > 0)
-                GameManger.timerOn = true;
+            if (PhotonNetwork.IsMasterClient)
+                photonView.RPC("SetGameTimeRPC", RpcTarget.All, timeinseconds);
+            else
+                Debug.LogError("You must be master client to use this command");
         }
         else
-            Debug.Log("Game Manger does not exist yet");
+            Debug.LogWarning("Game Manager is not set.");
     }
+
+    [PunRPC]
+    public void SetGameTimeRPC(float time)
+    {
+        GameManger.GameTimeLeft = time;
+        if (time > 0)
+            GameManger.timerOn = true;
+    }
+
     #endregion
     #region Misc
     [Command]
@@ -151,7 +173,7 @@ public class ProjectMCommands : CommandBehaviour
     [Command]
     private void bing_qi_lin()
     {
-        Debug.Log("Zǎoshang hǎo zhōngguó xiànzài wǒ yǒu BING CHILLING  wǒ hěn xǐhuān BING CHILLING  dànshì sùdù yǔ jīqíng 9 bǐ BING CHILLING  sùdù yǔ jīqíng sùdù yǔ jīqíng 9 wǒ zuì xǐhuān suǒyǐ…xiànzài shì yīnyuè shíjiān zhǔnbèi 1 2 3 liǎng gè lǐbài yǐhòu sùdù yǔ jīqíng 9 ×3 bùyào wàngjì bùyào cu òguò jìdé qù diànyǐngyuàn kàn sùdù yǔ jīqíng 9 yīn wéi fēicháng hǎo diànyǐng dòngzuò fēicháng hǎo chàbùduō yīyàng BING CHILLING zàijiàn ");
+        Debug.LogError("Zǎoshang hǎo zhōngguó xiànzài wǒ yǒu BING CHILLING  wǒ hěn xǐhuān BING CHILLING  dànshì sùdù yǔ jīqíng 9 bǐ BING CHILLING  sùdù yǔ jīqíng sùdù yǔ jīqíng 9 wǒ zuì xǐhuān suǒyǐ…xiànzài shì yīnyuè shíjiān zhǔnbèi 1 2 3 liǎng gè lǐbài yǐhòu sùdù yǔ jīqíng 9 ×3 bùyào wàngjì bùyào cu òguò jìdé qù diànyǐngyuàn kàn sùdù yǔ jīqíng 9 yīn wéi fēicháng hǎo diànyǐng dòngzuò fēicháng hǎo chàbùduō yīyàng BING CHILLING zàijiàn ");
     }
     #endregion
     #endregion

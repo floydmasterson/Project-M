@@ -1550,8 +1550,8 @@ MonoBehaviour:
   _maxMana: 100
   _currMana: 0
   _timeToWaitForRecharge: 1.5
-  _BasemanaRegenRate: 2
-  _castCooldown: 0.25
+  _BasemanaRegenRate: 1
+  _castCooldown: 0.4
   isCasting: 0
 --- !u!114 &1634687762457129801
 MonoBehaviour:

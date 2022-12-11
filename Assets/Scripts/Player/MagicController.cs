@@ -124,24 +124,19 @@ public class MagicController : MonoBehaviour, IAttack
     {
         StartCoroutine(AttackMelee());
         Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
-        foreach (Collider enemy in hitEnemins)
+        if (hitEnemins.Length != 0)
         {
-
-            Enemys Etarget = enemy.GetComponent<Enemys>();
-            PlayerManger Ptarget = enemy.GetComponent<PlayerManger>();
-            if (Ptarget != null)
+            Transform target = hitEnemins[0].transform;
+            PlayerManger player = target.GetComponent<PlayerManger>();
+            Enemys Etarget = target.GetComponent<Enemys>();
+            if (player != null && PlayerUi.Instance.target)
             {
-                Ptarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Ptarget.Defense / Character.Instance.Strength.Value)))); ;
+                player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
             }
             if (Etarget != null)
             {
                 Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
-                if (!Etarget.isDead)
-                    Etarget.Target = manger.transform;
-
             }
-
         }
     }
-
 }

@@ -3,7 +3,6 @@ using Photon.Realtime;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class GameManger : MonoBehaviourPunCallbacks
 {
@@ -13,6 +12,8 @@ public class GameManger : MonoBehaviourPunCallbacks
     public static GameObject LocalPlayerInstance;
     [TabGroup("Spawning")]
     public bool spawnEnemys;
+    [TabGroup("Spawning")]
+    public bool spawnPlayersTogther;
     [TabGroup("Spawning")]
     [SerializeField] List<Vector3> playerSpawnPoints = new List<Vector3>();
     public delegate void PvPEnable();
@@ -40,7 +41,7 @@ public class GameManger : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             int index = 0;
-            
+
             if (spawnEnemys == true)
                 spawnMobs();
             foreach (Player player in PhotonNetwork.PlayerList)
@@ -48,7 +49,8 @@ public class GameManger : MonoBehaviourPunCallbacks
                 if (index >= 2)
                     index = 0;
                 photonView.RPC("InstantiationPlayer", player, index);
-                index++;
+                if (spawnPlayersTogther == false)
+                    index++;
 
             }
         }
@@ -60,9 +62,9 @@ public class GameManger : MonoBehaviourPunCallbacks
     {
         GameObject playerToSpawn = playerPrefab[(int)PhotonNetwork.LocalPlayer.CustomProperties["playerAvatar"]];
         PhotonNetwork.Instantiate(playerToSpawn.name, playerSpawnPoints[index], Quaternion.identity);
-        
+
     }
- 
+
     private void Update()
     {
         if (timerOn)

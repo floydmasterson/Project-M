@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,21 +7,45 @@ using UnityEngine.UI;
 public class PlayerUi : MonoBehaviourPun
 {
     [SerializeField] private Vector3 screenOffset = new Vector3(0f, 30f, 0f);
+    [TabGroup("Player Health")]
     [SerializeField] private Slider playerHealthSlider;
-    [SerializeField] private Slider playerHealthSlider2;
+    [TabGroup("Player Health")]
+    [SerializeField] private Slider playerHealthSliderInv;
+    [TabGroup("Player Health")]
     [SerializeField] private TextMeshProUGUI HealthText;
-    [SerializeField] private TextMeshProUGUI HealthText2;
-    [Space]
+    [TabGroup("Player Health")]
+    [SerializeField] private TextMeshProUGUI HealthTextInv;
+
+    [TabGroup("Player Mana")]
     [SerializeField] Slider playerManaSlider;
-    [SerializeField] Slider playerManaSlider2;
+    [TabGroup("Player Mana")]
+    [SerializeField] Slider playerManaSliderInv;
+    [TabGroup("Player Mana")]
     [SerializeField] private TextMeshProUGUI ManaText;
-    [SerializeField] private TextMeshProUGUI ManaText2;
-    [Space]
+    [TabGroup("Player Mana")]
+    [SerializeField] private TextMeshProUGUI ManaTextInv;
+
+    [TabGroup("Player Rage")]
+    [SerializeField] Slider playerRageSlider;
+    [TabGroup("Player Rage")]
+    [SerializeField] Slider playerRageSliderInv;
+    [TabGroup("Player Rage")]
+    [SerializeField] private TextMeshProUGUI RageText;
+    [TabGroup("Player Rage")]
+    [SerializeField] private TextMeshProUGUI RageTextInv;
+  
+
+    [TabGroup("Quick Slot")]
     [SerializeField] Image quickSlotImage;
-    [SerializeField] GameObject qickSlot;
+    [TabGroup("Quick Slot")]
+    [SerializeField] GameObject quickSlot;
+    [TabGroup("Quick Slot")] 
     [SerializeField] TextMeshProUGUI quickSlotAmountText;
+    [TabGroup("MiniMap")]
+    public GameObject Minimap;
     int quickAmount;
-    private MagicController MC;
+    private MagicController MagicController;
+    private MeeleController MeleeController;
     public static PlayerUi Instance;
     public PlayerManger target;
 
@@ -32,13 +57,6 @@ public class PlayerUi : MonoBehaviourPun
 
     public delegate void setTarget();
     public static event setTarget targetSet;
-
-
-
-
-
-
-
 
     // Start is called before the first frame update
     void Awake()
@@ -59,17 +77,22 @@ public class PlayerUi : MonoBehaviourPun
     }
     private void Start()
     {
-        MC = target.gameObject.GetComponent<MagicController>();
-        if (MC != null)
+        MagicController = target.gameObject.GetComponent<MagicController>();
+        MeleeController = target.gameObject.GetComponent<MeeleController>();
+        if (MagicController != null)
         {
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        }
+        if (MeleeController != null)
+        {
+            gameObject.transform.GetChild(2).gameObject.SetActive(true);
         }
         if (InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Item != null)
         {
             quickSlotImage.sprite = Character.Instance.currentQuickItem.sprite;
             if (quickAmount > 0)
             {
-                qickSlot.transform.GetChild(2).gameObject.SetActive(true);
+                quickSlot.transform.GetChild(2).gameObject.SetActive(true);
                 quickSlotAmountText.text = quickAmount.ToString();
             }
         }
@@ -83,25 +106,40 @@ public class PlayerUi : MonoBehaviourPun
             playerHealthSlider.value = target.CurrentHealth;
             HealthText.text = (target.CurrentHealth + "/" + target.MaxHealth);
         }
-        if (playerHealthSlider2 != null)
+        if (playerHealthSliderInv != null)
         {
-            playerHealthSlider2.maxValue = target.MaxHealth;
-            playerHealthSlider2.value = target.CurrentHealth;
-            HealthText2.text = (target.CurrentHealth + "/" + target.MaxHealth);
+            playerHealthSliderInv.maxValue = target.MaxHealth;
+            playerHealthSliderInv.value = target.CurrentHealth;
+            HealthTextInv.text = (target.CurrentHealth + "/" + target.MaxHealth);
         }
-        if (MC != null)
+        if (MagicController != null)
         {
             if (playerManaSlider != null)
             {
-                playerManaSlider.maxValue = MC.MaxMana;
-                playerManaSlider.value = MC.CurrMana;
-                ManaText.text = (Mathf.RoundToInt(MC.CurrMana) + "/" + MC.MaxMana);
+                playerManaSlider.maxValue = MagicController.MaxMana;
+                playerManaSlider.value = MagicController.CurrMana;
+                ManaText.text = (Mathf.RoundToInt(MagicController.CurrMana) + "/" + MagicController.MaxMana);
             }
-            if (playerHealthSlider2 != null)
+            if (playerHealthSliderInv != null)
             {
-                playerManaSlider2.maxValue = MC.MaxMana;
-                playerManaSlider2.value = MC.CurrMana;
-                ManaText2.text = (Mathf.RoundToInt(MC.CurrMana) + "/" + MC.MaxMana);
+                playerManaSliderInv.maxValue = MagicController.MaxMana;
+                playerManaSliderInv.value = MagicController.CurrMana;
+                ManaTextInv.text = (Mathf.RoundToInt(MagicController.CurrMana) + "/" + MagicController.MaxMana);
+            }
+        }
+        if (MeleeController != null)
+        {
+            if (playerRageSlider != null)
+            {
+                playerRageSlider.maxValue = MeleeController.MaxRage;
+                playerRageSlider.value = MeleeController.CurrentRage;
+                RageText.text = (Mathf.RoundToInt(MeleeController.CurrentRage) + "/" + MeleeController.MaxRage);
+            }
+            if (playerRageSliderInv != null)
+            {
+                playerRageSliderInv.maxValue = MeleeController.MaxRage;
+                playerRageSliderInv.value = MeleeController.CurrentRage;
+                RageTextInv.text = (Mathf.RoundToInt(MeleeController.CurrentRage) + "/" + MeleeController.MaxRage);
             }
         }
 
@@ -113,48 +151,60 @@ public class PlayerUi : MonoBehaviourPun
         if (Character.Instance.currentQuickItem.sprite != null)
             quickSlotImage.sprite = Character.Instance.currentQuickItem.sprite;
         else
-            qickSlot.SetActive(false);
+            quickSlot.SetActive(false);
 
     }
 
     public void OpenUi()
     {
+      
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        gameObject.transform.GetChild(3).gameObject.SetActive(false);
+        gameObject.transform.GetChild(5).gameObject.SetActive(false);
         if (quickSlotImage.sprite != null)
         {
-            qickSlot.SetActive(true);
+            quickSlot.SetActive(true);
             CheckAmount();
             if (quickAmount > 0)
             {
-                qickSlot.transform.GetChild(2).gameObject.SetActive(true);
+                quickSlot.transform.GetChild(2).gameObject.SetActive(true);
                 CheckAmount();
             }
         }
-        if (MC != null)
+        if (MagicController != null)
         {
 
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
-            gameObject.transform.GetChild(2).gameObject.SetActive(false);
+            gameObject.transform.GetChild(4).gameObject.SetActive(false);
+        }
+        if (MeleeController != null)
+        {
+            gameObject.transform.GetChild(2).gameObject.SetActive(true);
+            gameObject.transform.GetChild(3).gameObject.SetActive(false);
         }
     }
     public void CloseUi()
     {
+        quickSlot.SetActive(false);
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        gameObject.transform.GetChild(3).gameObject.SetActive(true);
+        gameObject.transform.GetChild(5).gameObject.SetActive(true);
         if (quickSlotImage.sprite != null)
         {
-            qickSlot.SetActive(false);
+            quickSlot.SetActive(false);
             if (quickAmount > 0)
             {
-                qickSlot.transform.GetChild(2).gameObject.SetActive(false);
+                quickSlot.transform.GetChild(2).gameObject.SetActive(false);
                 CheckAmount();
             }
         }
-        if (MC != null)
+        if (MagicController != null)
         {
             gameObject.transform.GetChild(1).gameObject.SetActive(false);
-            gameObject.transform.GetChild(2).gameObject.SetActive(true);
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
+        }
+        if (MeleeController != null)
+        {
+            gameObject.transform.GetChild(2).gameObject.SetActive(false);
+            gameObject.transform.GetChild(3).gameObject.SetActive(true);
         }
     }
     public void CheckAmount()

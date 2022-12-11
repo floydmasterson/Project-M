@@ -2,6 +2,7 @@ using Cinemachine;
 using Photon.Pun;
 using Sirenix.OdinInspector;
 using SmartConsole.Components;
+using System;
 using System.Collections;
 using UnityEngine;
 using Cursor = UnityEngine.Cursor;
@@ -80,6 +81,7 @@ public class PlayerManger : MonoBehaviourPun
     public Transform spawnPoint;
     public delegate void Death(PlayerManger player);
     public static event Death OnDeath;
+    public static event Action<int> OnDamaged;
 
 
     //Movment
@@ -248,11 +250,11 @@ public class PlayerManger : MonoBehaviourPun
         DontDestroyOnLoad(this.gameObject);
         if (photonView.IsMine)
         {
+            animator = GetComponent<Animator>();
             gameObject.name = PhotonNetwork.NickName;
             MiniMapIcon.SetActive(true);
             cam = GameObject.FindGameObjectWithTag("MainCamera");
             characterController = GetComponent<CharacterController>();
-            animator = GetComponent<Animator>();
             cineCamera.Priority = 10;
             Rb = GetComponent<Rigidbody>();
             if (InventoryPrefab != null)
@@ -325,9 +327,6 @@ public class PlayerManger : MonoBehaviourPun
                 chestControl.Open();
                 inChest = true;
                 onInventoryOpen();
-                PlayerUi.Instance.gameObject.transform.GetChild(5).gameObject.SetActive(false);
-
-
             }
             if (chestControl != null && chestControl.isOpen == true)
             {
@@ -337,7 +336,6 @@ public class PlayerManger : MonoBehaviourPun
                     inChest = false;
                     UiLockOut(false);
                     onInventoryClose();
-                    PlayerUi.Instance.gameObject.transform.GetChild(5).gameObject.SetActive(true);
                 }
             }
             if (Input.GetKeyDown(KeyCode.F))
@@ -530,30 +528,47 @@ public class PlayerManger : MonoBehaviourPun
     }
     #endregion
     #region Damage and Healing
-    public void TakeDamge(float damage)
+    public void TakeDamge(int damage, object attacker)
     {
-        if (photonView.IsMine)
+
+        if (attacker is Enemys)
         {
+            if (photonView.IsMine)
+            {
+                animator.SetTrigger("wasHurt");
+                photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
+            }
+        }
+        else if (attacker is PlayerManger)
+        {
+            if (photonView.IsMine)
+                animator.SetTrigger("wasHurt");
             photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
         }
+        else if (attacker is null)
+        {
+            if (photonView.IsMine)
+                photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
+        }
+
     }
 
     [PunRPC]
-    public void TakeDamge_Rpc(float damage)
+    public void TakeDamge_Rpc(int damage)
     {
-        if (photonView.IsMine)
+        if (isInvulnerable == false)
         {
-            if (isInvulnerable == false)
+            Debug.Log(this + "takes " + damage + " damage.");
+            if (photonView.IsMine)
             {
-                Debug.Log(this + "takes " + damage + " damage.");
+                OnDamaged(damage);
                 CurrentHealth -= damage;
-                animator.SetTrigger("wasHurt");
-                if (CurrentHealth <= 0 && isAlive == true)
-                {
-                    CurrentHealth = 0;
-                    col.isTrigger = false;
-                    photonView.RPC("Die", RpcTarget.All);
-                }
+            if (CurrentHealth <= 0 && isAlive == true)
+            {
+                CurrentHealth = 0;
+                col.isTrigger = false;
+                photonView.RPC("Die", RpcTarget.All);
+            }
             }
         }
     }
@@ -569,27 +584,25 @@ public class PlayerManger : MonoBehaviourPun
             isAlive = false;
             isInvulnerable = true;
             StartCoroutine(ExecuteAfterTime());
+            Debug.Log(this + " died");
         }
     }
     public void Heal(int amount)
     {
         CurrentHealth += amount;
+        Debug.Log(this + " healed for " + amount);
     }
     private void Respawn()
     {
         if (lifes > 0)
         {
             gameObject.transform.position = spawnPoint.position;
-
-            Debug.Log(spawnPoint.position);
             CurrentHealth = MaxHealth;
             isAlive = true;
             canMove = true;
             canAttack = true;
             col.isTrigger = true;
             animator.SetTrigger("Res");
-
-
         }
     }
 

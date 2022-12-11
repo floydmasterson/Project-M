@@ -173,7 +173,7 @@ public class Enemys : MonoBehaviourPun
             {
                 photonView.RPC("UpdateAttack", RpcTarget.All);
                 yield return new WaitForSecondsRealtime(.5f);
-                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2f, (player.Defense / Power)))); ;
+                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2f, (player.Defense / Power))), this); ;
                 if (player.CurrentHealth <= 0)
                 {
                     Target = null;
@@ -188,8 +188,6 @@ public class Enemys : MonoBehaviourPun
         }
 
         isTAttackExecuting = false;
-
-
     }
     #endregion
     #region Type 2 IEnumerators
@@ -342,17 +340,12 @@ public class Enemys : MonoBehaviourPun
     }
     #endregion
     #region Recive Dmg
+   
     public void TakeDamge(float damage)
-    {
-        photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
-    }
-
-    [PunRPC]
-    public void TakeDamge_Rpc(float damage)
     {
         currentHealth -= damage;
         Debug.Log(this + "takes " + damage + " damage.");
-        animator.SetTrigger("wasHurt");
+        photonView.RPC("Hit", RpcTarget.All);
         if (isDead == false)
             StartCoroutine(RangeExpand());
         if (currentHealth <= 0)
@@ -360,8 +353,8 @@ public class Enemys : MonoBehaviourPun
             animator.SetBool("Dead", true);
             photonView.RPC("Die", RpcTarget.All);
         }
-       
     }
+      
 
     [PunRPC]
     public void Die()
@@ -391,6 +384,11 @@ public class Enemys : MonoBehaviourPun
 
         UpdateMoving(false);
         Debug.Log("UpdateMove");
+    }
+    [PunRPC]
+    private void Hit()
+    {
+        animator.SetTrigger("wasHurt");
     }
     [PunRPC]
     public void StartRotating()

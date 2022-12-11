@@ -100,7 +100,7 @@ public class PosionStatusEffect : StatusEffectSO
     }
     public override void StatusEffectPlayer()
     {
-        Ptarget.TakeDamge(tickDamage);
+        Ptarget.TakeDamge(tickDamage, null);
     }
     public override void ApplyEffectPlayer(PlayerManger enemy)
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu( menuName = "Spells")]
 public class SpellScriptableObject : ScriptableObject
 {
-    public float dmgAmt = 10f;
+    public int dmgAmt = 10;
     public float ManaCost = 5f;
     public float lifeTime = 2f;
     public float speed = 15f;

@@ -41,14 +41,42 @@ public class EquipmentPanel : MonoBehaviour
         {
             if (EquipmentSlots[i].EquipmentType == item.EquipmentType)
             {
-                previousItem = (EquippableItem)EquipmentSlots[i].Item;
-                EquipmentSlots[i].Item = item;
-                EquipmentSlots[i].Amount = 1;
-                return true;
+                if (item.EquipmentType != EquipmentType.Minor_Accessory)
+                {
+                    
+                    previousItem = (EquippableItem)EquipmentSlots[i].Item;
+                    EquipmentSlots[i].Item = item;
+                    EquipmentSlots[i].Amount = 1;
+                    return true;
+                }
+                else if (item.EquipmentType == EquipmentType.Minor_Accessory)
+                {
+                    if (EquipmentSlots[10].Item == null && EquipmentSlots[11].Item == null)
+                    {
+                        EquipmentSlots[10].Item = item;
+                        EquipmentSlots[10].Amount = 1;
+                        previousItem = null;
+                        return true;
+                    }
+                    else if (EquipmentSlots[10].Item != null && EquipmentSlots[11].Item == null)
+                    {
+                        EquipmentSlots[11].Item = item;
+                        EquipmentSlots[11].Amount = 1;
+                        previousItem = null;
+                    return true;
+                    }
+                    else if (EquipmentSlots[10].Item != null && EquipmentSlots[11].Item != null)
+                    {
+                        previousItem = (EquippableItem)EquipmentSlots[10].Item;
+                        EquipmentSlots[10].Item = item;
+                        EquipmentSlots[10].Amount = 1;
+                        return true;
+                    }
+                }
             }
         }
-        previousItem = null;
-        return false;
+            previousItem = null;
+            return false;
     }
 
     public bool RemoveItem(EquippableItem item)

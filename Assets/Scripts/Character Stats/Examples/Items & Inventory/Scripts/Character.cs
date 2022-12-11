@@ -209,48 +209,18 @@ public class Character : MonoBehaviour
         if (Inventory.RemoveItem(item))
         {
             EquippableItem previousItem;
-            if (EquipmentPanel.AddItem(item, out previousItem)) //&& item.EquipmentType != EquipmentType.Minor_Accessory)
+            if (EquipmentPanel.AddItem(item, out previousItem))
             {
                 if (previousItem != null)
                 {
-                    Inventory.AddItem(previousItem, 0);
+                    Inventory.AddItem(previousItem, 1);
                     previousItem.Unequip(this);
                 }
                 item.Equip(this);
-
             }
-            //else if (item.EquipmentType == EquipmentType.Minor_Accessory)
-            //{
-            //    if (EquipmentPanel.EquipmentSlots[10].Item == null && EquipmentPanel.EquipmentSlots[11].Item == null)
-            //    {
-            //        EquipmentPanel.EquipmentSlots[10].Item = item;
-            //        EquipmentPanel.EquipmentSlots[10].Amount = 1;
-            //    }
-            //    else if (EquipmentPanel.EquipmentSlots[10].Item != null && EquipmentPanel.EquipmentSlots[11].Item == null)
-            //    {
-            //        EquipmentPanel.EquipmentSlots[11].Item = item;
-            //        EquipmentPanel.EquipmentSlots[11].Amount = 1;
-            //    }
-
-            //    else if (EquipmentPanel.EquipmentSlots[10].Item == null && EquipmentPanel.EquipmentSlots[11].Item != null)
-            //    {
-            //        EquipmentPanel.EquipmentSlots[10].Item = item;
-            //        EquipmentPanel.EquipmentSlots[10].Amount = 1;
-            //    }
-            //    else if (EquipmentPanel.EquipmentSlots[10].Item != null && EquipmentPanel.EquipmentSlots[11].Item != null)
-            //    {
-            //        EquipmentPanel.AddItem(item, out previousItem);
-            //        if (previousItem != null)
-            //        {
-            //            Inventory.AddItem(previousItem, 0);
-            //            previousItem.Unequip(this);
-            //        } 
-            //    }
-                //item.Equip(this);
-          //  }
             else
             {
-                Inventory.AddItem(item, 0);
+                Inventory.AddItem(item, 1);
             }
             statPanel.UpdateStatValues();
         }
@@ -262,7 +232,7 @@ public class Character : MonoBehaviour
         {
             item.Unequip(this);
             statPanel.UpdateStatValues();
-            Inventory.AddItem(item, 0);
+            Inventory.AddItem(item, 1);
         }
     }
 

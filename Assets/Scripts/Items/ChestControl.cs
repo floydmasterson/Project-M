@@ -61,7 +61,6 @@ public class ChestControl : ItemContainer
         {
             pickUpAllowed = true;
             character = Character.Instance;
-            StopAllCoroutines();
         }
         if (isOpen == false && other.gameObject.CompareTag("Player"))
         {
@@ -76,19 +75,20 @@ public class ChestControl : ItemContainer
             if (meshFilter.sharedMesh != null)
                 meshFilter.sharedMesh = close;
             pickUpAllowed = false;
-            StartCoroutine(Despawn());
         }
     }
     public void Open()
     {
         isOpen = true;
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        PlayerUi.Instance.Minimap.SetActive(false);
         character.OpenItemContainer(this);
         StopCoroutine(Despawn());
     }
     public void Close()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        PlayerUi.Instance.Minimap.SetActive(true);
         character.CloseItemContainer(this);
         if (meshFilter.sharedMesh != null)
             meshFilter.sharedMesh = close;

@@ -1,8 +1,9 @@
 using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public class Spell : MonoBehaviour
+public class Spell : MonoBehaviourPun
 {
     public SpellScriptableObject spellToCast;
     [SerializeField] ParticleSystem ps;
@@ -16,6 +17,7 @@ public class Spell : MonoBehaviour
     [SerializeField] float homingRange;
     [SerializeField] float rotForce;
     [SerializeField] float force;
+    
     SphereCollider sphereCollider;
     Transform target;
     bool poof = false;
@@ -95,9 +97,9 @@ public class Spell : MonoBehaviour
             {
                 hit = true;
                 PlayerManger enemy = other.GetComponent<PlayerManger>();
-                if (enemy != PlayerUi.Instance.target)
+              if (enemy.GetComponent<PlayerManger>() != PlayerUi.Instance.target)
                 {
-                    enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, enemy.Defense / Character.Instance.Intelligence.Value))));
+                    enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, enemy.Defense / Character.Instance.Intelligence.Value))), enemy);
                     if (statusEffects != null)
                     {
                         foreach (StatusEffectSO effect in statusEffects)
@@ -118,7 +120,7 @@ public class Spell : MonoBehaviour
         poof = true;
         if (ps != null)
             ps.Play();
-        Destroy(this.gameObject, .5f);
+       Destroy(gameObject, .5F);
     }
     private void OnDrawGizmosSelected()
     {

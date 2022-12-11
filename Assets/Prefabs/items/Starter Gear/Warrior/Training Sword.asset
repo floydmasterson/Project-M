@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 367922f3fbfba354493f12a9068dc6f0, type: 3}
   ItemName: Training Sword
+  ItemTier: 0
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
@@ -26,6 +27,6 @@ MonoBehaviour:
   AgilityPercentBonus: 0.1
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  Passive: []
+  Passives: []
   EquipmentType: 5
   BoundSpell: {fileID: 0}

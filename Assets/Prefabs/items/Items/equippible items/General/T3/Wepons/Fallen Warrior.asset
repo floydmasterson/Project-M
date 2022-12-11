@@ -27,7 +27,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  Passive:
+  Passives:
   - {fileID: 11400000, guid: cc01029acf5928c429958e6638b70715, type: 2}
   EquipmentType: 5
   BoundSpell: {fileID: 0}

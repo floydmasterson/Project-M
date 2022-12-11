@@ -85,7 +85,7 @@ MonoBehaviour:
   spellToCast: {fileID: 11400000, guid: d90990230e7862f43813cec2deb7a975, type: 2}
   ps: {fileID: 5286306216565072624}
   statusEffects: []
-  homing: 1
+  homing: 0
   EnemyMask:
     serializedVersion: 2
     m_Bits: 128
@@ -94,6 +94,7 @@ MonoBehaviour:
   homingRange: 10
   rotForce: 200
   force: 35
+  photonView: {fileID: 2572052445641751294}
 --- !u!114 &2572052445641751294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +146,7 @@ GameObject:
   m_Layer: 13
   m_Name: origin
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7866945982896999795, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

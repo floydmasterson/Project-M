@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6471349741218224066}
   - component: {fileID: -7622149830911307958}
   - component: {fileID: 3996387190446903262}
+  - component: {fileID: 6470809834473197434}
   - component: {fileID: 2572052445641751294}
   - component: {fileID: 4062908064502644406}
-  - component: {fileID: 6470809834473197434}
   m_Layer: 13
   m_Name: E-DragonEProj
   m_TagString: Untagged
@@ -67,6 +67,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.68363523
   m_Center: {x: 0.08981943, y: 0, z: 0}
+--- !u!114 &6470809834473197434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1478796144478312848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1f55b053bc6f004da8ffcf21820d850, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 50
+  ps: {fileID: 1466620875045098534}
 --- !u!114 &2572052445641751294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -106,20 +120,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &6470809834473197434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1478796144478312848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1f55b053bc6f004da8ffcf21820d850, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 50
-  ps: {fileID: 1466620875045098534}
 --- !u!1 &7693987370064867263
 GameObject:
   m_ObjectHideFlags: 0
