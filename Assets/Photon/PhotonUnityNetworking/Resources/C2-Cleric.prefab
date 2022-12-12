@@ -1546,13 +1546,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedSpell: {fileID: 0}
-  castPoint: {fileID: 4068259712656919644}
+  isCasting: 0
   _maxMana: 100
   _currMana: 0
+  castPoint: {fileID: 4068259712656919644}
   _timeToWaitForRecharge: 1.5
   _BasemanaRegenRate: 1
   _castCooldown: 0.4
-  isCasting: 0
 --- !u!114 &1634687762457129801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1736,7 +1736,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3776485762190193921}
   m_LocalRotation: {x: 0.21496823, y: -0.42908806, z: 0.105914794, w: 0.87089276}
-  m_LocalPosition: {x: 0.0000019073486, y: 0.0000019073486, z: 3.4106035e-13}
+  m_LocalPosition: {x: 0.0000047683716, y: 0.0000019073486, z: 1.7053023e-12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

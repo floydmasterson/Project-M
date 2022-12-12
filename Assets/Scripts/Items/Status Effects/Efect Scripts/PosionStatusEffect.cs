@@ -92,7 +92,7 @@ public class PosionStatusEffect : StatusEffectSO
         else
         {
             Debug.Log("effect over");
-            Ptarget.StopCoroutine(ApplyEnemy());
+            Ptarget.StopCoroutine(ApplyPlayer());
             EffectVFX.DisableEffect(1);
             EffectVFX.posioned = false;
             stop = false;

@@ -29,5 +29,6 @@ MonoBehaviour:
   VitalityPercentBonus: 0
   Passives:
   - {fileID: 11400000, guid: af30f775828cdc64e8c5c126d4120b11, type: 2}
+  - {fileID: 11400000, guid: 01b30b3f02f7f494e92fe060df649984, type: 2}
   EquipmentType: 10
   BoundSpell: {fileID: 0}

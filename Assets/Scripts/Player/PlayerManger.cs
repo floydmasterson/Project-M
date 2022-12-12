@@ -1,4 +1,5 @@
 using Cinemachine;
+using Kryz.CharacterStats.Examples;
 using Photon.Pun;
 using Sirenix.OdinInspector;
 using SmartConsole.Components;

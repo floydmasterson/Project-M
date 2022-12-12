@@ -11,7 +11,8 @@ public class ManaUpPassive : PassiveSO
 
     public override void Passive()
     {
-        MC.MaxMana += manaAmount;
+        if (MC != null)
+            MC.MaxMana += manaAmount;
     }
     public override void ApplyPassive()
     {
@@ -21,7 +22,8 @@ public class ManaUpPassive : PassiveSO
     }
     public override void RemovePassive()
     {
-        MC.MaxMana -= manaAmount;
+        if (MC != null)
+            MC.MaxMana -= manaAmount;
     }
     public override string GetDescription()
     {

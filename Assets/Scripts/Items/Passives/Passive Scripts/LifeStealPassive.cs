@@ -10,7 +10,7 @@ public class LifeStealPassive : PassiveSO
     public override void Passive()
     {
         if (MC != null)
-            player.LifeSteal = true;
+            MC.lifeStealAmount += .10f;
     }
     public override void ApplyPassive()
     {
@@ -21,14 +21,14 @@ public class LifeStealPassive : PassiveSO
     public override void RemovePassive()
     {
         if (MC != null)
-            player.LifeSteal = false;
+            MC.lifeStealAmount -= .10f;
     }
 
 
     public override string GetDescription()
     {
         sb.Length = 0;
-        sb.Append("Life Drain: Attacks now heal you for 1/3 of its damage");
+        sb.Append("Life Drain: Increase rage mode life steal by 10%.");
         return sb.ToString();
 
     }

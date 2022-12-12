@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class ProjectMCommands : CommandBehaviour
 {
-    PlayerManger localPlayer;
-    [SerializeField] GameManger GameManger;
+    [SerializeField] PlayerManger localPlayer;
     [SerializeField] PhotonView photonView;
     #region SetUp
     private void OnEnable()
@@ -41,7 +40,12 @@ public class ProjectMCommands : CommandBehaviour
         PhotonNetwork.Disconnect();
         SceneManager.LoadScene(index);
     }
-
+    [Command]
+    public void main_menu()
+    {
+        PhotonNetwork.Disconnect();
+        SceneManager.LoadScene(0);
+    }
     [Command]
     public void help()
     {
@@ -85,14 +89,12 @@ public class ProjectMCommands : CommandBehaviour
             {
                 localPlayer.DefenseMod += 100000;
                 localPlayer.CheckDefense();
-                Character.Instance.statPanel.UpdateStatValues();
             }
             else if (state == false)
             {
 
                 localPlayer.DefenseMod -= 100000;
                 localPlayer.CheckDefense();
-                Character.Instance.statPanel.UpdateStatValues();
             }
         }
         else
@@ -139,7 +141,7 @@ public class ProjectMCommands : CommandBehaviour
     [Command]
     private void set_gametime(float timeinseconds)
     {
-        if (GameManger != null)
+        if (GameManger.Instance != null)
         {
             if (PhotonNetwork.IsMasterClient)
                 photonView.RPC("SetGameTimeRPC", RpcTarget.All, timeinseconds);
@@ -153,9 +155,9 @@ public class ProjectMCommands : CommandBehaviour
     [PunRPC]
     public void SetGameTimeRPC(float time)
     {
-        GameManger.GameTimeLeft = time;
+        GameManger.Instance.GameTimeLeft = time;
         if (time > 0)
-            GameManger.timerOn = true;
+            GameManger.Instance.timerOn = true;
     }
 
     #endregion

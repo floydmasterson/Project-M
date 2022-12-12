@@ -7896,14 +7896,11 @@ MonoBehaviour:
   - {fileID: 1072771939840293861}
   - {fileID: 4090366481961466387}
   startingItems:
-  - {fileID: 11400000, guid: 650a55ada548fff4ab057eb4631792ea, type: 2}
-  - {fileID: 11400000, guid: 650a55ada548fff4ab057eb4631792ea, type: 2}
-  - {fileID: 11400000, guid: 650a55ada548fff4ab057eb4631792ea, type: 2}
+  - {fileID: 11400000, guid: 2ee42e65b61b2eb45b924a061d64c678, type: 2}
+  - {fileID: 11400000, guid: 2ee42e65b61b2eb45b924a061d64c678, type: 2}
   - {fileID: 11400000, guid: 94b0b717223e73947b0d1f6e08a59465, type: 2}
   - {fileID: 11400000, guid: 561276e27b519ab4b91fc41463ea2780, type: 2}
   - {fileID: 11400000, guid: d7dd9d1482473654097dcfe5b9eaf1bd, type: 2}
-  - {fileID: 11400000, guid: 2ee42e65b61b2eb45b924a061d64c678, type: 2}
-  - {fileID: 11400000, guid: 2ee42e65b61b2eb45b924a061d64c678, type: 2}
   itemsParent: {fileID: 4992822831985948440}
 --- !u!1 &5288277343836105356
 GameObject:

@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   Notes: 
   id: 8268911742e5971468fa19608a1d68f3
-  StrengthBonus: 10
+  StrengthBonus: 8
   AgilityBonus: 0
   IntelligenceBonus: 0
   VitalityBonus: 0
@@ -27,7 +27,6 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  Passive:
-  - {fileID: 0}
+  Passives: []
   EquipmentType: 10
   BoundSpell: {fileID: 0}

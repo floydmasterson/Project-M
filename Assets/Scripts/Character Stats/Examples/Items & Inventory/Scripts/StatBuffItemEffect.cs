@@ -12,7 +12,7 @@ public class StatBuffItemEffect : UseableItemEffect
     public int VitalityBuff;
     public float Duration;
     StringBuilder sb = new StringBuilder();
-    private IEnumerator RemoveBuff(Character character, StatModifier statModifier, float duration)
+   public IEnumerator RemoveBuff(Character character, StatModifier statModifier, float duration)
     {
         yield return new WaitForSecondsRealtime(duration);
         if (StrengthBuff != 0)

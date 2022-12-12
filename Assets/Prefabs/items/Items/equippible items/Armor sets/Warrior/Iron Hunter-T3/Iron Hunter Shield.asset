@@ -30,5 +30,6 @@ MonoBehaviour:
   Passives:
   - {fileID: 11400000, guid: e4e89a5a64509b5439b8e4a6cd38843a, type: 2}
   - {fileID: 11400000, guid: c0fcb5005938f07489545c04735cc034, type: 2}
+  - {fileID: 11400000, guid: 01b30b3f02f7f494e92fe060df649984, type: 2}
   EquipmentType: 7
   BoundSpell: {fileID: 0}

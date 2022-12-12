@@ -1,29 +1,37 @@
 using Photon.Pun;
+using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 
 public class MagicController : MonoBehaviour, IAttack
 {
-
+  
     private float currentManaRechargeTimer;
     private float currentCastTimer;
     private PlayerManger manger;
-    public Spell selectedSpell;
-    [SerializeField] Transform castPoint;
-    [SerializeField] float _maxMana = 100f;
-    [SerializeField] float _currMana;
-    [SerializeField] float _timeToWaitForRecharge = 1.5f;
-    [SerializeField] float _BasemanaRegenRate = 2f;
-    [SerializeField] private float _castCooldown = .25f;
-    [SerializeField] private bool isCasting = false;
 
+     [TabGroup("Spell and Mana")]
+    public Spell selectedSpell;
+    [TabGroup("Spell and Mana")]
+    [SerializeField] private bool isCasting = false;
+    [TabGroup("Spell and Mana")]
+    [SerializeField] float _maxMana = 100f;
+    [TabGroup("Spell and Mana"), ProgressBar(0, "_maxMana", 0, 0, 1)]
+    [SerializeField] float _currMana;
+
+    [TabGroup("Setup")]
+    [SerializeField] Transform castPoint;
+    [TabGroup("Setup")]
+    [SerializeField] float _timeToWaitForRecharge = 1.5f;
+    [TabGroup("Setup")]
+    [SerializeField] float _BasemanaRegenRate = 2f;
+    [TabGroup("Setup")]
+    [SerializeField] private float _castCooldown = .25f;
     public float ManaRegenRate
     {
         get { return _BasemanaRegenRate; }
         set { _BasemanaRegenRate = value; }
     }
-
-
     public float MaxMana
     {
         get { return _maxMana; }
@@ -70,7 +78,14 @@ public class MagicController : MonoBehaviour, IAttack
         manger = PlayerUi.Instance.target;
         _currMana = _maxMana;
     }
-
+    private void OnEnable()
+    {
+        PlayerManger.OnDeath += onDeath;
+    }
+    private void OnDisable()
+    {
+        PlayerManger.OnDeath -= onDeath;
+    }
     private void Update()
     {
         if (isCasting)
@@ -115,7 +130,6 @@ public class MagicController : MonoBehaviour, IAttack
             MeeleAttack();
         }
     }
-
     void CastSpell()
     {
         PhotonNetwork.Instantiate(selectedSpell.name, castPoint.position, castPoint.rotation);
@@ -138,5 +152,9 @@ public class MagicController : MonoBehaviour, IAttack
                 Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
             }
         }
+    }
+    private void onDeath(PlayerManger player)
+    {
+        CurrMana = MaxMana;
     }
 }

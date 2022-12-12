@@ -1,5 +1,6 @@
 using Photon.Pun;
 using Sirenix.OdinInspector;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,20 +27,20 @@ public class PlayerUi : MonoBehaviourPun
     [SerializeField] private TextMeshProUGUI ManaTextInv;
 
     [TabGroup("Player Rage")]
-    [SerializeField] Slider playerRageSlider;
+    [SerializeField] public Slider playerRageSlider;
     [TabGroup("Player Rage")]
-    [SerializeField] Slider playerRageSliderInv;
+    [SerializeField] public Slider playerRageSliderInv;
     [TabGroup("Player Rage")]
     [SerializeField] private TextMeshProUGUI RageText;
     [TabGroup("Player Rage")]
     [SerializeField] private TextMeshProUGUI RageTextInv;
-  
+
 
     [TabGroup("Quick Slot")]
     [SerializeField] Image quickSlotImage;
     [TabGroup("Quick Slot")]
     [SerializeField] GameObject quickSlot;
-    [TabGroup("Quick Slot")] 
+    [TabGroup("Quick Slot")]
     [SerializeField] TextMeshProUGUI quickSlotAmountText;
     [TabGroup("MiniMap")]
     public GameObject Minimap;
@@ -57,13 +58,11 @@ public class PlayerUi : MonoBehaviourPun
 
     public delegate void setTarget();
     public static event setTarget targetSet;
-
     // Start is called before the first frame update
     void Awake()
     {
         Instance = this;
         _canvasGroup = this.GetComponent<CanvasGroup>();
-
     }
     private void OnEnable()
     {
@@ -154,10 +153,25 @@ public class PlayerUi : MonoBehaviourPun
             quickSlot.SetActive(false);
 
     }
+    void LateUpdate()
+    {
+        // Do not show the UI if we are not visible to the camera, thus avoid potential bugs with seeing the UI, but not the player itself.
+        if (targetRenderer != null)
+        {
+            this._canvasGroup.alpha = targetRenderer.isVisible ? 1f : 0f;
+        }
+        // #Critical
+        // Follow the Target GameObject on screen.
+        if (targetTransform != null)
+        {
+            targetPosition = targetTransform.position;
+            targetPosition.y += characterControllerHeight;
+        }
+    }
 
     public void OpenUi()
     {
-      
+
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
         gameObject.transform.GetChild(5).gameObject.SetActive(false);
         if (quickSlotImage.sprite != null)
@@ -212,21 +226,6 @@ public class PlayerUi : MonoBehaviourPun
         quickAmount = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Amount;
         quickSlotAmountText.text = quickAmount.ToString();
     }
-    void LateUpdate()
-    {
-        // Do not show the UI if we are not visible to the camera, thus avoid potential bugs with seeing the UI, but not the player itself.
-        if (targetRenderer != null)
-        {
-            this._canvasGroup.alpha = targetRenderer.isVisible ? 1f : 0f;
-        }
-        // #Critical
-        // Follow the Target GameObject on screen.
-        if (targetTransform != null)
-        {
-            targetPosition = targetTransform.position;
-            targetPosition.y += characterControllerHeight;
-        }
-    }
     public void SetTarget(PlayerManger _target)
     {
         if (_target == null)
@@ -246,4 +245,5 @@ public class PlayerUi : MonoBehaviourPun
         }
         targetSet();
     }
+
 }
