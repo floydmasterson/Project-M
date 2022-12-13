@@ -172,7 +172,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
         if (manger == null)
             manger = PlayerUi.Instance.target;
         manger.photonView.RPC("UpdateAttack", RpcTarget.All);
-        StartCoroutine(manger.IFrames(.6f));
+        //StartCoroutine(manger.IFrames(.6f));
         //StartCoroutine(manger.MoveLock(.8f));
         Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
         if (hitEnemins.Length != 0)

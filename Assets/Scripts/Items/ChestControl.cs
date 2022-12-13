@@ -83,7 +83,7 @@ public class ChestControl : ItemContainer
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
         PlayerUi.Instance.Minimap.SetActive(false);
         character.OpenItemContainer(this);
-        StopCoroutine(Despawn());
+        StopCoroutine("Despawn");
     }
     public void Close()
     {
@@ -92,7 +92,7 @@ public class ChestControl : ItemContainer
         character.CloseItemContainer(this);
         if (meshFilter.sharedMesh != null)
             meshFilter.sharedMesh = close;
-        StartCoroutine(Despawn());
+        StartCoroutine("Despawn");
         character = null;
         isOpen = false;
     }
