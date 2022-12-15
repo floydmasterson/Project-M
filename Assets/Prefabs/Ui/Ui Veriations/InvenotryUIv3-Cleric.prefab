@@ -8105,6 +8105,7 @@ MonoBehaviour:
   - {fileID: 747368935297856426}
   - {fileID: 6571643979614390736}
   - {fileID: 2314157342758854204}
+  InvCanvas: {fileID: 3739851515273236429}
   isOpen: 0
 --- !u!114 &2079767453124844092
 MonoBehaviour:

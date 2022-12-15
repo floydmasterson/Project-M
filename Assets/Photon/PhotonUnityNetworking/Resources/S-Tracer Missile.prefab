@@ -122,7 +122,6 @@ MonoBehaviour:
   homingRange: 12
   rotForce: 200
   force: 50
-  photonView: {fileID: 278920307575328711}
 --- !u!114 &278920307575328711
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,5 +1,5 @@
-using System.Collections;
 using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -17,7 +17,7 @@ public class Spell : MonoBehaviourPun
     [SerializeField] float homingRange;
     [SerializeField] float rotForce;
     [SerializeField] float force;
-    
+
     SphereCollider sphereCollider;
     Transform target;
     bool poof = false;
@@ -73,43 +73,46 @@ public class Spell : MonoBehaviourPun
             {
                 Poof();
             }
-            if (other.CompareTag("enemy"))
+            if (photonView.IsMine)
             {
-                hit = true;
-                Enemys enemy = other.GetComponent<Enemys>();
-                enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, enemy.Defense / Character.Instance.Intelligence.Value) )));
-                if (statusEffects != null)
+                if (other.CompareTag("enemy"))
                 {
-                    foreach (StatusEffectSO effect in statusEffects)
-                    {
-                        StatusEffectSO effectCopy = effect.GetCopy();
-                        if (effectCopy != null)
-                            effectCopy.ApplyEffectEnemy(enemy);
-                    }
-                }
-                else
-                {
-                    Debug.Log("spell status empy");
-                }
-                Poof();
-            }
-            if (other.CompareTag("Player") && PlayerUi.Instance.target.pvp == true)
-            {
-                hit = true;
-                PlayerManger enemy = other.GetComponent<PlayerManger>();
-              if (enemy.GetComponent<PlayerManger>() != PlayerUi.Instance.target)
-                {
-                    enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, enemy.Defense / Character.Instance.Intelligence.Value))), enemy);
+                    hit = true;
+                    Enemys enemy = other.GetComponent<Enemys>();
+                    enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2.6f, enemy.Defense / Character.Instance.Intelligence.Value))));
                     if (statusEffects != null)
                     {
                         foreach (StatusEffectSO effect in statusEffects)
                         {
-                            StatusEffectSO eCopy = effect.GetCopy();
-                            if (eCopy != null)
-                                eCopy.ApplyEffectPlayer(enemy);
+                            StatusEffectSO effectCopy = effect.GetCopy();
+                            if (effectCopy != null)
+                                effectCopy.ApplyEffectEnemy(enemy);
                         }
                     }
+                    else
+                    {
+                        Debug.Log("spell status empy");
+                    }
                     Poof();
+                }
+                if (other.CompareTag("Player") && PlayerUi.Instance.target.pvp == true)
+                {
+                    hit = true;
+                    PlayerManger enemy = other.GetComponent<PlayerManger>();
+                    if (enemy.IsLocal == false)
+                    {
+                        enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2.6f, enemy.Defense / Character.Instance.Intelligence.Value))), PlayerUi.Instance.target);
+                        if (statusEffects != null)
+                        {
+                            foreach (StatusEffectSO effect in statusEffects)
+                            {
+                                StatusEffectSO eCopy = effect.GetCopy();
+                                if (eCopy != null)
+                                    eCopy.ApplyEffectPlayer(enemy);
+                            }
+                        }
+                        Poof();
+                    }
                 }
             }
         }
@@ -120,7 +123,7 @@ public class Spell : MonoBehaviourPun
         poof = true;
         if (ps != null)
             ps.Play();
-       Destroy(gameObject, .5F);
+        Destroy(gameObject, .5F);
     }
     private void OnDrawGizmosSelected()
     {

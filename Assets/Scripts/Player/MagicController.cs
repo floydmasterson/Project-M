@@ -60,16 +60,12 @@ public class MagicController : MonoBehaviour, IAttack
     private IEnumerator AttackSpell()
     {
         manger.photonView.RPC("UpdateAttack", RpcTarget.All);
-        StartCoroutine(manger.IFrames(.6f));
-        StartCoroutine(manger.MoveLock(.9f));
         yield return new WaitForSecondsRealtime(.6f);
         CastSpell();
     }
     private IEnumerator AttackMelee()
     {
         manger.photonView.RPC("UpdateAttack", RpcTarget.All);
-        StartCoroutine(manger.IFrames(.6f));
-        StartCoroutine(manger.MoveLock(.9f));
         yield return new WaitForSecondsRealtime(.1f);
     }
     private void Awake()
@@ -145,11 +141,11 @@ public class MagicController : MonoBehaviour, IAttack
             Enemys Etarget = target.GetComponent<Enemys>();
             if (player != null && PlayerUi.Instance.target)
             {
-                player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
+                player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2.6f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
             }
             if (Etarget != null)
             {
-                Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
+                Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2.6f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
             }
         }
     }

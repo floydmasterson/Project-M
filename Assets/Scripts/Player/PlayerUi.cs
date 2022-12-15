@@ -44,6 +44,8 @@ public class PlayerUi : MonoBehaviourPun
     [SerializeField] TextMeshProUGUI quickSlotAmountText;
     [TabGroup("MiniMap")]
     public GameObject Minimap;
+    [TabGroup("MiniMap")]
+    public Canvas UiCanvas;
     int quickAmount;
     private MagicController MagicController;
     private MeeleController MeleeController;
@@ -68,11 +70,13 @@ public class PlayerUi : MonoBehaviourPun
     {
         PlayerManger.onInventoryOpen += CloseUi;
         PlayerManger.onInventoryClose += OpenUi;
+        MapManager.MapState += UpdateCanvas;
     }
     private void OnDisable()
     {
         PlayerManger.onInventoryOpen -= CloseUi;
         PlayerManger.onInventoryClose -= OpenUi;
+        MapManager.MapState -= UpdateCanvas;
     }
     private void Start()
     {
@@ -221,6 +225,15 @@ public class PlayerUi : MonoBehaviourPun
             gameObject.transform.GetChild(3).gameObject.SetActive(true);
         }
     }
+    public void UpdateCanvas(bool state)
+    {
+        Debug.Log("canvas" + state);
+        if (state == true)
+            UiCanvas.enabled = false;
+        if(state == false) 
+            UiCanvas.enabled = true;
+    }
+
     public void CheckAmount()
     {
         quickAmount = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Amount;

@@ -10,6 +10,7 @@ public class InventoryUi : MonoBehaviourPun
     private PlayerManger target;
     public TextMeshProUGUI timeText;
     public Image[] hearts;
+    public Canvas InvCanvas;
     float characterControllerHeight = 0f;
     public bool isOpen = false;
     Transform targetTransform;
@@ -26,13 +27,15 @@ public class InventoryUi : MonoBehaviourPun
     {
         PlayerManger.onInventoryOpen += OpenInv;
         PlayerManger.onInventoryClose += CloseInv;
-        PlayerManger.OnDeath += updateHealth;
+        PlayerManger.OnDeath += UpdateHealth;
+        MapManager.MapState += UpdateCanvas;
     }
     private void OnDisable()
     {
         PlayerManger.onInventoryOpen -= OpenInv;
         PlayerManger.onInventoryClose -= CloseInv;
-        PlayerManger.OnDeath -= updateHealth;
+        PlayerManger.OnDeath -= UpdateHealth;
+        MapManager.MapState -= UpdateCanvas;
     }
     public void OpenInv()
     {
@@ -41,6 +44,14 @@ public class InventoryUi : MonoBehaviourPun
     public void CloseInv()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
+    }
+    public void UpdateCanvas(bool state)
+    {
+        Debug.Log("Inv canvas" + state);
+        if (state == true)
+            InvCanvas.enabled = false;
+        if (state == false)
+            InvCanvas.enabled = true;
     }
     public void SetTargetI(PlayerManger _target)
     {
@@ -73,7 +84,7 @@ public class InventoryUi : MonoBehaviourPun
             updateTimer(-1);
         }
     }
-    void updateHealth(PlayerManger player)
+    void UpdateHealth(PlayerManger player)
     {
         int lifes = PlayerUi.Instance.target.lifes;
         if(lifes == 3)

@@ -173,7 +173,7 @@ public class Enemys : MonoBehaviourPun
             {
                 photonView.RPC("UpdateAttack", RpcTarget.All);
                 yield return new WaitForSecondsRealtime(.5f);
-                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2f, (player.Defense / Power))), this); ;
+                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2.6f, (player.Defense / Power))), this); ;
                 if (player.CurrentHealth <= 0)
                 {
                     Target = null;

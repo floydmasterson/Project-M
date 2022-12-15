@@ -3385,6 +3385,7 @@ MonoBehaviour:
   quickSlot: {fileID: 865068147077252996}
   quickSlotAmountText: {fileID: 1150221885134689785}
   Minimap: {fileID: 2415149335253436952}
+  UiCanvas: {fileID: 7185705200403270264}
   target: {fileID: 0}
 --- !u!1 &8650123873873980202
 GameObject:

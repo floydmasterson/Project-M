@@ -20,7 +20,7 @@ MonoBehaviour:
     - BoneName: Root
       ID: 0
       ParentBoneName: CharacterArmature
-      Depth: 1
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -37,7 +37,7 @@ MonoBehaviour:
     - BoneName: Body
       ID: 1
       ParentBoneName: Root
-      Depth: 2
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
     - BoneName: Hips
       ID: 2
       ParentBoneName: Body
-      Depth: 3
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -71,7 +71,7 @@ MonoBehaviour:
     - BoneName: UpperLeg.L
       ID: 24
       ParentBoneName: Body
-      Depth: 3
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -88,7 +88,7 @@ MonoBehaviour:
     - BoneName: UpperLeg.R
       ID: 27
       ParentBoneName: Body
-      Depth: 3
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -105,7 +105,7 @@ MonoBehaviour:
     - BoneName: Abdomen
       ID: 3
       ParentBoneName: Hips
-      Depth: 4
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
     - BoneName: LowerLeg.L
       ID: 25
       ParentBoneName: UpperLeg.L
-      Depth: 4
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
     - BoneName: LowerLeg.R
       ID: 28
       ParentBoneName: UpperLeg.R
-      Depth: 4
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -156,7 +156,7 @@ MonoBehaviour:
     - BoneName: Torso
       ID: 4
       ParentBoneName: Abdomen
-      Depth: 5
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -173,7 +173,7 @@ MonoBehaviour:
     - BoneName: Foot.L
       ID: 26
       ParentBoneName: LowerLeg.L
-      Depth: 5
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -190,7 +190,7 @@ MonoBehaviour:
     - BoneName: Foot.R
       ID: 29
       ParentBoneName: LowerLeg.R
-      Depth: 5
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -207,7 +207,7 @@ MonoBehaviour:
     - BoneName: Neck
       ID: 5
       ParentBoneName: Torso
-      Depth: 6
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
     - BoneName: Shoulder.L
       ID: 7
       ParentBoneName: Torso
-      Depth: 6
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -241,7 +241,7 @@ MonoBehaviour:
     - BoneName: Shoulder.R
       ID: 15
       ParentBoneName: Torso
-      Depth: 6
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
     - BoneName: Head
       ID: 6
       ParentBoneName: Neck
-      Depth: 7
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -275,7 +275,7 @@ MonoBehaviour:
     - BoneName: UpperArm.L
       ID: 8
       ParentBoneName: Shoulder.L
-      Depth: 7
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -292,7 +292,7 @@ MonoBehaviour:
     - BoneName: UpperArm.R
       ID: 16
       ParentBoneName: Shoulder.R
-      Depth: 7
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -309,7 +309,7 @@ MonoBehaviour:
     - BoneName: LowerArm.L
       ID: 9
       ParentBoneName: UpperArm.L
-      Depth: 8
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -326,7 +326,7 @@ MonoBehaviour:
     - BoneName: LowerArm.R
       ID: 17
       ParentBoneName: UpperArm.R
-      Depth: 8
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
     - BoneName: Fist.L
       ID: 10
       ParentBoneName: LowerArm.L
-      Depth: 9
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -360,7 +360,7 @@ MonoBehaviour:
     - BoneName: Thumb1.L
       ID: 13
       ParentBoneName: LowerArm.L
-      Depth: 9
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -377,7 +377,7 @@ MonoBehaviour:
     - BoneName: Fist.R
       ID: 18
       ParentBoneName: LowerArm.R
-      Depth: 9
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -394,7 +394,7 @@ MonoBehaviour:
     - BoneName: Thumb1.R
       ID: 22
       ParentBoneName: LowerArm.R
-      Depth: 9
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -411,7 +411,7 @@ MonoBehaviour:
     - BoneName: Fist1.L
       ID: 11
       ParentBoneName: Fist.L
-      Depth: 10
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -428,7 +428,7 @@ MonoBehaviour:
     - BoneName: Thumb2.L
       ID: 14
       ParentBoneName: Thumb1.L
-      Depth: 10
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -445,7 +445,7 @@ MonoBehaviour:
     - BoneName: Fist1.R
       ID: 19
       ParentBoneName: Fist.R
-      Depth: 10
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -462,7 +462,7 @@ MonoBehaviour:
     - BoneName: Thumb2.R
       ID: 23
       ParentBoneName: Thumb1.R
-      Depth: 10
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -479,7 +479,7 @@ MonoBehaviour:
     - BoneName: Fist2.L
       ID: 12
       ParentBoneName: Fist1.L
-      Depth: 11
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -496,7 +496,7 @@ MonoBehaviour:
     - BoneName: Fist2.R
       ID: 20
       ParentBoneName: Fist1.R
-      Depth: 11
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -513,7 +513,7 @@ MonoBehaviour:
     - BoneName: Weapon.R
       ID: 21
       ParentBoneName: Fist1.R
-      Depth: 11
+      Depth: 0
       BakeBone: 1
       IsIKElement: 0
       HumanoidBodyBone: 0
@@ -536,12 +536,12 @@ MonoBehaviour:
       IsIKElement: 0
       HumanoidBodyBone: 0
       wasInitializing: 0
-      BoneBakePathName: 
-      HumToGenericBoneBakePathName: 
+      BoneBakePathName: CharacterArmature/Root
+      HumToGenericBoneBakePathName: CharacterArmature/Root
       HumanoidBoneDefined: 0
-      BakePosition: 0
-      _Bake_PivotSpace: 0
-      _Bake_IsRoot: 0
+      BakePosition: 1
+      _Bake_PivotSpace: 1
+      _Bake_IsRoot: 1
       _Bake_PivotPosition: {x: 0, y: 0, z: 0}
       _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
       DontDoInitialFramesWrap: 0
@@ -554,10 +554,10 @@ MonoBehaviour:
       IsIKElement: 0
       HumanoidBodyBone: 0
       wasInitializing: 0
-      BoneBakePathName: 
-      HumToGenericBoneBakePathName: 
+      BoneBakePathName: CharacterArmature/Root/Body
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body
       HumanoidBoneDefined: 0
-      BakePosition: 0
+      BakePosition: 1
       _Bake_PivotSpace: 0
       _Bake_IsRoot: 0
       _Bake_PivotPosition: {x: 0, y: 0, z: 0}
@@ -582,7 +582,500 @@ MonoBehaviour:
       _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
       DontDoInitialFramesWrap: 0
     UseRootBoneForAvatar: 0
-    BakeBonesSetup: []
+    BakeBonesSetup:
+    - BoneName: Body
+      ID: 0
+      ParentBoneName: Root
+      Depth: -1
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body
+      HumanoidBoneDefined: 0
+      BakePosition: 1
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Hips
+      ID: 2
+      ParentBoneName: Body
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: UpperLeg.L
+      ID: 24
+      ParentBoneName: Body
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/UpperLeg.L
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/UpperLeg.L
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: UpperLeg.R
+      ID: 27
+      ParentBoneName: Body
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/UpperLeg.R
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/UpperLeg.R
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Abdomen
+      ID: 3
+      ParentBoneName: Hips
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: LowerLeg.L
+      ID: 25
+      ParentBoneName: UpperLeg.L
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/UpperLeg.L/LowerLeg.L
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/UpperLeg.L/LowerLeg.L
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: LowerLeg.R
+      ID: 28
+      ParentBoneName: UpperLeg.R
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/UpperLeg.R/LowerLeg.R
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/UpperLeg.R/LowerLeg.R
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Torso
+      ID: 4
+      ParentBoneName: Abdomen
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Foot.L
+      ID: 26
+      ParentBoneName: LowerLeg.L
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/UpperLeg.L/LowerLeg.L/Foot.L
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/UpperLeg.L/LowerLeg.L/Foot.L
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Foot.R
+      ID: 29
+      ParentBoneName: LowerLeg.R
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/UpperLeg.R/LowerLeg.R/Foot.R
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/UpperLeg.R/LowerLeg.R/Foot.R
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Neck
+      ID: 5
+      ParentBoneName: Torso
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Neck
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Neck
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Shoulder.L
+      ID: 7
+      ParentBoneName: Torso
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Shoulder.R
+      ID: 15
+      ParentBoneName: Torso
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Head
+      ID: 6
+      ParentBoneName: Neck
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Neck/Head
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Neck/Head
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: UpperArm.L
+      ID: 8
+      ParentBoneName: Shoulder.L
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: UpperArm.R
+      ID: 16
+      ParentBoneName: Shoulder.R
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: LowerArm.L
+      ID: 9
+      ParentBoneName: UpperArm.L
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L/LowerArm.L
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L/LowerArm.L
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: LowerArm.R
+      ID: 17
+      ParentBoneName: UpperArm.R
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Fist.L
+      ID: 10
+      ParentBoneName: LowerArm.L
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L/LowerArm.L/Fist.L
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L/LowerArm.L/Fist.L
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Thumb1.L
+      ID: 13
+      ParentBoneName: LowerArm.L
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L/LowerArm.L/Thumb1.L
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L/LowerArm.L/Thumb1.L
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Fist.R
+      ID: 18
+      ParentBoneName: LowerArm.R
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R/Fist.R
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R/Fist.R
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Thumb1.R
+      ID: 22
+      ParentBoneName: LowerArm.R
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R/Thumb1.R
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R/Thumb1.R
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Fist1.L
+      ID: 11
+      ParentBoneName: Fist.L
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L/LowerArm.L/Fist.L/Fist1.L
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L/LowerArm.L/Fist.L/Fist1.L
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Thumb2.L
+      ID: 14
+      ParentBoneName: Thumb1.L
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L/LowerArm.L/Thumb1.L/Thumb2.L
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L/LowerArm.L/Thumb1.L/Thumb2.L
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Fist1.R
+      ID: 19
+      ParentBoneName: Fist.R
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R/Fist.R/Fist1.R
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R/Fist.R/Fist1.R
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Thumb2.R
+      ID: 23
+      ParentBoneName: Thumb1.R
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R/Thumb1.R/Thumb2.R
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R/Thumb1.R/Thumb2.R
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Fist2.L
+      ID: 12
+      ParentBoneName: Fist1.L
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L/LowerArm.L/Fist.L/Fist1.L/Fist2.L
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.L/UpperArm.L/LowerArm.L/Fist.L/Fist1.L/Fist2.L
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Fist2.R
+      ID: 20
+      ParentBoneName: Fist1.R
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R/Fist.R/Fist1.R/Fist2.R
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R/Fist.R/Fist1.R/Fist2.R
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
+    - BoneName: Weapon.R
+      ID: 21
+      ParentBoneName: Fist1.R
+      Depth: 0
+      BakeBone: 1
+      IsIKElement: 0
+      HumanoidBodyBone: 0
+      wasInitializing: 0
+      BoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R/Fist.R/Fist1.R/Weapon.R
+      HumToGenericBoneBakePathName: CharacterArmature/Root/Body/Hips/Abdomen/Torso/Shoulder.R/UpperArm.R/LowerArm.R/Fist.R/Fist1.R/Weapon.R
+      HumanoidBoneDefined: 0
+      BakePosition: 0
+      _Bake_PivotSpace: 0
+      _Bake_IsRoot: 0
+      _Bake_PivotPosition: {x: 0, y: 0, z: 0}
+      _Bake_PivotRotation: {x: 0, y: 0, z: 0, w: 1}
+      DontDoInitialFramesWrap: 0
   TPose:
     BonesCoords:
     - ID: 0
@@ -2105,10 +2598,10 @@ MonoBehaviour:
         m_PostInfinity: 2
         m_RotationOrder: 4
       RotationsElasticness: 1
-      RotationsBlend: 0.7
-      RotationsRapidity: 0.7
-      RotationsDamping: 0.25
-      RotationsSwinginess: 0.6
+      RotationsBlend: 0.7925926
+      RotationsRapidity: 0.495
+      RotationsDamping: 0.743
+      RotationsSwinginess: 0.769
       RotationInfluence: 1
       EulerMode: 0
       OnMovementElasticness: 0
@@ -2252,16 +2745,6 @@ MonoBehaviour:
     setIdHash: 0
   ModificatorsSetupsForClips:
   - settingsForClip: {fileID: -8950003587403112357, guid: 2d0b3405642be154da79187c923e3333, type: 3}
-    BonesModificators: []
-    AllModificatorsBlend: 1
-    setId: 
-    setIdHash: 0
-  - settingsForClip: {fileID: 6424556952190030419, guid: 2d0b3405642be154da79187c923e3333, type: 3}
-    BonesModificators: []
-    AllModificatorsBlend: 1
-    setId: 
-    setIdHash: 0
-  - settingsForClip: {fileID: -5599002979973759676, guid: 2d0b3405642be154da79187c923e3333, type: 3}
     BonesModificators:
     - Transform: {fileID: 0}
       Type: 0
@@ -2300,7 +2783,7 @@ MonoBehaviour:
       RotationBlend: 1
       PositionBlend: 1
       RootMotionTransformSpace: 0
-      RotationValue: {x: 0, y: -33.06079, z: 0}
+      RotationValue: {x: 5.2997737, y: -0.0000017148784, z: -10.718567}
       RotationEvaluate:
         serializedVersion: 2
         m_Curve:
@@ -2383,126 +2866,16 @@ MonoBehaviour:
       alignTo: {fileID: 0}
       AlignToBlend: 1
       Foldown: 0
-    - Transform: {fileID: 0}
-      Type: 0
-      UpdateOrder: 0
-      ModName: Fist1.R Mod
-      BoneName: Fist1.R
-      Index: 1
-      FixedAxisRotation: 0
-      ChildRotIndependent: 0
-      Enabled: 1
-      Blend: 1
-      BlendEvaluation:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      RotationBlend: 1
-      PositionBlend: 1
-      RootMotionTransformSpace: 0
-      RotationValue: {x: 1.5081922, y: 180, z: 180}
-      RotationEvaluate:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      PositionValue: {x: 0, y: 0, z: 0}
-      PositionEvaluate:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 1
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      RotationValue2: {x: 0, y: 0, z: 0}
-      RotationEvaluate2:
-        serializedVersion: 2
-        m_Curve:
-        - serializedVersion: 3
-          time: 0
-          value: 0.5
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        - serializedVersion: 3
-          time: 1
-          value: 0.5
-          inSlope: 0
-          outSlope: 0
-          tangentMode: 0
-          weightedMode: 0
-          inWeight: 0
-          outWeight: 0
-        m_PreInfinity: 2
-        m_PostInfinity: 2
-        m_RotationOrder: 4
-      RotationsRapidity: 0.7
-      RotationsDamping: 0.25
-      RotationsSwinginess: 0.6
-      RotationsBoost: 0
-      alignToBoneName: 
-      alignTo: {fileID: 0}
-      AlignToBlend: 1
-      Foldown: 0
+    AllModificatorsBlend: 1
+    setId: 
+    setIdHash: 0
+  - settingsForClip: {fileID: 6424556952190030419, guid: 2d0b3405642be154da79187c923e3333, type: 3}
+    BonesModificators: []
+    AllModificatorsBlend: 1
+    setId: 
+    setIdHash: 0
+  - settingsForClip: {fileID: -5599002979973759676, guid: 2d0b3405642be154da79187c923e3333, type: 3}
+    BonesModificators: []
     AllModificatorsBlend: 1
     setId: 
     setIdHash: 0
@@ -8477,18 +8850,10 @@ MonoBehaviour:
     setIdHash: 0
   MorphingSetupsForClips:
   - settingsForClip: {fileID: -8950003587403112357, guid: 2d0b3405642be154da79187c923e3333, type: 3}
-    Morphs: []
-    setId: 
-    setIdHash: 0
-  - settingsForClip: {fileID: 6424556952190030419, guid: 2d0b3405642be154da79187c923e3333, type: 3}
-    Morphs: []
-    setId: 
-    setIdHash: 0
-  - settingsForClip: {fileID: -5599002979973759676, guid: 2d0b3405642be154da79187c923e3333, type: 3}
     Morphs:
     - Index: 0
       MorphName: Morph 0
-      Foldown: 1
+      Foldown: 0
       Enabled: 1
       Blend: 1
       BlendEvaluation:
@@ -8515,7 +8880,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-      MorphWithClip: {fileID: 1275742968038681123, guid: 2d0b3405642be154da79187c923e3333, type: 3}
+      MorphWithClip: {fileID: 6424556952190030419, guid: 2d0b3405642be154da79187c923e3333, type: 3}
       TimeStretchMultiplier: 1
       CycleOffset: 0
       UpdateOrder: 0
@@ -8541,7 +8906,7 @@ MonoBehaviour:
         RotationBlend: 1
         LimbIndex: 2
       - LimbEnabled: 0
-        LimbBlend: 0
+        LimbBlend: 1
         PositionBlend: 1
         RotationBlend: 1
         LimbIndex: 3
@@ -8552,7 +8917,15 @@ MonoBehaviour:
         LimbIndex: 4
     setId: 
     setIdHash: 0
-  LatestCorrect: {fileID: -5599002979973759676, guid: 2d0b3405642be154da79187c923e3333, type: 3}
+  - settingsForClip: {fileID: 6424556952190030419, guid: 2d0b3405642be154da79187c923e3333, type: 3}
+    Morphs: []
+    setId: 
+    setIdHash: 0
+  - settingsForClip: {fileID: -5599002979973759676, guid: 2d0b3405642be154da79187c923e3333, type: 3}
+    Morphs: []
+    setId: 
+    setIdHash: 0
+  LatestCorrect: {fileID: -8950003587403112357, guid: 2d0b3405642be154da79187c923e3333, type: 3}
   Limbs:
   - Index: 0
     LimbName: Left Arm

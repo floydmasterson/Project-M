@@ -158,22 +158,18 @@ public class MeeleController : MonoBehaviourPun, IAttack
     }
     private void GainRage(int recivedDamaged)
     {
-        //CurrentRage += recivedDamaged / 4;
         if (raging == false)
         {
             CurrentRage++;
             damaged = true;
             currentRageFallOffTimer = 0;
         }
-
     }
     public void Attack()
     {
         if (manger == null)
             manger = PlayerUi.Instance.target;
         manger.photonView.RPC("UpdateAttack", RpcTarget.All);
-        //StartCoroutine(manger.IFrames(.6f));
-        //StartCoroutine(manger.MoveLock(.8f));
         Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
         if (hitEnemins.Length != 0)
         {
@@ -182,19 +178,17 @@ public class MeeleController : MonoBehaviourPun, IAttack
             Enemys Etarget = target.GetComponent<Enemys>();
             if (player != null && player != PlayerUi.Instance.target)
             {
-                player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
+                player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2.6f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
             }
             if (Etarget != null)
             {
-                Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
+                Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2.6f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
             }
         }
     }
     public void AttackLifeSteal()
     {
         manger.photonView.RPC("UpdateAttack", RpcTarget.All);
-        StartCoroutine(manger.IFrames(.6f));
-        StartCoroutine(manger.MoveLock(.8f));
         Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
         if (hitEnemins.Length != 0)
         {
@@ -203,14 +197,14 @@ public class MeeleController : MonoBehaviourPun, IAttack
             Enemys Etarget = target.GetComponent<Enemys>();
             if (player != null && player != PlayerUi.Instance.target)
             {
-                int damage = Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Strength.Value)));
+                int damage = Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2.6f, (player.Defense / Character.Instance.Strength.Value)));
                 player.TakeDamge(damage, manger);
                 manger.Heal(Mathf.RoundToInt(damage * lifeStealAmount));
 
             }
             if (Etarget != null)
             {
-                int damage = Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Etarget.Defense / Character.Instance.Strength.Value)));
+                int damage = Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2.6f, (Etarget.Defense / Character.Instance.Strength.Value)));
                 Etarget.TakeDamge(damage);
                 manger.Heal(Mathf.RoundToInt(damage * lifeStealAmount));
             }

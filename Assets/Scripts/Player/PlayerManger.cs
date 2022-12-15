@@ -1,5 +1,4 @@
 using Cinemachine;
-using Kryz.CharacterStats.Examples;
 using Photon.Pun;
 using Sirenix.OdinInspector;
 using SmartConsole.Components;
@@ -110,8 +109,6 @@ public class PlayerManger : MonoBehaviourPun
     public bool isGrounded;
     [TabGroup("Movement")]
     public bool canMove = true;
-    [TabGroup("Movement")]
-    public bool canLook = true;
     Vector3 velocity;
     Vector3 Direction;
     float ActCooldown;
@@ -134,6 +131,7 @@ public class PlayerManger : MonoBehaviourPun
     public Transform attackPoint;
     [TabGroup("Attack")]
     public LayerMask enemyLayers;
+    public bool IsLocal = false;
 
 
     //PLayer UI
@@ -239,11 +237,13 @@ public class PlayerManger : MonoBehaviourPun
     {
         GameManger.PvPon += EnbalePvpCombat;
         ConsoleSystem.ConsoleOpenClose += UiLockOut;
+        MapManager.MapState += UiLockOut;
     }
     private void OnDisable()
     {
         GameManger.PvPon -= EnbalePvpCombat;
         ConsoleSystem.ConsoleOpenClose -= UiLockOut;
+        MapManager.MapState -= UiLockOut;
     }
     void Awake()
     {
@@ -251,6 +251,7 @@ public class PlayerManger : MonoBehaviourPun
         DontDestroyOnLoad(this.gameObject);
         if (photonView.IsMine)
         {
+            IsLocal = true;
             animator = GetComponent<Animator>();
             gameObject.name = PhotonNetwork.NickName;
             MiniMapIcon.SetActive(true);
@@ -297,7 +298,7 @@ public class PlayerManger : MonoBehaviourPun
         {
             if (Input.GetKeyDown(KeyCode.Tab) && inChest == false && isAlive == true)
             {
-                if (InvIsOpen == false && UIlock == false)
+                if (InvIsOpen == false && UIlock == false && MapManager.Instance.mapOpen == false)
                 {
                     UpdateMoving(false);
                     UiLockOut(true);
@@ -309,34 +310,6 @@ public class PlayerManger : MonoBehaviourPun
                     onInventoryClose();
                     InvIsOpen = false;
                     UiLockOut(false);
-                }
-            }
-
-            if (canAttack == true)
-            {
-                if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
-
-                    StartCoroutine(AttackSet());
-                }
-            }
-
-            if (chestControl != null && chestControl.pickUpAllowed && chestControl.isOpen == false && Input.GetKeyDown(KeyCode.E))
-            {
-                UiLockOut(true);
-                UpdateMoving(false);
-                chestControl.Open();
-                inChest = true;
-                onInventoryOpen();
-            }
-            if (chestControl != null && chestControl.isOpen == true)
-            {
-                if (Input.GetKeyDown(KeyCode.Tab))
-                {
-                    chestControl.Close();
-                    inChest = false;
-                    UiLockOut(false);
-                    onInventoryClose();
                 }
             }
             if (Input.GetKeyDown(KeyCode.F))
@@ -361,6 +334,32 @@ public class PlayerManger : MonoBehaviourPun
                     ForwardCamLock(true);
                 else if (locked == true)
                     ForwardCamLock(false);
+            }
+            if (canAttack == true)
+            {
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+
+                    StartCoroutine(AttackSet());
+                }
+            }
+            if (chestControl != null && chestControl.pickUpAllowed && chestControl.isOpen == false && Input.GetKeyDown(KeyCode.E))
+            {
+                UiLockOut(true);
+                UpdateMoving(false);
+                chestControl.Open();
+                inChest = true;
+                onInventoryOpen();
+            }
+            if (chestControl != null && chestControl.isOpen == true)
+            {
+                if (Input.GetKeyDown(KeyCode.Tab))
+                {
+                    chestControl.Close();
+                    inChest = false;
+                    UiLockOut(false);
+                    onInventoryClose();
+                }
             }
 
         }
@@ -562,14 +561,15 @@ public class PlayerManger : MonoBehaviourPun
             Debug.Log(this + "takes " + damage + " damage.");
             if (photonView.IsMine)
             {
-                OnDamaged(damage);
+                if (gameObject.GetComponent<MeeleController>() != null)
+                    OnDamaged(damage);
                 CurrentHealth -= damage;
-            if (CurrentHealth <= 0 && isAlive == true)
-            {
-                CurrentHealth = 0;
-                col.isTrigger = false;
-                photonView.RPC("Die", RpcTarget.All);
-            }
+                if (CurrentHealth <= 0 && isAlive == true)
+                {
+                    CurrentHealth = 0;
+                    col.isTrigger = false;
+                    photonView.RPC("Die", RpcTarget.All);
+                }
             }
         }
     }
