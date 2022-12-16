@@ -203,13 +203,9 @@ public class PlayerManger : MonoBehaviourPun
     }
     public IEnumerator IFrames(float time)
     {
-
         isInvulnerable = true;
         yield return new WaitForSecondsRealtime(time);
         isInvulnerable = false;
-
-
-
     }
     public IEnumerator PreLoad()
     {

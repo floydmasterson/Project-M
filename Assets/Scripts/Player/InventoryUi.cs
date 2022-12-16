@@ -47,7 +47,6 @@ public class InventoryUi : MonoBehaviourPun
     }
     public void UpdateCanvas(bool state)
     {
-        Debug.Log("Inv canvas" + state);
         if (state == true)
             InvCanvas.enabled = false;
         if (state == false)

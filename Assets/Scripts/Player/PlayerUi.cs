@@ -227,7 +227,6 @@ public class PlayerUi : MonoBehaviourPun
     }
     public void UpdateCanvas(bool state)
     {
-        Debug.Log("canvas" + state);
         if (state == true)
             UiCanvas.enabled = false;
         if(state == false) 

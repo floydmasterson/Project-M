@@ -16,13 +16,15 @@ public class MapManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M) && !mapOpen)
         {
             gameObject.transform.GetChild(0).gameObject.SetActive(true);
-            MapState(true);
+            if (MapState != null)
+                MapState(true);
             mapOpen = true;
         }
         else if (Input.GetKeyDown(KeyCode.M) && mapOpen)
         {
             gameObject.transform.GetChild(0).gameObject.SetActive(false);
-            MapState(false);
+            if (MapState != null)
+                MapState(false);
             mapOpen = false;
         }
     }

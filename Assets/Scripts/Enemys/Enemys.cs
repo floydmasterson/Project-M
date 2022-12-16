@@ -1,10 +1,9 @@
-using Newtonsoft.Json.Bson;
 using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-
+using Time = UnityEngine.Time;
 
 public class Enemys : MonoBehaviourPun
 {
@@ -17,11 +16,11 @@ public class Enemys : MonoBehaviourPun
     }
 
     [BoxGroup]
-    [Tooltip(" 0= target dummy 1 = Chase & Melee 2 = Avoid & Ranged !3 = Chase & Boom! not set !4 = hybrid! not set")]
+    [Tooltip("0= target dummy 1 = Chase & Melee 2 = Avoid & Ranged 3 = Chase & Boom !4 = hybrid! not set")]
     [Range(0, 4)] public int typeSetting = 0;
 
     [EnumToggleButtons]
-    public Tier EnemyTier; 
+    public Tier EnemyTier;
 
     //Health
     [TabGroup("Health")]
@@ -70,6 +69,13 @@ public class Enemys : MonoBehaviourPun
     [TabGroup("Attack")]
     [ShowIf("@typeSetting == 2")]
     [SerializeField] GameObject rangedProjectile;
+    [TabGroup("Attack")]
+    [ShowIf("@typeSetting == 3")]
+    [SerializeField] float timeToBlow;
+    [TabGroup("Attack")]
+    [ShowIf("@typeSetting == 3")]
+    [SerializeField] GameObject explosionGFX;
+    bool tryingToBoom;
     bool isTAttackExecuting = false;
     bool isTRangedAttackExecuting = false;
     //masks
@@ -118,7 +124,7 @@ public class Enemys : MonoBehaviourPun
             {
                 transform.rotation = Quaternion.Slerp(initialRotation, lookRotation, time);
 
-                time += Time.deltaTime * LSpeed;
+                time += UnityEngine.Time.deltaTime * LSpeed;
 
                 yield return null;
             }
@@ -184,7 +190,7 @@ public class Enemys : MonoBehaviourPun
 #pragma warning restore CS0618 // Type or member is obsolete
                 yield return new WaitForSecondsRealtime(attackCooldown);
             }
-         
+
         }
 
         isTAttackExecuting = false;
@@ -248,12 +254,34 @@ public class Enemys : MonoBehaviourPun
     }
     #endregion
     #region Type 3 IEnumerators 
+    private IEnumerator GoBoom()
+    {
+        ;
+        UpdateMoving(false);
+#pragma warning disable CS0618 // Type or member is obsolete
+        agent.Stop();
+#pragma warning restore CS0618 // Type or member is obsolete
+        yield return new WaitForSecondsRealtime(timeToBlow);
+        Collider[] hitPlayers = Physics.OverlapSphere(attackPoint.position, attackRange, targetMask);
+        PhotonNetwork.Instantiate(explosionGFX.name, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+        if (hitPlayers.Length != 0)
+        {
+            Transform target = hitPlayers[1].transform;
+            PlayerManger player = target.GetComponent<PlayerManger>();
+            if (player.isAlive == true)
+            {
+                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2.6f, (player.Defense / Power))), this); ;
+            }
+        }
+    }
+
     #endregion
     #region Mono
     private void Awake()
     {
-        maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (Vitality) / 2f));
-        Defense = Mathf.RoundToInt(Vitality * 1.1f / 2f);
+        maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (Vitality) / 2.2f));
+        Defense = Mathf.RoundToInt(Vitality * 1.1f / 2.1f);
         PhotonView photonView = PhotonView.Get(this);
         col = GetComponent<Collider>();
         animator = GetComponent<Animator>();
@@ -289,7 +317,16 @@ public class Enemys : MonoBehaviourPun
             }
 
             if (typeSetting == 3)
-                Debug.Log("?");
+            {
+                UpdateMoving(true);
+
+#pragma warning disable CS0618 // Type or member is obsolete
+                agent.Resume();
+#pragma warning restore CS0618 // Type or member is obsolete
+                agent.SetDestination(Target.position);
+                photonView.RPC("StartRotating", RpcTarget.All);
+
+            }
         }
     }
     #endregion
@@ -302,7 +339,11 @@ public class Enemys : MonoBehaviourPun
                 StartCoroutine("TAttack");
 
             if (typeSetting == 3)
-                Debug.Log("?");
+            {
+                PlayerManger player = other.GetComponent<PlayerManger>();
+                if (player != null)
+                    StartCoroutine("GoBoom");
+            }
         }
 
     }
@@ -317,11 +358,14 @@ public class Enemys : MonoBehaviourPun
             }
 
             if (typeSetting == 3)
-                Debug.Log("?");
+            {
+                PlayerManger player = other.GetComponent<PlayerManger>();
+                if (player != null)
+                    transform.localScale += Vector3.one * Time.deltaTime / 2.5f;
+            }
         }
 
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (isDead == false)
@@ -333,14 +377,37 @@ public class Enemys : MonoBehaviourPun
                     agent.SetDestination(Target.position);
                     UpdateMoving(true);
                 }
-                UpdateMoving(false);
+                else if (Target == null)
+                {
+                    agent.SetDestination(transform.position);
+                    UpdateMoving(false);
+                }
+            }
+            if (typeSetting == 3)
+            {
+                PlayerManger player = other.GetComponent<PlayerManger>();
+                if (player != null)
+                {
+                    StopCoroutine("GoBoom");
+                    transform.localScale = Vector3.one;
+                }
+                if (Target != null)
+                {
+                    agent.SetDestination(Target.position);
+                    UpdateMoving(true);
+                }
+                else if (Target == null)
+                {
+                    agent.SetDestination(transform.position);
+                    UpdateMoving(false);
+                }
             }
         }
 
     }
     #endregion
     #region Recive Dmg
-   
+
     public void TakeDamge(float damage)
     {
         currentHealth -= damage;
@@ -354,7 +421,7 @@ public class Enemys : MonoBehaviourPun
             photonView.RPC("Die", RpcTarget.All);
         }
     }
-      
+
 
     [PunRPC]
     public void Die()
@@ -432,35 +499,30 @@ public class Enemys : MonoBehaviourPun
                         {
                             if (player.CurrentHealth <= 0)
                                 photonView.RPC("StartRotating", RpcTarget.All); ;
-                            if (agent != null && target != null)
-                                agent.SetDestination(Target.position);
-
                         }
                         if (typeSetting == 2)
                         {
                             if (player.CurrentHealth <= 0)
                                 StartCoroutine(TRangedAttack());
-
                         }
                         if (typeSetting == 3)
-                            Debug.Log("?");
+                        {
+                            if (player.CurrentHealth <= 0)
+                            photonView.RPC("StartRotating", RpcTarget.All);
+                        }
                     }
                 }
-
                 else
                 {
                     canSeePlayer = false;
 
                 }
-
             }
             else
             {
                 canSeePlayer = false;
 
             }
-
-
         }
         else if (canSeePlayer)
         {
@@ -499,11 +561,9 @@ public class Enemys : MonoBehaviourPun
             return;
         Gizmos.DrawSphere(attackPoint.position, attackRange);
     }
-
     public string GetEnemyTier()
     {
         return EnemyTier.ToString();
     }
-
 }
 #endregion

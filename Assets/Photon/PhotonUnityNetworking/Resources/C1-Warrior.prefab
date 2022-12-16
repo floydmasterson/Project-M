@@ -914,7 +914,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 1
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!136 &8226536732763159447
@@ -1002,7 +1002,6 @@ MonoBehaviour:
     m_Bits: 8
   isGrounded: 0
   canMove: 1
-  canLook: 1
   attackCoolDown: 1.35
   attackRange: 1.25
   LifeSteal: 0
@@ -1012,6 +1011,7 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
+  IsLocal: 0
   UiPrefab: {fileID: 8443476667934544336, guid: b141b3a8020372548b5513d5146efa28, type: 3}
   InventoryPrefab: {fileID: 3739851515273236426, guid: 50a588a86166d58478a61a04b2a274e8, type: 3}
   MiniMapIcon: {fileID: 1772679886139300683}
