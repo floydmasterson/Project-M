@@ -123,7 +123,7 @@ MonoBehaviour:
   EnemyTier: 1
   Vitality: 68
   Defense: 36
-  currentHealth: 29
+  currentHealth: 0
   isDead: 0
   Target: {fileID: 0}
   LSpeed: 4
@@ -146,6 +146,48 @@ MonoBehaviour:
   obstructionMask:
     serializedVersion: 2
     m_Bits: 1024
+  possibleBags:
+    list:
+    - item: {fileID: 8880091359569570710, guid: 38dc6ef9591616441aeda61f628f78ef, type: 3}
+      weight: 7
+    - item: {fileID: 8880091359569570710, guid: 4d1ba8d93bb5c0845861dd37101eea4b, type: 3}
+      weight: 3
+  type1_Walk:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 0
+    editSettings: 0
+    _sfxBase: {fileID: 0}
+    waitToPlay: 1
+    useDefualt: 1
+    audioSource: {fileID: 0}
+  type1_Attack:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 0
+    editSettings: 0
+    _sfxBase: {fileID: 0}
+    waitToPlay: 1
+    useDefualt: 1
+    audioSource: {fileID: 0}
+  type1_Hurt:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 0
+    editSettings: 0
+    _sfxBase: {fileID: 0}
+    waitToPlay: 1
+    useDefualt: 1
+    audioSource: {fileID: 0}
+  type1_Die:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 0
+    editSettings: 0
+    _sfxBase: {fileID: 0}
+    waitToPlay: 1
+    useDefualt: 1
+    audioSource: {fileID: 0}
 --- !u!114 &1348464936593482609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +236,7 @@ Animator:
   m_GameObject: {fileID: 1348464936593482623}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5bd44e0f496bb16469ac31903e75601d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7722e5b993c3e114fbf1ee945f249466, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

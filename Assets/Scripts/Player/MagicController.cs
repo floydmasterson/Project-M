@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class MagicController : MonoBehaviour, IAttack
 {
-  
+
     private float currentManaRechargeTimer;
     private float currentCastTimer;
     private PlayerManger manger;
 
-     [TabGroup("Spell and Mana")]
+    [TabGroup("Spell and Mana")]
     public Spell selectedSpell;
     [TabGroup("Spell and Mana")]
     [SerializeField] private bool isCasting = false;
@@ -27,6 +27,9 @@ public class MagicController : MonoBehaviour, IAttack
     [SerializeField] float _BasemanaRegenRate = 2f;
     [TabGroup("Setup")]
     [SerializeField] private float _castCooldown = .25f;
+
+    [TabGroup("Audio"), Required, SerializeField]
+    SFX spellcast;
     public float ManaRegenRate
     {
         get { return _BasemanaRegenRate; }
@@ -128,6 +131,7 @@ public class MagicController : MonoBehaviour, IAttack
     }
     void CastSpell()
     {
+        spellcast.PlaySFX();
         PhotonNetwork.Instantiate(selectedSpell.name, castPoint.position, castPoint.rotation);
     }
     void MeeleAttack()

@@ -26,6 +26,8 @@ public class GameManger : MonoBehaviourPunCallbacks
     [SerializeField] int gameTime;
     public bool timerOn = false;
     bool[] picked = new bool[2];
+    [TabGroup("Audio")]
+    public SFX dungonAmbient;
 
 
 
@@ -37,7 +39,9 @@ public class GameManger : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        MusicClass.Instance.StopMusic();
+        if (MusicClass.Instance != null)
+            MusicClass.Instance.StopMusic();
+        dungonAmbient.PlaySFX();
         if (PhotonNetwork.IsMasterClient)
         {
             int index = 0;

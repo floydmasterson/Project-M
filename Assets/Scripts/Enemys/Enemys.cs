@@ -61,6 +61,7 @@ public class Enemys : MonoBehaviourPun
     [TabGroup("Attack")]
     [Range(25, 150)] public int Power = 25;
     [TabGroup("Attack")]
+    [Required]
     public Transform attackPoint;
     [TabGroup("Attack")]
     [SerializeField][Range(0, 20)] float attackRange;
@@ -68,25 +69,42 @@ public class Enemys : MonoBehaviourPun
     [SerializeField][Range(1, 5)] float attackCooldown = 2f;
     [TabGroup("Attack")]
     [ShowIf("@typeSetting == 2")]
+    [Required]
     [SerializeField] GameObject rangedProjectile;
     [TabGroup("Attack")]
     [ShowIf("@typeSetting == 3")]
     [SerializeField] float timeToBlow;
     [TabGroup("Attack")]
     [ShowIf("@typeSetting == 3")]
+    [Required]
     [SerializeField] GameObject explosionGFX;
     bool tryingToBoom;
     bool isTAttackExecuting = false;
     bool isTRangedAttackExecuting = false;
     //masks
     [TabGroup("Detection")]
+    [Required]
     [SerializeField] LayerMask targetMask;
     [TabGroup("Detection")]
+    [Required]
     [SerializeField] LayerMask obstructionMask;
     //Comps
     private Animator animator;
     private NavMeshAgent agent;
     private Collider col;
+    [TabGroup("Loot Drop")]
+    [TableList(AlwaysExpanded = true), HideLabel]
+    public WeightedRandomList<LootContainerControl> possibleBags;
+
+    //audio 
+    [TabGroup("Audio"), ShowIf("@typeSetting == 1"), Required, SerializeField]
+    SFX type1_Walk;
+    [TabGroup("Audio"), ShowIf("@typeSetting == 1"), Required, SerializeField]
+    SFX type1_Attack;
+    [TabGroup("Audio"), ShowIf("@typeSetting == 1"), Required, SerializeField]
+    SFX type1_Hurt;
+    [TabGroup("Audio"), ShowIf("@typeSetting == 1"), Required, SerializeField]
+    SFX type1_Die;
     #endregion
     #region Base IEnumerators 
     IEnumerator ExecuteAfterTime()
@@ -98,6 +116,10 @@ public class Enemys : MonoBehaviourPun
         {
             Destroy(t.gameObject);
         }
+        int chance;
+        chance = Random.Range(1, 10);
+        if (chance > 4)
+            PhotonNetwork.Instantiate(possibleBags.GetRandom().name, transform.position, Quaternion.identity);
     }
 
     private IEnumerator FOVRoutine()
@@ -179,7 +201,7 @@ public class Enemys : MonoBehaviourPun
             {
                 photonView.RPC("UpdateAttack", RpcTarget.All);
                 yield return new WaitForSecondsRealtime(.5f);
-                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2.6f, (player.Defense / Power))), this); ;
+                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(3f, (player.Defense / Power))), this); ;
                 if (player.CurrentHealth <= 0)
                 {
                     Target = null;
@@ -280,8 +302,8 @@ public class Enemys : MonoBehaviourPun
     #region Mono
     private void Awake()
     {
-        maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (Vitality) / 2.2f));
-        Defense = Mathf.RoundToInt(Vitality * 1.1f / 2.1f);
+        maxHealth = Mathf.RoundToInt(Mathf.Pow(1.1f, (Vitality) / 2.2f));
+        Defense = Mathf.RoundToInt(Vitality * .9f / 2.1f);
         PhotonView photonView = PhotonView.Get(this);
         col = GetComponent<Collider>();
         animator = GetComponent<Animator>();
@@ -335,15 +357,13 @@ public class Enemys : MonoBehaviourPun
     {
         if (isDead == false)
         {
+            PlayerManger player = other.GetComponent<PlayerManger>();
             if (typeSetting == 1)
-                StartCoroutine("TAttack");
-
+                if (player != null)
+                    StartCoroutine("TAttack");
             if (typeSetting == 3)
-            {
-                PlayerManger player = other.GetComponent<PlayerManger>();
                 if (player != null)
                     StartCoroutine("GoBoom");
-            }
         }
 
     }
@@ -508,7 +528,7 @@ public class Enemys : MonoBehaviourPun
                         if (typeSetting == 3)
                         {
                             if (player.CurrentHealth <= 0)
-                            photonView.RPC("StartRotating", RpcTarget.All);
+                                photonView.RPC("StartRotating", RpcTarget.All);
                         }
                     }
                 }

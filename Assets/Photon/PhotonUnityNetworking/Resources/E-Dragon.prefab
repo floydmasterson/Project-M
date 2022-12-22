@@ -525,12 +525,56 @@ MonoBehaviour:
   attackRange: 0.1
   attackCooldown: 2
   rangedProjectile: {fileID: 1478796144478312848, guid: 13e7c51123dfd53438ee003f1c1a6bdd, type: 3}
+  timeToBlow: 0
+  explosionGFX: {fileID: 0}
   targetMask:
     serializedVersion: 2
     m_Bits: 512
   obstructionMask:
     serializedVersion: 2
     m_Bits: 1024
+  possibleBags:
+    list:
+    - item: {fileID: 8880091359569570710, guid: 38dc6ef9591616441aeda61f628f78ef, type: 3}
+      weight: 7
+    - item: {fileID: 8880091359569570710, guid: 4d1ba8d93bb5c0845861dd37101eea4b, type: 3}
+      weight: 3
+  type1_Walk:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 0
+    editSettings: 0
+    _sfxBase: {fileID: 0}
+    waitToPlay: 1
+    useDefualt: 1
+    audioSource: {fileID: 0}
+  type1_Attack:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 0
+    editSettings: 0
+    _sfxBase: {fileID: 0}
+    waitToPlay: 1
+    useDefualt: 1
+    audioSource: {fileID: 0}
+  type1_Hurt:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 0
+    editSettings: 0
+    _sfxBase: {fileID: 0}
+    waitToPlay: 1
+    useDefualt: 1
+    audioSource: {fileID: 0}
+  type1_Die:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 0
+    editSettings: 0
+    _sfxBase: {fileID: 0}
+    waitToPlay: 1
+    useDefualt: 1
+    audioSource: {fileID: 0}
 --- !u!114 &3560697260157796321
 MonoBehaviour:
   m_ObjectHideFlags: 0

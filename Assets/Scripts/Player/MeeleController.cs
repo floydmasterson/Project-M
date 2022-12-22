@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class MeeleController : MonoBehaviourPun, IAttack
 {
- 
+
     private float currentRageFallOffTimer;
     private float currentRageDecayTimer;
     private PlayerManger manger;
@@ -16,7 +16,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
     [TabGroup("Rage")]
     [SerializeField] int _maxRage = 1;
     [TabGroup("Rage")]
-    [ProgressBar(0,"_maxRage", 1, 0, 0, Segmented = true)]
+    [ProgressBar(0, "_maxRage", 1, 0, 0, Segmented = true)]
     [SerializeField] int _currRage;
     [TabGroup("Setup")]
     [SerializeField] float _timeToWaitForFalloff = 10f;
@@ -30,6 +30,8 @@ public class MeeleController : MonoBehaviourPun, IAttack
     [SerializeField] private bool damaged;
     [TabGroup("Rage")]
     [SerializeField] public float lifeStealAmount = .25f;
+    [TabGroup("Audio"), SerializeField]
+    SFX attackSwish;
     public int MaxRage
     {
         get { return _maxRage; }
@@ -83,6 +85,11 @@ public class MeeleController : MonoBehaviourPun, IAttack
         Character.Instance.statPanel.UpdateStatValues();
         raging = false;
     }
+    IEnumerator SwishSFX()
+    {
+        yield return new WaitForSecondsRealtime(0.08f);
+        attackSwish.PlaySFX();
+    }
     private void Awake()
     {
         manger = PlayerUi.Instance.target;
@@ -93,13 +100,11 @@ public class MeeleController : MonoBehaviourPun, IAttack
         PlayerManger.OnDamaged += GainRage;
         PlayerManger.OnDeath += onDeath;
     }
-
     private void OnDisable()
     {
         PlayerManger.OnDamaged -= GainRage;
         PlayerManger.OnDeath += onDeath;
     }
-
     private void Update()
     {
 
@@ -170,6 +175,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
         if (manger == null)
             manger = PlayerUi.Instance.target;
         manger.photonView.RPC("UpdateAttack", RpcTarget.All);
+        StartCoroutine(SwishSFX());
         Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
         if (hitEnemins.Length != 0)
         {
@@ -178,11 +184,11 @@ public class MeeleController : MonoBehaviourPun, IAttack
             Enemys Etarget = target.GetComponent<Enemys>();
             if (player != null && player != PlayerUi.Instance.target)
             {
-                player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2.6f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
+                player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(3f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
             }
             if (Etarget != null)
             {
-                Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2.6f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
+                Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(3f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
             }
         }
     }
@@ -210,10 +216,8 @@ public class MeeleController : MonoBehaviourPun, IAttack
             }
         }
     }
-
     private void onDeath(PlayerManger player)
     {
         CurrentRage = 0;
     }
 }
-

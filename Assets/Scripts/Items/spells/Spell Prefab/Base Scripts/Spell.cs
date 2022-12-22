@@ -79,7 +79,7 @@ public class Spell : MonoBehaviourPun
                 {
                     hit = true;
                     Enemys enemy = other.GetComponent<Enemys>();
-                    enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2.6f, enemy.Defense / Character.Instance.Intelligence.Value))));
+                    enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(3f, enemy.Defense / Character.Instance.Intelligence.Value))));
                     if (statusEffects != null)
                     {
                         foreach (StatusEffectSO effect in statusEffects)
@@ -101,7 +101,7 @@ public class Spell : MonoBehaviourPun
                     PlayerManger enemy = other.GetComponent<PlayerManger>();
                     if (enemy.IsLocal == false)
                     {
-                        enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2.6f, enemy.Defense / Character.Instance.Intelligence.Value))), PlayerUi.Instance.target);
+                        enemy.TakeDamge(spellToCast.dmgAmt + (Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(3, enemy.Defense / Character.Instance.Intelligence.Value))), PlayerUi.Instance.target);
                         if (statusEffects != null)
                         {
                             foreach (StatusEffectSO effect in statusEffects)

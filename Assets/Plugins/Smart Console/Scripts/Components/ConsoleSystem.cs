@@ -356,6 +356,7 @@ namespace SmartConsole.Components
         {
             m_CanvasGameobject.SetActive(!m_CanvasGameobject.activeInHierarchy);
             m_OnOpenCloseEvent.Invoke(m_CanvasGameobject.activeInHierarchy);
+            if(ConsoleOpenClose != null)
             ConsoleOpenClose(m_CanvasGameobject.activeInHierarchy);
 
             if (m_CanvasGameobject.activeInHierarchy)

@@ -13,9 +13,11 @@ public class PlayerManger : MonoBehaviourPun
     #region Vars
     //Partds
     [TabGroup("Components")]
+    [Required]
     [SerializeField] CinemachineFreeLook cineCamera;
 
     [TabGroup("Components")]
+    [Required]
     [SerializeField] CinemachineVirtualCamera lockCamera;
 
     [TabGroup("Components")]
@@ -128,28 +130,38 @@ public class PlayerManger : MonoBehaviourPun
     [TabGroup("Attack")]
     public bool pvp = false;
     [TabGroup("Attack")]
+    [Required]
     public Transform attackPoint;
     [TabGroup("Attack")]
+    [Required]
     public LayerMask enemyLayers;
     public bool IsLocal = false;
 
 
     //PLayer UI
-    [TabGroup("Ui")]
-    [SerializeField] GameObject UiPrefab;
-    [TabGroup("Ui")]
-    [SerializeField] GameObject InventoryPrefab;
-    [TabGroup("Ui")]
-    [SerializeField] GameObject MiniMapIcon;
+    [TabGroup("Ui"), Required, SerializeField]
+    GameObject UiPrefab;
+    [TabGroup("Ui"), Required, SerializeField]
+    GameObject InventoryPrefab;
+    [TabGroup("Ui"), Required, SerializeField]
+    GameObject MiniMapIcon;
+
     bool InvIsOpen = false;
     bool inChest = false;
-    ChestControl chestControl;
+    LootContainerControl lootContainerControl;
     bool locked;
     public delegate void inventoryO();
     public static event inventoryO onInventoryOpen;
     public delegate void inventoryC();
     public static event inventoryC onInventoryClose;
 
+    //Audio 
+    [TabGroup("Audio"), Required, SerializeField]
+    SFX walk;
+    [TabGroup("Audio"), Required, SerializeField]
+    SFX run;
+    [TabGroup("Audio"), Required, SerializeField]
+    SFX hurt;
 
     #endregion
     #region Ienumerators
@@ -339,21 +351,23 @@ public class PlayerManger : MonoBehaviourPun
                     StartCoroutine(AttackSet());
                 }
             }
-            if (chestControl != null && chestControl.pickUpAllowed && chestControl.isOpen == false && Input.GetKeyDown(KeyCode.E))
+            if (lootContainerControl != null && lootContainerControl.pickUpAllowed && lootContainerControl.isOpen == false && Input.GetKeyDown(KeyCode.E))
             {
                 UiLockOut(true);
                 UpdateMoving(false);
-                chestControl.Open();
+                lootContainerControl.Open();
                 inChest = true;
                 onInventoryOpen();
             }
-            if (chestControl != null && chestControl.isOpen == true)
+            if (lootContainerControl != null && lootContainerControl.isOpen == true)
             {
                 if (Input.GetKeyDown(KeyCode.Tab))
                 {
-                    chestControl.Close();
+                    lootContainerControl.Close();
                     inChest = false;
                     UiLockOut(false);
+                    if (InvIsOpen == true)
+                        InvIsOpen = false;
                     onInventoryClose();
                 }
             }
@@ -497,7 +511,10 @@ public class PlayerManger : MonoBehaviourPun
     public void UpdateAttack()
     {
         if (photonView.IsMine)
+        {
             animator.SetTrigger("Attack 0");
+            
+        }
     }
     #endregion
     #region UI
@@ -514,8 +531,8 @@ public class PlayerManger : MonoBehaviourPun
         }
         else if (state == false)
         {
-            canMove = true;
             UIlock = false;
+            canMove = true;
             canAttack = true;
             cineCamera.m_XAxis.m_MaxSpeed = 250;
             Cursor.lockState = CursorLockMode.Locked;
@@ -608,11 +625,11 @@ public class PlayerManger : MonoBehaviourPun
 
     public void CheckMaxHealth()
     {
-        _maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (Character.Instance.Vitality.Value / 2f)));
+        _maxHealth = Mathf.RoundToInt(Mathf.Pow(1.13f, (Character.Instance.Vitality.Value / 2f)));
     }
     public float CheckDefense()
     {
-        _defense = Mathf.RoundToInt(Character.Instance.Vitality.Value * 1.1f / 2f) + DefenseMod;
+        _defense = Mathf.RoundToInt(Character.Instance.Vitality.Value * .9f / 2f) + DefenseMod;
         return _defense;
     }
 
@@ -635,8 +652,8 @@ public class PlayerManger : MonoBehaviourPun
     {
         if (other.gameObject.CompareTag("Chest"))
         {
-            ChestControl chest = other.gameObject.GetComponent<ChestControl>();
-            chestControl = chest;
+            LootContainerControl chest = other.gameObject.GetComponent<LootContainerControl>();
+            lootContainerControl = chest;
         }
 
     }
@@ -644,7 +661,7 @@ public class PlayerManger : MonoBehaviourPun
     {
         if (other.gameObject.CompareTag("Chest"))
         {
-            chestControl = null;
+            lootContainerControl = null;
         }
     }
     #endregion
