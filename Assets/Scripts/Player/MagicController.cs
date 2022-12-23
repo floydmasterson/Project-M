@@ -145,11 +145,11 @@ public class MagicController : MonoBehaviour, IAttack
             Enemys Etarget = target.GetComponent<Enemys>();
             if (player != null && PlayerUi.Instance.target)
             {
-                player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2.6f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
+                player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
             }
             if (Etarget != null)
             {
-                Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2.6f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
+                Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
             }
         }
     }

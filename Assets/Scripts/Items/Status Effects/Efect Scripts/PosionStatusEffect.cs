@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Status Effects/Posion Effect")]
 public class PosionStatusEffect : StatusEffectSO
 {
+
     Enemys Etarget;
     PlayerManger Ptarget;
     EffectVisualController EffectVFX;
@@ -11,113 +12,100 @@ public class PosionStatusEffect : StatusEffectSO
     public float timeBetweenTicks;
     public int debuffDuration;
 
-    #region Enemy
-    public override IEnumerator DecayTimerEnemy(int time)
+    public override IEnumerator DecayTimer(int time, PlayerManger player, Enemys enemy)
     {
-        time = debuffDuration;
-        Etarget.StartCoroutine(ApplyEnemy());
+        if (Ptarget != null)
+            Ptarget.StartCoroutine(EffectApplication());
+        else if (Etarget != null)
+            Etarget.StartCoroutine(EffectApplication());
         yield return new WaitForSeconds(time);
         stop = true;
     }
-    public override IEnumerator ApplyEnemy()
-    {
-        if (stop == false)
-        {
-            
-            if (!Etarget.isDead)
-            {
-                StatusEffectEnemy();
-                yield return new WaitForSeconds(timeBetweenTicks);
-                Etarget.StartCoroutine(ApplyEnemy());
-            }
-            else
-            {
-                stop = true;
-                Etarget.StartCoroutine(ApplyEnemy());
-            }
-        }
-        else
-        {
-            Etarget.StopCoroutine(ApplyEnemy());
-            EffectVFX.DisableEffect(1);
-            EffectVFX.posioned = false;
-            stop = false;
-        }
-    }
-    public override void StatusEffectEnemy()
-    {
-        Etarget.TakeDamge(tickDamage);
-    }
-    public override void ApplyEffectEnemy(Enemys enenmy)
-    {
-        Etarget = enenmy;
-        EffectVFX = Etarget.GetComponentInChildren<EffectVisualController>(); ;
-        if (EffectVFX.posioned == false)
-        {
-            EffectVFX.EnableEffect(1);
-            EffectVFX.posioned = true;
-            Etarget.StartCoroutine(DecayTimerEnemy(debuffDuration));
-        }
-        else
-        {
-            Debug.Log("already posioned");
-        }
-    }
-    #endregion
-    #region Player
-    public override IEnumerator DecayTimerPlayer(int time)
-    {
-        time = debuffDuration;
-        Ptarget.StartCoroutine(ApplyPlayer());
-        yield return new WaitForSeconds(time);
-        stop = true;
-    }
-    public override IEnumerator ApplyPlayer()
+    public override IEnumerator EffectApplication()
     {
         if (stop == false)
         {
 
-            if (Ptarget.isAlive)
+            if (Etarget != null && !Etarget.isDead && Ptarget == null)
             {
-                StatusEffectPlayer();
+                StatusEffect();
                 yield return new WaitForSeconds(timeBetweenTicks);
-                Ptarget.StartCoroutine(ApplyPlayer());
+                Etarget.StartCoroutine(EffectApplication());
             }
-            else
+            else if (Ptarget == null && Etarget != null)
             {
                 stop = true;
-                Ptarget.StartCoroutine(ApplyPlayer());
+                Etarget.StartCoroutine(EffectApplication());
             }
+
+            if (Ptarget != null && Ptarget.isAlive && Etarget == null)
+            {
+                StatusEffect();
+                yield return new WaitForSeconds(timeBetweenTicks);
+                Ptarget.StartCoroutine(EffectApplication());
+            }
+            else if (Ptarget != null && Etarget == null)
+            {
+                stop = true;
+                Ptarget.StartCoroutine(EffectApplication());
+            }
+
+
         }
         else
         {
-            Debug.Log("effect over");
-            Ptarget.StopCoroutine(ApplyPlayer());
-            EffectVFX.DisableEffect(1);
-            EffectVFX.posioned = false;
-            stop = false;
+            if (Ptarget != null && Etarget == null)
+            {
+                Debug.Log("effect over");
+                EffectVFX.DisableEffect(1);
+                EffectVFX.posioned = false;
+                stop = false;
+                Ptarget.StopCoroutine(EffectApplication());
+            }
+            else if (Ptarget == null && Etarget != null)
+            {
+                Debug.Log("effect over");
+                EffectVFX.DisableEffect(1);
+                EffectVFX.posioned = false;
+                stop = false;
+                Etarget.StopCoroutine(EffectApplication());
+            }
         }
     }
-    public override void StatusEffectPlayer()
+    public override void StatusEffect()
     {
-        Ptarget.TakeDamge(tickDamage, null);
+        if (Ptarget != null)
+            Ptarget.TakeDamge(tickDamage, null);
+        if (Etarget != null)
+            Etarget.TakeDamge(tickDamage);
     }
-    public override void ApplyEffectPlayer(PlayerManger enemy)
+    public override void ApplyEffect(object enemy)
     {
-        Ptarget = enemy;
-        EffectVFX = Ptarget.GetComponentInChildren<EffectVisualController>();
+
+        if (enemy.GetType() == typeof(Enemys))
+        {
+            Etarget = enemy as Enemys;
+            EffectVFX = Etarget.GetComponentInChildren<EffectVisualController>(); ;
+        }
+        else if (enemy.GetType() == typeof(PlayerManger))
+        {
+            Ptarget = enemy as PlayerManger;
+            EffectVFX = Ptarget.GetComponentInChildren<EffectVisualController>(); ;
+        }
         if (EffectVFX.posioned == false)
         {
             EffectVFX.EnableEffect(1);
             EffectVFX.posioned = true;
-            Ptarget.StartCoroutine(DecayTimerPlayer(debuffDuration));
+            if (Etarget != null)
+                Etarget.StartCoroutine(DecayTimer(debuffDuration, null, Etarget));
+            else if (Ptarget != null)
+                Ptarget.StartCoroutine(DecayTimer(debuffDuration, Ptarget, null));
         }
         else
         {
             Debug.Log("already posioned");
         }
     }
-    #endregion
     private void Reset()
     {
         stop = false;

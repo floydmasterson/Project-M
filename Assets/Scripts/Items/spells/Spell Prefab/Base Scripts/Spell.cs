@@ -1,22 +1,32 @@
 using Photon.Pun;
+using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
 public class Spell : MonoBehaviourPun
 {
+    [TabGroup("Spell"), Required]
     public SpellScriptableObject spellToCast;
-    [SerializeField] ParticleSystem ps;
-    [SerializeField] StatusEffectSO[] statusEffects;
-    [Space]
-    [Tooltip("If unchecked all below is not needed")]
+    [TabGroup("Spell"), SerializeField]
+    ParticleSystem ps;
+    [TabGroup("Spell"), SerializeField]
+    StatusEffectSO[] statusEffects;
+
+    [TabGroup("Homing")]
     public bool homing;
-    [SerializeField] private LayerMask EnemyMask;
-    public Rigidbody rb;
-    [SerializeField] Transform origin;
-    [SerializeField] float homingRange;
-    [SerializeField] float rotForce;
-    [SerializeField] float force;
+    [TabGroup("Homing"), HideIf("@!homing"), SerializeField]
+    private LayerMask EnemyMask;
+    [TabGroup("Homing"), HideIf("@!homing"), SerializeField]
+    Rigidbody rb;
+    [TabGroup("Homing"), HideIf("@!homing"), SerializeField]
+    Transform origin;
+    [TabGroup("Homing"), HideIf("@!homing"), SerializeField]
+    float homingRange;
+    [TabGroup("Homing"), HideIf("@!homing"), SerializeField]
+    float rotForce;
+    [TabGroup("Homing"), HideIf("@!homing"), SerializeField]
+    float force;
 
     SphereCollider sphereCollider;
     Transform target;
@@ -33,6 +43,8 @@ public class Spell : MonoBehaviourPun
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.isTrigger = true;
         sphereCollider.radius = spellToCast.spellRadius;
+        if (GameManger.Instance.GameTimeLeft <= 0)
+            EnemyMask |= LayerMask.GetMask("enenmyMask") | LayerMask.GetMask("target");
         StartCoroutine(LifeTime());
     }
     private void FixedUpdate()
@@ -86,7 +98,7 @@ public class Spell : MonoBehaviourPun
                         {
                             StatusEffectSO effectCopy = effect.GetCopy();
                             if (effectCopy != null)
-                                effectCopy.ApplyEffectEnemy(enemy);
+                                effectCopy.ApplyEffect(enemy);
                         }
                     }
                     else
@@ -108,7 +120,7 @@ public class Spell : MonoBehaviourPun
                             {
                                 StatusEffectSO eCopy = effect.GetCopy();
                                 if (eCopy != null)
-                                    eCopy.ApplyEffectPlayer(enemy);
+                                    eCopy.ApplyEffect(enemy);
                             }
                         }
                         Poof();

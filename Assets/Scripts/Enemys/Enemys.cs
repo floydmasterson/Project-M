@@ -24,7 +24,7 @@ public class Enemys : MonoBehaviourPun
 
     //Health
     [TabGroup("Health")]
-    [Range(68, 100)] public float Vitality;
+    [Range(50, 100)] public float Vitality;
     [TabGroup("Health")]
     public float Defense;
     [TabGroup("Health")]
@@ -201,7 +201,7 @@ public class Enemys : MonoBehaviourPun
             {
                 photonView.RPC("UpdateAttack", RpcTarget.All);
                 yield return new WaitForSecondsRealtime(.5f);
-                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(3f, (player.Defense / Power))), this); ;
+                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2.2f, (player.Defense / Power))), this); ;
                 if (player.CurrentHealth <= 0)
                 {
                     Target = null;
@@ -302,8 +302,8 @@ public class Enemys : MonoBehaviourPun
     #region Mono
     private void Awake()
     {
-        maxHealth = Mathf.RoundToInt(Mathf.Pow(1.1f, (Vitality) / 2.2f));
-        Defense = Mathf.RoundToInt(Vitality * .9f / 2.1f);
+        maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (Vitality) / 2f));
+        Defense = Mathf.RoundToInt(Vitality * 1.1f / 2f);
         PhotonView photonView = PhotonView.Get(this);
         col = GetComponent<Collider>();
         animator = GetComponent<Animator>();

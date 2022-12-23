@@ -19,7 +19,7 @@ MonoBehaviour:
   IsConsumable: 0
   Notes: 
   id: c849f77cae660a443ab2ba26a5648059
-  StrengthBonus: 5
+  StrengthBonus: 6
   AgilityBonus: 0
   IntelligenceBonus: 0
   VitalityBonus: 5

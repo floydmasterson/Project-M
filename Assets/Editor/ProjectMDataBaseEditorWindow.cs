@@ -35,7 +35,7 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
         tree.AddAllAssetsAtPath("Classes", "Assets/Photon/PhotonUnityNetworking/Resources", typeof(PlayerManger)).SortMenuItemsByName().AddThumbnailIcons();
         tree.AddAllAssetsAtPath("Classes/Inventory", "Assets/Prefabs/Ui/Ui Veriations", typeof(Character)).SortMenuItemsByName().AddThumbnailIcons();
         tree.AddAllAssetsAtPath("Enemys", "Assets/Photon/PhotonUnityNetworking/Resources", typeof(Enemys)).SortMenuItemsByName().AddThumbnailIcons();
-        tree.AddAllAssetsAtPath("Items/Chests", "Assets/Photon/PhotonUnityNetworking/Resources", typeof(LootContainerControl)).SortMenuItemsByName();
+        tree.AddAllAssetsAtPath("Items/Loot Container", "Assets/Photon/PhotonUnityNetworking/Resources", typeof(LootContainerControl)).SortMenuItemsByName();
 
         tree.EnumerateTree().Where(x => x.Value as Item).ForEach(AddDragHandles);
         tree.EnumerateTree().Where(x => x.Value as PassiveSO).ForEach(AddDragHandles);

@@ -21,7 +21,7 @@ MonoBehaviour:
   id: 12305a8bb9654e74d89c3a9e65d4efc8
   StrengthBonus: 0
   AgilityBonus: 0
-  IntelligenceBonus: 5
+  IntelligenceBonus: 4
   VitalityBonus: 1
   StrengthPercentBonus: 0
   AgilityPercentBonus: 0.2

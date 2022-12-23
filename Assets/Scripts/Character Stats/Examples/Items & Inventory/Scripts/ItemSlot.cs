@@ -19,7 +19,7 @@ public class ItemSlot : BaseItemSlot, IBeginDragHandler, IEndDragHandler, IDragH
 
     public override bool CanReceiveItem(Item item)
     {
-        return true;
+            return true;
     }
 
     protected override void OnDisable()

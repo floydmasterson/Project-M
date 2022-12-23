@@ -5512,13 +5512,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Strength:
-    BaseValue: 35
+    BaseValue: 28
   Agility:
     BaseValue: 3
   Intelligence:
-    BaseValue: 20
+    BaseValue: 10
   Vitality:
-    BaseValue: 78
+    BaseValue: 75
   Inventory: {fileID: 6256542304894679118}
   EquipmentPanel: {fileID: 3883688595605190781}
   statPanel: {fileID: 3442633091863001192}

@@ -625,11 +625,11 @@ public class PlayerManger : MonoBehaviourPun
 
     public void CheckMaxHealth()
     {
-        _maxHealth = Mathf.RoundToInt(Mathf.Pow(1.13f, (Character.Instance.Vitality.Value / 2f)));
+        _maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (Character.Instance.Vitality.Value / 2f)));
     }
     public float CheckDefense()
     {
-        _defense = Mathf.RoundToInt(Character.Instance.Vitality.Value * .9f / 2f) + DefenseMod;
+        _defense = Mathf.RoundToInt(Character.Instance.Vitality.Value * 1.1f / 2f) + DefenseMod;
         return _defense;
     }
 

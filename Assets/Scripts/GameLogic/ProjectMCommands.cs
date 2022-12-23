@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Kryz.CharacterStats;
+using Photon.Pun;
 using SmartConsole;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -80,6 +81,7 @@ public class ProjectMCommands : CommandBehaviour
         else
             Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
     }
+    [SerializeField] Item godMode;
     [Command]
     private void god_mode(bool state)
     {
@@ -88,12 +90,16 @@ public class ProjectMCommands : CommandBehaviour
             if (state == true)
             {
                 localPlayer.DefenseMod += 100000;
+                Character.Instance.Strength.AddModifier((new StatModifier(1000, StatModType.Flat, godMode)));
+                Character.Instance.Intelligence.AddModifier((new StatModifier(1000, StatModType.Flat, godMode)));
                 localPlayer.CheckDefense();
             }
             else if (state == false)
             {
 
                 localPlayer.DefenseMod -= 100000;
+                Character.Instance.Strength.RemoveAllModifiersFromSource(godMode);
+                Character.Instance.Intelligence.RemoveAllModifiersFromSource(godMode);
                 localPlayer.CheckDefense();
             }
         }
@@ -115,12 +121,23 @@ public class ProjectMCommands : CommandBehaviour
     #endregion
     #region Spawn Things
     [Command]
-    private void spawn_chest(string chestlevel)
+    private void spawn_chest(string chesttier)
     {
         if (localPlayer != null)
         {
             Vector3 spawnPoint = new Vector3(0, 0, 5) + localPlayer.transform.position;
-            PhotonNetwork.Instantiate("Lv" + chestlevel + " Chest", spawnPoint, Quaternion.Euler(-90, 0, 0));
+            PhotonNetwork.Instantiate("T" + chesttier + " Chest", spawnPoint, Quaternion.Euler(-90, 0, 0));
+        }
+        else
+            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
+    }
+    [Command]
+    private void spawn_dropbag(string bagtier)
+    {
+        if (localPlayer != null)
+        {
+            Vector3 spawnPoint = new Vector3(0, 0, 5) + localPlayer.transform.position;
+            PhotonNetwork.Instantiate("T" + bagtier + " DropPouch", spawnPoint, Quaternion.identity);
         }
         else
             Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");

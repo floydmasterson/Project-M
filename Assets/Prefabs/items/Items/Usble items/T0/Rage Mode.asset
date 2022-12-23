@@ -17,6 +17,8 @@ MonoBehaviour:
   ItemTier: 0
   MaximumStacks: 1
   IsConsumable: 0
-  Notes: 
-  id: 
+  Notes: 'Ghost item so rage mode shows on tooltip
+
+'
+  id: 0994c2aa832f9d5479d52f657ebc333d
   Effects: []

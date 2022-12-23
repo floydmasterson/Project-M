@@ -60,7 +60,7 @@ public class SFX
 
     private void SelectSFX()
     {
-        UnityEditor.Selection.activeObject = sfxToPlay;
+       // UnityEditor.Selection.activeObject = sfxToPlay;
     }
     private List<SFXClip> SFXType()
     {

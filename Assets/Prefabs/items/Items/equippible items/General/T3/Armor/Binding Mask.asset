@@ -19,10 +19,10 @@ MonoBehaviour:
   IsConsumable: 0
   Notes: 'Scaleing Magic Passive??? '
   id: 1d639a663fc2b4541bdb13f09341970b
-  StrengthBonus: 10
+  StrengthBonus: 8
   AgilityBonus: 0
-  IntelligenceBonus: 10
-  VitalityBonus: -5
+  IntelligenceBonus: 8
+  VitalityBonus: -3
   StrengthPercentBonus: 0
   AgilityPercentBonus: 0.1
   IntelligencePercentBonus: 0

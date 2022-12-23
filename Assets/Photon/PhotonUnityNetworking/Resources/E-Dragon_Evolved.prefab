@@ -1196,7 +1196,7 @@ MonoBehaviour:
   Power: 40
   attackPoint: {fileID: 5112651366664207226}
   attackRange: 0.1
-  attackCooldown: 1
+  attackCooldown: 1.3
   rangedProjectile: {fileID: 1478796144478312848, guid: a68c8fdb0ef61e84fb4837a93f881251, type: 3}
   timeToBlow: 0
   explosionGFX: {fileID: 0}
