@@ -60,6 +60,9 @@ MonoBehaviour:
   - SetGameTimeRPC
   - Hit
   - hurt
+  - PlaySFXRPC
+  - spellCastSFX
+  - swingSFX
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

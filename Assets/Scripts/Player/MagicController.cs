@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 
-public class MagicController : MonoBehaviour, IAttack
+public class MagicController : MonoBehaviourPun, IAttack
 {
 
     private float currentManaRechargeTimer;
@@ -131,7 +131,7 @@ public class MagicController : MonoBehaviour, IAttack
     }
     void CastSpell()
     {
-        spellcast.PlaySFX();
+        photonView.RPC("spellCastSFX", RpcTarget.All);
         PhotonNetwork.Instantiate(selectedSpell.name, castPoint.position, castPoint.rotation);
     }
     void MeeleAttack()
@@ -156,5 +156,11 @@ public class MagicController : MonoBehaviour, IAttack
     private void onDeath(PlayerManger player)
     {
         CurrMana = MaxMana;
+    }
+
+    [PunRPC]
+    private void spellCastSFX()
+    {
+        spellcast.PlaySFX();
     }
 }

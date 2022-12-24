@@ -7,29 +7,24 @@ using UnityEngine.SceneManagement;
 public class ProjectMCommands : CommandBehaviour
 {
     [SerializeField] PlayerManger localPlayer;
+    [SerializeField] GameManger gameManger;
     [SerializeField] PhotonView photonView;
     #region SetUp
-    private void OnEnable()
-    {
-        PlayerUi.targetSet += SetLocalPlayer;
-    }
-    private void OnDisable()
-    {
-        PlayerUi.targetSet -= SetLocalPlayer;
-    }
+   
     protected override void Start()
     {
         base.Start();
+        photonView = gameObject.GetComponent<PhotonView>();
     }
     [Command]
-    private void SetLocalPlayer()
+    private void setup()
     {
         localPlayer = PlayerUi.Instance.target;
-        if (localPlayer != null)
-            Debug.Log("Local Player Set");
-        else if (localPlayer == null)
-            Debug.LogError("Failed to set Local Player");
-
+        gameManger = GameManger.Instance;
+        if (localPlayer != null && gameManger != null)
+            Debug.Log("Setup has succeeded");
+        else if (localPlayer == null || gameManger != null)
+            Debug.LogError("Setup failed: Localplayer = " + localPlayer + " Game Manager = " + gameManger);
     }
     #endregion
     #region Commands
@@ -63,7 +58,7 @@ public class ProjectMCommands : CommandBehaviour
         if (localPlayer != null)
             localPlayer.TakeDamge(999, null);
         else
-            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
+            Debug.LogWarning("Local Player is not set. Try setup");
     }
     [Command]
     private void damage_player(int damage)
@@ -71,7 +66,7 @@ public class ProjectMCommands : CommandBehaviour
         if (localPlayer != null)
             localPlayer.TakeDamge(damage, null);
         else
-            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
+            Debug.LogWarning("Local Player is not set. Try setup");
     }
     [Command]
     private void max_heal()
@@ -79,7 +74,7 @@ public class ProjectMCommands : CommandBehaviour
         if (localPlayer != null)
             localPlayer.CurrentHealth = localPlayer.MaxHealth;
         else
-            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
+            Debug.LogWarning("Local Player is not set. Try setup");
     }
     [SerializeField] Item godMode;
     [Command]
@@ -104,7 +99,7 @@ public class ProjectMCommands : CommandBehaviour
             }
         }
         else
-            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
+            Debug.LogWarning("Local Player is not set. Try setup");
     }
     [Command]
     private void set_spawn_to_self()
@@ -116,7 +111,7 @@ public class ProjectMCommands : CommandBehaviour
             Debug.Log("Spawn has been set to current location");
         }
         else
-            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
+            Debug.LogWarning("Local Player is not set. Try setup");
     }
     #endregion
     #region Spawn Things
@@ -129,7 +124,7 @@ public class ProjectMCommands : CommandBehaviour
             PhotonNetwork.Instantiate("T" + chesttier + " Chest", spawnPoint, Quaternion.Euler(-90, 0, 0));
         }
         else
-            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
+            Debug.LogWarning("Local Player is not set. Try setup");
     }
     [Command]
     private void spawn_dropbag(string bagtier)
@@ -140,7 +135,7 @@ public class ProjectMCommands : CommandBehaviour
             PhotonNetwork.Instantiate("T" + bagtier + " DropPouch", spawnPoint, Quaternion.identity);
         }
         else
-            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
+            Debug.LogWarning("Local Player is not set. Try setup");
     }
     [Command]
     private void spawn_enemy(string enemyname)
@@ -151,31 +146,25 @@ public class ProjectMCommands : CommandBehaviour
             PhotonNetwork.Instantiate("E-" + enemyname, spawnPoint, Quaternion.identity);
         }
         else
-            Debug.LogWarning("Local Player is not set. Try SetLocalPLayer");
+            Debug.LogWarning("Local Player is not set. Try setup");
     }
     #endregion
     #region Game Manger
     [Command]
     private void set_gametime(float timeinseconds)
     {
-        if (GameManger.Instance != null)
+        if (gameManger != null)
         {
             if (PhotonNetwork.IsMasterClient)
-                photonView.RPC("SetGameTimeRPC", RpcTarget.All, timeinseconds);
+               gameManger.SetGameTime(timeinseconds);
             else
                 Debug.LogError("You must be master client to use this command");
         }
         else
-            Debug.LogWarning("Game Manager is not set.");
+            Debug.LogWarning("Game Manager is not set. Try setup");
     }
 
-    [PunRPC]
-    public void SetGameTimeRPC(float time)
-    {
-        GameManger.Instance.GameTimeLeft = time;
-        if (time > 0)
-            GameManger.Instance.timerOn = true;
-    }
+  
 
     #endregion
     #region Misc

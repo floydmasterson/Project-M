@@ -476,6 +476,7 @@ public class Enemys : MonoBehaviourPun
     private void Hit()
     {
         animator.SetTrigger("wasHurt");
+        type1_Hurt.PlaySFX();
     }
     [PunRPC]
     public void StartRotating()

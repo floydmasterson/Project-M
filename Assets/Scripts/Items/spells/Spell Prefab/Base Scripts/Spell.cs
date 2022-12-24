@@ -55,13 +55,23 @@ public class Spell : MonoBehaviourPun
         }
         else if (homing == true && poof == false)
         {
-            Collider[] hitEnemins = Physics.OverlapSphere(origin.position, homingRange, EnemyMask);
-            foreach (Collider enemy in hitEnemins)
+            if (target == null)
             {
-                target = enemy.transform;
-                break;
+                if (spellToCast.speed > 0)
+                    transform.Translate(Vector3.forward * spellToCast.speed * Time.fixedDeltaTime);
+                Collider[] hitEnemins = Physics.OverlapSphere(origin.position, homingRange, EnemyMask);
+                foreach (Collider enemy in hitEnemins)
+                {
+                    Enemys mob = enemy.gameObject.GetComponent<Enemys>();
+                    PlayerManger player = enemy.gameObject.GetComponent<PlayerManger>();
+                    if (mob != null)
+                        target = mob.transform;
+                    if (player != null && player != PlayerUi.Instance.target)
+                        target = player.transform;
+                    break;
+                }
             }
-            if (target != null)
+            else if (target != null)
             {
                 Vector3 direction = target.position - rb.position;
                 direction.Normalize();
@@ -69,12 +79,7 @@ public class Spell : MonoBehaviourPun
                 rb.angularVelocity = rotAmount * rotForce;
                 rb.velocity = transform.forward * force;
             }
-            else
-            {
-                if (spellToCast.speed > 0) transform.Translate(Vector3.forward * spellToCast.speed * Time.fixedDeltaTime);
-            }
         }
-
     }
     private void OnTriggerEnter(Collider other)
     {

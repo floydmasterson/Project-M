@@ -88,7 +88,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
     IEnumerator SwishSFX()
     {
         yield return new WaitForSecondsRealtime(0.08f);
-        attackSwish.PlaySFX();
+        photonView.RPC("swingSFX", RpcTarget.All);
     }
     private void Awake()
     {
@@ -219,5 +219,10 @@ public class MeeleController : MonoBehaviourPun, IAttack
     private void onDeath(PlayerManger player)
     {
         CurrentRage = 0;
+    }
+    [PunRPC]
+    private void swingSFX()
+    {
+        attackSwish.PlaySFX();
     }
 }

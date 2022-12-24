@@ -180,8 +180,8 @@ public class Character : MonoBehaviour
         UsableItem dropUseItem = dropItemSlot.Item as UsableItem;
         if (dropItemSlot is EquipmentSlot)
         {
-            if (dragEquipItem != null) dragEquipItem.Equip(this);
             if (dropEquipItem != null) dropEquipItem.Unequip(this);
+            if (dragEquipItem != null) dragEquipItem.Equip(this);
         }
         if (dragItemSlot is EquipmentSlot)
         {

@@ -14,15 +14,16 @@ public class PosionStatusEffect : StatusEffectSO
 
     public override IEnumerator DecayTimer(int time, PlayerManger player, Enemys enemy)
     {
-        if (Ptarget != null)
-            Ptarget.StartCoroutine(EffectApplication());
-        else if (Etarget != null)
-            Etarget.StartCoroutine(EffectApplication());
+        if (enemy != null)
+            enemy.StartCoroutine(EffectApplication());
+        else if (player != null)
+            player.StartCoroutine(EffectApplication());
         yield return new WaitForSeconds(time);
         stop = true;
     }
     public override IEnumerator EffectApplication()
     {
+        Debug.Log("Effect Apllication: Enemy = " + Etarget + " Player = " + Ptarget);
         if (stop == false)
         {
 
@@ -49,8 +50,6 @@ public class PosionStatusEffect : StatusEffectSO
                 stop = true;
                 Ptarget.StartCoroutine(EffectApplication());
             }
-
-
         }
         else
         {
@@ -74,24 +73,26 @@ public class PosionStatusEffect : StatusEffectSO
     }
     public override void StatusEffect()
     {
+        Debug.Log("Status Effect: Enemy = " + Etarget + " Player = " + Ptarget);
         if (Ptarget != null)
-            Ptarget.TakeDamge(tickDamage, null);
+            Ptarget.TakeDamge(tickDamage, PlayerUi.Instance.target);
         if (Etarget != null)
             Etarget.TakeDamge(tickDamage);
     }
     public override void ApplyEffect(object enemy)
     {
 
-        if (enemy.GetType() == typeof(Enemys))
+        if (enemy is Enemys)
         {
             Etarget = enemy as Enemys;
-            EffectVFX = Etarget.GetComponentInChildren<EffectVisualController>(); ;
+            EffectVFX = Etarget.GetComponentInChildren<EffectVisualController>();
         }
-        else if (enemy.GetType() == typeof(PlayerManger))
+        else if (enemy is PlayerManger)
         {
             Ptarget = enemy as PlayerManger;
-            EffectVFX = Ptarget.GetComponentInChildren<EffectVisualController>(); ;
+            EffectVFX = Ptarget.GetComponentInChildren<EffectVisualController>();
         }
+
         if (EffectVFX.posioned == false)
         {
             EffectVFX.EnableEffect(1);

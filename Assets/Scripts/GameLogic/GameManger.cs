@@ -89,6 +89,15 @@ public class GameManger : MonoBehaviourPunCallbacks
         }
     }
 
-
-
+    public void SetGameTime(float time)
+    {
+        photonView.RPC("SetGameTimeRPC", RpcTarget.All, time);
+    }
+    [PunRPC]
+    public void SetGameTimeRPC(float time)
+    {
+        GameTimeLeft = time;
+        if (time > 0)
+            timerOn = true;
+    }
 }

@@ -58,8 +58,6 @@ public class PlayerUi : MonoBehaviourPun
     CanvasGroup _canvasGroup;
     Vector3 targetPosition;
 
-    public delegate void setTarget();
-    public static event setTarget targetSet;
     // Start is called before the first frame update
     void Awake()
     {
@@ -255,7 +253,7 @@ public class PlayerUi : MonoBehaviourPun
         {
             characterControllerHeight = characterController.height;
         }
-        targetSet();
+     
     }
 
 }

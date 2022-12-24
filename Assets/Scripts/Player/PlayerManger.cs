@@ -513,7 +513,7 @@ public class PlayerManger : MonoBehaviourPun
         if (photonView.IsMine)
         {
             animator.SetTrigger("Attack 0");
-            
+
         }
     }
     #endregion
@@ -561,7 +561,11 @@ public class PlayerManger : MonoBehaviourPun
         else if (attacker is null)
         {
             if (photonView.IsMine)
+            {
+                animator.SetTrigger("wasHurt");
+
                 photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
+            }
         }
 
     }
@@ -571,6 +575,7 @@ public class PlayerManger : MonoBehaviourPun
     {
         if (isInvulnerable == false)
         {
+            hurt.PlaySFX();
             Debug.Log(this + "takes " + damage + " damage.");
             if (photonView.IsMine)
             {
@@ -693,6 +698,11 @@ public class PlayerManger : MonoBehaviourPun
             cineCamera.Priority = 10;
             lockCamera.Priority = 0;
         }
+    }
+    [PunRPC]
+    public void PlaySFXRPC(SFX sFX)
+    {
+        sFX.PlaySFX();
     }
     #endregion
 }

@@ -1532,6 +1532,33 @@ MonoBehaviour:
   UiPrefab: {fileID: 8443476667934544336, guid: b141b3a8020372548b5513d5146efa28, type: 3}
   InventoryPrefab: {fileID: 3739851515273236426, guid: 5603264b687c1ee40a212f083b3a932a, type: 3}
   MiniMapIcon: {fileID: 4087455718341830161}
+  walk:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 0
+    editSettings: 0
+    _sfxBase: {fileID: 0}
+    waitToPlay: 1
+    useDefualt: 1
+    audioSource: {fileID: 0}
+  run:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 0
+    editSettings: 0
+    _sfxBase: {fileID: 0}
+    waitToPlay: 1
+    useDefualt: 1
+    audioSource: {fileID: 0}
+  hurt:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 0
+    editSettings: 0
+    _sfxBase: {fileID: 0}
+    waitToPlay: 1
+    useDefualt: 1
+    audioSource: {fileID: 0}
 --- !u!114 &3392248826132175094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1552,6 +1579,15 @@ MonoBehaviour:
   _timeToWaitForRecharge: 1.5
   _BasemanaRegenRate: 1
   _castCooldown: 0.4
+  spellcast:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 0
+    editSettings: 0
+    _sfxBase: {fileID: 0}
+    waitToPlay: 1
+    useDefualt: 1
+    audioSource: {fileID: 0}
 --- !u!114 &1634687762457129801
 MonoBehaviour:
   m_ObjectHideFlags: 0
