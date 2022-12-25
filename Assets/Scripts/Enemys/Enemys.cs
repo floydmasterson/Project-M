@@ -1,6 +1,7 @@
 using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using Time = UnityEngine.Time;
@@ -33,6 +34,10 @@ public class Enemys : MonoBehaviourPun
     float maxHealth;
     [TabGroup("Health")]
     public bool isDead = false;
+    [TabGroup("Health")]
+    public GameObject FloatingText;
+    [TabGroup("Health")]
+    public Transform FloatingTextspawn;
 
     //Fov Detection/Movement
     [TabGroup("Detection")]
@@ -97,14 +102,20 @@ public class Enemys : MonoBehaviourPun
     public WeightedRandomList<LootContainerControl> possibleBags;
 
     //audio 
-    [TabGroup("Audio"), ShowIf("@typeSetting == 1"), Required, SerializeField]
-    SFX type1_Walk;
-    [TabGroup("Audio"), ShowIf("@typeSetting == 1"), Required, SerializeField]
-    SFX type1_Attack;
-    [TabGroup("Audio"), ShowIf("@typeSetting == 1"), Required, SerializeField]
-    SFX type1_Hurt;
-    [TabGroup("Audio"), ShowIf("@typeSetting == 1"), Required, SerializeField]
-    SFX type1_Die;
+    [TabGroup("Audio"), SerializeField]
+    public WeightedRandomList<SFX> AttackSounds;
+    [TabGroup("Audio"), SerializeField]
+    public WeightedRandomList<SFX> HurtSounds;
+    [TabGroup("Audio"), Required, SerializeField]
+    SFX hurtSquish;
+    [TabGroup("Audio"), Required, SerializeField]
+    SFX Walk;
+    [TabGroup("Audio"), Required, SerializeField]
+    SFX DieSFX;
+    [TabGroup("Audio"), Required, HideIf("@typeSetting != 3"), SerializeField]
+    SFX hiss;
+    [TabGroup("Audio"), Required, HideIf("@typeSetting != 3"), SerializeField]
+    SFX boom;
     #endregion
     #region Base IEnumerators 
     IEnumerator ExecuteAfterTime()
@@ -124,12 +135,15 @@ public class Enemys : MonoBehaviourPun
 
     private IEnumerator FOVRoutine()
     {
-        WaitForSeconds wait = new WaitForSeconds(0.2f);
-        while (true)
+        if (typeSetting != 0)
         {
-            yield return wait;
+            WaitForSeconds wait = new WaitForSeconds(0.2f);
+            while (true)
+            {
+                yield return wait;
 
-            FieldOfViewCheck();
+                FieldOfViewCheck();
+            }
         }
     }
 
@@ -286,6 +300,7 @@ public class Enemys : MonoBehaviourPun
         yield return new WaitForSecondsRealtime(timeToBlow);
         Collider[] hitPlayers = Physics.OverlapSphere(attackPoint.position, attackRange, targetMask);
         PhotonNetwork.Instantiate(explosionGFX.name, transform.position, Quaternion.identity);
+        boom.PlaySFX();
         Destroy(gameObject);
         if (hitPlayers.Length != 0)
         {
@@ -302,8 +317,16 @@ public class Enemys : MonoBehaviourPun
     #region Mono
     private void Awake()
     {
-        maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (Vitality) / 2f));
-        Defense = Mathf.RoundToInt(Vitality * 1.1f / 2f);
+        if (typeSetting != 0)
+        {
+            maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (Vitality) / 2f));
+            Defense = Mathf.RoundToInt(Vitality * 1.1f / 2f);
+        }
+        else if (typeSetting == 0)
+        {
+            maxHealth = 999999999999;
+            Defense = 30;
+        }
         PhotonView photonView = PhotonView.Get(this);
         col = GetComponent<Collider>();
         animator = GetComponent<Animator>();
@@ -381,7 +404,10 @@ public class Enemys : MonoBehaviourPun
             {
                 PlayerManger player = other.GetComponent<PlayerManger>();
                 if (player != null)
+                {
                     transform.localScale += Vector3.one * Time.deltaTime / 2.5f;
+                    hiss.PlaySFX();
+                }
             }
         }
 
@@ -409,6 +435,7 @@ public class Enemys : MonoBehaviourPun
                 if (player != null)
                 {
                     StopCoroutine("GoBoom");
+                    hiss.StopSFX();
                     transform.localScale = Vector3.one;
                 }
                 if (Target != null)
@@ -431,6 +458,8 @@ public class Enemys : MonoBehaviourPun
     public void TakeDamge(float damage)
     {
         currentHealth -= damage;
+        var text = Instantiate(FloatingText, FloatingTextspawn.position, Quaternion.Euler(0, 180, 0), FloatingTextspawn);
+        text.GetComponent<TextMesh>().text = damage.ToString();
         Debug.Log(this + "takes " + damage + " damage.");
         photonView.RPC("Hit", RpcTarget.All);
         if (isDead == false)
@@ -440,9 +469,9 @@ public class Enemys : MonoBehaviourPun
             animator.SetBool("Dead", true);
             photonView.RPC("Die", RpcTarget.All);
         }
+        if (typeSetting == 0)
+            currentHealth = 999999999999;
     }
-
-
     [PunRPC]
     public void Die()
     {
@@ -460,7 +489,7 @@ public class Enemys : MonoBehaviourPun
 
     }
     #endregion
-    #region Anim
+    #region Anim and Sound
     private void Lost()
     {
         agent.SetDestination(agent.transform.position);
@@ -476,7 +505,9 @@ public class Enemys : MonoBehaviourPun
     private void Hit()
     {
         animator.SetTrigger("wasHurt");
-        type1_Hurt.PlaySFX();
+        hurtSquish.PlaySFX(); 
+        SFX soundToPlay = HurtSounds.GetRandom();
+        soundToPlay.PlaySFX();
     }
     [PunRPC]
     public void StartRotating()
@@ -492,6 +523,8 @@ public class Enemys : MonoBehaviourPun
     public void UpdateAttack()
     {
         animator.SetTrigger("Attack");
+        SFX soundToPlay = AttackSounds.GetRandom();
+        soundToPlay.PlaySFX();
     }
     #endregion
     #region Misc

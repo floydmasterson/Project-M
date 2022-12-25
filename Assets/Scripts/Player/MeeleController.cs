@@ -84,11 +84,27 @@ public class MeeleController : MonoBehaviourPun, IAttack
         PlayerUi.Instance.target.DefenseMod -= DefenseMod;
         Character.Instance.statPanel.UpdateStatValues();
         raging = false;
-    }
-    IEnumerator SwishSFX()
+    }   
+    IEnumerator AttackSync()
     {
         yield return new WaitForSecondsRealtime(0.08f);
         photonView.RPC("swingSFX", RpcTarget.All);
+        yield return new WaitForSecondsRealtime(0.15f);
+        Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
+        if (hitEnemins.Length != 0)
+        {
+            Transform target = hitEnemins[0].transform;
+            PlayerManger player = target.GetComponent<PlayerManger>();
+            Enemys Etarget = target.GetComponent<Enemys>();
+            if (player != null && player != PlayerUi.Instance.target)
+            {
+                player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
+            }
+            if (Etarget != null)
+            {
+                Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
+            }
+        }
     }
     private void Awake()
     {
@@ -175,22 +191,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
         if (manger == null)
             manger = PlayerUi.Instance.target;
         manger.photonView.RPC("UpdateAttack", RpcTarget.All);
-        StartCoroutine(SwishSFX());
-        Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
-        if (hitEnemins.Length != 0)
-        {
-            Transform target = hitEnemins[0].transform;
-            PlayerManger player = target.GetComponent<PlayerManger>();
-            Enemys Etarget = target.GetComponent<Enemys>();
-            if (player != null && player != PlayerUi.Instance.target)
-            {
-                player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
-            }
-            if (Etarget != null)
-            {
-                Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
-            }
-        }
+        StartCoroutine(AttackSync());
     }
     public void AttackLifeSteal()
     {

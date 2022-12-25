@@ -22,7 +22,7 @@ public class WeightedRandomList<T>
        
         }
     }
-    [LabelText("Drop Table")]
+    [LabelText("Random Table")]
     public List<Pair> list = new List<Pair>();
 
     public int Count

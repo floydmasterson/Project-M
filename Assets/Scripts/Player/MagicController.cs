@@ -143,7 +143,7 @@ public class MagicController : MonoBehaviourPun, IAttack
             Transform target = hitEnemins[0].transform;
             PlayerManger player = target.GetComponent<PlayerManger>();
             Enemys Etarget = target.GetComponent<Enemys>();
-            if (player != null && PlayerUi.Instance.target)
+            if (player != null && player != PlayerUi.Instance.target)
             {
                 player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
             }
