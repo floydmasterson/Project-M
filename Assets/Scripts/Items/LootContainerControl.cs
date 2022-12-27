@@ -1,3 +1,4 @@
+using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
@@ -54,7 +55,7 @@ public class LootContainerControl : ItemContainer
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && other.GetComponent<PhotonView>().IsMine)
         {
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
             pickUpAllowed = true;

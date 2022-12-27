@@ -1707,6 +1707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 0}
   hearts: []
+  InvCanvas: {fileID: 0}
   isOpen: 0
 --- !u!114 &2002187236676540582
 MonoBehaviour:
