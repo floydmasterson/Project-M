@@ -5,7 +5,7 @@ using SmartConsole.Components;
 using System;
 using System.Collections;
 using UnityEngine;
-using Cursor = UnityEngine.Cursor;
+using UnityEngine.InputSystem;
 using Transform = UnityEngine.Transform;
 
 public class PlayerManger : MonoBehaviourPun
@@ -163,6 +163,8 @@ public class PlayerManger : MonoBehaviourPun
     [TabGroup("Audio"), Required, SerializeField]
     SFX hurt;
 
+    PlayerController controls;
+
     #endregion
     #region Ienumerators
     IEnumerator ExecuteAfterTime()
@@ -245,13 +247,11 @@ public class PlayerManger : MonoBehaviourPun
     {
         GameManger.PvPon += EnbalePvpCombat;
         ConsoleSystem.ConsoleOpenClose += UiLockOut;
-        MapManager.MapState += UiLockOut;
     }
     private void OnDisable()
     {
         GameManger.PvPon -= EnbalePvpCombat;
         ConsoleSystem.ConsoleOpenClose -= UiLockOut;
-        MapManager.MapState -= UiLockOut;
     }
     void Awake()
     {
@@ -259,14 +259,27 @@ public class PlayerManger : MonoBehaviourPun
         DontDestroyOnLoad(this.gameObject);
         if (photonView.IsMine)
         {
+            controls = new PlayerController();
             IsLocal = true;
+            controls.Player.Enable();
+            controls.Player.Attack.performed += context => inputAttack();
+            controls.Player.Roll.performed += context => inputRoll();
+            controls.Player.LockedCam.performed += context => CamSwitch();
+            controls.Player.QuickSlot.performed += context => QuickSlot();
+            controls.Player.InventoryOpen.performed += context => InventorySwitch();
+            controls.Player.InteractOpen.performed += context => Interact();
+            controls.Player.MapOpen.performed += context => Map();
+            controls.Player.Sprint.performed += Sprint;
+            controls.Player.Sprint.canceled += Sprint;
+
             animator = GetComponent<Animator>();
-            gameObject.name = PhotonNetwork.NickName;
-            MiniMapIcon.SetActive(true);
             cam = GameObject.FindGameObjectWithTag("MainCamera");
             characterController = GetComponent<CharacterController>();
-            cineCamera.Priority = 10;
             Rb = GetComponent<Rigidbody>();
+            gameObject.name = PhotonNetwork.NickName;
+            MiniMapIcon.SetActive(true);
+            cineCamera.Priority = 10;
+
             if (InventoryPrefab != null)
             {
                 GameObject _uiGoi = Instantiate(InventoryPrefab) as GameObject;
@@ -300,194 +313,202 @@ public class PlayerManger : MonoBehaviourPun
         CurrentHealth = MaxHealth;
 
     }
-    private void Update()
-    {
-        if (photonView.IsMine)
-        {
-            if (Input.GetKeyDown(KeyCode.Tab) && inChest == false && isAlive == true)
-            {
-                if (InvIsOpen == false && UIlock == false && MapManager.Instance.mapOpen == false)
-                {
-                    UpdateMoving(false);
-                    UiLockOut(true);
-                    InvIsOpen = true;
-                    onInventoryOpen();
-                }
-                else if (InvIsOpen == true && UIlock == true)
-                {
-                    onInventoryClose();
-                    InvIsOpen = false;
-                    UiLockOut(false);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                UsableItem quickItem = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Item as UsableItem;
-                QuickSlot quickSlot = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true);
-                if (quickItem != null)
-                {
-                    if (quickItem.UseableCheck())
-                    {
-                        quickItem.Use(Character.Instance);
-                        quickSlot.Amount--;
-                        PlayerUi.Instance.CheckAmount();
-                        quickItem.Destroy();
-
-                    }
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                if (locked == false)
-                    ForwardCamLock(true);
-                else if (locked == true)
-                    ForwardCamLock(false);
-            }
-            if (canAttack == true)
-            {
-                if (Input.GetKeyDown(KeyCode.Mouse0))
-                {
-
-                    StartCoroutine(AttackSet());
-                }
-            }
-            if (lootContainerControl != null && lootContainerControl.pickUpAllowed && lootContainerControl.isOpen == false && Input.GetKeyDown(KeyCode.E))
-            {
-                UiLockOut(true);
-                UpdateMoving(false);
-                lootContainerControl.Open();
-                inChest = true;
-                onInventoryOpen();
-            }
-            if (lootContainerControl != null && lootContainerControl.isOpen == true)
-            {
-                if (Input.GetKeyDown(KeyCode.Tab))
-                {
-                    lootContainerControl.Close();
-                    inChest = false;
-                    UiLockOut(false);
-                    if (InvIsOpen == true)
-                        InvIsOpen = false;
-                    onInventoryClose();
-                }
-            }
-
-        }
-
-
-    }
     private void FixedUpdate()
     {
-        if (photonView.IsMine)
+        if (photonView.IsMine && isAlive == true)
         {
+            Vector2 inputVector = controls.Player.Movment.ReadValue<Vector2>();
+            float x = inputVector.x;
+            float y = inputVector.y;
 
-            if (isAlive == true)
+            Vector3 direction = new Vector3(x, 0f, y).normalized;
+
+            isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
+            //gravity
+            if (canMove == true)
             {
-
-                float x = Input.GetAxisRaw("Horizontal");
-                float y = Input.GetAxisRaw("Vertical");
-
-
-                Vector3 direction = new Vector3(x, 0f, y).normalized;
-
-
-                isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
-                //gravity
-                if (InvIsOpen == false && canMove == true)
+                if (isGrounded && velocity.y < 0)
                 {
-                    if (isGrounded && velocity.y < 0)
-                    {
-                        velocity.y = -2f;
-
-                    }
-                    else
-                    {
-                        velocity.y += _gravity * Time.fixedDeltaTime;
-                        characterController.Move(velocity * Time.fixedDeltaTime);
-                    }
-                    //move and cam smooth
-                    if (direction.magnitude >= 0.1f && !locked)
-                    {
-                        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
-                        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelc, turnSmoothTime);
-                        transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-                        Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                        Direction = moveDirection;
-                        characterController.Move(speed * Time.fixedDeltaTime * moveDirection.normalized);
-                    }
-                    else if (locked)
-                    {
-                        turn.x += Input.GetAxisRaw("Mouse X") * 1.5f;
-                        transform.rotation = Quaternion.Euler(0f, turn.x, 0f);
-                        if (direction.magnitude >= 0.1f)
-                        {
-                            characterController.Move(speed * Time.fixedDeltaTime * (transform.forward * y + transform.right * x).normalized);
-                            Vector3 xDir = transform.right * x;
-                            Vector3 yDir = transform.forward * y;
-
-                            if (x > 0 || x < 0)
-                                Direction = xDir;
-                            if (y > 0 || y < 0)
-                            {
-                                Direction = yDir;
-                            }
-                            if (x == 0f && y == 0f)
-                            {
-                                Direction = Vector3.zero;
-                            }
-                        }
-                    }
-                }
-
-                UpdateMoving(x != 0f || y != 0f);
-
-
-                //sprint
-                if (Input.GetButton("Fire3"))
-                {
-                    speed = CheckSprintSpeed();
-                    UpdateRun(speed >= SprintSpeed);
+                    velocity.y = -2f;
                 }
                 else
                 {
-                    CheckSpeed();
-                    UpdateRun(false);
+                    velocity.y += _gravity * Time.fixedDeltaTime;
+                    characterController.Move(velocity * Time.fixedDeltaTime);
                 }
-                if (Input.GetMouseButton(1))
+                //Primary Move + Camera smooth effect
+                if (direction.magnitude >= 0.1f && !locked)
                 {
-                    if (ActCooldown <= 0 && direction.magnitude >= 0.1f)
+                    float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
+                    float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelc, turnSmoothTime);
+                    transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+                    Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+                    Direction = moveDirection;
+                    characterController.Move(speed * Time.fixedDeltaTime * moveDirection.normalized);
+                }
+                //Locked cam movemnt
+                else if (locked)
+                {
+                    turn.x += Input.GetAxisRaw("Mouse X") * 1.5f;
+                    transform.rotation = Quaternion.Euler(0f, turn.x, 0f);
+                    if (direction.magnitude >= 0.1f)
                     {
+                        characterController.Move(speed * Time.fixedDeltaTime * (transform.forward * y + transform.right * x).normalized);
+                        Vector3 xDir = transform.right * x;
+                        Vector3 yDir = transform.forward * y;
 
-                        ActCooldown = dodgeCooldown;
-
-                        StartCoroutine(IFrames(.8f));
-                        StartCoroutine(Roll());
-
-
-                    }
-                    else
-                    {
-                        ActCooldown -= Time.fixedDeltaTime;
-                        if (ActCooldown <= 0)
+                        if (x > 0 || x < 0)
+                            Direction = xDir;
+                        if (y > 0 || y < 0)
                         {
-                            ActCooldown = 0;
+                            Direction = yDir;
+                        }
+                        if (x == 0f && y == 0f)
+                        {
+                            Direction = Vector3.zero;
                         }
                     }
-
                 }
-                else
+            }
+            UpdateMoving(x != 0f || y != 0f);
+            //Roll Cooldown
+            if (ActCooldown > 0)
+            {
+                ActCooldown -= Time.fixedDeltaTime;
+                if (ActCooldown <= 0)
                 {
-                    ActCooldown -= Time.fixedDeltaTime;
-                    if (ActCooldown <= 0)
-                    {
-                        ActCooldown = 0;
-                    }
+                    ActCooldown = 0;
                 }
+            }
+        }
+    }
+    #region Controler 
+    void inputRoll()
+    {
+        if (ActCooldown <= 0)
+        {
+            ActCooldown = dodgeCooldown;
+            StartCoroutine(IFrames(.8f));
+            StartCoroutine(Roll());
+        }
+    }
+    void QuickSlot()
+    {
+        UsableItem quickItem = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Item as UsableItem;
+        QuickSlot quickSlot = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true);
+        if (quickItem != null)
+        {
+            if (quickItem.UseableCheck())
+            {
+                quickItem.Use(Character.Instance);
+                quickSlot.Amount--;
+                PlayerUi.Instance.CheckAmount();
+                quickItem.Destroy();
 
             }
         }
     }
+    void inputAttack()
+    {
+        if (canAttack == true)
+        {
+            StartCoroutine(AttackSet());
+        }
+    }
+    void CamSwitch()
+    {
+        if (locked == false)
+            ForwardCamLock(true);
+        else if (locked == true)
+            ForwardCamLock(false);
+    }
+    void InventorySwitch()
+    {
+        if (inChest == false && isAlive == true)
+        {
+            if (InvIsOpen == false)
+            {
+                UpdateMoving(false);
+                UpdateRun(false);
+                InvIsOpen = true;
+                onInventoryOpen();
+                CursorToggle(true);
+                controls.Player.Disable();
+                controls.Inventory.Enable();
+                controls.Inventory.InventoryClose.performed += context => InventorySwitch();
+            }
+            else if (InvIsOpen == true)
+            {
+                onInventoryClose();
+                CursorToggle(false);
+                cineCamera.m_XAxis.m_MaxSpeed = 250;
+                InvIsOpen = false;
+                controls.Inventory.Disable();
+                controls.Player.Enable();
+                controls.Inventory.InventoryClose.performed -= context => InventorySwitch();
+            }
+        }
+    }
+    void Interact()
+    {
+        if (lootContainerControl != null && lootContainerControl.pickUpAllowed && lootContainerControl.isOpen == false)
+        {
+            UpdateMoving(false);
+            UpdateRun(false);
+            controls.Player.Disable();
+            lootContainerControl.Open();
+            onInventoryOpen();
+            inChest = true;
+            controls.Container.Enable();
+            controls.Container.ContainerClose.performed += context => Interact();
+            CursorToggle(true);
+        }
+        else if (lootContainerControl != null && lootContainerControl.isOpen == true)
+        {
+            lootContainerControl.Close();
+            onInventoryClose();
+            inChest = false;
+            controls.Container.Disable();
+            controls.Player.Enable();
+            controls.Container.ContainerClose.performed -= context => Interact();
+            CursorToggle(false);
+        }
+    }
+    void Map()
+    {
+        if (!MapManager.Instance.mapOpen)
+        {
+            MapManager.Instance.MapChange();
+            controls.Player.Disable();
+            controls.Map.Enable();
+            controls.Map.MapClose.performed += context => Map();
+            CursorToggle(true);
+        }
+        else if (MapManager.Instance.mapOpen)
+        {
+            MapManager.Instance.MapChange();
+            controls.Map.MapClose.performed -= context => Map();
+            controls.Map.Disable();
+            controls.Player.Enable();
+            CursorToggle(false);
+        }
+    }
+    void Sprint(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            speed = CheckSprintSpeed();
+            UpdateRun(true);
+        }
+        if (context.canceled)
+        {
+            CheckSpeed();
+            UpdateRun(false);
+        }
+    }
+
+    #endregion
     #endregion
     #region Animations
     public void UpdateMoving(bool moving)
@@ -518,26 +539,36 @@ public class PlayerManger : MonoBehaviourPun
     }
     #endregion
     #region UI
-    bool UIlock;
     public void UiLockOut(bool state)
     {
         if (state == true)
         {
-            UIlock = true;
+            onInventoryClose();
+            controls.Player.Disable();
             canMove = false;
             canAttack = false;
+            CursorToggle(true);
+        }
+        else if (state == false)
+        {
+            controls.Player.Enable();
+            canMove = true;
+            canAttack = true;
+            CursorToggle(false);
+        }
+    }
+    void CursorToggle(bool state)
+    {
+        if (state == true)
+        {
             cineCamera.m_XAxis.m_MaxSpeed = 0f;
             Cursor.lockState = CursorLockMode.None;
         }
         else if (state == false)
         {
-            UIlock = false;
-            canMove = true;
-            canAttack = true;
             cineCamera.m_XAxis.m_MaxSpeed = 250;
             Cursor.lockState = CursorLockMode.Locked;
         }
-
     }
     #endregion
     #region Damage and Healing
@@ -671,6 +702,7 @@ public class PlayerManger : MonoBehaviourPun
     }
     #endregion
     #region Misc
+
     private void OnDrawGizmosSelected()
     {
         if (attackPoint == null)
@@ -704,5 +736,5 @@ public class PlayerManger : MonoBehaviourPun
     {
         sFX.PlaySFX();
     }
-    #endregion
 }
+        #endregion

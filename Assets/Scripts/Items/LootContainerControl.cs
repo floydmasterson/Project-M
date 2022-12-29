@@ -70,6 +70,7 @@ public class LootContainerControl : ItemContainer
                 meshFilter.sharedMesh = close;
             gameObject.transform.GetChild(1).gameObject.SetActive(false);
             pickUpAllowed = false;
+            Close();
             character = null;
         }
     }
@@ -91,7 +92,7 @@ public class LootContainerControl : ItemContainer
     public void Close()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        PlayerUi.Instance.Minimap.SetActive(true);
+        PlayerUi.Instance.Minimap.SetActive(true);       
         character.CloseItemContainer(this);
         if (containerType == ContainerType.Chest && meshFilter.sharedMesh != null)
             meshFilter.sharedMesh = close;
