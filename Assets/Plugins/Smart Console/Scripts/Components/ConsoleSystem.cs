@@ -112,7 +112,7 @@ namespace SmartConsole.Components
                 OpenCloseConsole();
             }
          
-            Debug.Log("Smart Console has been setup successfully");
+            Debug.Log("Console has started successfully");
         }
 
 #if ENABLE_LEGACY_INPUT_MANAGER && !ENABLE_INPUT_SYSTEM

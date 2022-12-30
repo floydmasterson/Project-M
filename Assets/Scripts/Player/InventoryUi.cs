@@ -1,11 +1,13 @@
-using Cinemachine;
 using Photon.Pun;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class InventoryUi : MonoBehaviourPun
 {
+    PlayerInput playerInput;
+    const string gamepadScheme = "Controller";
     public static InventoryUi Instance;
     private PlayerManger target;
     public TextMeshProUGUI timeText;
@@ -22,6 +24,7 @@ public class InventoryUi : MonoBehaviourPun
     private void Awake()
     {
         Instance = this;
+        playerInput = GetComponentInChildren<PlayerInput>();
     }
     private void OnEnable()
     {
@@ -40,10 +43,15 @@ public class InventoryUi : MonoBehaviourPun
     public void OpenInv()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        if (playerInput.currentControlScheme == gamepadScheme)
+            gameObject.transform.GetChild(5).gameObject.SetActive(true);
+
     }
     public void CloseInv()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        gameObject.transform.GetChild(5).gameObject.SetActive(false);
+
     }
     public void UpdateCanvas(bool state)
     {
@@ -86,7 +94,7 @@ public class InventoryUi : MonoBehaviourPun
     void UpdateHealth(PlayerManger player)
     {
         int lifes = PlayerUi.Instance.target.lifes;
-        if(lifes == 3)
+        if (lifes == 3)
             hearts[2].gameObject.SetActive(false);
         if (lifes == 2)
             hearts[1].gameObject.SetActive(false);
@@ -100,7 +108,7 @@ public class InventoryUi : MonoBehaviourPun
         float min = Mathf.FloorToInt(currentTime / 60);
         float sec = Mathf.FloorToInt(currentTime % 60);
 
-        timeText.text = string.Format("{0:00} : {1:00}", min, sec); 
+        timeText.text = string.Format("{0:00} : {1:00}", min, sec);
     }
 }
 

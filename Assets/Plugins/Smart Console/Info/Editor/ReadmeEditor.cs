@@ -9,28 +9,8 @@ namespace SmartConsole.Info.Editor
     [InitializeOnLoad]
     public class ReadmeEditor : UnityEditor.Editor
     {
-        private static string k_ShowedReadmeSessionStateName = "ReadmeEditor.showedReadme";
         private static float k_Space = 16f;
 
-        static ReadmeEditor()
-        {
-            EditorApplication.delayCall += SelectReadmeAutomatically;
-        }
-
-        private static void SelectReadmeAutomatically()
-        {
-            if (!SessionState.GetBool(k_ShowedReadmeSessionStateName, false))
-            {
-                var readme = SelectReadme();
-                SessionState.SetBool(k_ShowedReadmeSessionStateName, true);
-
-                if (readme != null && !readme.loadedLayout)
-                {
-                    LoadLayout();
-                    readme.loadedLayout = true;
-                }
-            }
-        }
 
         private static void LoadLayout()
         {
@@ -38,26 +18,6 @@ namespace SmartConsole.Info.Editor
             var windowLayoutType = assembly.GetType("UnityEditor.WindowLayout", true);
             var method = windowLayoutType.GetMethod("LoadWindowLayout", BindingFlags.Public | BindingFlags.Static);
             method.Invoke(null, new object[]{Path.Combine(Application.dataPath, "TutorialInfo/Layout.wlt"), false});
-        }
-
-        [MenuItem("Smart Console/Info")]
-        private static Readme SelectReadme()
-        {
-            var ids = AssetDatabase.FindAssets("Readme t:Readme");
-
-            if (ids.Length > 0)
-            {
-                var readmeObject = AssetDatabase.LoadMainAssetAtPath(AssetDatabase.GUIDToAssetPath(ids[0]));
-                Selection.objects = new UnityEngine.Object[] { readmeObject };
-
-                return (Readme)readmeObject;
-            }
-            else
-            {
-                Debug.Log("Couldn't find a readme");
-                
-                return null;
-            }
         }
 
         private GUIStyle LinkStyle => m_LinkStyle;

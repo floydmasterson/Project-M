@@ -9,14 +9,19 @@ public class Crosshair : MonoBehaviourPun
     [SerializeField] float minAngle;
 
     float lookHight;
+    bool visable = true;
 
     private void OnEnable()
     {
-        MapManager.MapState += sizeToggle;
+        MapManager.MapState += state => sizeToggle();
+        PlayerManger.onInventoryOpen += sizeToggle;
+        PlayerManger.onInventoryClose += sizeToggle;
     }
     private void OnDisable()
     {
-        MapManager.MapState -= sizeToggle;
+        MapManager.MapState -= state => sizeToggle();
+        PlayerManger.onInventoryOpen -= sizeToggle;
+        PlayerManger.onInventoryClose -= sizeToggle;
     }
     void LookHight(float value)
     {
@@ -25,12 +30,20 @@ public class Crosshair : MonoBehaviourPun
             lookHight -= value;
     }
 
-    void sizeToggle(bool state)
+    void sizeToggle()
     {
-        if (state == true)
-            size = 0;
-        else if (state == false)
+        if (visable == false)
+        {
             size = 32;
+            visable = true;
+
+        }
+        else if (visable == true)
+        {
+            size = 0;
+            visable = false;
+
+        }
     }
 
     private void OnGUI()

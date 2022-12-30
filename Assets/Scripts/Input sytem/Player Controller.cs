@@ -107,6 +107,15 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lockturn"",
+                    ""type"": ""Value"",
+                    ""id"": ""341093f3-455e-4de5-8d1d-ad7b9bc36092"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -351,6 +360,28 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                     ""action"": ""MapOpen"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e6345c0c-e65b-43ac-84d6-dbd2f811cebe"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": ""ScaleVector2(x=0.3,y=0)"",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Lockturn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5eb96bbd-48f6-4a55-99a8-af49c6b915af"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": ""ScaleVector2(x=1.4,y=0)"",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Lockturn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -362,6 +393,24 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                     ""name"": ""InventoryClose"",
                     ""type"": ""Button"",
                     ""id"": ""ad5fa092-e3b5-46ea-9f2e-ef6a8651c2cf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Point"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""70a7924c-a045-4998-a797-4a341738aee3"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Click"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""f72bc712-6d2a-4887-94f8-1fb13cab6471"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -410,6 +459,28 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Controller"",
                     ""action"": ""InventoryClose"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""45f0d1b5-fca6-4b79-bea8-53e098c62bd5"",
+                    ""path"": ""<VirtualMouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Point"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ee2b609-5761-44bf-a617-8e3709381be7"",
+                    ""path"": ""<VirtualMouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Click"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -547,6 +618,11 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                     ""devicePath"": ""<Gamepad>"",
                     ""isOptional"": false,
                     ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<VirtualMouse>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
                 }
             ]
         }
@@ -563,9 +639,12 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
         m_Player_LockedCam = m_Player.FindAction("LockedCam", throwIfNotFound: true);
         m_Player_InteractOpen = m_Player.FindAction("InteractOpen", throwIfNotFound: true);
         m_Player_MapOpen = m_Player.FindAction("MapOpen", throwIfNotFound: true);
+        m_Player_Lockturn = m_Player.FindAction("Lockturn", throwIfNotFound: true);
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_InventoryClose = m_Inventory.FindAction("InventoryClose", throwIfNotFound: true);
+        m_Inventory_Point = m_Inventory.FindAction("Point", throwIfNotFound: true);
+        m_Inventory_Click = m_Inventory.FindAction("Click", throwIfNotFound: true);
         // Map
         m_Map = asset.FindActionMap("Map", throwIfNotFound: true);
         m_Map_MapClose = m_Map.FindAction("MapClose", throwIfNotFound: true);
@@ -640,6 +719,7 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_LockedCam;
     private readonly InputAction m_Player_InteractOpen;
     private readonly InputAction m_Player_MapOpen;
+    private readonly InputAction m_Player_Lockturn;
     public struct PlayerActions
     {
         private @PlayerController m_Wrapper;
@@ -653,6 +733,7 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
         public InputAction @LockedCam => m_Wrapper.m_Player_LockedCam;
         public InputAction @InteractOpen => m_Wrapper.m_Player_InteractOpen;
         public InputAction @MapOpen => m_Wrapper.m_Player_MapOpen;
+        public InputAction @Lockturn => m_Wrapper.m_Player_Lockturn;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -689,6 +770,9 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                 @MapOpen.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMapOpen;
                 @MapOpen.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMapOpen;
                 @MapOpen.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMapOpen;
+                @Lockturn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockturn;
+                @Lockturn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockturn;
+                @Lockturn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockturn;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -720,6 +804,9 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                 @MapOpen.started += instance.OnMapOpen;
                 @MapOpen.performed += instance.OnMapOpen;
                 @MapOpen.canceled += instance.OnMapOpen;
+                @Lockturn.started += instance.OnLockturn;
+                @Lockturn.performed += instance.OnLockturn;
+                @Lockturn.canceled += instance.OnLockturn;
             }
         }
     }
@@ -729,11 +816,15 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Inventory;
     private IInventoryActions m_InventoryActionsCallbackInterface;
     private readonly InputAction m_Inventory_InventoryClose;
+    private readonly InputAction m_Inventory_Point;
+    private readonly InputAction m_Inventory_Click;
     public struct InventoryActions
     {
         private @PlayerController m_Wrapper;
         public InventoryActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
         public InputAction @InventoryClose => m_Wrapper.m_Inventory_InventoryClose;
+        public InputAction @Point => m_Wrapper.m_Inventory_Point;
+        public InputAction @Click => m_Wrapper.m_Inventory_Click;
         public InputActionMap Get() { return m_Wrapper.m_Inventory; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -746,6 +837,12 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                 @InventoryClose.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnInventoryClose;
                 @InventoryClose.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnInventoryClose;
                 @InventoryClose.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnInventoryClose;
+                @Point.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnPoint;
+                @Point.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnPoint;
+                @Point.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnPoint;
+                @Click.started -= m_Wrapper.m_InventoryActionsCallbackInterface.OnClick;
+                @Click.performed -= m_Wrapper.m_InventoryActionsCallbackInterface.OnClick;
+                @Click.canceled -= m_Wrapper.m_InventoryActionsCallbackInterface.OnClick;
             }
             m_Wrapper.m_InventoryActionsCallbackInterface = instance;
             if (instance != null)
@@ -753,6 +850,12 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                 @InventoryClose.started += instance.OnInventoryClose;
                 @InventoryClose.performed += instance.OnInventoryClose;
                 @InventoryClose.canceled += instance.OnInventoryClose;
+                @Point.started += instance.OnPoint;
+                @Point.performed += instance.OnPoint;
+                @Point.canceled += instance.OnPoint;
+                @Click.started += instance.OnClick;
+                @Click.performed += instance.OnClick;
+                @Click.canceled += instance.OnClick;
             }
         }
     }
@@ -852,10 +955,13 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
         void OnLockedCam(InputAction.CallbackContext context);
         void OnInteractOpen(InputAction.CallbackContext context);
         void OnMapOpen(InputAction.CallbackContext context);
+        void OnLockturn(InputAction.CallbackContext context);
     }
     public interface IInventoryActions
     {
         void OnInventoryClose(InputAction.CallbackContext context);
+        void OnPoint(InputAction.CallbackContext context);
+        void OnClick(InputAction.CallbackContext context);
     }
     public interface IMapActions
     {

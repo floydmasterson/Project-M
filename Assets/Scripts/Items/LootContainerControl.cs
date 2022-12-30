@@ -24,6 +24,7 @@ public class LootContainerControl : ItemContainer
     [SerializeField] private Mesh open;
     [TabGroup("GFX")]
     public bool pickUpAllowed;
+    public bool playerInRange;
     public bool isOpen = false;
     Character character;
     [TabGroup("Loot Generation"), HideIf("@randomAmount || BetterRandomAmount")]
@@ -58,21 +59,32 @@ public class LootContainerControl : ItemContainer
         if (other.gameObject.CompareTag("Player") && other.GetComponent<PhotonView>().IsMine)
         {
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            playerInRange = true;
             pickUpAllowed = true;
             character = Character.Instance;
+        }
+        else if(other.gameObject.CompareTag("Chest"))
+        {
+            pickUpAllowed = false;
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Chest"))
+        {
+            if(playerInRange)
+                pickUpAllowed = true;
+        }
+        else if (other.gameObject.CompareTag("Player"))
         {
             if (containerType == ContainerType.Chest && meshFilter.sharedMesh != null)
                 meshFilter.sharedMesh = close;
             gameObject.transform.GetChild(1).gameObject.SetActive(false);
             pickUpAllowed = false;
-            Close();
             character = null;
+            playerInRange = false;
         }
+        
     }
     public void Open()
     {
@@ -92,13 +104,13 @@ public class LootContainerControl : ItemContainer
     public void Close()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        PlayerUi.Instance.Minimap.SetActive(true);       
+        PlayerUi.Instance.Minimap.SetActive(true);
         character.CloseItemContainer(this);
         if (containerType == ContainerType.Chest && meshFilter.sharedMesh != null)
             meshFilter.sharedMesh = close;
         if (character != null)
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
-        StartCoroutine("Despawn");
+        CheckEmpty();
         isOpen = false;
     }
     public void LoadItems()
@@ -127,5 +139,21 @@ public class LootContainerControl : ItemContainer
             }
         }
     }
+    void CheckEmpty()
+    {
+        bool empty = true;
+        foreach (ItemSlot slots in inventory.ItemSlots)
+        {
+            if (slots.Item != null)
+            {
+                empty = false;
+                StartCoroutine("Despawn");
+                break;
+            }
+        }
+        if (empty)
+            Destroy(gameObject);
+    }
+
 }
 

@@ -231,14 +231,17 @@ public class PlayerManger : MonoBehaviourPun
     {
         if (isRollExecuting)
             yield break;
+        Vector3 initalDirection = Direction.normalized;
         isRollExecuting = true;
         float startTime = Time.time;
         animator.SetTrigger("roll");
-        while (Time.time < startTime + .5f)
+        while (Time.time < startTime + .6f)
         {
-            characterController.Move(Direction.normalized * (pushAmt + Character.Instance.Agility.Value / 2) * Time.fixedDeltaTime);
+            canMove = false;
+            characterController.Move(initalDirection * (pushAmt + Character.Instance.Agility.Value *.6f) * Time.fixedDeltaTime);
             yield return null;
         }
+        canMove = true;
         isRollExecuting = false;
     }
     #endregion
@@ -323,21 +326,23 @@ public class PlayerManger : MonoBehaviourPun
 
             Vector3 direction = new Vector3(x, 0f, y).normalized;
 
-            isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
             //gravity
-            if (canMove == true)
+            isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
+            if (isGrounded && velocity.y < 0)
             {
-                if (isGrounded && velocity.y < 0)
-                {
-                    velocity.y = -2f;
-                }
-                else
-                {
-                    velocity.y += _gravity * Time.fixedDeltaTime;
-                    characterController.Move(velocity * Time.fixedDeltaTime);
-                }
+                velocity.y = -2f;
+            }
+            else
+            {
+                velocity.y += _gravity * Time.fixedDeltaTime;
+                characterController.Move(velocity * Time.fixedDeltaTime);
+            }
+
+            if (canMove && !locked)
+            {
+
                 //Primary Move + Camera smooth effect
-                if (direction.magnitude >= 0.1f && !locked)
+                if (direction.magnitude >= 0.1f)
                 {
                     float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
                     float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelc, turnSmoothTime);
@@ -348,26 +353,24 @@ public class PlayerManger : MonoBehaviourPun
                     characterController.Move(speed * Time.fixedDeltaTime * moveDirection.normalized);
                 }
                 //Locked cam movemnt
-                else if (locked)
+            }
+            else if (locked)
+            {
+                turn += controls.Player.Lockturn.ReadValue<Vector2>();
+                transform.rotation = Quaternion.Euler(0f, turn.x, 0f);
+                if (direction.magnitude >= 0.1f && canMove)
                 {
-                    turn.x += Input.GetAxisRaw("Mouse X") * 1.5f;
-                    transform.rotation = Quaternion.Euler(0f, turn.x, 0f);
-                    if (direction.magnitude >= 0.1f)
-                    {
-                        characterController.Move(speed * Time.fixedDeltaTime * (transform.forward * y + transform.right * x).normalized);
-                        Vector3 xDir = transform.right * x;
-                        Vector3 yDir = transform.forward * y;
+                    characterController.Move(speed * Time.fixedDeltaTime * (transform.forward * y + transform.right * x).normalized);
+                    Vector3 xDir = transform.right * x;
+                    Vector3 yDir = transform.forward * y;
 
-                        if (x > 0 || x < 0)
-                            Direction = xDir;
-                        if (y > 0 || y < 0)
-                        {
-                            Direction = yDir;
-                        }
-                        if (x == 0f && y == 0f)
-                        {
-                            Direction = Vector3.zero;
-                        }
+                    if (x > 0 || x < 0)
+                        Direction = xDir;
+                    if (y > 0 || y < 0)
+                        Direction = yDir;
+                    if (x == 0f && y == 0f)
+                    {
+                        Direction = Vector3.zero;
                     }
                 }
             }
@@ -386,7 +389,7 @@ public class PlayerManger : MonoBehaviourPun
     #region Controler 
     void inputRoll()
     {
-        if (ActCooldown <= 0)
+        if (ActCooldown <= 0 && characterController.velocity != Vector3.zero)
         {
             ActCooldown = dodgeCooldown;
             StartCoroutine(IFrames(.8f));
@@ -411,7 +414,7 @@ public class PlayerManger : MonoBehaviourPun
     }
     void inputAttack()
     {
-        if (canAttack == true)
+        if (canAttack == true && !isRollExecuting)
         {
             StartCoroutine(AttackSet());
         }
@@ -433,6 +436,7 @@ public class PlayerManger : MonoBehaviourPun
                 UpdateRun(false);
                 InvIsOpen = true;
                 onInventoryOpen();
+
                 CursorToggle(true);
                 controls.Player.Disable();
                 controls.Inventory.Enable();
@@ -693,6 +697,14 @@ public class PlayerManger : MonoBehaviourPun
         }
 
     }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Chest") && lootContainerControl == null)
+        {
+            LootContainerControl chest = other.gameObject.GetComponent<LootContainerControl>();
+            lootContainerControl = chest;
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Chest"))
@@ -737,4 +749,4 @@ public class PlayerManger : MonoBehaviourPun
         sFX.PlaySFX();
     }
 }
-        #endregion
+#endregion

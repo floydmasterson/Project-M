@@ -134,7 +134,7 @@ public class Character : MonoBehaviour
         {
             dragItemSlot = itemSlot;
             draggableItem.sprite = itemSlot.Item.Icon;
-            draggableItem.transform.position = Input.mousePosition;
+            draggableItem.transform.position = GamepadCursor.Instance.playerInput.currentControlScheme == "Keyboard" ? Input.mousePosition : GamepadCursor.Instance.cursorTransfom.position;
             draggableItem.gameObject.SetActive(true);
         }
     }

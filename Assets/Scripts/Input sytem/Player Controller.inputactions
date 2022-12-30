@@ -85,6 +85,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Lockturn",
+                    "type": "Value",
+                    "id": "341093f3-455e-4de5-8d1d-ad7b9bc36092",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -329,6 +338,28 @@
                     "action": "MapOpen",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e6345c0c-e65b-43ac-84d6-dbd2f811cebe",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "ScaleVector2(x=0.3,y=0)",
+                    "groups": "Keyboard",
+                    "action": "Lockturn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5eb96bbd-48f6-4a55-99a8-af49c6b915af",
+                    "path": "<Gamepad>/rightStick",
+                    "interactions": "",
+                    "processors": "ScaleVector2(x=1.4,y=0)",
+                    "groups": "Controller",
+                    "action": "Lockturn",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -340,6 +371,24 @@
                     "name": "InventoryClose",
                     "type": "Button",
                     "id": "ad5fa092-e3b5-46ea-9f2e-ef6a8651c2cf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Point",
+                    "type": "PassThrough",
+                    "id": "70a7924c-a045-4998-a797-4a341738aee3",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Click",
+                    "type": "PassThrough",
+                    "id": "f72bc712-6d2a-4887-94f8-1fb13cab6471",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -388,6 +437,28 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "InventoryClose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "45f0d1b5-fca6-4b79-bea8-53e098c62bd5",
+                    "path": "<VirtualMouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ee2b609-5761-44bf-a617-8e3709381be7",
+                    "path": "<VirtualMouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -524,6 +595,11 @@
                 {
                     "devicePath": "<Gamepad>",
                     "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<VirtualMouse>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]
