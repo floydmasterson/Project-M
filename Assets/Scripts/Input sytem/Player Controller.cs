@@ -116,6 +116,15 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""41af6ac0-c583-400a-aa52-049d061a72f6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -382,6 +391,28 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                     ""action"": ""Lockturn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a0c631b0-e262-4913-8c1d-56c5c053e10c"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""470366c7-1074-4803-b3ec-50e29dc9621b"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -522,6 +553,17 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                     ""action"": ""MapClose"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""586a7a17-57fe-4eae-b8a1-27ec3b3faab2"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""MapClose"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -596,6 +638,45 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Escape"",
+            ""id"": ""d9cec9f3-a6f4-471f-b175-b81682c58c80"",
+            ""actions"": [
+                {
+                    ""name"": ""CloseEscape"",
+                    ""type"": ""Button"",
+                    ""id"": ""404b1bce-8e91-4f55-893d-00adf9f2d27e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""90abce72-be36-44c5-81de-b25220b2c766"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Controller"",
+                    ""action"": ""CloseEscape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""34afd2aa-bdeb-467f-a354-fff4355d42c7"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""CloseEscape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -640,6 +721,7 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
         m_Player_InteractOpen = m_Player.FindAction("InteractOpen", throwIfNotFound: true);
         m_Player_MapOpen = m_Player.FindAction("MapOpen", throwIfNotFound: true);
         m_Player_Lockturn = m_Player.FindAction("Lockturn", throwIfNotFound: true);
+        m_Player_Menu = m_Player.FindAction("Menu", throwIfNotFound: true);
         // Inventory
         m_Inventory = asset.FindActionMap("Inventory", throwIfNotFound: true);
         m_Inventory_InventoryClose = m_Inventory.FindAction("InventoryClose", throwIfNotFound: true);
@@ -651,6 +733,9 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
         // Container
         m_Container = asset.FindActionMap("Container", throwIfNotFound: true);
         m_Container_ContainerClose = m_Container.FindAction("ContainerClose", throwIfNotFound: true);
+        // Escape
+        m_Escape = asset.FindActionMap("Escape", throwIfNotFound: true);
+        m_Escape_CloseEscape = m_Escape.FindAction("CloseEscape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -720,6 +805,7 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_InteractOpen;
     private readonly InputAction m_Player_MapOpen;
     private readonly InputAction m_Player_Lockturn;
+    private readonly InputAction m_Player_Menu;
     public struct PlayerActions
     {
         private @PlayerController m_Wrapper;
@@ -734,6 +820,7 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
         public InputAction @InteractOpen => m_Wrapper.m_Player_InteractOpen;
         public InputAction @MapOpen => m_Wrapper.m_Player_MapOpen;
         public InputAction @Lockturn => m_Wrapper.m_Player_Lockturn;
+        public InputAction @Menu => m_Wrapper.m_Player_Menu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -773,6 +860,9 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                 @Lockturn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockturn;
                 @Lockturn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockturn;
                 @Lockturn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLockturn;
+                @Menu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenu;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -807,6 +897,9 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
                 @Lockturn.started += instance.OnLockturn;
                 @Lockturn.performed += instance.OnLockturn;
                 @Lockturn.canceled += instance.OnLockturn;
+                @Menu.started += instance.OnMenu;
+                @Menu.performed += instance.OnMenu;
+                @Menu.canceled += instance.OnMenu;
             }
         }
     }
@@ -926,6 +1019,39 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
         }
     }
     public ContainerActions @Container => new ContainerActions(this);
+
+    // Escape
+    private readonly InputActionMap m_Escape;
+    private IEscapeActions m_EscapeActionsCallbackInterface;
+    private readonly InputAction m_Escape_CloseEscape;
+    public struct EscapeActions
+    {
+        private @PlayerController m_Wrapper;
+        public EscapeActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
+        public InputAction @CloseEscape => m_Wrapper.m_Escape_CloseEscape;
+        public InputActionMap Get() { return m_Wrapper.m_Escape; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(EscapeActions set) { return set.Get(); }
+        public void SetCallbacks(IEscapeActions instance)
+        {
+            if (m_Wrapper.m_EscapeActionsCallbackInterface != null)
+            {
+                @CloseEscape.started -= m_Wrapper.m_EscapeActionsCallbackInterface.OnCloseEscape;
+                @CloseEscape.performed -= m_Wrapper.m_EscapeActionsCallbackInterface.OnCloseEscape;
+                @CloseEscape.canceled -= m_Wrapper.m_EscapeActionsCallbackInterface.OnCloseEscape;
+            }
+            m_Wrapper.m_EscapeActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @CloseEscape.started += instance.OnCloseEscape;
+                @CloseEscape.performed += instance.OnCloseEscape;
+                @CloseEscape.canceled += instance.OnCloseEscape;
+            }
+        }
+    }
+    public EscapeActions @Escape => new EscapeActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -956,6 +1082,7 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
         void OnInteractOpen(InputAction.CallbackContext context);
         void OnMapOpen(InputAction.CallbackContext context);
         void OnLockturn(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
     }
     public interface IInventoryActions
     {
@@ -970,5 +1097,9 @@ public partial class @PlayerController : IInputActionCollection2, IDisposable
     public interface IContainerActions
     {
         void OnContainerClose(InputAction.CallbackContext context);
+    }
+    public interface IEscapeActions
+    {
+        void OnCloseEscape(InputAction.CallbackContext context);
     }
 }

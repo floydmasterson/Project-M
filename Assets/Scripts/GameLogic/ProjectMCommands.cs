@@ -33,7 +33,6 @@ public class ProjectMCommands : CommandBehaviour
     [Command]
     public void load_scene(int index)
     {
-        PhotonNetwork.Disconnect();
         SceneManager.LoadScene(index);
     }
     [Command]

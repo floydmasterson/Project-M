@@ -2698,6 +2698,7 @@ MonoBehaviour:
   close: {fileID: 0}
   open: {fileID: 0}
   pickUpAllowed: 0
+  playerInRange: 0
   isOpen: 0
   amount: 1
   randomAmount: 0
@@ -2819,7 +2820,7 @@ AudioSource:
   m_GameObject: {fileID: 3573473735180492604}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6278939689622734641, guid: e5e4ed7c5dc94a74da785a5a3b3f8e1e, type: 2}
   m_audioClip: {fileID: 8300000, guid: 08d9f2d308743034593166ddc6597e1e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.24914984

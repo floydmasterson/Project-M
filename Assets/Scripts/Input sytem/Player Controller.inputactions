@@ -94,6 +94,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Menu",
+                    "type": "Button",
+                    "id": "41af6ac0-c583-400a-aa52-049d061a72f6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -360,6 +369,28 @@
                     "action": "Lockturn",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a0c631b0-e262-4913-8c1d-56c5c053e10c",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "470366c7-1074-4803-b3ec-50e29dc9621b",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -500,6 +531,17 @@
                     "action": "MapClose",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "586a7a17-57fe-4eae-b8a1-27ec3b3faab2",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "MapClose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -570,6 +612,45 @@
                     "processors": "",
                     "groups": "Controller",
                     "action": "ContainerClose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Escape",
+            "id": "d9cec9f3-a6f4-471f-b175-b81682c58c80",
+            "actions": [
+                {
+                    "name": "CloseEscape",
+                    "type": "Button",
+                    "id": "404b1bce-8e91-4f55-893d-00adf9f2d27e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "90abce72-be36-44c5-81de-b25220b2c766",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Controller",
+                    "action": "CloseEscape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "34afd2aa-bdeb-467f-a354-fff4355d42c7",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "CloseEscape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

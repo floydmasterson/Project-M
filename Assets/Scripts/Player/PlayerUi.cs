@@ -68,13 +68,17 @@ public class PlayerUi : MonoBehaviourPun
     {
         PlayerManger.onInventoryOpen += CloseUi;
         PlayerManger.onInventoryClose += OpenUi;
+        PlayerManger.escapeMenu += hideUi;
         MapManager.MapState += UpdateCanvas;
+        EscapeMenu.escapeMenuClose += OpenUi;
     }
     private void OnDisable()
     {
         PlayerManger.onInventoryOpen -= CloseUi;
         PlayerManger.onInventoryClose -= OpenUi;
+        PlayerManger.escapeMenu -= hideUi;
         MapManager.MapState -= UpdateCanvas;
+        EscapeMenu.escapeMenuClose -= OpenUi;
     }
     private void Start()
     {
@@ -221,6 +225,13 @@ public class PlayerUi : MonoBehaviourPun
         {
             gameObject.transform.GetChild(2).gameObject.SetActive(false);
             gameObject.transform.GetChild(3).gameObject.SetActive(true);
+        }
+    }
+    void hideUi()
+    {
+        for (int i = 0; i < gameObject.transform.childCount; i++)
+        {
+            gameObject.transform.GetChild(i).gameObject.SetActive(false);
         }
     }
     public void UpdateCanvas(bool state)

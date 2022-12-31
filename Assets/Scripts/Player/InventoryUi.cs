@@ -30,14 +30,14 @@ public class InventoryUi : MonoBehaviourPun
     {
         PlayerManger.onInventoryOpen += OpenInv;
         PlayerManger.onInventoryClose += CloseInv;
-        PlayerManger.OnDeath += UpdateHealth;
+        PlayerManger.OnDeath += UpdateLifes;
         MapManager.MapState += UpdateCanvas;
     }
     private void OnDisable()
     {
         PlayerManger.onInventoryOpen -= OpenInv;
         PlayerManger.onInventoryClose -= CloseInv;
-        PlayerManger.OnDeath -= UpdateHealth;
+        PlayerManger.OnDeath -= UpdateLifes;
         MapManager.MapState -= UpdateCanvas;
     }
     public void OpenInv()
@@ -62,8 +62,6 @@ public class InventoryUi : MonoBehaviourPun
     }
     public void SetTargetI(PlayerManger _target)
     {
-
-
         if (_target == null)
         {
             Debug.LogError("<Color=Red><a>Missing</a></Color> PlayManager target for PlayerUI.SetTarget.", this);
@@ -91,7 +89,7 @@ public class InventoryUi : MonoBehaviourPun
             updateTimer(-1);
         }
     }
-    void UpdateHealth(PlayerManger player)
+    void UpdateLifes(PlayerManger player)
     {
         int lifes = PlayerUi.Instance.target.lifes;
         if (lifes == 3)

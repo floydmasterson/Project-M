@@ -145,6 +145,9 @@ public class PlayerManger : MonoBehaviourPun
     GameObject InventoryPrefab;
     [TabGroup("Ui"), Required, SerializeField]
     GameObject MiniMapIcon;
+    public delegate void EscapeMenu();
+    public static event EscapeMenu escapeMenu;
+    bool escapeMenuOpen;
 
     bool InvIsOpen = false;
     bool inChest = false;
@@ -238,7 +241,7 @@ public class PlayerManger : MonoBehaviourPun
         while (Time.time < startTime + .6f)
         {
             canMove = false;
-            characterController.Move(initalDirection * (pushAmt + Character.Instance.Agility.Value *.6f) * Time.fixedDeltaTime);
+            characterController.Move(initalDirection * (pushAmt + Character.Instance.Agility.Value * .8f) * Time.fixedDeltaTime);
             yield return null;
         }
         canMove = true;
@@ -250,30 +253,46 @@ public class PlayerManger : MonoBehaviourPun
     {
         GameManger.PvPon += EnbalePvpCombat;
         ConsoleSystem.ConsoleOpenClose += UiLockOut;
+
+        controls.Player.Enable();
+        controls.Player.Attack.performed += context => inputAttack();
+        controls.Player.Roll.performed += context => inputRoll();
+        controls.Player.LockedCam.performed += context => CamSwitch();
+        controls.Player.QuickSlot.performed += context => QuickSlot();
+        controls.Player.InventoryOpen.performed += context => InventorySwitch();
+        controls.Player.InteractOpen.performed += context => Interact();
+        controls.Player.MapOpen.performed += context => Map();
+        controls.Player.Menu.performed += context => inputEscapeMenu();
+        controls.Player.Sprint.performed += Sprint;
+        controls.Player.Sprint.canceled += Sprint;
     }
     private void OnDisable()
     {
         GameManger.PvPon -= EnbalePvpCombat;
         ConsoleSystem.ConsoleOpenClose -= UiLockOut;
+
+        controls.Player.Disable();
+        controls.Player.Attack.performed -= context => inputAttack();
+        controls.Player.Roll.performed -= context => inputRoll();
+        controls.Player.LockedCam.performed -= context => CamSwitch();
+        controls.Player.QuickSlot.performed -= context => QuickSlot();
+        controls.Player.InventoryOpen.performed -= context => InventorySwitch();
+        controls.Player.InteractOpen.performed -= context => Interact();
+        controls.Player.MapOpen.performed -= context => Map();
+        controls.Player.Menu.performed -= context => inputEscapeMenu();
+        controls.Player.Sprint.performed -= Sprint;
+        controls.Player.Sprint.canceled -= Sprint;
     }
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        DontDestroyOnLoad(this.gameObject);
         if (photonView.IsMine)
         {
+            #region Control Events
             controls = new PlayerController();
             IsLocal = true;
-            controls.Player.Enable();
-            controls.Player.Attack.performed += context => inputAttack();
-            controls.Player.Roll.performed += context => inputRoll();
-            controls.Player.LockedCam.performed += context => CamSwitch();
-            controls.Player.QuickSlot.performed += context => QuickSlot();
-            controls.Player.InventoryOpen.performed += context => InventorySwitch();
-            controls.Player.InteractOpen.performed += context => Interact();
-            controls.Player.MapOpen.performed += context => Map();
-            controls.Player.Sprint.performed += Sprint;
-            controls.Player.Sprint.canceled += Sprint;
+           
+            #endregion
 
             animator = GetComponent<Animator>();
             cam = GameObject.FindGameObjectWithTag("MainCamera");
@@ -498,6 +517,28 @@ public class PlayerManger : MonoBehaviourPun
             CursorToggle(false);
         }
     }
+    void inputEscapeMenu()
+    {
+        if (!escapeMenuOpen)
+        {
+            if (escapeMenu != null)
+                escapeMenu();
+            controls.Player.Disable();
+            CursorToggle(true);
+            escapeMenuOpen = true;
+            controls.Escape.Enable();
+            controls.Escape.CloseEscape.performed += context => inputEscapeMenu();
+        }
+        else if (escapeMenuOpen)
+        {
+            escapeMenuOpen = false;
+            controls.Player.Enable();
+            controls.Escape.Disable();
+            controls.Escape.CloseEscape.performed -= context => inputEscapeMenu();
+            CursorToggle(false);
+        }
+
+    }
     void Sprint(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -511,7 +552,6 @@ public class PlayerManger : MonoBehaviourPun
             UpdateRun(false);
         }
     }
-
     #endregion
     #endregion
     #region Animations
