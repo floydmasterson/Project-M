@@ -175,6 +175,7 @@ GameObject:
   - component: {fileID: 1633790731590478556}
   - component: {fileID: 1633790731590478557}
   - component: {fileID: 1633790731590478554}
+  - component: {fileID: 3328983861728808342}
   - component: {fileID: 1633790731590478555}
   - component: {fileID: 1633790731590478552}
   - component: {fileID: 1633790731590478553}
@@ -293,6 +294,104 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 1.33, z: -0.05}
   m_TimeToStationary: 0.5
+--- !u!114 &3328983861728808342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1633790731590478546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 705679289cf09ef408af01bc8cfe89c2, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6ccfa7d6-d379-4519-a7d8-9a15cf3a78b2
+    m_ActionName: Player/Movment[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9d77aa4f-424a-460b-b9c6-e0e5018c0149
+    m_ActionName: Player/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 859f2aae-e8fa-4254-b879-a83f698123d0
+    m_ActionName: Player/Inventory Open[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3731a5c3-cfbf-49da-ae7c-c2b140869a3b
+    m_ActionName: Player/Roll[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ed409c1c-4712-45c3-a5dc-f922f76adefa
+    m_ActionName: Player/Sprint[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: abb7b074-0738-4ef6-9ced-2d34155ac783
+    m_ActionName: Player/QuickSlot[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 064a001a-b3e4-45a0-8256-88103f25cf5a
+    m_ActionName: Player/LockedCam[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 46245110-a69d-4f64-84ce-41903772f7ca
+    m_ActionName: Player/InteractOpen[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0cf07601-2880-4b7a-9ef0-d91a6e83d099
+    m_ActionName: Player/MapOpen[/Keyboard/m]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 341093f3-455e-4de5-8d1d-ad7b9bc36092
+    m_ActionName: Player/Lockturn[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 41af6ac0-c583-400a-aa52-049d061a72f6
+    m_ActionName: Player/Menu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ad5fa092-e3b5-46ea-9f2e-ef6a8651c2cf
+    m_ActionName: Inventory/InventoryClose[/Keyboard/tab,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 70a7924c-a045-4998-a797-4a341738aee3
+    m_ActionName: Inventory/Point
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f72bc712-6d2a-4887-94f8-1fb13cab6471
+    m_ActionName: Inventory/Click
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 65e9b4cf-a2b6-4370-8c5c-f1adc1171cfc
+    m_ActionName: Map/MapClose[/Keyboard/m,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dfabfb1d-8cfc-4749-9904-ee7e684f5d7b
+    m_ActionName: Container/ContainerClose[/Keyboard/e,/Keyboard/tab,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 404b1bce-8e91-4f55-893d-00adf9f2d27e
+    m_ActionName: Escape/CloseEscape[/Keyboard/escape]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &1633790731590478555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +408,8 @@ MonoBehaviour:
   lockCamera: {fileID: 1633790732745160637}
   player: {fileID: 1633790731590478546}
   col: {fileID: 1633790731590478556}
+  playerInput: {fileID: 3328983861728808342}
+  IsLocal: 0
   _currentHealth: 0
   _defense: 0
   DefenseMod: 0
@@ -337,7 +438,6 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
-  IsLocal: 0
   UiPrefab: {fileID: 8443476667934544336, guid: b141b3a8020372548b5513d5146efa28, type: 3}
   InventoryPrefab: {fileID: 3739851515273236426, guid: 5603264b687c1ee40a212f083b3a932a, type: 3}
   MiniMapIcon: {fileID: 1633790732015004093}
@@ -1157,8 +1257,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633790732113323746}
-  m_LocalRotation: {x: 0.23056088, y: 0.13724375, z: -0.032866694, w: 0.9627698}
-  m_LocalPosition: {x: -0.00000017881439, y: 0.000029563904, z: 0.00000095366545}
+  m_LocalRotation: {x: 0.23056088, y: 0.13724375, z: -0.032866698, w: 0.9627698}
+  m_LocalPosition: {x: -4.547473e-13, y: 0.0000014305117, z: 0.00000095367386}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1668,7 +1768,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633790732745160634}
-  m_LocalRotation: {x: 0.21630773, y: 0.054967415, z: -0.012198479, w: 0.97470033}
+  m_LocalRotation: {x: 0.21630771, y: 0.054967407, z: -0.012198475, w: 0.97470033}
   m_LocalPosition: {x: -0.13200006, y: 4.3760004, z: 8.771}
   m_LocalScale: {x: 0.6666667, y: 0.66666675, z: 0.6666666}
   m_ConstrainProportionsScale: 0

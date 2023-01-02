@@ -499,7 +499,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1258664008556357818}
-  m_LocalRotation: {x: 0.19621986, y: 0.05525852, z: -0.011076096, w: 0.978939}
+  m_LocalRotation: {x: 0.19621986, y: 0.05525853, z: -0.011076099, w: 0.978939}
   m_LocalPosition: {x: -6.4623485e-27, y: 0.0000009536743, z: -2.8421712e-13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1016,6 +1016,7 @@ GameObject:
   - component: {fileID: 2556476236528625665}
   - component: {fileID: 1294591100063938487}
   - component: {fileID: 2211061372773608717}
+  - component: {fileID: 5638349628535741737}
   - component: {fileID: 8728414190442872691}
   - component: {fileID: 5037454467233576938}
   - component: {fileID: 5538755696440380974}
@@ -1135,6 +1136,36 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 1.33, z: -0.05}
   m_TimeToStationary: 0.5
+--- !u!114 &5638349628535741737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2955217814598126033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 705679289cf09ef408af01bc8cfe89c2, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!114 &8728414190442872691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1151,6 +1182,8 @@ MonoBehaviour:
   lockCamera: {fileID: 5341818144007211904}
   player: {fileID: 2955217814598126033}
   col: {fileID: 2556476236528625665}
+  playerInput: {fileID: 5638349628535741737}
+  IsLocal: 0
   _currentHealth: 0
   _defense: 0
   DefenseMod: 0
@@ -1179,7 +1212,6 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
-  IsLocal: 0
   UiPrefab: {fileID: 8443476667934544336, guid: b141b3a8020372548b5513d5146efa28, type: 3}
   InventoryPrefab: {fileID: 3739851515273236426, guid: 50a588a86166d58478a61a04b2a274e8, type: 3}
   MiniMapIcon: {fileID: 7173288505419927480}
@@ -3182,7 +3214,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8683991791153415088}
   m_LocalRotation: {x: 0.21643932, y: 0.055017423, z: -0.012217428, w: 0.9746681}
-  m_LocalPosition: {x: -2.5849394e-26, y: 0.0000038146973, z: -1.1368685e-12}
+  m_LocalPosition: {x: -3.5542917e-26, y: 0.0000052452087, z: -1.5631941e-12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

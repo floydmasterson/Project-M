@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Users;
+using UnityEngine.XR;
 
 public class GamepadCursor : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class GamepadCursor : MonoBehaviour
     string previousControlScheme = string.Empty;
     const string gamepadScheme = "Controller";
     const string mouseScheme = "Keyboard";
+
+    bool TrackingControls;
 
     private void Awake()
     {
@@ -42,12 +45,13 @@ public class GamepadCursor : MonoBehaviour
         }
 
         InputSystem.onAfterUpdate += UpdateMotion;
+
     }
     private void OnDisable()
     {
         InputSystem.onAfterUpdate -= UpdateMotion;
 
-        playerInput.user.UnpairDevice(virtualMouse);
+    
         if (virtualMouse != null && virtualMouse.added)
             InputSystem.RemoveDevice(virtualMouse);
     }
@@ -55,7 +59,6 @@ public class GamepadCursor : MonoBehaviour
     {
         if (playerInput.currentControlScheme == mouseScheme && previousControlScheme != mouseScheme)
         {
-            cursorTransfom.gameObject.SetActive(false);
             Cursor.visible = true;
             currentMouse.WarpCursorPosition(virtualMouse.position.ReadValue());
             previousControlScheme = mouseScheme;
@@ -63,7 +66,6 @@ public class GamepadCursor : MonoBehaviour
         }
         else if (playerInput.currentControlScheme == gamepadScheme && previousControlScheme != gamepadScheme)
         {
-            cursorTransfom.gameObject.SetActive(true);
             Cursor.visible = false;
             InputState.Change(virtualMouse.position, currentMouse.position.ReadValue());
             AnchorCourser(currentMouse.position.ReadValue());
@@ -72,7 +74,7 @@ public class GamepadCursor : MonoBehaviour
     }
     private void Update()
     {
-        if (virtualMouse.added)
+        if (virtualMouse.added && playerInput != null && !TrackingControls)
         {
             if (previousControlScheme != playerInput.currentControlScheme)
             {
@@ -118,5 +120,19 @@ public class GamepadCursor : MonoBehaviour
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, position, canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : mainCamera, out anchorPosition);
         cursorTransfom.anchoredPosition = anchorPosition;
+    }
+
+    public void ToggleTracking(bool state)
+    {
+        if (state == true) 
+        {
+            TrackingControls = true;
+            cursorTransfom.gameObject.SetActive(true);
+        }
+        else if(state == false)
+        {
+            TrackingControls = false;
+            cursorTransfom.gameObject.SetActive(false);
+        }
     }
 }

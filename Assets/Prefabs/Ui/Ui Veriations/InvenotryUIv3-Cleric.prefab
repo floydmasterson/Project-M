@@ -8179,6 +8179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bddff02af46090b43880a7851ee73f24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInput: {fileID: 0}
   timeText: {fileID: 3970439889273692043}
   hearts:
   - {fileID: 747368935297856426}
@@ -13380,7 +13381,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7705847210187054320}
   - component: {fileID: 6403908169554973290}
-  - component: {fileID: 7731968959842544776}
   m_Layer: 0
   m_Name: GampadCursor
   m_TagString: Untagged
@@ -13415,47 +13415,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8029322285725247997}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c0b6cb2587408eb4993519d715969955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInput: {fileID: 7731968959842544776}
+  playerInput: {fileID: 0}
   cursorTransfom: {fileID: 6481244361804877938}
   cursorSpeed: 1000
   canvasRect: {fileID: 3739851515273236430}
   canvas: {fileID: 3739851515273236429}
   padding: 50
---- !u!114 &7731968959842544776
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8029322285725247997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 705679289cf09ef408af01bc8cfe89c2, type: 3}
-  m_NotificationBehavior: 3
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Inventory
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1 &8031548276097035225
 GameObject:
   m_ObjectHideFlags: 0

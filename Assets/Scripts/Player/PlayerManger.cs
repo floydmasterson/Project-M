@@ -27,8 +27,12 @@ public class PlayerManger : MonoBehaviourPun
     [SerializeField] Collider col;
 
     [TabGroup("Components")]
-    GameObject cam;
+    public PlayerInput playerInput;
 
+    [TabGroup("Components")]
+    public bool IsLocal = false;
+
+    GameObject cam;
     CharacterController characterController;
     Animator animator;
     Rigidbody Rb;
@@ -135,7 +139,7 @@ public class PlayerManger : MonoBehaviourPun
     [TabGroup("Attack")]
     [Required]
     public LayerMask enemyLayers;
-    public bool IsLocal = false;
+
 
 
     //PLayer UI
@@ -148,6 +152,7 @@ public class PlayerManger : MonoBehaviourPun
     public delegate void EscapeMenu();
     public static event EscapeMenu escapeMenu;
     bool escapeMenuOpen;
+    const string gamepadScheme = "Controller";
 
     bool InvIsOpen = false;
     bool inChest = false;
@@ -158,7 +163,10 @@ public class PlayerManger : MonoBehaviourPun
     public delegate void inventoryC();
     public static event inventoryC onInventoryClose;
 
+
+
     //Audio 
+    PlayerController controls;
     [TabGroup("Audio"), Required, SerializeField]
     SFX walk;
     [TabGroup("Audio"), Required, SerializeField]
@@ -166,7 +174,6 @@ public class PlayerManger : MonoBehaviourPun
     [TabGroup("Audio"), Required, SerializeField]
     SFX hurt;
 
-    PlayerController controls;
 
     #endregion
     #region Ienumerators
@@ -253,46 +260,36 @@ public class PlayerManger : MonoBehaviourPun
     {
         GameManger.PvPon += EnbalePvpCombat;
         ConsoleSystem.ConsoleOpenClose += UiLockOut;
-
+        #region Control Events
         controls.Player.Enable();
-        controls.Player.Attack.performed += context => inputAttack();
-        controls.Player.Roll.performed += context => inputRoll();
-        controls.Player.LockedCam.performed += context => CamSwitch();
-        controls.Player.QuickSlot.performed += context => QuickSlot();
         controls.Player.InventoryOpen.performed += context => InventorySwitch();
         controls.Player.InteractOpen.performed += context => Interact();
-        controls.Player.MapOpen.performed += context => Map();
         controls.Player.Menu.performed += context => inputEscapeMenu();
         controls.Player.Sprint.performed += Sprint;
         controls.Player.Sprint.canceled += Sprint;
+        #endregion
     }
     private void OnDisable()
     {
         GameManger.PvPon -= EnbalePvpCombat;
         ConsoleSystem.ConsoleOpenClose -= UiLockOut;
-
+        #region Control Events
         controls.Player.Disable();
-        controls.Player.Attack.performed -= context => inputAttack();
-        controls.Player.Roll.performed -= context => inputRoll();
-        controls.Player.LockedCam.performed -= context => CamSwitch();
-        controls.Player.QuickSlot.performed -= context => QuickSlot();
         controls.Player.InventoryOpen.performed -= context => InventorySwitch();
         controls.Player.InteractOpen.performed -= context => Interact();
-        controls.Player.MapOpen.performed -= context => Map();
         controls.Player.Menu.performed -= context => inputEscapeMenu();
         controls.Player.Sprint.performed -= Sprint;
         controls.Player.Sprint.canceled -= Sprint;
+        #endregion
     }
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
         if (photonView.IsMine)
         {
-            #region Control Events
+
             controls = new PlayerController();
             IsLocal = true;
-           
-            #endregion
 
             animator = GetComponent<Animator>();
             cam = GameObject.FindGameObjectWithTag("MainCamera");
@@ -301,7 +298,6 @@ public class PlayerManger : MonoBehaviourPun
             gameObject.name = PhotonNetwork.NickName;
             MiniMapIcon.SetActive(true);
             cineCamera.Priority = 10;
-
             if (InventoryPrefab != null)
             {
                 GameObject _uiGoi = Instantiate(InventoryPrefab) as GameObject;
@@ -320,6 +316,7 @@ public class PlayerManger : MonoBehaviourPun
             {
                 Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
             }
+            GamepadCursor.Instance.playerInput = playerInput;
         }
         else
         {
@@ -375,8 +372,11 @@ public class PlayerManger : MonoBehaviourPun
             }
             else if (locked)
             {
-                turn += controls.Player.Lockturn.ReadValue<Vector2>();
-                transform.rotation = Quaternion.Euler(0f, turn.x, 0f);
+                if (!inChest && !InvIsOpen && !escapeMenuOpen && !MapManager.Instance.mapOpen)
+                {
+                    turn += controls.Player.Lockturn.ReadValue<Vector2>();
+                    transform.rotation = Quaternion.Euler(0f, turn.x, 0f);
+                }
                 if (direction.magnitude >= 0.1f && canMove)
                 {
                     characterController.Move(speed * Time.fixedDeltaTime * (transform.forward * y + transform.right * x).normalized);
@@ -406,7 +406,7 @@ public class PlayerManger : MonoBehaviourPun
         }
     }
     #region Controler 
-    void inputRoll()
+    void OnRoll()
     {
         if (ActCooldown <= 0 && characterController.velocity != Vector3.zero)
         {
@@ -415,7 +415,7 @@ public class PlayerManger : MonoBehaviourPun
             StartCoroutine(Roll());
         }
     }
-    void QuickSlot()
+    void OnQuickSlot()
     {
         UsableItem quickItem = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Item as UsableItem;
         QuickSlot quickSlot = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true);
@@ -431,14 +431,14 @@ public class PlayerManger : MonoBehaviourPun
             }
         }
     }
-    void inputAttack()
+    void OnAttack()
     {
         if (canAttack == true && !isRollExecuting)
         {
             StartCoroutine(AttackSet());
         }
     }
-    void CamSwitch()
+    void OnLockedCam()
     {
         if (locked == false)
             ForwardCamLock(true);
@@ -455,11 +455,10 @@ public class PlayerManger : MonoBehaviourPun
                 UpdateRun(false);
                 InvIsOpen = true;
                 onInventoryOpen();
-
                 CursorToggle(true);
                 controls.Player.Disable();
                 controls.Inventory.Enable();
-                controls.Inventory.InventoryClose.performed += context => InventorySwitch();
+
             }
             else if (InvIsOpen == true)
             {
@@ -469,7 +468,6 @@ public class PlayerManger : MonoBehaviourPun
                 InvIsOpen = false;
                 controls.Inventory.Disable();
                 controls.Player.Enable();
-                controls.Inventory.InventoryClose.performed -= context => InventorySwitch();
             }
         }
     }
@@ -479,12 +477,11 @@ public class PlayerManger : MonoBehaviourPun
         {
             UpdateMoving(false);
             UpdateRun(false);
-            controls.Player.Disable();
+
             lootContainerControl.Open();
             onInventoryOpen();
             inChest = true;
-            controls.Container.Enable();
-            controls.Container.ContainerClose.performed += context => Interact();
+            actionSwitch("ContainerClose", false, 0);
             CursorToggle(true);
         }
         else if (lootContainerControl != null && lootContainerControl.isOpen == true)
@@ -492,28 +489,22 @@ public class PlayerManger : MonoBehaviourPun
             lootContainerControl.Close();
             onInventoryClose();
             inChest = false;
-            controls.Container.Disable();
-            controls.Player.Enable();
-            controls.Container.ContainerClose.performed -= context => Interact();
+            actionSwitch("ContainerClose", true, 0);
             CursorToggle(false);
         }
     }
-    void Map()
+    void OnMapOpen()
     {
         if (!MapManager.Instance.mapOpen)
         {
             MapManager.Instance.MapChange();
-            controls.Player.Disable();
-            controls.Map.Enable();
-            controls.Map.MapClose.performed += context => Map();
+            actionSwitch("Map", false, 1);
             CursorToggle(true);
         }
         else if (MapManager.Instance.mapOpen)
         {
             MapManager.Instance.MapChange();
-            controls.Map.MapClose.performed -= context => Map();
-            controls.Map.Disable();
-            controls.Player.Enable();
+            actionSwitch("Map", true, 1);
             CursorToggle(false);
         }
     }
@@ -523,21 +514,51 @@ public class PlayerManger : MonoBehaviourPun
         {
             if (escapeMenu != null)
                 escapeMenu();
-            controls.Player.Disable();
+            actionSwitch("CloseEscape", false, 0);
+
             CursorToggle(true);
             escapeMenuOpen = true;
-            controls.Escape.Enable();
-            controls.Escape.CloseEscape.performed += context => inputEscapeMenu();
+
         }
         else if (escapeMenuOpen)
         {
             escapeMenuOpen = false;
-            controls.Player.Enable();
-            controls.Escape.Disable();
-            controls.Escape.CloseEscape.performed -= context => inputEscapeMenu();
+            actionSwitch("CloseEscape", true, 0);
             CursorToggle(false);
         }
 
+    }
+    void actionSwitch(string action, bool playerState, int type)
+    {
+        switch(type)
+        {
+            case 0:
+                if (playerState == true)
+                {
+                   
+                    controls.FindAction(action).actionMap.Disable();
+                    controls.Player.Enable();
+                }
+                else if (playerState == false)
+                {
+                    controls.Player.Disable();
+                    controls.FindAction(action).actionMap.Enable();
+                }
+                break;
+            case 1:
+                if (playerState == true)
+                {
+                    playerInput.actions.FindActionMap(action).Disable();
+                    playerInput.actions.FindActionMap("Player").Enable();
+                }
+                else if (playerState == false)
+                {
+                    playerInput.actions.FindActionMap("Player").Disable();
+                    playerInput.actions.FindActionMap(action).Enable();
+                }
+                break;
+        }
+        
     }
     void Sprint(InputAction.CallbackContext context)
     {
@@ -588,14 +609,14 @@ public class PlayerManger : MonoBehaviourPun
         if (state == true)
         {
             onInventoryClose();
-            controls.Player.Disable();
+            playerInput.DeactivateInput();
             canMove = false;
             canAttack = false;
             CursorToggle(true);
         }
         else if (state == false)
         {
-            controls.Player.Enable();
+            playerInput.ActivateInput();
             canMove = true;
             canAttack = true;
             CursorToggle(false);
@@ -607,11 +628,14 @@ public class PlayerManger : MonoBehaviourPun
         {
             cineCamera.m_XAxis.m_MaxSpeed = 0f;
             Cursor.lockState = CursorLockMode.None;
+            if (playerInput.currentControlScheme == gamepadScheme)
+                GamepadCursor.Instance.ToggleTracking(true);
         }
         else if (state == false)
         {
             cineCamera.m_XAxis.m_MaxSpeed = 250;
             Cursor.lockState = CursorLockMode.Locked;
+            GamepadCursor.Instance.ToggleTracking(false);
         }
     }
     #endregion
