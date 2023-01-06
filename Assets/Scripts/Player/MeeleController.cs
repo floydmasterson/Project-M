@@ -2,8 +2,8 @@ using Kryz.CharacterStats;
 using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
-using System.Data;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class MeeleController : MonoBehaviourPun, IAttack
@@ -84,7 +84,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
         PlayerUi.Instance.target.DefenseMod -= DefenseMod;
         Character.Instance.statPanel.UpdateStatValues();
         raging = false;
-    }   
+    }
     IEnumerator AttackSync()
     {
         yield return new WaitForSecondsRealtime(0.08f);
@@ -124,40 +124,6 @@ public class MeeleController : MonoBehaviourPun, IAttack
     private void Update()
     {
 
-        if (CurrentRage > 0 && Input.GetKeyDown(KeyCode.Q) && raging == false && PlayerUi.Instance.target.isAlive)
-        {
-            if (CurrentRage == 1)
-            {
-                manger.Heal(10);
-                CurrentRage = 0;
-            }
-            if (CurrentRage == 2)
-            {
-                manger.Heal(20);
-                StartCoroutine(RageMode(0.05f, 0.05f, 3));
-            }
-            if (CurrentRage == 3)
-            {
-                manger.Heal(30);
-                StartCoroutine(RageMode(0.08f, 0.08f, 5));
-            }
-            if (CurrentRage == 4)
-            {
-                manger.Heal(40);
-                manger.LifeSteal = true;
-                StartCoroutine(RageMode(0.1f, 0.1f, 8));
-            }
-            if (CurrentRage >= 5)
-            {
-                if (CurrentRage == 5)
-                    manger.Heal(50);
-                if (CurrentRage > 5)
-                    manger.Heal(50 + (10 * (CurrentRage - 5)));
-                manger.LifeSteal = true;
-                StartCoroutine(RageMode(0.15f, 0.2f, 10));
-
-            }
-        }
         if (damaged == true && raging == false)
         {
             currentRageFallOffTimer += Time.deltaTime;
@@ -176,6 +142,44 @@ public class MeeleController : MonoBehaviourPun, IAttack
 
             }
         }
+    }
+    public void RageMode(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            if (CurrentRage > 0 && raging == false && PlayerUi.Instance.target.isAlive)
+            {
+                if (CurrentRage == 1)
+                {
+                    manger.Heal(10);
+                    CurrentRage = 0;
+                }
+                if (CurrentRage == 2)
+                {
+                    manger.Heal(20);
+                    StartCoroutine(RageMode(0.05f, 0.05f, 3));
+                }
+                if (CurrentRage == 3)
+                {
+                    manger.Heal(30);
+                    StartCoroutine(RageMode(0.08f, 0.08f, 5));
+                }
+                if (CurrentRage == 4)
+                {
+                    manger.Heal(40);
+                    manger.LifeSteal = true;
+                    StartCoroutine(RageMode(0.1f, 0.1f, 8));
+                }
+                if (CurrentRage >= 5)
+                {
+                    if (CurrentRage == 5)
+                        manger.Heal(50);
+                    if (CurrentRage > 5)
+                        manger.Heal(50 + (10 * (CurrentRage - 5)));
+                    manger.LifeSteal = true;
+                    StartCoroutine(RageMode(0.15f, 0.2f, 10));
+
+                }
+            }
     }
     private void GainRage(int recivedDamaged)
     {

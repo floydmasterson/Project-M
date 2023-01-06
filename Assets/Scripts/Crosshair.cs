@@ -17,7 +17,7 @@ public class Crosshair : MonoBehaviourPun
         PlayerManger.onInventoryOpen += sizeToggle;
         PlayerManger.onInventoryClose += sizeToggle;
         PlayerManger.escapeMenu += sizeToggle;
-        EscapeMenu.escapeMenuClose += sizeToggle;
+     
     }
     private void OnDisable()
     {
@@ -25,7 +25,6 @@ public class Crosshair : MonoBehaviourPun
         PlayerManger.onInventoryOpen -= sizeToggle;
         PlayerManger.onInventoryClose -= sizeToggle;
         PlayerManger.escapeMenu -= sizeToggle;
-        EscapeMenu.escapeMenuClose -= sizeToggle;
     }
     void LookHight(float value)
     {

@@ -85,7 +85,7 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
                     {
                     Object assest = selected.SelectedValue as Object;
                     string path = AssetDatabase.GetAssetPath(assest);
-                    AssetDatabase.DeleteAsset(path);
+                    AssetDatabase.MoveAssetToTrash(path);
                     AssetDatabase.SaveAssets();
                 }
             }

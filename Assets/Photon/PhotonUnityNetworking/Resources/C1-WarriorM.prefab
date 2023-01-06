@@ -207,7 +207,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: 1.4158733
+    Value: -118.28309
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
@@ -282,7 +282,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1010393028788377826}
   m_LocalRotation: {x: 0.00000014901163, y: 0.00000023841855, z: -3.552714e-14, w: 1}
-  m_LocalPosition: {x: -0.13221304, y: 4.376295, z: 8.774263}
+  m_LocalPosition: {x: 4.6961937, y: 4.376295, z: 16.633053}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -355,7 +355,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: 1.4158733
+    Value: -118.28309
     m_SpeedMode: 0
     m_MaxSpeed: 250
     m_AccelTime: 2
@@ -499,8 +499,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1258664008556357818}
-  m_LocalRotation: {x: 0.19621986, y: 0.05525853, z: -0.011076099, w: 0.978939}
-  m_LocalPosition: {x: -6.4623485e-27, y: 0.0000009536743, z: -2.8421712e-13}
+  m_LocalRotation: {x: -0.10812242, y: 0.8465369, z: -0.1883235, w: -0.48602393}
+  m_LocalPosition: {x: 0.0000009536743, y: 0.0000009536743, z: 1.7053018e-13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1014,17 +1014,17 @@ GameObject:
   - component: {fileID: 8486010994213854331}
   - component: {fileID: 35503359142782423}
   - component: {fileID: 2556476236528625665}
-  - component: {fileID: 1294591100063938487}
   - component: {fileID: 2211061372773608717}
-  - component: {fileID: 5638349628535741737}
+  - component: {fileID: 5946846912908350618}
+  - component: {fileID: -3118269473940688471}
   - component: {fileID: 8728414190442872691}
   - component: {fileID: 5037454467233576938}
   - component: {fileID: 5538755696440380974}
+  - component: {fileID: 8979590937991555786}
+  - component: {fileID: -1362746876041595564}
   - component: {fileID: 7242720649013660420}
   - component: {fileID: 3871390271718408134}
   - component: {fileID: 8372882155558361027}
-  - component: {fileID: 8979590937991555786}
-  - component: {fileID: -1362746876041595564}
   m_Layer: 9
   m_Name: C1-WarriorM
   m_TagString: Player
@@ -1100,7 +1100,23 @@ CapsuleCollider:
   m_Height: 4.1338825
   m_Direction: 1
   m_Center: {x: 0, y: 1.6269407, z: 0.14068429}
---- !u!95 &1294591100063938487
+--- !u!208 &2211061372773608717
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2955217814598126033}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.185, y: 0.31, z: 0.185}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 0
+  m_Center: {x: 0, y: 1.33, z: -0.05}
+  m_TimeToStationary: 0.5
+--- !u!95 &5946846912908350618
 Animator:
   serializedVersion: 4
   m_ObjectHideFlags: 0
@@ -1120,23 +1136,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!208 &2211061372773608717
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2955217814598126033}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.185, y: 0.31, z: 0.185}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 0
-  m_Center: {x: 0, y: 1.33, z: -0.05}
-  m_TimeToStationary: 0.5
---- !u!114 &5638349628535741737
+--- !u!114 &-3118269473940688471
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1149,7 +1149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 705679289cf09ef408af01bc8cfe89c2, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -1160,7 +1160,343 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: Movement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6ccfa7d6-d379-4519-a7d8-9a15cf3a78b2
+    m_ActionName: Player/Movment[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: Attack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 9d77aa4f-424a-460b-b9c6-e0e5018c0149
+    m_ActionName: Player/Attack[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: InventorySwitch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -3118269473940688471}
+        m_TargetAssemblyTypeName: UnityEngine.InputSystem.PlayerInput, Unity.InputSystem
+        m_MethodName: SwitchCurrentActionMap
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Inventory
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 859f2aae-e8fa-4254-b879-a83f698123d0
+    m_ActionName: Player/Inventory Open[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: Roll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3731a5c3-cfbf-49da-ae7c-c2b140869a3b
+    m_ActionName: Player/Roll[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: Sprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ed409c1c-4712-45c3-a5dc-f922f76adefa
+    m_ActionName: Player/Sprint[/Keyboard/shift]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: QuickSlot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: abb7b074-0738-4ef6-9ced-2d34155ac783
+    m_ActionName: Player/QuickSlot[/Keyboard/f]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: LockedCam
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 064a001a-b3e4-45a0-8256-88103f25cf5a
+    m_ActionName: Player/LockedCam[/Keyboard/c]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: ContainerSwitch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 46245110-a69d-4f64-84ce-41903772f7ca
+    m_ActionName: Player/InteractOpen[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: Map
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -3118269473940688471}
+        m_TargetAssemblyTypeName: UnityEngine.InputSystem.PlayerInput, Unity.InputSystem
+        m_MethodName: SwitchCurrentActionMap
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Map
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 0cf07601-2880-4b7a-9ef0-d91a6e83d099
+    m_ActionName: Player/MapOpen[/Keyboard/m]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: LockTurn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 341093f3-455e-4de5-8d1d-ad7b9bc36092
+    m_ActionName: Player/Lockturn[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: Menu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -3118269473940688471}
+        m_TargetAssemblyTypeName: UnityEngine.InputSystem.PlayerInput, Unity.InputSystem
+        m_MethodName: SwitchCurrentActionMap
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Menu
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 41af6ac0-c583-400a-aa52-049d061a72f6
+    m_ActionName: Player/Menu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: InventorySwitch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -3118269473940688471}
+        m_TargetAssemblyTypeName: UnityEngine.InputSystem.PlayerInput, Unity.InputSystem
+        m_MethodName: SwitchCurrentActionMap
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Player
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ad5fa092-e3b5-46ea-9f2e-ef6a8651c2cf
+    m_ActionName: Inventory/InventoryClose[/Keyboard/tab,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 70a7924c-a045-4998-a797-4a341738aee3
+    m_ActionName: Inventory/Point
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f72bc712-6d2a-4887-94f8-1fb13cab6471
+    m_ActionName: Inventory/Click
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: Map
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -3118269473940688471}
+        m_TargetAssemblyTypeName: UnityEngine.InputSystem.PlayerInput, Unity.InputSystem
+        m_MethodName: SwitchCurrentActionMap
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Player
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 65e9b4cf-a2b6-4370-8c5c-f1adc1171cfc
+    m_ActionName: Map/MapClose[/Keyboard/m,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: ContainerSwitch
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Player
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dfabfb1d-8cfc-4749-9904-ee7e684f5d7b
+    m_ActionName: Container/ContainerClose[/Keyboard/e,/Keyboard/tab,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8728414190442872691}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: Menu
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: -3118269473940688471}
+        m_TargetAssemblyTypeName: UnityEngine.InputSystem.PlayerInput, Unity.InputSystem
+        m_MethodName: SwitchCurrentActionMap
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Player
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 404b1bce-8e91-4f55-893d-00adf9f2d27e
+    m_ActionName: Escape/CloseEscape[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5037454467233576938}
+        m_TargetAssemblyTypeName: MeeleController, Scripts.Externl
+        m_MethodName: RageMode
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f857130a-04ea-40ea-b616-1485ea818a23
+    m_ActionName: Player/RageMode[/Keyboard/q,/XInputControllerWindows/leftShoulder]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1182,7 +1518,10 @@ MonoBehaviour:
   lockCamera: {fileID: 5341818144007211904}
   player: {fileID: 2955217814598126033}
   col: {fileID: 2556476236528625665}
-  playerInput: {fileID: 5638349628535741737}
+  playerInput: {fileID: -3118269473940688471}
+  characterController: {fileID: 8486010994213854331}
+  animator: {fileID: 5946846912908350618}
+  Rb: {fileID: 35503359142782423}
   IsLocal: 0
   _currentHealth: 0
   _defense: 0
@@ -1203,6 +1542,7 @@ MonoBehaviour:
     m_Bits: 8
   isGrounded: 0
   canMove: 1
+  currentCameraSpeed: 0
   attackCoolDown: 1.35
   attackRange: 1.25
   LifeSteal: 0
@@ -1215,6 +1555,8 @@ MonoBehaviour:
   UiPrefab: {fileID: 8443476667934544336, guid: b141b3a8020372548b5513d5146efa28, type: 3}
   InventoryPrefab: {fileID: 3739851515273236426, guid: 50a588a86166d58478a61a04b2a274e8, type: 3}
   MiniMapIcon: {fileID: 7173288505419927480}
+  InvIsOpen: 0
+  inChest: 0
   walk:
     sfxType: 0
     sfxToPlay: {fileID: 0}
@@ -1287,85 +1629,6 @@ MonoBehaviour:
   - {fileID: 1646549385332684010}
   - {fileID: 4002223464240608496}
   posioned: 0
---- !u!114 &7242720649013660420
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2955217814598126033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 3871390271718408134}
-  - {fileID: 8372882155558361027}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
---- !u!114 &3871390271718408134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2955217814598126033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
---- !u!114 &8372882155558361027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2955217814598126033}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 4
-    SynchronizeType: 2
-    Name: moving
-  - Type: 4
-    SynchronizeType: 2
-    Name: running
-  - Type: 9
-    SynchronizeType: 2
-    Name: wasHurt
-  - Type: 9
-    SynchronizeType: 2
-    Name: Res
-  - Type: 9
-    SynchronizeType: 2
-    Name: Die
-  - Type: 9
-    SynchronizeType: 2
-    Name: Attack 0
-  - Type: 9
-    SynchronizeType: 2
-    Name: roll
-  m_SynchronizeLayers:
-  - SynchronizeType: 2
-    LayerIndex: 0
 --- !u!82 &8979590937991555786
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1594,6 +1857,85 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7242720649013660420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2955217814598126033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 3871390271718408134}
+  - {fileID: 8372882155558361027}
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &3871390271718408134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2955217814598126033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
+--- !u!114 &8372882155558361027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2955217814598126033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 0
+    Name: moving
+  - Type: 4
+    SynchronizeType: 0
+    Name: running
+  - Type: 9
+    SynchronizeType: 0
+    Name: wasHurt
+  - Type: 9
+    SynchronizeType: 0
+    Name: Res
+  - Type: 9
+    SynchronizeType: 0
+    Name: Die
+  - Type: 9
+    SynchronizeType: 0
+    Name: Attack 0
+  - Type: 9
+    SynchronizeType: 0
+    Name: roll
+  m_SynchronizeLayers:
+  - SynchronizeType: 2
+    LayerIndex: 0
 --- !u!1 &3467074984869464414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1704,7 +2046,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: 1.4158733
+    Value: -118.28309
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
@@ -1776,8 +2118,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3687139210424846447}
-  m_LocalRotation: {x: 0.17598587, y: 0.055475242, z: -0.009933943, w: 0.9827781}
-  m_LocalPosition: {x: -6.4623485e-27, y: 0.0000009536743, z: -2.8421712e-13}
+  m_LocalRotation: {x: -0.09807436, y: 0.8502412, z: -0.17082222, w: -0.48815072}
+  m_LocalPosition: {x: 0.0000009536743, y: 0.0000009536743, z: 1.7053018e-13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2671,7 +3013,7 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_XAxis:
-    Value: 1.4158733
+    Value: -118.28309
     m_SpeedMode: 0
     m_MaxSpeed: 300
     m_AccelTime: 0.1
@@ -3213,8 +3555,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8683991791153415088}
-  m_LocalRotation: {x: 0.21643932, y: 0.055017423, z: -0.012217428, w: 0.9746681}
-  m_LocalPosition: {x: -3.5542917e-26, y: 0.0000052452087, z: -1.5631941e-12}
+  m_LocalRotation: {x: -0.11815868, y: 0.84245765, z: -0.20580426, w: -0.48368198}
+  m_LocalPosition: {x: 0.0000019073486, y: 0.000002861023, z: 5.6843202e-14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3504,7 +3846,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9083011718815718219}
-  m_LocalRotation: {x: 0.21630771, y: 0.054967415, z: -0.012198477, w: 0.97470033}
+  m_LocalRotation: {x: 0.21630771, y: 0.05496738, z: -0.012198469, w: 0.97470033}
   m_LocalPosition: {x: -0.13200003, y: 4.3760004, z: 8.771}
   m_LocalScale: {x: 0.6666667, y: 0.66666675, z: 0.6666666}
   m_ConstrainProportionsScale: 0

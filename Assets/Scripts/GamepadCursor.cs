@@ -2,14 +2,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.InputSystem.Users;
-using UnityEngine.XR;
 
 public class GamepadCursor : MonoBehaviour
 {
     public static GamepadCursor Instance;
+    [HideInInspector]
     public PlayerInput playerInput;
+    [HideInInspector]
+    public PlayerManger player;
     [SerializeField] public RectTransform cursorTransfom;
-    [SerializeField] float cursorSpeed = 1000f;
+    [SerializeField] public float cursorSpeed = 1000f;
     [SerializeField] RectTransform canvasRect;
     [SerializeField] Canvas canvas;
     [SerializeField] float padding = 50f;
@@ -51,7 +53,7 @@ public class GamepadCursor : MonoBehaviour
     {
         InputSystem.onAfterUpdate -= UpdateMotion;
 
-    
+
         if (virtualMouse != null && virtualMouse.added)
             InputSystem.RemoveDevice(virtualMouse);
     }
@@ -74,7 +76,7 @@ public class GamepadCursor : MonoBehaviour
     }
     private void Update()
     {
-        if (virtualMouse.added && playerInput != null && !TrackingControls)
+        if (virtualMouse.added && playerInput != null && TrackingControls)
         {
             if (previousControlScheme != playerInput.currentControlScheme)
             {
@@ -103,13 +105,17 @@ public class GamepadCursor : MonoBehaviour
             InputState.Change(virtualMouse.delta, deltaValue);
 
             bool aButtonIsPressed = Gamepad.current.aButton.IsPressed();
-            if (prevoiusMouseState != Gamepad.current.aButton.isPressed)
+            if (prevoiusMouseState != aButtonIsPressed)
             {
                 virtualMouse.CopyState<MouseState>(out var mouseState);
-                mouseState.WithButton(MouseButton.Right, aButtonIsPressed);
+                if (player.InvIsOpen || player.inChest)
+                    mouseState.WithButton(MouseButton.Right, aButtonIsPressed);
+                else
+                    mouseState.WithButton(MouseButton.Left, aButtonIsPressed);
                 InputState.Change(virtualMouse, mouseState);
                 prevoiusMouseState = aButtonIsPressed;
             }
+
 
             AnchorCourser(newPositon);
         }
@@ -124,12 +130,12 @@ public class GamepadCursor : MonoBehaviour
 
     public void ToggleTracking(bool state)
     {
-        if (state == true) 
+        if (state == true)
         {
             TrackingControls = true;
             cursorTransfom.gameObject.SetActive(true);
         }
-        else if(state == false)
+        else if (state == false)
         {
             TrackingControls = false;
             cursorTransfom.gameObject.SetActive(false);

@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -20,10 +19,16 @@ public class VolumeControler : MonoBehaviour
     private void OnDisable()
     {
         PlayerPrefs.SetFloat(volumeParameter, slider.value);
+        if (toggle.isOn)
+            PlayerPrefs.SetInt(toggle.gameObject.name.ToString(), 1);
+        else if (!toggle.isOn)
+            PlayerPrefs.SetInt(toggle.gameObject.name.ToString(), 0);
     }
     private void Start()
     {
         slider.value = PlayerPrefs.GetFloat(volumeParameter, slider.value);
+        toggle.isOn = PlayerPrefs.GetInt(toggle.gameObject.name.ToString(), 1) > 0;
+
     }
 
     private void HandleToggleValueChange(bool enableSound)

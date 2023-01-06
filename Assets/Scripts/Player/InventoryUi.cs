@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class InventoryUi : MonoBehaviourPun
 {
-    public PlayerInput playerInput;
     public static InventoryUi Instance;
     private PlayerManger target;
     public TextMeshProUGUI timeText;
@@ -18,46 +17,33 @@ public class InventoryUi : MonoBehaviourPun
     Renderer targetRenderer;
     CanvasGroup _canvasGroup;
     Vector3 targetPosition;
-    GamepadCursor gamepadCursor;
+ 
     //Start is called before the first frame update
 
     private void Awake()
     {
         Instance = this;
-        gamepadCursor = GetComponentInChildren<GamepadCursor>();
     }
     private void OnEnable()
     {
         PlayerManger.onInventoryOpen += OpenInv;
         PlayerManger.onInventoryClose += CloseInv;
         PlayerManger.OnDeath += UpdateLifes;
-        MapManager.MapState += UpdateCanvas;
     }
     private void OnDisable()
     {
         PlayerManger.onInventoryOpen -= OpenInv;
         PlayerManger.onInventoryClose -= CloseInv;
         PlayerManger.OnDeath -= UpdateLifes;
-        MapManager.MapState -= UpdateCanvas;
     }
     public void OpenInv()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
-     
-
     }
     public void CloseInv()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        gameObject.transform.GetChild(5).gameObject.SetActive(false);
 
-    }
-    public void UpdateCanvas(bool state)
-    {
-        if (state == true)
-            InvCanvas.enabled = false;
-        if (state == false)
-            InvCanvas.enabled = true;
     }
     public void SetTargetI(PlayerManger _target)
     {
@@ -70,9 +56,7 @@ public class InventoryUi : MonoBehaviourPun
         target = _target;
         targetTransform = target.GetComponent<Transform>();
         targetRenderer = target.GetComponentInChildren<Renderer>();
-        playerInput = target.GetComponent<PlayerInput>();
-        gamepadCursor.playerInput = playerInput;
-        gamepadCursor.enabled = true;
+
         CharacterController characterController = _target.GetComponent<CharacterController>();
         // Get data from the Player that won't change during the lifetime of this Component
         if (characterController != null)

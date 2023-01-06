@@ -1,8 +1,8 @@
 using Photon.Pun;
 using Sirenix.OdinInspector;
-using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerUi : MonoBehaviourPun
@@ -46,39 +46,45 @@ public class PlayerUi : MonoBehaviourPun
     public GameObject Minimap;
     [TabGroup("MiniMap")]
     public Canvas UiCanvas;
+    [HideInInspector]
+    public PlayerInput playerInput;
     int quickAmount;
     private MagicController MagicController;
     private MeeleController MeleeController;
     public static PlayerUi Instance;
     public PlayerManger target;
+    public delegate void TargetSet();
+    public static event TargetSet OnTargetSet;
 
     float characterControllerHeight = 0f;
     Transform targetTransform;
     Renderer targetRenderer;
     CanvasGroup _canvasGroup;
     Vector3 targetPosition;
+    private bool toggle = true;
+    GamepadCursor gamepadCursor;
 
     // Start is called before the first frame update
     void Awake()
     {
         Instance = this;
         _canvasGroup = this.GetComponent<CanvasGroup>();
+        gamepadCursor = GetComponentInChildren<GamepadCursor>();
     }
     private void OnEnable()
     {
         PlayerManger.onInventoryOpen += CloseUi;
         PlayerManger.onInventoryClose += OpenUi;
-        PlayerManger.escapeMenu += hideUi;
-        MapManager.MapState += UpdateCanvas;
-        EscapeMenu.escapeMenuClose += OpenUi;
+        PlayerManger.escapeMenu += toggleUi;
+        MapManager.MapState += ctx => toggleUi();
+
     }
     private void OnDisable()
     {
         PlayerManger.onInventoryOpen -= CloseUi;
         PlayerManger.onInventoryClose -= OpenUi;
-        PlayerManger.escapeMenu -= hideUi;
-        MapManager.MapState -= UpdateCanvas;
-        EscapeMenu.escapeMenuClose -= OpenUi;
+        PlayerManger.escapeMenu -= toggleUi;
+        MapManager.MapState -= ctx => toggleUi();
     }
     private void Start()
     {
@@ -86,11 +92,11 @@ public class PlayerUi : MonoBehaviourPun
         MeleeController = target.gameObject.GetComponent<MeeleController>();
         if (MagicController != null)
         {
-            gameObject.transform.GetChild(1).gameObject.SetActive(true);
+            gameObject.transform.GetChild(2).gameObject.SetActive(true);
         }
         if (MeleeController != null)
         {
-            gameObject.transform.GetChild(2).gameObject.SetActive(true);
+            gameObject.transform.GetChild(3).gameObject.SetActive(true);
         }
         if (InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Item != null)
         {
@@ -177,9 +183,9 @@ public class PlayerUi : MonoBehaviourPun
 
     public void OpenUi()
     {
-
-        gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        gameObject.transform.GetChild(5).gameObject.SetActive(false);
+        gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        gameObject.transform.GetChild(6).gameObject.SetActive(false);
+        Minimap.SetActive(true);
         if (quickSlotImage.sprite != null)
         {
             quickSlot.SetActive(true);
@@ -193,20 +199,21 @@ public class PlayerUi : MonoBehaviourPun
         if (MagicController != null)
         {
 
-            gameObject.transform.GetChild(1).gameObject.SetActive(true);
-            gameObject.transform.GetChild(4).gameObject.SetActive(false);
+            gameObject.transform.GetChild(2).gameObject.SetActive(true);
+            gameObject.transform.GetChild(5).gameObject.SetActive(false);
         }
         if (MeleeController != null)
         {
-            gameObject.transform.GetChild(2).gameObject.SetActive(true);
-            gameObject.transform.GetChild(3).gameObject.SetActive(false);
+            gameObject.transform.GetChild(3).gameObject.SetActive(true);
+            gameObject.transform.GetChild(4).gameObject.SetActive(false);
         }
     }
     public void CloseUi()
     {
         quickSlot.SetActive(false);
-        gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        gameObject.transform.GetChild(5).gameObject.SetActive(true);
+        gameObject.transform.GetChild(1).gameObject.SetActive(false);
+        gameObject.transform.GetChild(6).gameObject.SetActive(true);
+        Minimap.SetActive(false);
         if (quickSlotImage.sprite != null)
         {
             quickSlot.SetActive(false);
@@ -218,28 +225,30 @@ public class PlayerUi : MonoBehaviourPun
         }
         if (MagicController != null)
         {
-            gameObject.transform.GetChild(1).gameObject.SetActive(false);
-            gameObject.transform.GetChild(4).gameObject.SetActive(true);
+            gameObject.transform.GetChild(2).gameObject.SetActive(false);
+            gameObject.transform.GetChild(5).gameObject.SetActive(true);
         }
         if (MeleeController != null)
         {
-            gameObject.transform.GetChild(2).gameObject.SetActive(false);
-            gameObject.transform.GetChild(3).gameObject.SetActive(true);
+            gameObject.transform.GetChild(3).gameObject.SetActive(false);
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
         }
     }
-    void hideUi()
+    void toggleUi()
     {
-        for (int i = 0; i < gameObject.transform.childCount; i++)
+        if (toggle)
         {
-            gameObject.transform.GetChild(i).gameObject.SetActive(false);
+            for (int i = 1; i < gameObject.transform.childCount; i++)
+            {
+                gameObject.transform.GetChild(i).gameObject.SetActive(false);
+            }
+            toggle = false;
         }
-    }
-    public void UpdateCanvas(bool state)
-    {
-        if (state == true)
-            UiCanvas.enabled = false;
-        if(state == false) 
-            UiCanvas.enabled = true;
+        else if (!toggle)
+        {
+            OpenUi();
+            toggle = true;
+        }
     }
 
     public void CheckAmount()
@@ -258,13 +267,17 @@ public class PlayerUi : MonoBehaviourPun
         target = _target;
         targetTransform = this.target.GetComponent<Transform>();
         targetRenderer = this.target.GetComponentInChildren<Renderer>();
+        playerInput = target.GetComponent<PlayerInput>();
+        gamepadCursor.playerInput = playerInput;
+        OnTargetSet();
+        gamepadCursor.player = target;
+        gamepadCursor.enabled = true;
         CharacterController characterController = _target.GetComponent<CharacterController>();
         // Get data from the Player that won't change during the lifetime of this Component
         if (characterController != null)
         {
             characterControllerHeight = characterController.height;
         }
-     
-    }
 
+    }
 }

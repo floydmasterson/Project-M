@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class EscapeMenu : MonoBehaviour
 {
-    public delegate void Menu();
-    public static event Menu escapeMenuClose;
     PlayerController controls;
     bool open = false;
     [SerializeField]
@@ -17,33 +15,39 @@ public class EscapeMenu : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI schemeButton;
     bool toggle = false;
-
-
     IEnumerator PreLoad()
     {
-        gameObject.transform.GetChild(1).gameObject.SetActive(true);
-        yield return new WaitForSecondsRealtime(0.001f);
-        gameObject.transform.GetChild(1).gameObject.SetActive(false);
+        
+        GameObject settings = gameObject.transform.GetChild(1).gameObject;
+        GameObject control = settings.gameObject.transform.GetChild(2).gameObject;
+        GameObject gamepad = control.gameObject.transform.GetChild(1).gameObject;
+        yield return new WaitForSecondsRealtime(0.5f);
+        settings.SetActive(false);
+        control.SetActive(false);
+        gamepad.SetActive(false);
     }
-
 
     private void OnEnable()
     {
         controls = new PlayerController();
 
         PlayerManger.escapeMenu += toggleMenu;
-        StartCoroutine(PreLoad());
+        PlayerUi.OnTargetSet += preLoad;
     }
     private void OnDisable()
     {
         PlayerManger.escapeMenu -= toggleMenu;
+        PlayerUi.OnTargetSet -= preLoad;
+    }
+    void preLoad()
+    {
+        StartCoroutine(PreLoad());
     }
     void toggleMenu()
     {
         if (!open)
         {   
             gameObject.transform.GetChild(0).gameObject.SetActive(true);
-         
             open = true;
         }
         else if (open)
@@ -51,7 +55,6 @@ public class EscapeMenu : MonoBehaviour
             gameObject.transform.GetChild(0).gameObject.SetActive(false);
             gameObject.transform.GetChild(1).gameObject.SetActive(false);
             open = false;
-            escapeMenuClose();  
         }
     }
     public void SettingMenu()

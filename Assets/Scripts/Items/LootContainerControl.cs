@@ -97,7 +97,6 @@ public class LootContainerControl : ItemContainer
             bagOpen.PlaySFX();
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
         gameObject.transform.GetChild(1).gameObject.SetActive(false);
-        PlayerUi.Instance.Minimap.SetActive(false);
         character.OpenItemContainer(this);
         StopCoroutine("Despawn");
     }
