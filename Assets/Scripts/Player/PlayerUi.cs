@@ -46,6 +46,8 @@ public class PlayerUi : MonoBehaviourPun
     public GameObject Minimap;
     [TabGroup("MiniMap")]
     public Canvas UiCanvas;
+    [TabGroup("Escape Menu"), SerializeField]
+    EscapeMenu escapeMenu;
     [HideInInspector]
     public PlayerInput playerInput;
     int quickAmount;
@@ -55,6 +57,13 @@ public class PlayerUi : MonoBehaviourPun
     public PlayerManger target;
     public delegate void TargetSet();
     public static event TargetSet OnTargetSet;
+
+    GameObject Health;
+    GameObject Mana;
+    GameObject Rage;
+    GameObject RageInv;
+    GameObject ManaInv;
+    GameObject HealthInv;
 
     float characterControllerHeight = 0f;
     Transform targetTransform;
@@ -70,6 +79,12 @@ public class PlayerUi : MonoBehaviourPun
         Instance = this;
         _canvasGroup = this.GetComponent<CanvasGroup>();
         gamepadCursor = GetComponentInChildren<GamepadCursor>();
+        Health = gameObject.transform.GetChild(2).gameObject;
+        Mana = gameObject.transform.GetChild(3).gameObject;
+        Rage = gameObject.transform.GetChild(4).gameObject;
+        RageInv = gameObject.transform.GetChild(5).gameObject;
+        ManaInv = gameObject.transform.GetChild(6).gameObject;
+        HealthInv = gameObject.transform.GetChild(7).gameObject;
     }
     private void OnEnable()
     {
@@ -90,13 +105,14 @@ public class PlayerUi : MonoBehaviourPun
     {
         MagicController = target.gameObject.GetComponent<MagicController>();
         MeleeController = target.gameObject.GetComponent<MeeleController>();
+
         if (MagicController != null)
         {
-            gameObject.transform.GetChild(2).gameObject.SetActive(true);
+            Mana.SetActive(true);
         }
         if (MeleeController != null)
         {
-            gameObject.transform.GetChild(3).gameObject.SetActive(true);
+            Rage.SetActive(true);
         }
         if (InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Item != null)
         {
@@ -167,11 +183,6 @@ public class PlayerUi : MonoBehaviourPun
     }
     void LateUpdate()
     {
-        // Do not show the UI if we are not visible to the camera, thus avoid potential bugs with seeing the UI, but not the player itself.
-        if (targetRenderer != null)
-        {
-            this._canvasGroup.alpha = targetRenderer.isVisible ? 1f : 0f;
-        }
         // #Critical
         // Follow the Target GameObject on screen.
         if (targetTransform != null)
@@ -183,8 +194,8 @@ public class PlayerUi : MonoBehaviourPun
 
     public void OpenUi()
     {
-        gameObject.transform.GetChild(1).gameObject.SetActive(true);
-        gameObject.transform.GetChild(6).gameObject.SetActive(false);
+        Health.SetActive(true);
+        HealthInv.SetActive(false);
         Minimap.SetActive(true);
         if (quickSlotImage.sprite != null)
         {
@@ -199,20 +210,20 @@ public class PlayerUi : MonoBehaviourPun
         if (MagicController != null)
         {
 
-            gameObject.transform.GetChild(2).gameObject.SetActive(true);
-            gameObject.transform.GetChild(5).gameObject.SetActive(false);
+            Mana.SetActive(true);
+            ManaInv.SetActive(false);
         }
         if (MeleeController != null)
         {
-            gameObject.transform.GetChild(3).gameObject.SetActive(true);
-            gameObject.transform.GetChild(4).gameObject.SetActive(false);
+            Rage.SetActive(true);
+            RageInv.SetActive(false);
         }
     }
     public void CloseUi()
     {
         quickSlot.SetActive(false);
-        gameObject.transform.GetChild(1).gameObject.SetActive(false);
-        gameObject.transform.GetChild(6).gameObject.SetActive(true);
+        Health.SetActive(false);
+        HealthInv.SetActive(true);
         Minimap.SetActive(false);
         if (quickSlotImage.sprite != null)
         {
@@ -225,27 +236,29 @@ public class PlayerUi : MonoBehaviourPun
         }
         if (MagicController != null)
         {
-            gameObject.transform.GetChild(2).gameObject.SetActive(false);
-            gameObject.transform.GetChild(5).gameObject.SetActive(true);
+            Mana.SetActive(false);
+            ManaInv.SetActive(true);
         }
         if (MeleeController != null)
         {
-            gameObject.transform.GetChild(3).gameObject.SetActive(false);
-            gameObject.transform.GetChild(4).gameObject.SetActive(true);
+            Rage.SetActive(false);
+            RageInv.SetActive(true);
         }
     }
     void toggleUi()
     {
         if (toggle)
         {
-            for (int i = 1; i < gameObject.transform.childCount; i++)
+            for (int i = 2; i < gameObject.transform.childCount; i++)
             {
                 gameObject.transform.GetChild(i).gameObject.SetActive(false);
             }
+            escapeMenu.toggleMenu();
             toggle = false;
         }
         else if (!toggle)
         {
+            escapeMenu.toggleMenu();
             OpenUi();
             toggle = true;
         }
@@ -268,6 +281,11 @@ public class PlayerUi : MonoBehaviourPun
         targetTransform = this.target.GetComponent<Transform>();
         targetRenderer = this.target.GetComponentInChildren<Renderer>();
         playerInput = target.GetComponent<PlayerInput>();
+        sensitivityControler[] sens = gameObject.GetComponentsInChildren<sensitivityControler>();
+        foreach (sensitivityControler controler in sens)
+        {
+            controler.playerInput = playerInput;
+        }
         gamepadCursor.playerInput = playerInput;
         OnTargetSet();
         gamepadCursor.player = target;

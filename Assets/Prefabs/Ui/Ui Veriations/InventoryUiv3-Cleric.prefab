@@ -11794,7 +11794,7 @@ GameObject:
   - component: {fileID: 1268208743538783373}
   - component: {fileID: 6337603706606349599}
   m_Layer: 5
-  m_Name: Melee_Weapon Slot
+  m_Name: Magic_Weapon Slot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11872,7 +11872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 1268208743538783373}
   amountText: {fileID: 0}
-  EquipmentType: 5
+  EquipmentType: 6
 --- !u!1 &7629847830827653827
 GameObject:
   m_ObjectHideFlags: 0

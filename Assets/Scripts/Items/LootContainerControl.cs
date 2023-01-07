@@ -22,11 +22,11 @@ public class LootContainerControl : ItemContainer
     [SerializeField] private Mesh close;
     [TabGroup("GFX")]
     [SerializeField] private Mesh open;
-    [TabGroup("GFX")]
+    [TabGroup("GFX"), SerializeField]
+    Outline outline;
     public bool pickUpAllowed;
     public bool playerInRange;
     public bool isOpen = false;
-    Character character;
     [TabGroup("Loot Generation"), HideIf("@randomAmount || BetterRandomAmount")]
     [SerializeField][Range(0, 17)] private int amount = 0;
     [TabGroup("Loot Generation"), Tooltip("1-3 Drops"), HideIf("@amount > 0"), SerializeField]
@@ -40,6 +40,7 @@ public class LootContainerControl : ItemContainer
     SFX ChestOpen;
     [TabGroup("Audio"), SerializeField]
     SFX bagOpen;
+    LootContainerManager lootContainerManager;
     public IEnumerator Despawn()
     {
         yield return new WaitForSecondsRealtime(20);
@@ -58,35 +59,35 @@ public class LootContainerControl : ItemContainer
     {
         if (other.gameObject.CompareTag("Player") && other.GetComponent<PhotonView>().IsMine)
         {
-            gameObject.transform.GetChild(1).gameObject.SetActive(true);
-            playerInRange = true;
+            lootContainerManager = other.GetComponent<LootContainerManager>();
+            lootContainerManager.AddToList(this);
             pickUpAllowed = true;
-            character = Character.Instance;
-        }
-        else if(other.gameObject.CompareTag("Chest"))
-        {
-            pickUpAllowed = false;
+            gameObject.transform.GetChild(1).gameObject.SetActive(true);
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Chest"))
-        {
-            if(playerInRange)
-                pickUpAllowed = true;
-        }
-        else if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
             if (containerType == ContainerType.Chest && meshFilter.sharedMesh != null)
                 meshFilter.sharedMesh = close;
+            if (lootContainerManager != null)
+                lootContainerManager.RemoveFromList(this);
+            Highlight(false);
+            lootContainerManager = null;
             gameObject.transform.GetChild(1).gameObject.SetActive(false);
             pickUpAllowed = false;
-            character = null;
-            playerInRange = false;
         }
-        
+
     }
-    public void Open()
+    public void Highlight(bool state)
+    {
+        if (state)
+            outline.enabled = true;
+        else if (!state)
+            outline.enabled = false;
+    }
+    public void Open(Character character)
     {
         if (containerType == ContainerType.Chest && meshFilter.sharedMesh != null)
             meshFilter.sharedMesh = open;
@@ -100,10 +101,9 @@ public class LootContainerControl : ItemContainer
         character.OpenItemContainer(this);
         StopCoroutine("Despawn");
     }
-    public void Close()
+    public void Close(Character character)
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        PlayerUi.Instance.Minimap.SetActive(true);
         character.CloseItemContainer(this);
         if (containerType == ContainerType.Chest && meshFilter.sharedMesh != null)
             meshFilter.sharedMesh = close;
@@ -151,7 +151,10 @@ public class LootContainerControl : ItemContainer
             }
         }
         if (empty)
+        {
+            lootContainerManager.RemoveFromList(this);
             Destroy(gameObject);
+        }
     }
 
 }

@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using Transform = UnityEngine.Transform;
 
 public class PlayerManger : MonoBehaviourPun
@@ -15,13 +16,13 @@ public class PlayerManger : MonoBehaviourPun
     [TabGroup("Components"), SerializeField, Required]
     public CinemachineFreeLook cineCamera;
 
-    [TabGroup("Components"), SerializeField, Required] 
+    [TabGroup("Components"), SerializeField, Required]
     CinemachineVirtualCamera lockCamera;
 
-    [TabGroup("Components"), SerializeField, Required] 
+    [TabGroup("Components"), SerializeField, Required]
     GameObject player;
 
-    [TabGroup("Components"), SerializeField, Required] 
+    [TabGroup("Components"), SerializeField, Required]
     Collider col;
     [TabGroup("Components"), SerializeField, Required]
     public PlayerInput playerInput;
@@ -34,6 +35,7 @@ public class PlayerManger : MonoBehaviourPun
     [TabGroup("Components"), SerializeField, Required]
     public bool IsLocal = false;
     private GameObject cam;
+    LootContainerManager lootContainerManager;
 
 
     //hp
@@ -157,6 +159,7 @@ public class PlayerManger : MonoBehaviourPun
     public bool InvIsOpen = false;
     [HideInInspector]
     public bool inChest = false;
+    Character character;
 
     bool escapeMenuOpen;
     const string gamepadScheme = "Controller";
@@ -276,12 +279,14 @@ public class PlayerManger : MonoBehaviourPun
             IsLocal = true;
             cam = GameObject.FindGameObjectWithTag("MainCamera");
             gameObject.name = PhotonNetwork.NickName;
+            lootContainerManager = GetComponent<LootContainerManager>();
             MiniMapIcon.SetActive(true);
             cineCamera.Priority = 10;
             if (InventoryPrefab != null)
             {
                 GameObject _uiGoi = Instantiate(InventoryPrefab) as GameObject;
                 _uiGoi.GetComponent<InventoryUi>().SetTargetI(this);
+                character = _uiGoi.GetComponent<Character>();
             }
             else
             {
@@ -392,18 +397,21 @@ public class PlayerManger : MonoBehaviourPun
             StartCoroutine(StartRoll());
         }
     }
-    public void QuickSlot()
+    public void QuickSlot(InputAction.CallbackContext context)
     {
-        UsableItem quickItem = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Item as UsableItem;
-        QuickSlot quickSlot = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true);
-        if (quickItem != null)
+        if (context.performed)
         {
-            if (quickItem.UseableCheck())
+            UsableItem quickItem = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Item as UsableItem;
+            QuickSlot quickSlot = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true);
+            if (quickItem != null)
             {
-                quickItem.Use(Character.Instance);
-                quickSlot.Amount--;
-                PlayerUi.Instance.CheckAmount();
-                quickItem.Destroy();
+                if (quickItem.UseableCheck())
+                {
+                    quickItem.Use(Character.Instance);
+                    quickSlot.Amount--;
+                    PlayerUi.Instance.CheckAmount();
+                    quickItem.Destroy();
+                }
             }
         }
     }
@@ -444,14 +452,14 @@ public class PlayerManger : MonoBehaviourPun
                 InvIsOpen = true;
                 onInventoryOpen();
                 CursorToggle(true);
-               
+
             }
             else if (InvIsOpen == true)
             {
                 onInventoryClose();
                 CursorToggle(false);
                 InvIsOpen = false;
-            
+
             }
         }
     }
@@ -459,19 +467,19 @@ public class PlayerManger : MonoBehaviourPun
     {
         if (!context.started)
             return;
-        if (lootContainerControl != null && lootContainerControl.pickUpAllowed && lootContainerControl.isOpen == false && inChest == false)
+        if (lootContainerManager.CanBeOpened() && inChest == false)
         {
             UpdateMoving(false);
             UpdateRun(false);
-            lootContainerControl.Open();
+            lootContainerManager.OpenContiner(character);
             onInventoryOpen();
             inChest = true;
             playerInput.SwitchCurrentActionMap("Container");
             CursorToggle(true);
         }
-        else if (lootContainerControl != null && lootContainerControl.isOpen == true && inChest == true)
+        else if (lootContainerManager.CanBeClosed() && inChest == true)
         {
-            lootContainerControl.Close();
+            lootContainerManager.CloseContiner(character);
             onInventoryClose();
             inChest = false;
             playerInput.SwitchCurrentActionMap("Player");
@@ -488,7 +496,7 @@ public class PlayerManger : MonoBehaviourPun
                 escapeMenu();
             CursorToggle(true);
             escapeMenuOpen = true;
-           
+
 
         }
         else if (escapeMenuOpen)
@@ -497,7 +505,7 @@ public class PlayerManger : MonoBehaviourPun
                 escapeMenu();
             escapeMenuOpen = false;
             CursorToggle(false);
-           
+
         }
 
     }
@@ -707,32 +715,6 @@ public class PlayerManger : MonoBehaviourPun
         return SprintSpeed;
     }
 
-    #endregion
-    #region Trigger
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Chest"))
-        {
-            LootContainerControl chest = other.gameObject.GetComponent<LootContainerControl>();
-            lootContainerControl = chest;
-        }
-
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Chest") && lootContainerControl == null)
-        {
-            LootContainerControl chest = other.gameObject.GetComponent<LootContainerControl>();
-            lootContainerControl = chest;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Chest"))
-        {
-            lootContainerControl = null;
-        }
-    }
     #endregion
     #region Misc
     private void OnDrawGizmosSelected()
