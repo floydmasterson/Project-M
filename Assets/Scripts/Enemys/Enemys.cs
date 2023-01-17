@@ -1,7 +1,6 @@
 using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using Time = UnityEngine.Time;
@@ -34,10 +33,10 @@ public class Enemys : MonoBehaviourPun
     float maxHealth;
     [TabGroup("Health")]
     public bool isDead = false;
-    [TabGroup("Health")]
-    public GameObject FloatingText;
-    [TabGroup("Health")]
-    public Transform FloatingTextspawn;
+    [TabGroup("Health"), SerializeField]
+     GameObject FloatingText;
+    [TabGroup("Health"), SerializeField]
+    Transform FloatingTextspawn;
 
     //Fov Detection/Movement
     [TabGroup("Detection")]
@@ -116,6 +115,7 @@ public class Enemys : MonoBehaviourPun
     SFX hiss;
     [TabGroup("Audio"), Required, HideIf("@typeSetting != 3"), SerializeField]
     SFX boom;
+    private bool firstAttack = true;
     #endregion
     #region Base IEnumerators 
     IEnumerator ExecuteAfterTime()
@@ -174,6 +174,7 @@ public class Enemys : MonoBehaviourPun
         isLoseTargetExecuting = true;
         yield return new WaitForSecondsRealtime(5f);
         Target = null;
+        firstAttack = true;
         agent.SetDestination(agent.transform.position);
         Debug.Log(this + " is lost");
         animator.SetTrigger("lost");
@@ -196,13 +197,10 @@ public class Enemys : MonoBehaviourPun
     #region Type 1 IEnumerators 
     private IEnumerator TAttack()
     {
-
         if (isTAttackExecuting)
             yield break;
-
         isTAttackExecuting = true;
         UpdateMoving(false);
-
 #pragma warning disable CS0618 // Type or member is obsolete
         agent.Stop();
 #pragma warning restore CS0618 // Type or member is obsolete
@@ -219,7 +217,7 @@ public class Enemys : MonoBehaviourPun
                 if (player.CurrentHealth <= 0)
                 {
                     Target = null;
-                    Lost();
+                    StartCoroutine(LoseTarget());
                 }
 #pragma warning disable CS0618 // Type or member is obsolete
                 agent.Resume();
@@ -239,15 +237,18 @@ public class Enemys : MonoBehaviourPun
             yield break;
         if (Target != null && runCheck() == false && canSeePlayer == true)
         {
-            if (Target)
-                photonView.RPC("rangedCoroutineCheckRPC", RpcTarget.All, true);
+            photonView.RPC("rangedCoroutineCheckRPC", RpcTarget.All, true);
+            if (firstAttack == true)
+            {
+                firstAttack = false;
+                yield return new WaitForSecondsRealtime(.6f);
+            }
             photonView.RPC("UpdateAttack", RpcTarget.All);
             GameObject projectile = PhotonNetwork.Instantiate(rangedProjectile.name, attackPoint.position, attackPoint.rotation);
             projectile.gameObject.GetComponent<enemyProjectile>().setOrigin(this);
             yield return new WaitForSecondsRealtime(attackCooldown);
             photonView.RPC("rangedCoroutineCheckRPC", RpcTarget.All, false);
             StartCoroutine(TRangedAttack());
-
         }
         else if (Target != null && runCheck() == true)
         {
@@ -292,7 +293,6 @@ public class Enemys : MonoBehaviourPun
     #region Type 3 IEnumerators 
     private IEnumerator GoBoom()
     {
-        ;
         UpdateMoving(false);
 #pragma warning disable CS0618 // Type or member is obsolete
         agent.Stop();
@@ -312,7 +312,6 @@ public class Enemys : MonoBehaviourPun
             }
         }
     }
-
     #endregion
     #region Mono
     private void Awake()
@@ -386,7 +385,10 @@ public class Enemys : MonoBehaviourPun
                     StartCoroutine("TAttack");
             if (typeSetting == 3)
                 if (player != null)
+                {
                     StartCoroutine("GoBoom");
+                    hiss.PlaySFX();
+                }
         }
 
     }
@@ -406,7 +408,7 @@ public class Enemys : MonoBehaviourPun
                 if (player != null)
                 {
                     transform.localScale += Vector3.one * Time.deltaTime / 2.5f;
-                    hiss.PlaySFX();
+
                 }
             }
         }
@@ -454,7 +456,6 @@ public class Enemys : MonoBehaviourPun
     }
     #endregion
     #region Recive Dmg
-
     public void TakeDamge(float damage)
     {
         currentHealth -= damage;
@@ -490,22 +491,11 @@ public class Enemys : MonoBehaviourPun
     }
     #endregion
     #region Anim and Sound
-    private void Lost()
-    {
-        agent.SetDestination(agent.transform.position);
-        Target = null;
-
-        Debug.Log("lost");
-        animator.SetTrigger("lost");
-
-        UpdateMoving(false);
-        Debug.Log("UpdateMove");
-    }
     [PunRPC]
     private void Hit()
     {
         animator.SetTrigger("wasHurt");
-        hurtSquish.PlaySFX(); 
+        hurtSquish.PlaySFX();
         SFX soundToPlay = HurtSounds.GetRandom();
         soundToPlay.PlaySFX();
     }

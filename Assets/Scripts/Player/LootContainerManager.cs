@@ -23,23 +23,29 @@ public class LootContainerManager : MonoBehaviourPun
     public void CloseContiner(Character character)
     {
         ContinersInRange[0].Close(character);
-        
+
     }
     public bool CanBeOpened()
     {
-        LootContainerControl continer = ContinersInRange[0];
-        if (continer != null && !continer.isOpen && continer.pickUpAllowed)
+        if (ContinersInRange.Count > 0)
         {
-            return true;
+            LootContainerControl continer = ContinersInRange[0];
+            if (!continer.isOpen && continer.pickUpAllowed)
+            {
+                return true;
+            }
         }
         return false;
     }
     public bool CanBeClosed()
     {
-        LootContainerControl continer = ContinersInRange[0];
-        if (continer != null && continer.isOpen)
+        if (ContinersInRange.Count > 0)
         {
-            return true;
+            LootContainerControl continer = ContinersInRange[0];
+            if (continer != null && continer.isOpen)
+            {
+                return true;
+            }
         }
         return false;
     }
@@ -47,11 +53,13 @@ public class LootContainerManager : MonoBehaviourPun
     {
         if (ContinersInRange.Count > 0 && photonView.IsMine && !ContinersInRange[0].isOpen)
         {
+
             ContinersInRange[0].Highlight(true);
             for (int i = 1; i < ContinersInRange.Count; i++)
             {
                 ContinersInRange[i].Highlight(false);
             }
         }
+      
     }
 }

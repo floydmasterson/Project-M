@@ -6,6 +6,12 @@ public class RegenPoint : MonoBehaviour
     PlayerManger Player;
     MagicController MagicController;
     [SerializeField] ParticleSystem ParticleSystem;
+    [SerializeField] SFX Regen;
+    AudioSource audioSource;
+    private void Awake()
+    {
+        audioSource= GetComponent<AudioSource>();
+    }
     private IEnumerator HealOT()
     {
         if (Player != null)
@@ -27,6 +33,7 @@ public class RegenPoint : MonoBehaviour
             Player = other.gameObject.GetComponent<PlayerManger>();
             MagicController = other.gameObject.GetComponent<MagicController>();
             StartCoroutine("HealOT");
+            Regen.PlaySFX();
             ParticleSystem.Play();
         }
     }
@@ -36,6 +43,7 @@ public class RegenPoint : MonoBehaviour
         MagicController = null;
         ParticleSystem.Stop();
         ParticleSystem.Clear();
+        audioSource.volume = Mathf.Lerp(0, .2f, 1 *Time.deltaTime);
     }
 
 

@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 9143839588805068300}
   - component: {fileID: 9143839588805068303}
   - component: {fileID: 339657596040075618}
+  - component: {fileID: 1103543661582727639}
   m_Layer: 0
   m_Name: Statue_Fox
   m_TagString: Untagged
@@ -133,6 +134,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 922239203181178513}
   ps: {fileID: 922239202589105845}
+  Respawn:
+    sfxType: 0
+    sfxToPlay: {fileID: 11400000, guid: 10d10294593e9f24c9aab55edc1c58c2, type: 2}
+    showSettings: 1
+    editSettings: 1
+    _sfxBase: {fileID: 11400000, guid: 10d10294593e9f24c9aab55edc1c58c2, type: 2}
+    waitToPlay: 0
+    useDefualt: 0
+    audioSource: {fileID: 1103543661582727639}
 --- !u!65 &9143839588805068303
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -159,6 +169,138 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.013506493, y: 0.016786048, z: 0.037524536}
   m_Center: {x: -0.00078753114, y: 0.0006289121, z: 0.018762266}
+--- !u!82 &1103543661582727639
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7342430730029295579}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 0
+  MinDistance: 1
+  MaxDistance: 100
+  Pan2D: 0
+  rolloffMode: 2
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1.050827
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.22862828
+      value: 1.0092407
+      inSlope: -1.0623994
+      outSlope: -1.0623994
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6113916
+      value: 0.57283545
+      inSlope: -1.258868
+      outSlope: -1.258868
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2652798
+      outWeight: 0.30906907
+    - serializedVersion: 3
+      time: 0.8234786
+      value: 0.24387622
+      inSlope: -1.5363164
+      outSlope: -1.5363164
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
+      outWeight: 0.6885566
+    - serializedVersion: 3
+      time: 0.9214995
+      value: 0.103086114
+      inSlope: -0.87330765
+      outSlope: -0.87330765
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &922239202608628087
 PrefabInstance:
   m_ObjectHideFlags: 0

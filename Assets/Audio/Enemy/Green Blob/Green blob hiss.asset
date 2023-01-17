@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Green blob hiss
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 8d5900bc5a279e2449c9839f599bf3d4, type: 3}
-  volume: 1
+  volume: 0.4
   volumeVariation: 0
   pitch: 1
   pitchVariation: 0.06

@@ -6,11 +6,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Passives/Regen Passive")]
 public class RegenPassive : PassiveSO
 {
-    public float regenAmount;
+    public int regenAmount;
     public float regenRate;
     private bool remove;
     public int PassiveLvl;
     private StringBuilder sb = new StringBuilder();
+    PlayerManger player;
 
     private void OnEnable()
     {
@@ -20,16 +21,15 @@ public class RegenPassive : PassiveSO
     {
         if (remove)
         {
-            PlayerUi.Instance.target.StopCoroutine(HealOT());
-            PlayerUi.Instance.target.CurrentHealth = PlayerUi.Instance.target.CurrentHealth - regenAmount;
+            player.StopCoroutine(HealOT());
+            player.CurrentHealth = player.CurrentHealth - regenAmount;
             remove = false;
-
         }
         else
         {
             Passive();
             yield return new WaitForSecondsRealtime(regenRate);
-            PlayerUi.Instance.target.StartCoroutine(HealOT());
+            player.StartCoroutine(HealOT());
 
         }
     }
@@ -42,17 +42,18 @@ public class RegenPassive : PassiveSO
     }
     void healthRestart(PlayerManger player)
     {
-        PlayerUi.Instance.target.StopCoroutine(HealOT());
-        if (player == PlayerUi.Instance.target)
-            PlayerUi.Instance.StartCoroutine(HealRestart());
+       player.StopCoroutine(HealOT());
+        if (player == this.player)
+            player.StartCoroutine(HealRestart());
     }
     public override void Passive()
     {
-        PlayerUi.Instance.target.CurrentHealth = PlayerUi.Instance.target.CurrentHealth + regenAmount;
+        player.Heal(regenAmount);
     }
     public override void ApplyPassive()
     {
-        PlayerUi.Instance.target.StartCoroutine(HealOT());
+        player = PlayerUi.Instance.target;
+        player.StartCoroutine(HealOT());
     }
     public override void RemovePassive()
     {

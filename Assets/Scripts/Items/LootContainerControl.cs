@@ -41,9 +41,11 @@ public class LootContainerControl : ItemContainer
     [TabGroup("Audio"), SerializeField]
     SFX bagOpen;
     LootContainerManager lootContainerManager;
+    bool popUpOpen;
     public IEnumerator Despawn()
     {
         yield return new WaitForSecondsRealtime(20);
+        lootContainerManager.RemoveFromList(this);
         Destroy(gameObject);
     }
     protected override void OnValidate()
@@ -58,10 +60,11 @@ public class LootContainerControl : ItemContainer
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && other.GetComponent<PhotonView>().IsMine)
-        {
+        {      
             lootContainerManager = other.GetComponent<LootContainerManager>();
             lootContainerManager.AddToList(this);
             pickUpAllowed = true;
+            playerInRange = true;
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
         }
     }
@@ -74,9 +77,10 @@ public class LootContainerControl : ItemContainer
             if (lootContainerManager != null)
                 lootContainerManager.RemoveFromList(this);
             Highlight(false);
-            lootContainerManager = null;
-            gameObject.transform.GetChild(1).gameObject.SetActive(false);
             pickUpAllowed = false;
+            playerInRange = false;
+            popUpOpen = false;
+            gameObject.transform.GetChild(1).gameObject.SetActive(false);
         }
 
     }
@@ -156,6 +160,6 @@ public class LootContainerControl : ItemContainer
             Destroy(gameObject);
         }
     }
-
+ 
 }
 

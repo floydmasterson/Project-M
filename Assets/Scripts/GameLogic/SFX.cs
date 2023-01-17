@@ -22,10 +22,10 @@ public class SFX
 
 #pragma warning disable 0414
     [SerializeField]
-    private bool showSettings = false;
+    private bool showSettings = true;
 
     [SerializeField]
-    private bool editSettings = false;
+    private bool editSettings = true;
 #pragma warning restore 0414
 
     [InlineEditor(InlineEditorObjectFieldModes.Hidden)]
@@ -38,12 +38,12 @@ public class SFX
     [ShowIf("showSettings")]
     [EnableIf("editSettings")]
     [SerializeField]
-    private bool waitToPlay = true;
+    private bool waitToPlay = false;
 
     [ShowIf("showSettings")]
     [EnableIf("editSettings")]
     [SerializeField]
-    private bool useDefualt = true;
+    private bool useDefualt = false;
 
     [DisableIf("useDefualt")]
     [ShowIf("showSettings")]

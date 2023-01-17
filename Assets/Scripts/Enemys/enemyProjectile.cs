@@ -1,13 +1,25 @@
-using UnityEngine;
 using Photon.Pun;
+using UnityEngine;
+using System.Collections;
 
 public class enemyProjectile : MonoBehaviourPun
 {
-    public int speed;
+    [SerializeField] int speed;
+    [SerializeField] float lifeTime;
+    [SerializeField] ParticleSystem particle;
     Enemys origin;
     bool poof;
-    [SerializeField] ParticleSystem ps;
+    bool hit = false;
 
+    private IEnumerator LifeTime()
+    {
+        yield return new WaitForSecondsRealtime(lifeTime);
+        Poof();
+    }
+    private void Awake()
+    {
+        StartCoroutine(LifeTime());
+    }
     private void FixedUpdate()
     {
         if (poof == false)
@@ -23,9 +35,11 @@ public class enemyProjectile : MonoBehaviourPun
         }
         if (other.CompareTag("Player"))
         {
-        PlayerManger target = other.GetComponent<PlayerManger>();
+            PlayerManger target = other.GetComponent<PlayerManger>();
             Poof();
-            target.TakeDamge(Mathf.RoundToInt(origin.Power / Mathf.Pow(2, (target.Defense / origin.Power))), origin);
+            if (!hit)
+                target.TakeDamge(Mathf.RoundToInt(origin.Power / Mathf.Pow(2, (target.Defense / origin.Power))), origin);
+            hit = true;
             return;
         }
     }
@@ -33,13 +47,13 @@ public class enemyProjectile : MonoBehaviourPun
     {
         origin = enemy;
     }
-   
+
     private void Poof()
     {
         transform.GetChild(0).gameObject.SetActive(false);
         poof = true;
-        if (ps != null)
-            ps.Play();
-       Destroy(gameObject, .5f);
+        if (GetComponent<ParticleSystem>() != null)
+            GetComponent<ParticleSystem>().Play();
+        Destroy(gameObject, .5f);
     }
 }

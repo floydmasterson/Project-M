@@ -4,6 +4,7 @@ public class RespawnPoint : MonoBehaviour
 {
     [SerializeField] GameObject spawnPoint;
     [SerializeField] ParticleSystem ps;
+    [SerializeField] SFX Respawn;
     private void OnTriggerEnter(Collider other)
     {
         PlayerManger player = other.GetComponent<PlayerManger>();
@@ -12,6 +13,7 @@ public class RespawnPoint : MonoBehaviour
             player.spawnPoint = spawnPoint.transform;
             if (ps != null)
                 ps.Play();
+            Respawn.PlaySFX();
         }
     }
 }

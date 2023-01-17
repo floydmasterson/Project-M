@@ -254,7 +254,10 @@ public class Character : MonoBehaviour
         if (item != null && Inventory.CanAddItem(item))
         {
             openItemContainer.RemoveItem(item);
-            Inventory.AddItem(item, 1);
+            if (item.IsConsumable)
+                Inventory.AddItem(item, 0);
+            else if (!item.IsConsumable)
+                Inventory.AddItem(item, 1);
         }
     }
 
@@ -291,8 +294,6 @@ public class Character : MonoBehaviour
         itemContainer.OnDragEvent -= Drag;
         itemContainer.OnDropEvent -= Drop;
     }
-
-
     public void UpdateStatValues()
     {
         statPanel.UpdateStatValues();

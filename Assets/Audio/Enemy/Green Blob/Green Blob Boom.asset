@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Green Blob Boom
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 03013eed090b6ec4cad46f2dd0117184, type: 3}
-  volume: 1
+  volume: 0.4
   volumeVariation: 0
   pitch: 1
   pitchVariation: 0.06

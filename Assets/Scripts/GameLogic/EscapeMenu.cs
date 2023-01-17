@@ -21,7 +21,7 @@ public class EscapeMenu : MonoBehaviour
         GameObject settings = gameObject.transform.GetChild(1).gameObject;
         GameObject control = settings.gameObject.transform.GetChild(2).gameObject;
         GameObject gamepad = control.gameObject.transform.GetChild(1).gameObject;
-        yield return new WaitForSecondsRealtime(0.5f);
+        yield return new WaitForSecondsRealtime(0.2f);
         settings.SetActive(false);
         control.SetActive(false);
         gamepad.SetActive(false);

@@ -24,16 +24,31 @@ public class PlayerManger : MonoBehaviourPun
 
     [TabGroup("Components"), SerializeField, Required]
     Collider col;
+
     [TabGroup("Components"), SerializeField, Required]
     public PlayerInput playerInput;
+
     [TabGroup("Components"), SerializeField, Required]
     CharacterController characterController;
+
     [TabGroup("Components"), SerializeField, Required]
     Animator animator;
+
     [TabGroup("Components"), SerializeField, Required]
     Rigidbody Rb;
+
+    [TabGroup("Components"), SerializeField]
+    GameObject FloatingText;
+
+    [TabGroup("Components"), SerializeField]
+    Transform DmgTextspawn;
+
+    [TabGroup("Components"), SerializeField]
+    Transform HealTextspawn;
+
     [TabGroup("Components"), SerializeField, Required]
     public bool IsLocal = false;
+
     private GameObject cam;
     LootContainerManager lootContainerManager;
 
@@ -607,7 +622,6 @@ public class PlayerManger : MonoBehaviourPun
     #region Damage and Healing
     public void TakeDamge(int damage, object attacker)
     {
-
         if (attacker is Enemys)
         {
             if (photonView.IsMine)
@@ -646,6 +660,8 @@ public class PlayerManger : MonoBehaviourPun
                 if (gameObject.GetComponent<MeeleController>() != null)
                     OnDamaged(damage);
                 CurrentHealth -= damage;
+                var text = Instantiate(FloatingText, DmgTextspawn.position, Quaternion.Euler(0, 180, 0), DmgTextspawn);
+                text.GetComponent<TextMesh>().text = damage.ToString();
                 if (CurrentHealth <= 0 && isAlive == true)
                 {
                     CurrentHealth = 0;
@@ -666,14 +682,21 @@ public class PlayerManger : MonoBehaviourPun
             canMove = false;
             isAlive = false;
             isInvulnerable = true;
+            playerInput.SwitchCurrentActionMap("Dead");
             StartCoroutine(ExecuteAfterTime());
             Debug.Log(this + " died");
         }
     }
     public void Heal(int amount)
     {
+        if(CurrentHealth != MaxHealth)
+        { 
         CurrentHealth += amount;
+        var text = Instantiate(FloatingText, HealTextspawn.position, Quaternion.identity, HealTextspawn);
+        text.GetComponent<TextMesh>().color = Color.green;
+        text.GetComponent<TextMesh>().text = amount.ToString();
         Debug.Log(this + " healed for " + amount);
+        }
     }
     private void Respawn()
     {
@@ -686,6 +709,7 @@ public class PlayerManger : MonoBehaviourPun
             canAttack = true;
             col.isTrigger = true;
             animator.SetTrigger("Res");
+            playerInput.SwitchCurrentActionMap("Player");
         }
     }
 

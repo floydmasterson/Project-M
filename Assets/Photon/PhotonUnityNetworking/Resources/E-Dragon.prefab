@@ -755,7 +755,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 1.050827
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -763,17 +763,8 @@ AudioSource:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.039957568
-      value: 0.6236625
-      inSlope: -1.0446528
-      outSlope: -1.0446528
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.11779606
-      value: 0.177142
+      time: 0.22862828
+      value: 1.0092407
       inSlope: -1.0623994
       outSlope: -1.0623994
       tangentMode: 0
@@ -781,25 +772,34 @@ AudioSource:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.29885092
-      value: 0.08414722
-      inSlope: -0.36351797
-      outSlope: -0.36351797
+      time: 0.6113916
+      value: 0.57283545
+      inSlope: -1.258868
+      outSlope: -1.258868
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2652798
+      outWeight: 0.30906907
+    - serializedVersion: 3
+      time: 0.8234786
+      value: 0.24387622
+      inSlope: -1.5363164
+      outSlope: -1.5363164
       tangentMode: 0
       weightedMode: 0
       inWeight: 1
-      outWeight: 0.33333334
+      outWeight: 0.6885566
     - serializedVersion: 3
-      time: 0.7515471
-      value: 0.023221614
-      inSlope: -0.042837754
-      outSlope: -0.042837754
+      time: 0.9214995
+      value: 0.103086114
+      inSlope: -0.87330765
+      outSlope: -0.87330765
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 1
     - serializedVersion: 3
-      time: 0.9865799
+      time: 1
       value: 0
       inSlope: 0
       outSlope: 0
@@ -887,7 +887,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 1.050827
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -895,17 +895,8 @@ AudioSource:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.039957568
-      value: 0.6236625
-      inSlope: -1.0446528
-      outSlope: -1.0446528
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.11779606
-      value: 0.177142
+      time: 0.22862828
+      value: 1.0092407
       inSlope: -1.0623994
       outSlope: -1.0623994
       tangentMode: 0
@@ -913,25 +904,34 @@ AudioSource:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.29885092
-      value: 0.08414722
-      inSlope: -0.36351797
-      outSlope: -0.36351797
+      time: 0.6113916
+      value: 0.57283545
+      inSlope: -1.258868
+      outSlope: -1.258868
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2652798
+      outWeight: 0.30906907
+    - serializedVersion: 3
+      time: 0.8234786
+      value: 0.24387622
+      inSlope: -1.5363164
+      outSlope: -1.5363164
       tangentMode: 0
       weightedMode: 0
       inWeight: 1
-      outWeight: 0.33333334
+      outWeight: 0.6885566
     - serializedVersion: 3
-      time: 0.7515471
-      value: 0.023221614
-      inSlope: -0.042837754
-      outSlope: -0.042837754
+      time: 0.9214995
+      value: 0.103086114
+      inSlope: -0.87330765
+      outSlope: -0.87330765
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 1
     - serializedVersion: 3
-      time: 0.9865799
+      time: 1
       value: 0
       inSlope: 0
       outSlope: 0
@@ -1019,7 +1019,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 1.050827
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1027,17 +1027,8 @@ AudioSource:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.039957568
-      value: 0.6236625
-      inSlope: -1.0446528
-      outSlope: -1.0446528
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.11779606
-      value: 0.177142
+      time: 0.22862828
+      value: 1.0092407
       inSlope: -1.0623994
       outSlope: -1.0623994
       tangentMode: 0
@@ -1045,25 +1036,34 @@ AudioSource:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.29885092
-      value: 0.08414722
-      inSlope: -0.36351797
-      outSlope: -0.36351797
+      time: 0.6113916
+      value: 0.57283545
+      inSlope: -1.258868
+      outSlope: -1.258868
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.2652798
+      outWeight: 0.30906907
+    - serializedVersion: 3
+      time: 0.8234786
+      value: 0.24387622
+      inSlope: -1.5363164
+      outSlope: -1.5363164
       tangentMode: 0
       weightedMode: 0
       inWeight: 1
-      outWeight: 0.33333334
+      outWeight: 0.6885566
     - serializedVersion: 3
-      time: 0.7515471
-      value: 0.023221614
-      inSlope: -0.042837754
-      outSlope: -0.042837754
+      time: 0.9214995
+      value: 0.103086114
+      inSlope: -0.87330765
+      outSlope: -0.87330765
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 1
     - serializedVersion: 3
-      time: 0.9865799
+      time: 1
       value: 0
       inSlope: 0
       outSlope: 0
