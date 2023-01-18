@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,9 +9,13 @@ public class RegenPoint : MonoBehaviour
     [SerializeField] ParticleSystem ParticleSystem;
     [SerializeField] SFX Regen;
     AudioSource audioSource;
+    [SerializeField]
+    float fadeTime = 1f;
+    private float startVolume;
     private void Awake()
     {
         audioSource= GetComponent<AudioSource>();
+        startVolume = audioSource.volume;
     }
     private IEnumerator HealOT()
     {
@@ -24,7 +29,17 @@ public class RegenPoint : MonoBehaviour
         }
         else if (Player == null)
             StopCoroutine("HealOT");
-
+      
+    }
+    IEnumerator FadeOut()
+    {
+        float t = 0;
+        while (t < fadeTime)
+        {
+            t += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(startVolume, 0, t / fadeTime);
+            yield return null;
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -33,6 +48,8 @@ public class RegenPoint : MonoBehaviour
             Player = other.gameObject.GetComponent<PlayerManger>();
             MagicController = other.gameObject.GetComponent<MagicController>();
             StartCoroutine("HealOT");
+            if(audioSource.volume == 0)
+                audioSource.volume = startVolume;
             Regen.PlaySFX();
             ParticleSystem.Play();
         }
@@ -43,7 +60,7 @@ public class RegenPoint : MonoBehaviour
         MagicController = null;
         ParticleSystem.Stop();
         ParticleSystem.Clear();
-        audioSource.volume = Mathf.Lerp(0, .2f, 1 *Time.deltaTime);
+        StartCoroutine(FadeOut());
     }
 
 

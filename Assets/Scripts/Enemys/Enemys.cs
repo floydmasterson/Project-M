@@ -34,7 +34,7 @@ public class Enemys : MonoBehaviourPun
     [TabGroup("Health")]
     public bool isDead = false;
     [TabGroup("Health"), SerializeField]
-     GameObject FloatingText;
+    GameObject FloatingText;
     [TabGroup("Health"), SerializeField]
     Transform FloatingTextspawn;
 
@@ -116,6 +116,7 @@ public class Enemys : MonoBehaviourPun
     [TabGroup("Audio"), Required, HideIf("@typeSetting != 3"), SerializeField]
     SFX boom;
     private bool firstAttack = true;
+    private bool showDmgNumber;
     #endregion
     #region Base IEnumerators 
     IEnumerator ExecuteAfterTime()
@@ -331,6 +332,7 @@ public class Enemys : MonoBehaviourPun
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
+        SettingMenu.DmgNumberToggle += toggleDmgNumber;
     }
     void Start()
     {
@@ -459,8 +461,11 @@ public class Enemys : MonoBehaviourPun
     public void TakeDamge(float damage)
     {
         currentHealth -= damage;
-        var text = Instantiate(FloatingText, FloatingTextspawn.position, Quaternion.Euler(0, 180, 0), FloatingTextspawn);
-        text.GetComponent<TextMesh>().text = damage.ToString();
+        if (showDmgNumber)
+        {
+            var text = Instantiate(FloatingText, FloatingTextspawn.position, Quaternion.Euler(0, 180, 0), FloatingTextspawn);
+            text.GetComponent<TextMesh>().text = damage.ToString();
+        }
         Debug.Log(this + "takes " + damage + " damage.");
         photonView.RPC("Hit", RpcTarget.All);
         if (isDead == false)
@@ -608,6 +613,13 @@ public class Enemys : MonoBehaviourPun
     public string GetEnemyTier()
     {
         return EnemyTier.ToString();
+    }
+    void toggleDmgNumber(bool state)
+    {
+        if (state)
+            showDmgNumber = true;
+        else if (!state)
+            showDmgNumber = false;
     }
 }
 #endregion

@@ -6,7 +6,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using Transform = UnityEngine.Transform;
 
 public class PlayerManger : MonoBehaviourPun
@@ -180,6 +179,8 @@ public class PlayerManger : MonoBehaviourPun
     const string gamepadScheme = "Controller";
     LootContainerControl lootContainerControl;
     bool locked;
+    bool showHealingNumber;
+    bool showDmgNumber;
 
     public delegate void EscapeMenu();
     public static event EscapeMenu escapeMenu;
@@ -280,11 +281,15 @@ public class PlayerManger : MonoBehaviourPun
     {
         GameManger.PvPon += EnbalePvpCombat;
         ConsoleSystem.ConsoleOpenClose += UiLockOut;
+        SettingMenu.HealNumberToggle += toggleHealNumber;
+        SettingMenu.DmgNumberToggle += toggleDmgNumber;
     }
     private void OnDisable()
     {
         GameManger.PvPon -= EnbalePvpCombat;
         ConsoleSystem.ConsoleOpenClose -= UiLockOut;
+        SettingMenu.HealNumberToggle -= toggleHealNumber;
+        SettingMenu.DmgNumberToggle -= toggleDmgNumber;
     }
     void Awake()
     {
@@ -660,8 +665,12 @@ public class PlayerManger : MonoBehaviourPun
                 if (gameObject.GetComponent<MeeleController>() != null)
                     OnDamaged(damage);
                 CurrentHealth -= damage;
-                var text = Instantiate(FloatingText, DmgTextspawn.position, Quaternion.Euler(0, 180, 0), DmgTextspawn);
-                text.GetComponent<TextMesh>().text = damage.ToString();
+                if (showDmgNumber)
+                {
+                    var text = Instantiate(FloatingText, DmgTextspawn.position, Quaternion.Euler(0, 180, 0), DmgTextspawn);
+                    text.GetComponent<TextMesh>().text = damage.ToString();
+
+                }
                 if (CurrentHealth <= 0 && isAlive == true)
                 {
                     CurrentHealth = 0;
@@ -689,13 +698,16 @@ public class PlayerManger : MonoBehaviourPun
     }
     public void Heal(int amount)
     {
-        if(CurrentHealth != MaxHealth)
-        { 
-        CurrentHealth += amount;
-        var text = Instantiate(FloatingText, HealTextspawn.position, Quaternion.identity, HealTextspawn);
-        text.GetComponent<TextMesh>().color = Color.green;
-        text.GetComponent<TextMesh>().text = amount.ToString();
-        Debug.Log(this + " healed for " + amount);
+        if (CurrentHealth != MaxHealth)
+        {
+            CurrentHealth += amount;
+            if (showHealingNumber)
+            {
+                var text = Instantiate(FloatingText, HealTextspawn.position, Quaternion.identity, HealTextspawn);
+                text.GetComponent<TextMesh>().color = Color.green;
+                text.GetComponent<TextMesh>().text = amount.ToString();
+            }
+            Debug.Log(this + " healed for " + amount);
         }
     }
     private void Respawn()
@@ -773,6 +785,21 @@ public class PlayerManger : MonoBehaviourPun
     public void PlaySFXRPC(SFX sFX)
     {
         sFX.PlaySFX();
+    }
+
+    void toggleHealNumber(bool state)
+    {
+        if (state)
+            showHealingNumber = true;
+        else if (!state)
+            showHealingNumber = false;
+    }
+    void toggleDmgNumber(bool state)
+    {
+        if (state)
+            showDmgNumber = true;
+        else if (!state)
+            showDmgNumber = false;
     }
 }
 #endregion

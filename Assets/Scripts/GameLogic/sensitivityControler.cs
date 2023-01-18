@@ -40,11 +40,17 @@ public class sensitivityControler : MonoBehaviour
     }
     private void Start()
     {
-        slider.value = PlayerPrefs.GetInt(gameObject.name, (int)slider.value);
+        if (PlayerPrefs.HasKey(gameObject.name))
+            slider.value = PlayerPrefs.GetInt(gameObject.name, (int)slider.value);
+        else if (!PlayerPrefs.HasKey(gameObject.name))
+        {
+            PlayerPrefs.SetInt(gameObject.name, 7);
+            slider.value = 7f;
+        }
     }
     void HandleSliderValueChange(float value)
     {
-       
+
         if (scale == Scale.Locked)
         {
             if (scaleMode == Scheme.Keyboard)
@@ -57,6 +63,7 @@ public class sensitivityControler : MonoBehaviour
             else if (scaleMode == Scheme.Gamepad)
             {
                 playerInput.actions.FindAction(actionName).ApplyParameterOverride("scaleVector2:x", value * 1.1f / 2f);
+                Debug.Log("Locked Key Set to " + value * 1.1f / 2f);
                 valueText.text = "Locked Camera: " + value.ToString();
             }
         }
