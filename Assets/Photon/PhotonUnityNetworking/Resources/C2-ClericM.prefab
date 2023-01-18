@@ -1315,12 +1315,12 @@ MonoBehaviour:
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
-  m_CameraRadius: 1.68
-  m_Strategy: 0
+  m_CameraRadius: 1
+  m_Strategy: 1
   m_MaximumEffort: 10
-  m_SmoothingTime: 0.135
-  m_Damping: 1.13
-  m_DampingWhenOccluded: 0.63
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
   m_OptimalTargetDistance: 0
 --- !u!1 &1633790731839539403
 GameObject:
@@ -1537,7 +1537,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633790732113323746}
   m_LocalRotation: {x: 0.23056088, y: 0.13724375, z: -0.032866698, w: 0.9627698}
-  m_LocalPosition: {x: -4.547473e-13, y: 0.000012874603, z: 0.00000095367045}
+  m_LocalPosition: {x: -4.547473e-13, y: 0.000014305115, z: 0.00000095367005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1699,7 +1699,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633790732333441073}
   m_LocalRotation: {x: 0.21058467, y: 0.13789463, z: -0.030019075, w: 0.9673356}
-  m_LocalPosition: {x: -4.547473e-13, y: 0.00000047683744, z: 0.00000095367415}
+  m_LocalPosition: {x: -3.2311743e-27, y: 0.00000047683716, z: -1.4210856e-13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1904,7 +1904,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633790732497504984}
   m_LocalRotation: {x: 0.19058692, y: 0.13848445, z: -0.027168378, w: 0.9714734}
-  m_LocalPosition: {x: -4.547473e-13, y: 0.00000047683744, z: 0.00000095367415}
+  m_LocalPosition: {x: -3.2311743e-27, y: 0.00000047683716, z: -1.4210856e-13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2117,12 +2117,12 @@ MonoBehaviour:
   m_AvoidObstacles: 1
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
-  m_CameraRadius: 1.57
-  m_Strategy: 0
+  m_CameraRadius: 1
+  m_Strategy: 1
   m_MaximumEffort: 10
-  m_SmoothingTime: 0.135
-  m_Damping: 1.13
-  m_DampingWhenOccluded: 0.63
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
   m_OptimalTargetDistance: 0
 --- !u!1 &1633790732797947075
 GameObject:

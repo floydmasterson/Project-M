@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmgAmt: 1
   ManaCost: 15
-  lifeTime: 5
+  lifeTime: 3
   speed: 40
   spellRadius: 0.5

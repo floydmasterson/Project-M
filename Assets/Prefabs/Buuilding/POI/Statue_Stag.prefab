@@ -110,6 +110,7 @@ MonoBehaviour:
     waitToPlay: 0
     useDefualt: 0
     audioSource: {fileID: 7415729572357682764}
+  fadeTime: 1.5
 --- !u!65 &2046070664405051412
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -135,7 +136,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 6278939689622734641, guid: e5e4ed7c5dc94a74da785a5a3b3f8e1e, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 1
   Mute: 0
