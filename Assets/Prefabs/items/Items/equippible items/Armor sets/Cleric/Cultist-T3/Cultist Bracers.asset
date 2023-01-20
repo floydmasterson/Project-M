@@ -15,17 +15,18 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 81ae545786d6e404dbf0d3b7b3489ae7, type: 3}
   ItemName: Cultist Bracers
   ItemTier: 3
+  cost: 500
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: a925750e8d031d441b64bfe5709d32a2
   StrengthBonus: 0
   AgilityBonus: 0
-  IntelligenceBonus: 4
-  VitalityBonus: 1
+  IntelligenceBonus: 0
+  VitalityBonus: 0
   StrengthPercentBonus: 0
   AgilityPercentBonus: 0
-  IntelligencePercentBonus: 0
+  IntelligencePercentBonus: 0.15
   VitalityPercentBonus: 0
   Passives: []
   EquipmentType: 10

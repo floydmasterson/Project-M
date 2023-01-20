@@ -74,13 +74,39 @@ namespace FIMSpace.AnimationTools
             }
         }
 
+        public List<Transform> GetAllAnimatorTransforms
+        {
+            get
+            {
+                List<Transform> allBones = new List<Transform>();
+                for (int i = 0; i < Armature.BonesSetup.Count; i++)
+                {
+                    if (LatestAnimator) if (Armature.BonesSetup[i].TempTransform == null) Armature.BonesSetup[i].GatherTempTransform(LatestAnimator.transform);
+                    if (Armature.BonesSetup[i].TempTransform == null) continue;
+                    allBones.Add(Armature.BonesSetup[i].TempTransform);
+                }
+
+                if (Armature.RootBoneReference != null)
+                    if (Armature.RootBoneReference.TempTransform)
+                    {
+                        var extras = Armature.RootBoneReference.TempTransform.GetComponentsInChildren<Transform>(true);
+                        for (int i = 0; i < extras.Length; i++)
+                        {
+                            var t = extras[i];
+                            if (allBones.Contains(t) == false) allBones.Add(t);
+                        }
+                    }
+
+                return allBones;
+            }
+        }
 
 
         #endregion
 
 
         public List<ADArmatureLimb> Limbs = new List<ADArmatureLimb>();
-       
+
         // For some reason, private list was serialized so I needed to add [NonSerialized] to make it work as it should o_O 
         [NonSerialized] private List<ADArmatureLimb> _AltExecutionOrderLimbs = new List<ADArmatureLimb>();
 

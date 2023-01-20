@@ -367,6 +367,11 @@ namespace FIMSpace.AnimationTools
                 }
             }
 
+
+
+
+            if (_anim_MainSet.Export_ClipTimeOffset > 0.001f) originalSettings.cycleOffset = 0f;
+
             originalSettings.startTime = _play_mod_Length_PlusJustMul * _play_mod_clipStartTrim;
             originalSettings.stopTime = originalSettings.startTime + _play_mod_Length;
             AnimationUtility.SetAnimationClipSettings(newGeneratedClip, originalSettings);

@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: e384923ad8f46004398b561f05e81935, type: 3}
   ItemName: Large Mana Potion
   ItemTier: 3
+  cost: 50
   MaximumStacks: 5
   IsConsumable: 1
   Notes: 

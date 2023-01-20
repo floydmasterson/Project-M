@@ -436,11 +436,11 @@ MonoBehaviour:
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
   m_CameraRadius: 1.68
-  m_Strategy: 0
+  m_Strategy: 1
   m_MaximumEffort: 10
-  m_SmoothingTime: 0.135
-  m_Damping: 1.13
-  m_DampingWhenOccluded: 0.63
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
   m_OptimalTargetDistance: 0
 --- !u!1 &1101242607799150147
 GameObject:
@@ -530,7 +530,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1258664008556357818}
-  m_LocalRotation: {x: 0.15926331, y: 0.499991, z: -0.094121106, w: 0.846041}
+  m_LocalRotation: {x: 0.1592633, y: 0.499991, z: -0.094121106, w: 0.846041}
   m_LocalPosition: {x: -0.0000009536743, y: 0.0000009536743, z: -7.3896445e-13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1045,7 +1045,6 @@ GameObject:
   - component: {fileID: 8486010994213854331}
   - component: {fileID: 35503359142782423}
   - component: {fileID: 2556476236528625665}
-  - component: {fileID: 5946846912908350618}
   - component: {fileID: 2211061372773608717}
   - component: {fileID: -3118269473940688471}
   - component: {fileID: 8728414190442872691}
@@ -1054,6 +1053,7 @@ GameObject:
   - component: {fileID: 2030157731712211798}
   - component: {fileID: 8979590937991555786}
   - component: {fileID: -1362746876041595564}
+  - component: {fileID: 5946846912908350618}
   - component: {fileID: 7242720649013660420}
   - component: {fileID: 3871390271718408134}
   - component: {fileID: 8372882155558361027}
@@ -1115,7 +1115,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 1
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!136 &2556476236528625665
@@ -1129,29 +1129,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1.9019284
-  m_Height: 4.1338825
+  m_Height: 3.8038568
   m_Direction: 1
-  m_Center: {x: 0, y: 1.6269407, z: 0.14068429}
---- !u!95 &5946846912908350618
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2955217814598126033}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: b6b366ddd85db664e9658137df64f63c, type: 3}
-  m_Controller: {fileID: 9100000, guid: d6b86310061c299488845c9544186cb9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_Center: {x: 0, y: 1.7919543, z: 0.14068429}
 --- !u!208 &2211061372773608717
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -1941,6 +1921,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &5946846912908350618
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2955217814598126033}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: c1407bd8d8e9a474a8da07077070f746, type: 3}
+  m_Controller: {fileID: 9100000, guid: 31aea09b07c7e944081f722a122368cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &7242720649013660420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1997,25 +1997,25 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: moving
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: running
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: wasHurt
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Res
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Die
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: Attack 0
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 2
     Name: roll
   m_SynchronizeLayers:
   - SynchronizeType: 2
@@ -3672,8 +3672,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8683991791153415088}
-  m_LocalRotation: {x: 0.17674002, y: 0.49793583, z: -0.10444946, w: 0.8425635}
-  m_LocalPosition: {x: -0.0000023841858, y: 0.000002861023, z: -1.9895197e-12}
+  m_LocalRotation: {x: 0.17674002, y: 0.49793583, z: -0.104449466, w: 0.84256345}
+  m_LocalPosition: {x: -0.000002861023, y: 0.00000333786, z: -2.3590019e-12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3963,7 +3963,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9083011718815718219}
-  m_LocalRotation: {x: 0.21630771, y: 0.054967374, z: -0.012198467, w: 0.9747004}
+  m_LocalRotation: {x: 0.21630771, y: 0.05496742, z: -0.012198477, w: 0.97470033}
   m_LocalPosition: {x: -0.13200003, y: 4.3760004, z: 8.771}
   m_LocalScale: {x: 0.6666667, y: 0.66666675, z: 0.6666666}
   m_ConstrainProportionsScale: 0
@@ -4034,11 +4034,11 @@ MonoBehaviour:
   m_DistanceLimit: 0
   m_MinimumOcclusionTime: 0
   m_CameraRadius: 1.57
-  m_Strategy: 0
+  m_Strategy: 1
   m_MaximumEffort: 10
-  m_SmoothingTime: 0.135
-  m_Damping: 1.13
-  m_DampingWhenOccluded: 0.63
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
   m_OptimalTargetDistance: 0
 --- !u!1001 &3338005124480575922
 PrefabInstance:

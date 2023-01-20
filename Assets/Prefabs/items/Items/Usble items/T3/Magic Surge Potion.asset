@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 9f369ff339154214e9ab604ef094c701, type: 3}
   ItemName: Magic Surge Potion
   ItemTier: 3
+  cost: 50
   MaximumStacks: 5
   IsConsumable: 1
   Notes: 

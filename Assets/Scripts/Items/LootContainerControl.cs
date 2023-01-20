@@ -41,7 +41,6 @@ public class LootContainerControl : ItemContainer
     [TabGroup("Audio"), SerializeField]
     SFX bagOpen;
     LootContainerManager lootContainerManager;
-    bool popUpOpen;
     public IEnumerator Despawn()
     {
         yield return new WaitForSecondsRealtime(20);
@@ -56,6 +55,8 @@ public class LootContainerControl : ItemContainer
     private void Awake()
     {
         LoadItems();
+        if(containerType == ContainerType.Dropbag) 
+            Destroy(gameObject, 60);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -79,7 +80,6 @@ public class LootContainerControl : ItemContainer
             Highlight(false);
             pickUpAllowed = false;
             playerInRange = false;
-            popUpOpen = false;
             gameObject.transform.GetChild(1).gameObject.SetActive(false);
         }
 

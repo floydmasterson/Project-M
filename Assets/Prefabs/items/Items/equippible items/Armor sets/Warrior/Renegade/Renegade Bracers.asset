@@ -15,15 +15,16 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 0455c67851318d24fbcd60d2c26d16d3, type: 3}
   ItemName: Renegade Bracers
   ItemTier: 2
+  cost: 250
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: 5469e3bb13c4f6042ad7a64cd27c757c
-  StrengthBonus: 3
+  StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 0
   VitalityBonus: 0
-  StrengthPercentBonus: 0
+  StrengthPercentBonus: 0.08
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0

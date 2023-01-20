@@ -28,7 +28,7 @@ namespace FIMSpace.AnimationTools
             EditorGUILayout.BeginHorizontal();
             GUILayout.Space(10);
             GUI.color = new Color(1f, 1f, 1f, 0.6f);
-            EditorGUILayout.HelpBox("Prepare Limbs - Few transform game objects, to use them with IK or Limb Elasticness", MessageType.None);
+            EditorGUILayout.HelpBox("Prepare Limbs - Few transform game objects, to use them with IK or Limb Elasticity", MessageType.None);
             GUI.color = preGuiC;
             GUILayout.Space(10);
             EditorGUILayout.EndHorizontal();
@@ -52,14 +52,24 @@ namespace FIMSpace.AnimationTools
                     if (additionalSetupSettingsFoldout)
                     {
                         GUILayout.Space(6);
-                        EditorGUILayout.LabelField("This are experimental parameters!", EditorStyles.centeredGreyMiniLabel);
-                        GUILayout.Space(3);
+                        //EditorGUILayout.LabelField("This are experimental parameters!", EditorStyles.centeredGreyMiniLabel);
+                        //GUILayout.Space(3);
 
                         StartUndoCheck(": Additional Settings");
 
+
+                        EditorGUILayout.BeginVertical(FGUI_Resources.BGInBoxStyle);
+
                         EditorGUILayout.BeginHorizontal();
                         EditorGUIUtility.fieldWidth = 32;
-                        mainSetup.ClipDurationMultiplier = EditorGUILayout.Slider(new GUIContent("Clip Duration Multiplier:", "If you want to make modified output clip slower or faster"), mainSetup.ClipDurationMultiplier, 0.25f, (3f * (1 + Mathf.Max(0, mainSetup.AdditionalAnimationCycles))));
+
+                        float clipDurMax = (3f * (1 + Mathf.Max(0, mainSetup.AdditionalAnimationCycles)));
+
+                        if (mainSetup.ClipDurationMultiplier > clipDurMax)
+                            mainSetup.ClipDurationMultiplier = EditorGUILayout.FloatField(new GUIContent("Clip Duration Multiplier:", "If you want to make modified output clip slower or faster"), mainSetup.ClipDurationMultiplier);
+                        else
+                            mainSetup.ClipDurationMultiplier = EditorGUILayout.Slider(new GUIContent("Clip Duration Multiplier:", "If you want to make modified output clip slower or faster"), mainSetup.ClipDurationMultiplier, 0.25f, clipDurMax + 0.00001f);
+
                         EditorGUIUtility.fieldWidth = 0;
 
                         if (mainSetup.ClipTimeReverse) GUI.backgroundColor = Color.white * 0.8f;
@@ -68,20 +78,55 @@ namespace FIMSpace.AnimationTools
                         EditorGUILayout.EndHorizontal();
 
 
-                        DrawCurve(ref mainSetup.ClipSampleTimeCurve, "Clip Time Modify:", 0, 0, 0, 1, 3);
-                        GUILayout.Space(7);
+                        EditorGUILayout.BeginHorizontal();
+                        EditorGUIUtility.labelWidth = 150;
+                        DrawCurve(ref mainSetup.ClipEvaluateTimeCurve, "Clip Time Flow:", 0, 0, 0, 1, 1, 0f, 1f, 1f, 1f, "Control how the time flows for the animation.\n! Warning ! It can work wrong when using trimming under 'Advanced' mode!\nYou can remove curve keys to not use time evaluation at all.");
+                        if (mainSetup._GUI_DrawAdvanvedTime) GUI.backgroundColor = Color.green;
+                        GUILayout.Space(9);
+                        if (GUILayout.Button("Advanced", GUILayout.Width(70))) { mainSetup._GUI_DrawAdvanvedTime = !mainSetup._GUI_DrawAdvanvedTime; }
+                        if (mainSetup._GUI_DrawAdvanvedTime) GUI.backgroundColor = Color.white;
+                        EditorGUILayout.EndHorizontal();
 
-                        Vector2 trim = new Vector2(mainSetup.ClipTrimFirstFrames, 1f - mainSetup.ClipTrimLastFrames);
-                        EditorGUILayout.MinMaxSlider(new GUIContent("Include Frames:", "If you want to export just part of original animation"), ref trim.x, ref trim.y, 0f, 1f);
-                        mainSetup.ClipTrimFirstFrames = trim.x;
-                        mainSetup.ClipTrimLastFrames = 1f - trim.y;
+                        if (mainSetup._GUI_DrawAdvanvedTime)
+                        {
+                            GUILayout.Space(3);
+                            EditorGUILayout.HelpBox("Experimental: It's not guaranteed that every parameter below will work correctly with 'Time Flow' curve! (check parameters tooltips)", MessageType.None);
+                            GUILayout.Space(1);
 
-                        EditorGUILayout.LabelField("From " + mainSetup.GetStartFrame() + " frame   to   " + mainSetup.GetEndFrame() + " frame", EditorStyles.centeredGreyMiniLabel);
-                        //mainSetup.ClipTrimFirstFrames = Mathf.Abs(trim.y - 1f);
-                        GUILayout.Space(3);
+                            DrawCurve(ref mainSetup.ClipSampleTimeCurve, "Clip Time Modify:", 0, 0, 0, 1, 3, 0f, 1f, 1f, 1f, "Multiplying sampling time during playback");
+
+                            GUILayout.Space(3);
+                            EditorGUIUtility.labelWidth = 180;
+                            mainSetup.Export_ClipTimeOffset = EditorGUILayout.Slider("Clip Time Offset:", mainSetup.Export_ClipTimeOffset, 0f, 1f);
+
+                            EditorGUIUtility.labelWidth = 150;
+                            GUILayout.Space(5);
+                            Vector2 trim = new Vector2(mainSetup.ClipTrimFirstFrames, 1f - mainSetup.ClipTrimLastFrames);
+                            EditorGUILayout.MinMaxSlider(new GUIContent("Include Frames:", "If you want to export just part of original animation"), ref trim.x, ref trim.y, 0f, 1f);
+                            mainSetup.ClipTrimFirstFrames = trim.x;
+                            mainSetup.ClipTrimLastFrames = 1f - trim.y;
+
+                            EditorGUILayout.LabelField("From " + mainSetup.GetStartFrame() + " frame   to   " + mainSetup.GetEndFrame() + " frame", EditorStyles.centeredGreyMiniLabel);
+                            //mainSetup.ClipTrimFirstFrames = Mathf.Abs(trim.y - 1f);
+
+                            GUILayout.Space(3);
+                            if (mainSetup.AdditionalAnimationCycles < 7)
+                                mainSetup.AdditionalAnimationCycles = EditorGUILayout.IntSlider("Additional Cycles:", mainSetup.AdditionalAnimationCycles, 0, 7);
+                            else
+                                mainSetup.AdditionalAnimationCycles = EditorGUILayout.IntField("Additional Cycles:", mainSetup.AdditionalAnimationCycles);
+
+                            if (mainSetup.AdditionalAnimationCycles < 0) mainSetup.AdditionalAnimationCycles = 0;
+                            if (mainSetup.AdditionalAnimationCycles > 0) EditorGUILayout.HelpBox("With additional cycles some features can work wrong! Like 'Grounding Mode' for legs IK or the origianal clip Root Motion", MessageType.Warning);
+
+                        }
+
+                        EditorGUILayout.EndVertical();
+
+                        GUILayout.Space(6);
+
+                        EditorGUILayout.BeginVertical(FGUI_Resources.BGInBoxStyle);
                         EditorGUIUtility.labelWidth = 180;
                         mainSetup.ResetRootPosition = EditorGUILayout.Toggle(new GUIContent("Reset Root Position:", "Discarding root motion"), mainSetup.ResetRootPosition);
-
                         EditorGUILayout.BeginHorizontal();
                         mainSetup.Export_DisableRootMotionExport = EditorGUILayout.Toggle(new GUIContent("Disable RootMotion Export:", "Ignore saving any root motion in the exported clip"), mainSetup.Export_DisableRootMotionExport);
                         EditorGUIUtility.labelWidth = 110;
@@ -89,22 +134,20 @@ namespace FIMSpace.AnimationTools
                         EditorGUIUtility.labelWidth = 180;
                         EditorGUILayout.EndHorizontal();
 
-                        GUILayout.Space(3);
-                        mainSetup.AdditionalAnimationCycles = EditorGUILayout.IntSlider("Additional Cycles:", mainSetup.AdditionalAnimationCycles, 0, 6);
-                        if (mainSetup.AdditionalAnimationCycles > 0) EditorGUILayout.HelpBox("With additional cycles some features can work wrong! Like 'Grounding Mode' for legs IK or the origianal clip Root Motion", MessageType.Warning);
                         EditorGUIUtility.labelWidth = 0;
-                        GUILayout.Space(6);
-
+                        EditorGUILayout.EndVertical();
 
                         EndUndoCheck();
                         // Undo breaks unity editor on humanoid IK undo!
 
                         if (currentMecanim)
                             if (currentMecanim.isHuman)
+                            {
+                                GUILayout.Space(6);
                                 mainSetup.Additional_UseHumanoidMecanimIK = EditorGUILayout.Toggle(new GUIContent("Humanoid IK: ", "Using mecanim humanoid foot ik on the preview for extra precision for the animations. (more cpu usage)"), mainSetup.Additional_UseHumanoidMecanimIK);
+                            }
 
-                        GUILayout.Space(6);
-
+                        GUILayout.Space(4);
 
                         if (TargetClip)
                         {
@@ -135,7 +178,7 @@ namespace FIMSpace.AnimationTools
                                 }
                             }
 
-                            GUILayout.Space(6);
+                            GUILayout.Space(3);
                         }
 
                         //if (TargetClip.isLooping == false || (TargetClip.legacy && TargetClip.wrapMode != WrapMode.Loop))
@@ -186,14 +229,16 @@ namespace FIMSpace.AnimationTools
 
             if (S.SkelRootBone == latestAnimator) GUI.color = new Color(1f, 1f, 0f, 1f);
 
-            EditorGUILayout.BeginHorizontal();
-            Transform skelRoot = (Transform)EditorGUILayout.ObjectField(new GUIContent("Skeleton Root"), S.Armature.RootBoneReference.TempTransform, typeof(Transform), true);
-            if (skelRoot != S.SkelRootBone) { S.Armature.SetRootBoneRef(skelRoot); S._SetDirty(); }
 
-            GUI.color = preGuiC;
-            if (S.SkelRootBone == latestAnimator) GUILayout.Label(new GUIContent(FGUI_Resources.Tex_Warning, "Skeleton root is same as animator transform, it probably will produce glitches!"), GUILayout.Width(16));
+            DrawRootBoneField();
+            //EditorGUILayout.BeginHorizontal();
+            //Transform skelRoot = (Transform)EditorGUILayout.ObjectField(new GUIContent("Skeleton Root"), S.Armature.RootBoneReference.TempTransform, typeof(Transform), true);
+            //if (skelRoot != S.SkelRootBone) { S.Armature.SetRootBoneRef(skelRoot); S._SetDirty(); }
 
-            EditorGUILayout.EndHorizontal();
+            //GUI.color = preGuiC;
+            //if (S.SkelRootBone == latestAnimator) GUILayout.Label(new GUIContent(FGUI_Resources.Tex_Warning, "Skeleton root is same as animator transform, it probably will produce glitches!"), GUILayout.Width(16));
+
+            //EditorGUILayout.EndHorizontal();
 
             Transform pelvRef = (Transform)EditorGUILayout.ObjectField(new GUIContent("Skeleton Pelvis"), S.Armature.PelvisBoneReference.TempTransform, typeof(Transform), true);
             if (pelvRef != S.ReferencePelvis) { S.Armature.SetPelvisRef(pelvRef); S._SetDirty(); }

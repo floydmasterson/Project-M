@@ -43,7 +43,7 @@ namespace FIMSpace.AnimationTools
 
             if (_anim_MainSet.TurnOnElasticness == false) GUI.enabled = false;
 
-            if (DrawTargetClipField(FGUI_Resources.GetFoldSimbol(drawAllElasticnesEval, true) + "  Elasticness Set For:", true)) drawAllElasticnesEval = !drawAllElasticnesEval;
+            if (DrawTargetClipField(FGUI_Resources.GetFoldSimbol(drawAllElasticnesEval, true) + "  Elasticity Set For:", true)) drawAllElasticnesEval = !drawAllElasticnesEval;
 
             if (ElasticSettingsCopyFrom != null)
             {
@@ -72,7 +72,7 @@ namespace FIMSpace.AnimationTools
 
             if (drawAllElasticnesEval)
             {
-                AnimationDesignerWindow.DrawCurve(ref _anim_MainSet.ElasticnessEvaluation, "All Elasticness Blend:");
+                AnimationDesignerWindow.DrawCurve(ref _anim_MainSet.ElasticnessEvaluation, "All Elasticity Blend:");
             }
 
             FGUI_Inspector.DrawUILine(0.3f, 0.5f, 1, 14, 0.975f);

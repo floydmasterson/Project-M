@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: b942be6749d102a45b197eb253de65dd, type: 3}
   ItemName: Renegade Tunic
   ItemTier: 2
+  cost: 445
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

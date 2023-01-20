@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: ee2b5d24d84da2347b6f951d890317fe, type: 3}
   ItemName: Forge Gods Hammer
   ItemTier: 3
+  cost: 750
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

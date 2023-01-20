@@ -155,6 +155,8 @@ public class EquippableItem : Item
                 }
 
             }
+            sb.AppendLine();
+            sb.Append("Sell Value: " + GetSellValue() + "G");
         }
 
         return sb.ToString();

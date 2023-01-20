@@ -7,8 +7,12 @@ namespace FIMSpace.AnimationTools
     {
         bool playPreview = false;
         float playbackSpeed = 1f;
+
         float animationElapsed = 0f;
         float animationProgress = 0f;
+        public float LastAnimationProgress { get { return animationProgress; } }
+
+        float animationProgressForEval = 0f;
         float timeElapsed = 0f;
         float timeSin = 0f;
         float timeSin01 = 0f;
@@ -133,12 +137,6 @@ namespace FIMSpace.AnimationTools
                 }
             }
 
-            if (_latestClip != TargetClip)
-            {
-                _latestClip = TargetClip;
-            }
-
-
             CheckComponentsInitialization(false);
             SampleCurrentAnimation();
 
@@ -149,6 +147,7 @@ namespace FIMSpace.AnimationTools
             }
 
             SectionsUpdateLoop();
+
         }
 
 
@@ -158,9 +157,10 @@ namespace FIMSpace.AnimationTools
             {
                 case ECategory.Setup: _Update_SetupCategory(); break;
                 case ECategory.IK: _Update_IKCategory(); break;
-                case ECategory.Modificators: _Update_ModsCategory(); break;
-                case ECategory.Elasticness: _Update_ElasticnessCategory(); break;
+                case ECategory.Modifiers: _Update_ModsCategory(); break;
+                case ECategory.Elasticity: _Update_ElasticnessCategory(); break;
                 case ECategory.Morphing: _Gizmos_MorphingCategory(); break;
+                case ECategory.Custom: _Update_ModulesCategory(); break;
             }
         }
 
@@ -264,7 +264,6 @@ namespace FIMSpace.AnimationTools
 
             float sampleTime = GetMainClipAnimationSampleTime(autoElapse);
 
-
             #region Reset on no-looped clip
 
             if (triggerLoopRestoreForNonLooped)
@@ -279,6 +278,7 @@ namespace FIMSpace.AnimationTools
                                 if (_anim_MainSet.Export_LoopClip == ADClipSettings_Main.ELoopClipDetection.NoLoop || _anim_MainSet.settingsForClip.isLooping == false)
                                 {
                                     animationElapsed = 0f;
+                                    animationProgressForEval = 0f;
                                     animationProgress = 0f;
                                     sampleTime = 0f;
                                     dt = 0.25f; deltaTime = dt;
@@ -293,9 +293,36 @@ namespace FIMSpace.AnimationTools
 
             #endregion
 
+            float clipTime = sampleTime;
+            float animationProgressClipTime = animationElapsed;
+            if (updateDesigner)
+                if (Ar != null) UpdateSimulationOnSampling(Ar.rootBake, ref clipTime, ref animationProgressClipTime);
 
-            TargetClip.SampleAnimation(latestAnimator.gameObject, sampleTime);
-            UpdateHumanoidIKPreview(TargetClip, sampleTime);
+            float evlaluatedTime = clipTime;
+
+
+            if (_anim_MainSet.ClipEvaluateTimeCurve != null)
+                if (_anim_MainSet.ClipEvaluateTimeCurve.keys.Length > 1)
+                {
+                    bool isDefault = false;
+
+                    if (_anim_MainSet.ClipEvaluateTimeCurve.keys[0].time == 0f && _anim_MainSet.ClipEvaluateTimeCurve.keys[0].value == 0f)
+                        if (_anim_MainSet.ClipEvaluateTimeCurve.keys[1].time == 1f && _anim_MainSet.ClipEvaluateTimeCurve.keys[1].value == 1f)
+                            if (_anim_MainSet.ClipEvaluateTimeCurve.keys[0].inTangent == 1f && _anim_MainSet.ClipEvaluateTimeCurve.keys[0].outTangent == 1f)
+                                if (_anim_MainSet.ClipEvaluateTimeCurve.keys[1].inTangent == 1f && _anim_MainSet.ClipEvaluateTimeCurve.keys[1].outTangent == 1f)
+                                {
+                                    isDefault = true;
+                                }
+
+                    if (!isDefault)
+                        if (_play_mod_Length != 0f)
+                            evlaluatedTime = _anim_MainSet.ClipEvaluateTimeCurve.Evaluate
+                                (clipTime / _play_mod_TrimmedLength) * _play_mod_TrimmedLength;
+                }
+
+
+            TargetClip.SampleAnimation(latestAnimator.gameObject, evlaluatedTime);
+            UpdateHumanoidIKPreview(TargetClip, evlaluatedTime);
 
 
             #region Secondary Animator Play
@@ -327,7 +354,17 @@ namespace FIMSpace.AnimationTools
                 }
             }
 
-            animationProgress = GetAnimationProgressFromSampleTime(autoElapse, sampleTime);
+            animationProgress = GetAnimationProgressFromSampleTime(autoElapse, null);
+            animationProgressForEval = GetAnimationProgressFromSampleTime(false, animationProgressClipTime);
+            //animationProgressForEval = animationProgress;
+        }
+
+
+        internal float EnsureMorphClipTime(float morphClipTime, AnimationClip clip, ADClipSettings_Morphing.MorphingSet morphSet)
+        {
+            if (updateDesigner)
+                if (Ar != null) UpdateSimulationOnSamplingMorph(Ar.rootBake, clip, morphSet, ref morphClipTime);
+            return morphClipTime;
         }
 
         public float GetMainClipAnimationSampleTime(bool? autoElapse)
@@ -337,9 +374,18 @@ namespace FIMSpace.AnimationTools
             float cyclesMul = 1f;
             if (_anim_MainSet.AdditionalAnimationCycles > 0) cyclesMul = 1f + (float)_anim_MainSet.AdditionalAnimationCycles;
 
-            float sampleTime = animationElapsed / _play_mod_clipLenMul;
+            float elapsed = animationElapsed;
 
-            if (autoElapse.Value == true) sampleTime = (_play_mod_trimmedStart * _play_mod_clipLenMul + animationElapsed) / _play_mod_clipLenMul;
+            if (_anim_MainSet != null)
+            {
+                if (TargetClip.length > 0f)
+                    if (_anim_MainSet.Export_ClipTimeOffset > 0.001f)
+                        elapsed += _anim_MainSet.Export_ClipTimeOffset * _play_mod_Length;
+            }
+
+            float sampleTime = elapsed / _play_mod_clipLenMul;
+
+            if (autoElapse.Value == true) sampleTime = (_play_mod_trimmedStart * _play_mod_clipLenMul + elapsed) / _play_mod_clipLenMul;
 
             if (cyclesMul > 1f)
             {
@@ -349,6 +395,11 @@ namespace FIMSpace.AnimationTools
 
             if (_anim_MainSet != null)
             {
+                if (_anim_MainSet.Export_ClipTimeOffset > 0.001f)
+                {
+                    sampleTime %= TargetClip.length;
+                }
+
                 float sampleTimeNorm = sampleTime / TargetClip.length;
 
                 if (_anim_MainSet.ClipTimeReverse)
@@ -366,17 +417,19 @@ namespace FIMSpace.AnimationTools
             return sampleTime;
         }
 
-        public float GetAnimationProgressFromSampleTime(bool? autoElapse, float sampleTime)
+        public float GetAnimationProgressFromSampleTime(bool? autoElapse, float? sampleTime = null)
         {
             if (autoElapse == null) autoElapse = latestAutoElapse;
+
+            if (sampleTime == null) sampleTime = animationElapsed;
 
             float animationProgress = this.animationProgress;
 
             if (_play_mod_Length > 0f)
             {
 
-                if (autoElapse == true) animationProgress = animationElapsed / _play_mod_Length;
-                else animationProgress = FLogicMethods.InverseLerpUnclamped(_play_mod_clipStartTrim * _play_mod_Length_PlusJustMul, _play_mod_Length_PlusJustMul - (_play_mod_clipEndTrim * _play_mod_Length_PlusJustMul), animationElapsed);
+                if (autoElapse == true) animationProgress = sampleTime.Value / _play_mod_Length;
+                else animationProgress = FLogicMethods.InverseLerpUnclamped(_play_mod_clipStartTrim * _play_mod_Length_PlusJustMul, _play_mod_Length_PlusJustMul - (_play_mod_clipEndTrim * _play_mod_Length_PlusJustMul), sampleTime.Value);
 
                 //if (!autoElapse)
                 //{
@@ -465,12 +518,13 @@ namespace FIMSpace.AnimationTools
             }
         }
 
+
         #region Editor Window Delta Time
 
         // Delta time for window in editor
 
         /// <summary> Static delta time computed on clip length and framerate </summary>
-        protected float dt = 0.1f;
+        public float dt { get; private set; } = 0.1f;
         /// <summary> Static delta time computed on clip length and framerate but adapted to 60fps </summary>
         protected float adaptDt = 0.1f;
 

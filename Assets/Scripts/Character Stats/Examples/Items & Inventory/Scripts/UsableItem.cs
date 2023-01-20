@@ -41,6 +41,7 @@ public class UsableItem : Item
         {
             sb.AppendLine(effect.GetDescription());
         }
+        sb.Append("Sell Value: " + GetSellValue() + "G");
         return sb.ToString();
     }
 }

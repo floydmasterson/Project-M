@@ -126,14 +126,14 @@ namespace FIMSpace.AnimationTools
 
             public enum EOrder
             {
-                InheritElasticness,
+                InheritElasticity,
                 AffectIK,
                 Last_Override,
                 BeforeEverything
             }
 
 
-            public EOrder UpdateOrder = EOrder.InheritElasticness;
+            public EOrder UpdateOrder = EOrder.InheritElasticity;
 
 
             public string ModName;
@@ -151,6 +151,10 @@ namespace FIMSpace.AnimationTools
 
             [NonSerialized] public bool RemoveMe = false;
 
+            public ModificatorSet()
+            {
+                ModName = "Unknown Mod";
+            }
 
             public ModificatorSet(Transform t, AnimationDesignerSave save)
             {
@@ -289,7 +293,7 @@ namespace FIMSpace.AnimationTools
 
             #endregion
 
-
+            public int ModeSwitcher = 0;
 
             public static ModificatorSet CopyingFrom = null;
             public bool Foldown = false;
@@ -302,6 +306,7 @@ namespace FIMSpace.AnimationTools
                 to.Blend = from.Blend;
                 to.Enabled = from.Enabled;
                 to.Type = from.Type;
+                to.UpdateOrder = from.UpdateOrder;
 
                 to.RotationBlend = from.RotationBlend;
                 to.PositionBlend = from.PositionBlend;
@@ -337,7 +342,7 @@ namespace FIMSpace.AnimationTools
                     Foldown = !Foldown;
                 }
 
-                ModName = EditorGUILayout.TextArea(ModName);
+                ModName = EditorGUILayout.TextField(ModName);
                 GUILayout.Space(4);
 
 
@@ -347,7 +352,7 @@ namespace FIMSpace.AnimationTools
                 if (modsList != null)
                 {
                     if (Index > 0)
-                        if (GUILayout.Button(new GUIContent(FGUI_Resources.Tex_ArrowLeft, "Moving modificator to be executed before other modificators"), FGUI_Resources.ButtonStyle, GUILayout.Width(22), GUILayout.Height(19)))
+                        if (GUILayout.Button(new GUIContent(FGUI_Resources.Tex_ArrowLeft, "Moving modificator to be executed before other modifiers"), FGUI_Resources.ButtonStyle, GUILayout.Width(22), GUILayout.Height(19)))
                         {
                             modsList[Index] = modsList[Index - 1];
                             modsList[Index - 1] = this;
@@ -355,7 +360,7 @@ namespace FIMSpace.AnimationTools
                         }
 
                     if (Index < modsList.Count - 1)
-                        if (GUILayout.Button(new GUIContent(FGUI_Resources.Tex_ArrowRight, "Moving modificator to be executed after other modificators"), FGUI_Resources.ButtonStyle, GUILayout.Width(22), GUILayout.Height(19)))
+                        if (GUILayout.Button(new GUIContent(FGUI_Resources.Tex_ArrowRight, "Moving modificator to be executed after other modifiers"), FGUI_Resources.ButtonStyle, GUILayout.Width(22), GUILayout.Height(19)))
                         {
                             modsList[Index] = modsList[Index + 1];
                             modsList[Index + 1] = this;
@@ -407,7 +412,7 @@ namespace FIMSpace.AnimationTools
                 if (!Foldown)
                 {
                     EditorGUILayout.BeginHorizontal();
-                    AnimationDesignerWindow.GUIDrawFloatPercentage(ref Blend, new GUIContent("Modification Blend  "));
+                    AnimationDesignerWindow.GUIDrawFloatPercentage(ref Blend, new GUIContent("Modifier Blend  "));
                     AnimationDesignerWindow.DrawCurve(ref BlendEvaluation, "", 120);
                     EditorGUILayout.EndHorizontal();
 
@@ -416,7 +421,7 @@ namespace FIMSpace.AnimationTools
                 }
                 else
                 {
-                    AnimationDesignerWindow.GUIDrawFloatPercentage(ref Blend, new GUIContent("Modification Blend  "));
+                    AnimationDesignerWindow.GUIDrawFloatPercentage(ref Blend, new GUIContent("Modifier Blend  "));
                     AnimationDesignerWindow.DrawSliderProgress(Blend * BlendEvaluation.Evaluate(animProgr), 120, 55);
                     AnimationDesignerWindow.DrawCurve(ref BlendEvaluation, "Blend Along Clip Time:");
                     AnimationDesignerWindow.DrawCurveProgress(animProgr);
@@ -431,7 +436,7 @@ namespace FIMSpace.AnimationTools
                         if (T == main.RootMotionTransform)
                         {
                             if (UpdateOrder != EOrder.BeforeEverything)
-                                EditorGUILayout.HelpBox("You're modifying Root Motion Transform! You should change update order to 'Before Everything' to avoid Elasticness Glitches", MessageType.None);
+                                EditorGUILayout.HelpBox("You're modifying Root Motion Transform! You should change update order to 'Before Everything' to avoid Elasticity Glitches", MessageType.None);
                         }
                     }
                 }
@@ -455,6 +460,7 @@ namespace FIMSpace.AnimationTools
                 EditorGUILayout.BeginVertical(FGUI_Resources.BGInBoxBlankStyle);
                 GUI.color = preC;
 
+                EditorGUIUtility.labelWidth = 64;
 
                 //FGUI_Inspector.DrawUILine(0.5f, 0.3f, 1, 8, 0.975f);
                 EditorGUILayout.BeginHorizontal();
@@ -463,8 +469,8 @@ namespace FIMSpace.AnimationTools
                 UpdateOrder = (EOrder)EditorGUILayout.EnumPopup(UpdateOrder, GUILayout.Width(50));
                 EditorGUILayout.EndHorizontal();
 
-                FGUI_Inspector.DrawUILine(0.5f, 0.3f, 1, 9, 0.975f);
 
+                FGUI_Inspector.DrawUILine(0.5f, 0.3f, 1, 9, 0.975f);
                 GUILayout.Space(6);
 
                 if (Type == EModification.AdditiveRotation || Type == EModification.OverrideRotation)
@@ -526,6 +532,8 @@ namespace FIMSpace.AnimationTools
                     GUILayout.Space(6);
 
                     EditorGUILayout.BeginHorizontal();
+                    EditorGUIUtility.labelWidth = 94;
+
                     PositionValue = EditorGUILayout.Vector3Field(" Position Offset:", PositionValue);
                     AnimationDesignerWindow.DrawCurve(ref PositionEvaluate, "", 60, 0f, -1f, 1f, 1f);
                     //AnimationDesignerWindow.DrawCurveProgress(optionalBlendGhost)
@@ -545,7 +553,9 @@ namespace FIMSpace.AnimationTools
                 {
                     #region Elastic Rotation GUI
 
-                    RotationsBoost = EditorGUILayout.Slider(new GUIContent("   Boost", FGUI_Resources.Tex_Rotation, "Multiplying elasticness effect to see effect results more clearly"), RotationsBoost, 0f, 1f);
+                    EditorGUIUtility.labelWidth = 84;
+
+                    RotationsBoost = EditorGUILayout.Slider(new GUIContent("   Boost", FGUI_Resources.Tex_Rotation, "Multiplying Elasticity effect to see effect results more clearly"), RotationsBoost, 0f, 1f);
                     GUILayout.Space(3);
                     RotationsRapidity = EditorGUILayout.Slider("Rapidity", RotationsRapidity, 0f, 1f);
                     RotationsDamping = EditorGUILayout.Slider("Damping", RotationsDamping, 0f, 1f);
@@ -561,7 +571,19 @@ namespace FIMSpace.AnimationTools
                     EditorGUIUtility.labelWidth = 130;
                     PositionValue = EditorGUILayout.Vector3Field(" Local Look Position:", PositionValue);
 
-                    GUILayout.Space(6);
+                    //GUILayout.Space(6);
+
+                    //string currMode = ModeSwitcher == 0 ? "Inherit Animation Mode" : "Override Animation Mode";
+
+                    //if (GUILayout.Button(currMode, EditorStyles.layerMaskField ))
+                    //{
+                    //    GenericMenu menu = new GenericMenu();
+
+                    //    menu.AddItem(new GUIContent("Inherit Animation"), ModeSwitcher == 0, () => { ModeSwitcher = 0; });
+                    //    menu.AddItem(new GUIContent("Override Animation"), ModeSwitcher == 1, () => { ModeSwitcher = 1; });
+
+                    //    menu.ShowAsContext();
+                    //}
 
 
                     #region Align Fields
@@ -628,6 +650,7 @@ namespace FIMSpace.AnimationTools
                 EditorGUILayout.EndVertical();
                 GUI.enabled = true;
                 EditorGUILayout.EndVertical();
+                EditorGUIUtility.labelWidth = 0;
             }
 
             internal ModificatorSet Copy()

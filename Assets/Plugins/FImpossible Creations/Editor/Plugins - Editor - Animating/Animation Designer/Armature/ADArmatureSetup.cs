@@ -119,8 +119,20 @@ namespace FIMSpace.AnimationTools
             }
         }
 
+        public void ValidateBones()
+        {
+            for (int i = BonesSetup.Count - 1; i >= 0; i--)
+            {
+                var b = BonesSetup[i];
+                if (string.IsNullOrWhiteSpace(b.BoneName)) BonesSetup.RemoveAt(i);
+            }
+        }
+
+
         public void GatherBones(Transform anim)
         {
+            ValidateBones();
+
             if (RootBoneReference.ID == 0) RootBoneReference.GatherTempTransform(anim.transform);
             if (PelvisBoneReference.ID == 0) PelvisBoneReference.GatherTempTransform(anim.transform);
 

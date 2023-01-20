@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: ac28e9096c93b9243b10f4f9c0661e0f, type: 3}
   ItemName: Fallen Warrior
   ItemTier: 3
+  cost: 690
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

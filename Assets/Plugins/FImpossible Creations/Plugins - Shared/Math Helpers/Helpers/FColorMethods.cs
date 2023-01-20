@@ -16,6 +16,22 @@ namespace FIMSpace
         }
 
         /// <summary>
+        /// Remove HDR values, clamp to max 1 value
+        /// </summary>
+        /// <param name="hdrColor"></param>
+        /// <returns></returns>
+        public static Color ToGammaSpace(Color hdrColor)
+        {
+            float getMax = hdrColor.r;
+            if (hdrColor.g > getMax) getMax = hdrColor.g;
+            if (hdrColor.b > getMax) getMax = hdrColor.b;
+            if (hdrColor.a > getMax) getMax = hdrColor.a;
+
+            if (getMax <= 0f) return Color.clear;
+            return hdrColor / getMax;
+        }
+
+        /// <summary>
         /// Changing color brightness or darkness value (adding / subliming .r .g .b) -1 to 1 value
         /// </summary>
         public static Color ChangeColorsValue(this Color color, float brightenOrDarken = 0f)

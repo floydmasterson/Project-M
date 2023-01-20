@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: bdc38e6cb5640f644b4ba5d024fed04b, type: 3}
   ItemName: Wooden Staff
   ItemTier: 0
+  cost: 0
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

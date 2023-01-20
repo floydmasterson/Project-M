@@ -100,6 +100,14 @@ namespace FIMSpace.AnimationTools
             Depth = GetDepth(TempTransform, skelRootBone);
         }
 
+        public static Transform GetTransformUsingPath(AnimationDesignerSave save, string path)
+        {
+            Transform t = null;
+            if ( save.LatestAnimator) t = save.LatestAnimator.transform.Find(path);
+            if (t == null) if (save.SkelRootBone) t = save.SkelRootBone.Find(path);
+            return t;
+        }
+
         public static int GetDepth(Transform t, Transform skelRootBone, int notFoundReturn = 0)
         {
             int depth = 0;

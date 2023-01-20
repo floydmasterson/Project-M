@@ -128,6 +128,11 @@ public class Enemys : MonoBehaviourPun
         {
             Destroy(t.gameObject);
         }
+   
+    }
+    IEnumerator Dropbag()
+    {
+        yield return new WaitForSeconds(3);
         int chance;
         chance = Random.Range(1, 10);
         if (chance > 4)
@@ -166,7 +171,6 @@ public class Enemys : MonoBehaviourPun
                 yield return null;
             }
         }
-
     }
     private IEnumerator LoseTarget()
     {
@@ -189,7 +193,7 @@ public class Enemys : MonoBehaviourPun
         angle = 360;
         yield return new WaitForSecondsRealtime(1);
         angle = 222;
-        if (typeSetting == 1)
+        if (typeSetting == 1 || typeSetting == 3)
             radius = 20;
         if (typeSetting == 2)
             radius = 45;
@@ -474,6 +478,7 @@ public class Enemys : MonoBehaviourPun
         {
             animator.SetBool("Dead", true);
             photonView.RPC("Die", RpcTarget.All);
+            StartCoroutine(Dropbag());
         }
         if (typeSetting == 0)
             currentHealth = 999999999999;
@@ -482,17 +487,15 @@ public class Enemys : MonoBehaviourPun
     public void Die()
     {
         isDead = true;
+        Target = null;
         StopCoroutine(LookAt());
 #pragma warning disable CS0618 // Type or member is obsolete
         agent.Stop();
 #pragma warning restore CS0618 // Type or member is obsolete
-        Target = null;
         animator.SetTrigger("Die");
-
         col.enabled = false;
         agent.enabled = false;
         StartCoroutine(ExecuteAfterTime());
-
     }
     #endregion
     #region Anim and Sound

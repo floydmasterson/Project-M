@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 9f833b94e248f2c40942fcce06fd8af8, type: 3}
   ItemName: Cultist Sholder Guard
   ItemTier: 3
+  cost: 665
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

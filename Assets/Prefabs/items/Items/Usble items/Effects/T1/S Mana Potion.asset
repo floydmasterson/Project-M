@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5692354cd917b3d46aa5ef1c13b65ec9, type: 3}
   m_Name: S Mana Potion
   m_EditorClassIdentifier: 
-  amount: 10
+  amount: 20

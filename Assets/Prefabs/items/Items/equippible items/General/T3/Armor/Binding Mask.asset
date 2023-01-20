@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 584502659a0595b468cab49044903e6e, type: 3}
   ItemName: Binding Mask
   ItemTier: 3
+  cost: 800
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 'Scaleing Magic Passive??? '

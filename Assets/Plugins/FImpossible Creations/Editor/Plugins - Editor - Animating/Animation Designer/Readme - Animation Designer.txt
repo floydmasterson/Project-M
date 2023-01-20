@@ -1,7 +1,7 @@
 __________________________________________________________________________________________
 
 Package "Animation Designer"
-Version 1.0.9.2
+Version 1.2.0
 
 Made by FImpossible Creations - Filip Moeglich
 https://www.FilipMoeglich.pl
@@ -67,12 +67,28 @@ MAIN FEATURES:
 
 __________________________________________________________________________________________
 
+Version 1.2.0
+- New way for handling extra features for Animation Designer, introducing "Custom Modules" 
+- New Module for Humanoid Fist Open/Close posing
+- New Module for Humanoid hand fingers posing
+- New Module for Humanoid arms posing
+- New Module for Humanoid legs posing
+- New Module for Humanoid spine posing
+- New Module for Humanoid head and face posing
+- New Module for Stylizing Animation with variable Framerate
+- New Module for Designing Strafe animation (helps making 8 directional movement)
 
-Version 1.0.9.2
+- Now IK 'Align With' will be remembered after loading setup again
+(if it was assigned to some skeleton bone or bone was parent of target transform)
+- Time Evaluation Curve ("Time Flow") switch for easier control over animation clip time modify
+- Grounder Foot IK Start/End Alignment offset params
+- Each morph contains now it's own Time Evaluation curve ("Time Flow")
+- Changed "Modificators" display name as "Modifiers" and "Elasticness" as "Elasticity"
+- Few small GUI Changes
+
+version 1.1.0
 - Copy/Paste button for copying all modificators in animation
 - Few GUI reminding warnings
-
-Version 1.0.9.1
 - Experimental Ctrl+Z undo implementation (enable it with the button on the top left part of the Animation Designer window)
 
 Version 1.0.9

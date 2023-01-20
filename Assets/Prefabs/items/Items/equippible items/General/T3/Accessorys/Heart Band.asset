@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 3c50e727f0ccec7498158b52a559b95a, type: 3}
   ItemName: Heart Band
   ItemTier: 3
+  cost: 550
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
@@ -22,11 +23,11 @@ MonoBehaviour:
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 0
-  VitalityBonus: 1
+  VitalityBonus: 0
   StrengthPercentBonus: 0
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
-  VitalityPercentBonus: 0
+  VitalityPercentBonus: 0.05
   Passives:
   - {fileID: 11400000, guid: af30f775828cdc64e8c5c126d4120b11, type: 2}
   - {fileID: 11400000, guid: 01b30b3f02f7f494e92fe060df649984, type: 2}

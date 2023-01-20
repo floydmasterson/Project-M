@@ -36,7 +36,6 @@ namespace FIMSpace.AnimationTools
             EditorGUILayout.BeginHorizontal();
 
             _anim_MainSet.TurnOnMorphs = EditorGUILayout.Toggle(_anim_MainSet.TurnOnMorphs, GUILayout.Width(24));
-
             if (_anim_MainSet.TurnOnMorphs == false) GUI.enabled = false;
 
             DrawTargetClipField("Morphs Configuration For: ", true);

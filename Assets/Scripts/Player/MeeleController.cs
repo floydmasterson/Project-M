@@ -106,7 +106,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
             }
         }
     }
-    private void Awake()
+    private void Start()
     {
         manger = PlayerUi.Instance.target;
         CurrentRage = 0;

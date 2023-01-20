@@ -112,7 +112,7 @@ namespace FIMSpace.AnimationTools
         }
 
 
-        public static void DrawSelectorGUI<T>(List<T> elements, ref int selection, float viewPaddingWidth = 18, float? maxWidth = null, int? deselectIndex = -1) where T : INameAndIndex
+        public static void DrawSelectorGUI<T>(List<T> elements, ref int selection, float viewPaddingWidth = 18, float? maxWidth = null, int? deselectIndex = -1, bool addOption = false) where T : INameAndIndex, new()
         {
             Color preC = GUI.backgroundColor;
 
@@ -120,6 +120,8 @@ namespace FIMSpace.AnimationTools
             float width = maxWidth == null ? EditorGUIUtility.currentViewWidth : maxWidth.Value;
 
             GUILayout.BeginHorizontal();
+            int column = 0;
+            bool drawnAdd = false;
 
             for (int l = 0; l < elements.Count; l++)
             {
@@ -128,11 +130,24 @@ namespace FIMSpace.AnimationTools
                 GUIContent c = new GUIContent(toDraw.GetName);
                 Vector2 guiSize = EditorStyles.miniButton.CalcSize(c);
 
+                float maxWdth = width;
+                if (addOption && column == 0) maxWdth -= 22;
+
                 if (cWidth + guiSize.x + 8 > width)
                 {
+                    if (addOption && column == 0)
+                    {
+                        drawnAdd = true;
+                        GUILayout.FlexibleSpace();
+                        GUI.backgroundColor = new Color(0.7f, 1f, 0.8f, 1f);
+                        if (GUILayout.Button("+", GUILayout.Width(20))) { elements.Add(new T()); }
+                        GUI.backgroundColor = preC;
+                    }
+
                     cWidth = viewPaddingWidth + guiSize.x + 8;
                     GUILayout.EndHorizontal();
                     GUILayout.BeginHorizontal();
+                    column += 1;
                 }
                 else
                 {
@@ -156,15 +171,28 @@ namespace FIMSpace.AnimationTools
                 }
             }
 
+            if (addOption && column == 0 && !drawnAdd)
+            {
+                GUILayout.FlexibleSpace();
+                GUI.backgroundColor = new Color(0.7f, 1f, 0.8f, 1f);
+                if (GUILayout.Button("+", GUILayout.Width(20))) { elements.Add(new T()); }
+                GUI.backgroundColor = preC;
+            }
+
             GUILayout.EndHorizontal();
 
             GUI.backgroundColor = preC;
         }
 
         static bool _expandCurves = false;
-        public static void DrawCurve(ref AnimationCurve curve, string label = "", int width = 0, float startTime = 0f, float startValue = 0f, float endTime = 1f, float endValue = 1f, float r = 0f, float g = 1f, float b = 1f, float a = 1f)
+        static GUIContent _curvGC = null;
+        public static void DrawCurve(ref AnimationCurve curve, string label = "", int width = 0, float startTime = 0f, float startValue = 0f, float endTime = 1f, float endValue = 1f, float r = 0f, float g = 1f, float b = 1f, float a = 1f, string tooltip = "")
         {
             if (curve == null) curve = new AnimationCurve();
+
+            if (_curvGC == null) _curvGC = new GUIContent();
+            _curvGC.text = label;
+            _curvGC.tooltip = tooltip;
 
             //bool undo = false;
             //if (Get) if (Get.EnableExperimentalUndo) undo = true;
@@ -257,14 +285,14 @@ namespace FIMSpace.AnimationTools
                 if (string.IsNullOrEmpty(label))
                     curve = EditorGUILayout.CurveField(curve, new Color(r, g, b, a), new Rect(startTime, startValue, endTime - startTime, endValue - startValue));
                 else
-                    curve = EditorGUILayout.CurveField(label, curve, new Color(r, g, b, a), new Rect(startTime, startValue, endTime - startTime, endValue - startValue));
+                    curve = EditorGUILayout.CurveField(_curvGC, curve, new Color(r, g, b, a), new Rect(startTime, startValue, endTime - startTime, endValue - startValue));
             }
             else
             {
                 if (string.IsNullOrEmpty(label))
                     curve = EditorGUILayout.CurveField(curve, new Color(r, g, b, a), new Rect(startTime, startValue, endTime - startTime, endValue - startValue), GUILayout.Width(width));
                 else
-                    curve = EditorGUILayout.CurveField(label, curve, new Color(r, g, b, a), new Rect(startTime, startValue, endTime - startTime, endValue - startValue), GUILayout.Width(width));
+                    curve = EditorGUILayout.CurveField(_curvGC, curve, new Color(r, g, b, a), new Rect(startTime, startValue, endTime - startTime, endValue - startValue), GUILayout.Width(width));
             }
 
             if (_expandCurves)
@@ -415,7 +443,7 @@ namespace FIMSpace.AnimationTools
                     {
                         _latestModCurveToApply = CopyCurve(_latestModCurveCopy);
                         _latestModCurveHash = hash;
-                        _latestModCurveCopy = null;
+                        //_latestModCurveCopy = null;
                     });
                 }
 

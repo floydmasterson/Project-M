@@ -189,7 +189,7 @@ namespace FIMSpace.AnimationTools
 
                 if (!string.IsNullOrEmpty(title))
                 {
-                    EditorGUILayout.LabelField(title + " : Limb Elasticness Settings", FGUI_Resources.HeaderStyle);
+                    EditorGUILayout.LabelField(title + " : Limb Elasticity Settings", FGUI_Resources.HeaderStyle);
                 }
 
                 #region Copy Paste Buttons
@@ -203,7 +203,7 @@ namespace FIMSpace.AnimationTools
                 }
 
                 if (CopyingFrom == this) GUI.backgroundColor = new Color(0.6f, 1f, 0.6f, 1f);
-                if (GUILayout.Button(new GUIContent(EditorGUIUtility.IconContent("TreeEditor.Duplicate").image, "Copy elasticness parameters values below to paste them into other limb"), FGUI_Resources.ButtonStyle, GUILayout.Width(22), GUILayout.Height(19)))
+                if (GUILayout.Button(new GUIContent(EditorGUIUtility.IconContent("TreeEditor.Duplicate").image, "Copy Elasticity parameters values below to paste them into other limb"), FGUI_Resources.ButtonStyle, GUILayout.Width(22), GUILayout.Height(19)))
                 {
                     CopyingFrom = this;
                 }
@@ -231,7 +231,7 @@ namespace FIMSpace.AnimationTools
 
                 if (drawRotation)
                 {
-                    AnimationDesignerWindow.GUIDrawFloatPercentage(ref RotationsBlend, new GUIContent("  Rotation Based Elasticness", FGUI_Resources.Tex_Rotation));
+                    AnimationDesignerWindow.GUIDrawFloatPercentage(ref RotationsBlend, new GUIContent("  Rotation Based Elasticity", FGUI_Resources.Tex_Rotation));
 
                     // Value Ghost
                     if (RotationsBlend > 0f)
@@ -261,7 +261,7 @@ namespace FIMSpace.AnimationTools
 
                 if (drawMovement)
                 {
-                    AnimationDesignerWindow.GUIDrawFloatPercentage(ref OnMoveBlend, new GUIContent("  Position Based Elasticness", FGUI_Resources.Tex_Movement));
+                    AnimationDesignerWindow.GUIDrawFloatPercentage(ref OnMoveBlend, new GUIContent("  Position Based Elasticity", FGUI_Resources.Tex_Movement));
 
                     // Value Ghost
                     if (OnMoveBlend > 0f)

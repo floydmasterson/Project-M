@@ -54,7 +54,7 @@ namespace FIMSpace.AnimationTools
                 return propName.ToLower().Contains("leg") || propName.ToLower().Contains("foot");
             }
 
-            private string CorrectFingersPropertyNames(string b)
+            public static string CorrectFingersPropertyNames(string b)
             {
                 if (b == "Left Index 1 Stretched") return "LeftHand.Index.1 Stretched";
                 if (b == "Left Index 2 Stretched") return "LeftHand.Index.2 Stretched";

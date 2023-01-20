@@ -24,6 +24,8 @@ namespace FIMSpace.AnimationTools
 
         /// <summary> Assign through script inspector window </summary>
         public UnityEngine.Object BaseDirectory;
+        public UnityEngine.Object ModuleSetupsDirectory;
+        public UnityEngine.Object CustomModuleScriptFilesDirectory;
 
         [MenuItem("Window/FImpossible Creations/Animation Designer Window", false, 221)]
         #region Initialize and show window
@@ -235,6 +237,7 @@ namespace FIMSpace.AnimationTools
         bool _toSet_ProjectFileSave_Clear = false;
         //string _toSet_AdditionalDesignerSetSwitchTo = "";
         public static int _toSet_SetSwitchToHash = 0;
+        public static int _last_toSet_SetSwitchToHash = 0;
         //int _toSet_ProjectFileSaveDelay = 0;
         bool _triggerSkeletonRefresh = false;
         bool _switchingReferences = false;
@@ -410,6 +413,19 @@ namespace FIMSpace.AnimationTools
 
 
             #region Define data to display
+
+
+            if (_latestClip != TargetClip)
+            {
+                _latestClip = TargetClip;
+                OnTargetAnimationClipChange();
+            }
+
+            if (_last_toSet_SetSwitchToHash != _toSet_SetSwitchToHash)
+            {
+                _last_toSet_SetSwitchToHash = _toSet_SetSwitchToHash;
+                OnTargetAnimationClipChange();
+            }
 
 
             // Assigning Designer Save to view through layout event
@@ -699,10 +715,10 @@ namespace FIMSpace.AnimationTools
 
             #endregion
 
-#pragma warning disable
+
             EditorGUIUtility.wideMode = true;
-            scroll = GUILayout.BeginScrollView(scroll, _style_horScroll, _style_vertScroll);
-#pragma warning restore
+            scroll = GUILayout.BeginScrollView(scroll, GUIStyle.none, GUIStyle.none);
+
 
             GUILayout.Space(3);
             DisplaySaveHeaderTab();
@@ -779,7 +795,7 @@ namespace FIMSpace.AnimationTools
 
                     if (isReady)
                     {
-                        if (sectionFocusMode) { GUILayout.Space(2); DrawPlaybackButton(); GUILayout.Space(6); }
+                        //if (sectionFocusMode) { GUILayout.Space(2); DrawPlaybackButton(); GUILayout.Space(6); }
                         FocusModeSwitchButton();
                         GizmosModsButton();
                     }
@@ -855,6 +871,15 @@ namespace FIMSpace.AnimationTools
                             //GUILayout.Space(4);
 
                             if (!IsReady) RefreshArmatureButton(26);
+                            else
+                            {
+                                EditorGUILayout.BeginHorizontal();
+                                DrawPlaybackStopButton();
+                                DrawPlaybackButton();
+                                GUILayout.Space(6);
+                                DrawPlaybackTimeSlider();
+                                EditorGUILayout.EndHorizontal();
+                            }
                         }
 
                         #endregion
@@ -995,7 +1020,6 @@ namespace FIMSpace.AnimationTools
 
             }
 
-
             GUILayout.Space(3);
 
             GUILayout.EndScrollView();
@@ -1057,6 +1081,12 @@ namespace FIMSpace.AnimationTools
                 repaintRequest = false;
             }
 
+        }
+
+
+        void OnTargetAnimationClipChange()
+        {
+            CheckComponentsInitialization(false);
         }
 
         void RefreshSave()

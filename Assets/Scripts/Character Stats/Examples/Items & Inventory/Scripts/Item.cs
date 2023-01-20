@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using static UnityEditor.Progress;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -26,8 +27,10 @@ public class Item : ScriptableObject
     [VerticalGroup("Item/Right"), LabelWidth(65)]
     [EnumToggleButtons]
     public Tier ItemTier;
+    [VerticalGroup("Item/Right"), LabelWidth(65)]
+    public int cost;
     [VerticalGroup("Item/Right"), LabelWidth(105)]
-    [Range(1, 20)]
+    [Range(1, 999)]
     public int MaximumStacks = 1;
     [VerticalGroup("Item/Right"), LabelWidth(90)]
     [ShowIf("@MaximumStacks > 1")]
@@ -40,6 +43,9 @@ public class Item : ScriptableObject
     [SerializeField] string id;
 
 
+
+
+
     protected static readonly StringBuilder sb = new StringBuilder();
 
 #if UNITY_EDITOR
@@ -47,6 +53,7 @@ public class Item : ScriptableObject
     {
         string path = AssetDatabase.GetAssetPath(this);
         id = AssetDatabase.AssetPathToGUID(path);
+        cost = FindCost(this);
     }
 #endif
 
@@ -72,4 +79,83 @@ public class Item : ScriptableObject
     {
         return "";
     }
+    public virtual int GetSellValue()
+    {
+        return cost - (int)(cost * .2f);
+    }
+
+    public virtual int FindCost(Item Item)
+    {
+        int value = 0;
+        if (ItemName == "Gold Coin")
+            return 1;
+        if (ItemTier == Tier.T0)
+            return value;
+        if (IsConsumable)
+        {
+            switch (ItemTier)
+            {
+                case Tier.T1:
+                    value += 10;
+                    break;
+                case Tier.T2:
+                    value += 25;
+                    break;
+                case Tier.T3:
+                    value += 50;
+                    break;
+            }
+            value += value * (int).1f;
+        }
+        else if (!IsConsumable)
+        {
+            switch (ItemTier)
+            {
+                case Tier.T1:
+                    value += 100;
+                    break;
+                case Tier.T2:
+                    value += 250;
+                    break;
+                case Tier.T3:
+                    value += 500;
+                    break;
+            }
+            EquippableItem item = Item as EquippableItem;
+            value += item.AgilityBonus * 15;
+            value += item.VitalityBonus * 15;
+            value += item.IntelligenceBonus * 20;
+            value += item.StrengthBonus * 20;
+
+            value += (int)item.AgilityPercentBonus / 5;
+            value += (int)item.VitalityPercentBonus / 5;
+            value += (int)item.IntelligencePercentBonus / 10;
+            value += (int)item.StrengthPercentBonus / 10;
+
+            foreach (PassiveSO passive in item.Passives)
+            {
+                if (passive != null)
+                {
+                    value += 25;
+                }
+
+            }
+
+            switch (ItemTier)
+            {
+                case Tier.T1:
+                    value += value * (int).2f;
+                    break;
+                case Tier.T2:
+                    value += value * (int).3f;
+                    break;
+                case Tier.T3:
+                    value += value * (int).5f;
+                    break;
+            }
+        }
+
+        return Mathf.RoundToInt(value);
+    }
+
 }

@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: b39b670a34e582f4aa4fcd5eb405d6f0, type: 3}
   ItemName: Renegade Boots
   ItemTier: 2
+  cost: 310
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

@@ -12,13 +12,16 @@ namespace FIMSpace.AnimationTools
         public bool TurnOnElasticness = true;
         public AnimationCurve ElasticnessEvaluation = AnimationCurve.EaseInOut(0f, 1f, 1f, 1f);
         public AnimationCurve ModsEvaluation = AnimationCurve.EaseInOut(0f, 1f, 1f, 1f);
+
         public bool TurnOnIK = true;
         public bool TurnOnMorphs = true;
+        public bool TurnOnModules = true;
 
         public int Export_LoopAdditionalKeys = 0;
         public bool Export_ForceRootMotion = false;
         public bool Export_DisableRootMotionExport = false;
         public bool Export_JoinRootMotion = false;
+        public float Export_ClipTimeOffset = 0;
 
         public bool Additional_UseHumanoidMecanimIK = false;
 
@@ -57,6 +60,8 @@ namespace FIMSpace.AnimationTools
         public float PelvisZOffset = 0f;
         public AnimationCurve PelvisOffsetZEvaluate = AnimationCurve.EaseInOut(0f, 1f, 1f, 1f);
 
+        public bool PelvisCurves01Mode = false;
+
         [SerializeField, HideInInspector] private bool _Tip_WasDisplaying = false;
         [SerializeField, HideInInspector] private int _Tip_DisplayCount = -1;
 
@@ -79,11 +84,22 @@ namespace FIMSpace.AnimationTools
             cpy.ResetRootPosition = ResetRootPosition;
             cpy.ClipDurationMultiplier = ClipDurationMultiplier;
             cpy.ClipSampleTimeCurve = AnimationDesignerWindow.CopyCurve(ClipSampleTimeCurve);
+            cpy.ClipEvaluateTimeCurve = AnimationDesignerWindow.CopyCurve(ClipEvaluateTimeCurve);
             cpy.ClipTimeReverse = ClipTimeReverse;
             cpy.ClipTrimFirstFrames = ClipTrimFirstFrames;
             cpy.ClipTrimLastFrames = ClipTrimLastFrames;
             cpy.ResetRootPosition = ResetRootPosition;
             cpy.AdditionalAnimationCycles = AdditionalAnimationCycles;
+
+            cpy.Additional_UseHumanoidMecanimIK = Additional_UseHumanoidMecanimIK;
+            cpy.Export_LoopClip = Export_LoopClip;
+
+            cpy.TurnOnModules = TurnOnModules;
+
+            cpy.Export_ForceRootMotion = Export_ForceRootMotion;
+            cpy.Export_DisableRootMotionExport = Export_DisableRootMotionExport;
+            cpy.Export_JoinRootMotion = Export_JoinRootMotion;
+            cpy.Export_ClipTimeOffset = Export_ClipTimeOffset;
 
             cpy.ElasticnesSettings = new ADClipSettings_Elasticness.ElasticnessSet();
             cpy.ElasticnesSettings.Enabled = to.ElasticnesSettings.Enabled;
@@ -120,6 +136,7 @@ namespace FIMSpace.AnimationTools
             return Mathf.Ceil(frame);
         }
 
+
         internal int GetClipFramesCount(bool useDurMult = true)
         {
             return Mathf.RoundToInt(SettingsForClip.frameRate * (SettingsForClip.length * (useDurMult ? ClipDurationMultiplier : 1f)));
@@ -150,12 +167,17 @@ namespace FIMSpace.AnimationTools
 
 
         public float ClipDurationMultiplier = 1f;
+
         public AnimationCurve ClipSampleTimeCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 1f);
+        public AnimationCurve ClipEvaluateTimeCurve = AnimationCurve.Linear(0f, 0f, 1f, 1f);
+
         public bool ClipTimeReverse = false;
         public float ClipTrimFirstFrames = 0f;
         public float ClipTrimLastFrames = 0f;
         public bool ResetRootPosition = false;
         public int AdditionalAnimationCycles = 0;
+
+        public bool _GUI_DrawAdvanvedTime = false;
 
         public void OnConstructed(AnimationClip clip, int hash)
         {
@@ -350,6 +372,8 @@ namespace FIMSpace.AnimationTools
             UpdateHipsElasticMotion(elasticDt);
             frameAccumulatedHipsOffset = Vector3.zero;
         }
+
+
 
         internal void LateUpdateAfterAllSimulation()
         {

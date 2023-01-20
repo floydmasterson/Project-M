@@ -17,7 +17,6 @@ namespace FIMSpace.AnimationTools
         public void CheckForIKInitialization(AnimationDesignerSave save, ADClipSettings_IK.IKSet ikSet, ADClipSettings_Main main, float progr, float dt, float boneBlend, bool reInitialize)
         {
             ikError = false;
-
             ikSet.RefreshMod(save, main);
 
             for (int i = 0; i < Bones.Count; i++)

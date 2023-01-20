@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 5b2570d0bed3e074cb1ffa16e1f35e50, type: 3}
   ItemName: Paladins Wall
   ItemTier: 3
+  cost: 665
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

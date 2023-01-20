@@ -346,14 +346,10 @@ namespace FIMSpace.AnimationTools
 
         void _Update_IKCategory()
         {
-
             IK_UpdateTooltips();
-
         }
 
         #endregion
-
-
 
 
         #region Tip Field
@@ -415,8 +411,6 @@ namespace FIMSpace.AnimationTools
         }
 
         #endregion
-
-
 
     }
 

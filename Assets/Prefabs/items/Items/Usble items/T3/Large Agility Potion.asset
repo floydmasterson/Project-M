@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 9ee2b17f70242f245b1cb9a8f073635e, type: 3}
   ItemName: Icarus Potion
   ItemTier: 3
+  cost: 50
   MaximumStacks: 5
   IsConsumable: 1
   Notes: 

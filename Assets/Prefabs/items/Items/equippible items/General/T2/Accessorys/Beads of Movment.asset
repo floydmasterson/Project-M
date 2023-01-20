@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 207cd7d1fe6b50347bf04a078dcf29a3, type: 3}
   ItemName: Beads of Movment
   ItemTier: 2
+  cost: 275
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

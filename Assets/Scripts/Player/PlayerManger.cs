@@ -174,6 +174,8 @@ public class PlayerManger : MonoBehaviourPun
     [HideInInspector]
     public bool inChest = false;
     Character character;
+    [HideInInspector]
+    public ShopController shop;
 
     bool escapeMenuOpen;
     const string gamepadScheme = "Controller";
@@ -326,6 +328,7 @@ public class PlayerManger : MonoBehaviourPun
         else
         {
             cineCamera.Priority = 0;
+            lockCamera.Priority = 0;
         }
 
     }
@@ -505,27 +508,46 @@ public class PlayerManger : MonoBehaviourPun
             playerInput.SwitchCurrentActionMap("Player");
             CursorToggle(false);
         }
+        else if(shop != null && !shop.isOpen) 
+        {
+            UpdateMoving(false);
+            UpdateRun(false);
+            onInventoryOpen();
+            shop.Open(character);
+            playerInput.SwitchCurrentActionMap("Container");
+            CursorToggle(true);
+        }
+        else if(shop != null && shop.isOpen)
+        {
+            shop.Close(character);
+            onInventoryClose();
+            playerInput.SwitchCurrentActionMap("Player");
+            CursorToggle(false);
+        }
     }
     public void Menu(InputAction.CallbackContext context)
     {
-        if (!context.started)
-            return;
-        if (!escapeMenuOpen)
+        if (photonView.IsMine)
         {
-            if (escapeMenu != null)
-                escapeMenu();
-            CursorToggle(true);
-            escapeMenuOpen = true;
+            if (!context.started)
+                return;
+            if (!escapeMenuOpen)
+            {
+                if (escapeMenu != null)
+                    escapeMenu();
+                CursorToggle(true);
+                escapeMenuOpen = true;
 
 
-        }
-        else if (escapeMenuOpen)
-        {
-            if (escapeMenu != null)
-                escapeMenu();
-            escapeMenuOpen = false;
-            CursorToggle(false);
+            }
+            else if (escapeMenuOpen)
+            {
+                if (escapeMenu != null)
+                    escapeMenu();
+                escapeMenuOpen = false;
+                CursorToggle(false);
 
+            }
         }
 
     }
@@ -767,18 +789,21 @@ public class PlayerManger : MonoBehaviourPun
 
     private void ForwardCamLock(bool state)
     {
-        if (state == true)
+        if (photonView.IsMine)
         {
-            locked = true;
-            cineCamera.Priority = 0;
-            lockCamera.Priority = 10;
+            if (state == true)
+            {
+                locked = true;
+                cineCamera.Priority = 1;
+                lockCamera.Priority = 10;
 
-        }
-        else if (state == false)
-        {
-            locked = false;
-            cineCamera.Priority = 10;
-            lockCamera.Priority = 0;
+            }
+            else if (state == false)
+            {
+                locked = false;
+                cineCamera.Priority = 10;
+                lockCamera.Priority = 1;
+            }
         }
     }
     [PunRPC]

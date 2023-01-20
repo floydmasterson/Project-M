@@ -142,11 +142,11 @@ namespace FIMSpace.AnimationTools
             EditorGUILayout.BeginHorizontal();
             EditorGUIUtility.labelWidth = 50;
             AnimationBlend = EditorGUILayout.Slider(new GUIContent("Blend:", "Blending whole additional motion applied to limb.\nWhen 0 then limb is not affected at all\nWhen 1 then all limb motion is applied to the baked animation"), AnimationBlend, 0f, 1f);
-            //LimbEffectsBlend = EditorGUILayout.Slider(new GUIContent("Effects Blend:", "Blending procedural motion effects applied to the limb like elasticness"), LimbEffectsBlend, 0f, 1f);
+            //LimbEffectsBlend = EditorGUILayout.Slider(new GUIContent("Effects Blend:", "Blending procedural motion effects applied to the limb like Elasticity"), LimbEffectsBlend, 0f, 1f);
 
             GUILayout.Space(6);
             EditorGUIUtility.labelWidth = 40;
-            ExecuteFirst = EditorGUILayout.Toggle(new GUIContent("First:", "If you want this limb to be executed before other limbs to put different influence - it should be turned on on spine limb but not on the arm limbs to put elasticness effect of spine on the arms"), ExecuteFirst, GUILayout.Width(58));
+            ExecuteFirst = EditorGUILayout.Toggle(new GUIContent("First:", "If you want this limb to be executed before other limbs to put different influence - it should be turned on on spine limb but not on the arm limbs to put Elasticity effect of spine on the arms"), ExecuteFirst, GUILayout.Width(58));
 
 
             GUILayout.Space(6);

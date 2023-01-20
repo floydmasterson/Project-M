@@ -51,6 +51,7 @@ namespace FIMSpace.AnimationTools
 
             for (int i = 0; i < Bones.Count; i++)
             {
+                if (Bones[i].MotionMuscle == null) { _playError = true; break; }
                 Bones[i].MotionMuscle.CaptureSourceAnimation();
             }
         }

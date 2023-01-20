@@ -112,9 +112,19 @@ public class ProjectMCommands : CommandBehaviour
         else
             Debug.LogWarning("Local Player is not set. Try setup");
     }
-    #endregion
-    #region Spawn Things
     [Command]
+    private void tp_to_shop()
+    {
+        if (localPlayer != null)
+        {
+            localPlayer.transform.position = new Vector3(-66, 0, 28);
+        }
+        else
+            Debug.LogWarning("Local Player is not set. Try setup");
+    }
+        #endregion
+        #region Spawn Things
+        [Command]
     private void spawn_chest(string chesttier)
     {
         if (localPlayer != null)

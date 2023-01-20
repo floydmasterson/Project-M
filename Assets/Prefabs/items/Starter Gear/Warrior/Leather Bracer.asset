@@ -19,11 +19,12 @@ MonoBehaviour:
   IsConsumable: 0
   Notes: 
   id: d7dd9d1482473654097dcfe5b9eaf1bd
-  StrengthBonus: 1
+  cost: 0
+  StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 0
   VitalityBonus: 0
-  StrengthPercentBonus: 0
+  StrengthPercentBonus: 0.02
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0

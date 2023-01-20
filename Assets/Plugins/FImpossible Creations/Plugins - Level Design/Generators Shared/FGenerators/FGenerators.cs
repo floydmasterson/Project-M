@@ -70,6 +70,19 @@ namespace FIMSpace.Generating
             return !CheckIfIsNull(o);
         }
 
+
+        public static bool IsChildOf(Transform child, Transform rootParent)
+        {
+            Transform tParent = child;
+            while (tParent != null && tParent != rootParent)
+            {
+                tParent = tParent.parent;
+            }
+
+            if (tParent == null) return false; else return true;
+        }
+
+
         public static void DestroyObject(UnityEngine.Object obj)
         {
             if (obj == null) return;
@@ -155,9 +168,48 @@ namespace FIMSpace.Generating
             return (float)random.NextDouble();
         }
 
+        public static Vector2 SwampToBeRising(Vector2 minMax)
+        {
+            if (minMax.y < minMax.x)
+            {
+                float swapX = minMax.x;
+                minMax.x = minMax.y;
+                minMax.y = swapX;
+            }
+
+            return minMax;
+        }
+
+        /// <summary> Ensuring 'from' is lower value </summary>
+        public static float GetRandomSwap(float from, float to)
+        {
+            if ( from > to)
+            {
+                float swapTo = from;
+                from = to;
+                to = swapTo;
+            }
+
+            return GetRandom(from, to);
+        }
+
+        public static float GetRandom(float plusminus)
+        {
+            return GetRandom(-plusminus, plusminus);
+        }
+
         public static float GetRandom(float from, float to)
         {
             return from + (float)random.NextDouble() * (to - from);
+        }
+
+        public static Vector3 GetRandom(Vector3 plusMinusRangesPerAxis)
+        {
+            Vector3 p = plusMinusRangesPerAxis;
+            p.x = GetRandom(-p.x, p.x);
+            p.y = GetRandom(-p.y, p.y);
+            p.z = GetRandom(-p.z, p.z);
+            return p;
         }
 
         public static int GetRandom(int from, int to)
@@ -1318,7 +1370,7 @@ return 1f;
 
 
 
-        [HideInInspector] [SerializeField] protected Mesh _refMesh;
+        [HideInInspector][SerializeField] protected Mesh _refMesh;
         public Mesh GetMesh(bool refresh = false)
         {
             if (Prefab == null) return null;
@@ -1360,7 +1412,7 @@ return 1f;
         }
 
 
-        [HideInInspector] [SerializeField] protected Collider _refCol;
+        [HideInInspector][SerializeField] protected Collider _refCol;
         public Collider GetCollider()
         {
             if (Prefab == null) return null;

@@ -133,6 +133,12 @@ namespace FIMSpace.FEditor
             return clicked;
         }
 
+        public static void DrawUILineCommon(int padding = 6, int thickness = 1, float width = 0.975f)
+        {
+            DrawUILine(0.35f, 0.35f, thickness, padding, width);
+        }
+
+
         public static void DrawUILine(Color color, int thickness = 2, int padding = 10, float width = 1f)
         {
             Rect rect = EditorGUILayout.GetControlRect(GUILayout.Height(padding + thickness));

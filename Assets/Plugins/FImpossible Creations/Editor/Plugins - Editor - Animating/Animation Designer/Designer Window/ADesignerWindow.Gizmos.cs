@@ -64,9 +64,10 @@ namespace FIMSpace.AnimationTools
             {
                 case ECategory.Setup: _Gizmos_SetupCategory(); break;
                 case ECategory.IK: _Gizmos_IKCategory(); break;
-                case ECategory.Modificators: _Gizmos_ModsCategory(); break;
-                case ECategory.Elasticness: _Gizmos_ElasticnessCategory(); break;
+                case ECategory.Modifiers: _Gizmos_ModsCategory(); break;
+                case ECategory.Elasticity: _Gizmos_ElasticnessCategory(); break;
                 case ECategory.Morphing: _Gizmos_MorphingCategory(); break;
+                case ECategory.Custom: _Gizmos_ModulesCategory(); break;
             }
         }
 
@@ -76,21 +77,21 @@ namespace FIMSpace.AnimationTools
             {
                 case ECategory.Setup: return 0.15f;
                 case ECategory.IK: return 0.1f;
-                case ECategory.Modificators: return 0.1f;
-                case ECategory.Elasticness: return 0.06f;
+                case ECategory.Modifiers: return 0.1f;
+                case ECategory.Elasticity: return 0.06f;
                 case ECategory.Morphing: return 0.1f;
             }
 
             return 0.15f;
         }
 
-        public static void GUIDrawFloatPercentage(ref float value, GUIContent label)
+        public static void GUIDrawFloatPercentage(ref float value, GUIContent label, int extraLabelWidth = 3)
         {
             EditorGUILayout.BeginHorizontal();
 
             float width = EditorStyles.label.CalcSize(label).x;
 
-            EditorGUILayout.LabelField(label, GUILayout.Width(width + 2));
+            EditorGUILayout.LabelField(label, GUILayout.Width(width + extraLabelWidth));
 
             float sliderVal = GUILayout.HorizontalSlider(value, 0f, 1f/*, GUILayout.Width(140)*/);
             GUILayout.Space(4);
@@ -116,6 +117,50 @@ namespace FIMSpace.AnimationTools
             EditorGUILayout.LabelField(postFix, GUILayout.Width(26));
             EditorGUILayout.EndHorizontal();
         }
+
+
+
+        public static void DrawBoneHandle(Vector3 from, Vector3 to, Vector3 forward, float fatness = 1f, float AA = 0f)
+        {
+            Vector3 dir = (to - from);
+            float ratio = dir.magnitude / 7f; ratio *= fatness;
+            float baseRatio = ratio * 0.75f;
+            Quaternion rot = (dir == Vector3.zero ? rot = Quaternion.identity : rot = Quaternion.LookRotation(dir, forward));
+            dir.Normalize();
+            Handles.DrawLine(from, to);
+
+            Vector3 p = from + dir * baseRatio;
+
+            if (AA > 0f)
+            {
+                Handles.DrawAAPolyLine(AA, to, p + rot * Vector3.right * ratio);
+                Handles.DrawAAPolyLine(AA, from, p + rot * Vector3.right * ratio);
+                Handles.DrawAAPolyLine(AA, to, p - rot * Vector3.right * ratio);
+                Handles.DrawAAPolyLine(AA, from, p - rot * Vector3.right * ratio);
+            }
+            else
+            {
+                Handles.DrawLine(to, p + rot * Vector3.right * ratio);
+                Handles.DrawLine(from, p + rot * Vector3.right * ratio);
+                Handles.DrawLine(to, p - rot * Vector3.right * ratio);
+                Handles.DrawLine(from, p - rot * Vector3.right * ratio);
+            }
+        }
+
+        public static void DrawBoneHandle(Vector3 from, Vector3 to, float fatness = 1f, bool faceCamera = false, float AA = 0f)
+        {
+            Vector3 forw = (to - from).normalized;
+
+            if (faceCamera)
+            {
+                if (SceneView.lastActiveSceneView != null)
+                    if (SceneView.lastActiveSceneView.camera)
+                        forw = (to - SceneView.lastActiveSceneView.camera.transform.position).normalized;
+            }
+
+            DrawBoneHandle(from, to, forw, fatness, AA);
+        }
+
 
     }
 }

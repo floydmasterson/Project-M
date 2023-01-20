@@ -38,7 +38,7 @@ namespace FIMSpace.AnimationTools
 
             GUILayout.Space(3);
             EditorGUILayout.BeginHorizontal();
-            if (DrawTargetClipField(FGUI_Resources.GetFoldSimbol(drawAllModsEval, true) + "  Bone Modificators For:", true)) drawAllModsEval = !drawAllModsEval;
+            if (DrawTargetClipField(FGUI_Resources.GetFoldSimbol(drawAllModsEval, true) + "  Bone Modifiers For:", true)) drawAllModsEval = !drawAllModsEval;
             //DrawTargetClipField("Bone Modificators For:", true);
 
 
@@ -54,7 +54,7 @@ namespace FIMSpace.AnimationTools
             }
 
             if (ADClipSettings_Modificators.CopyingFrom == modSet) GUI.backgroundColor = new Color(0.6f, 1f, 0.6f, 1f);
-            if (GUILayout.Button(new GUIContent(EditorGUIUtility.IconContent("TreeEditor.Duplicate").image, "Copy elasticness parameters values below to paste them into other limb"), FGUI_Resources.ButtonStyle, GUILayout.Width(22), GUILayout.Height(19)))
+            if (GUILayout.Button(new GUIContent(EditorGUIUtility.IconContent("TreeEditor.Duplicate").image, "Copy Elasticity parameters values below to paste them into other limb"), FGUI_Resources.ButtonStyle, GUILayout.Width(22), GUILayout.Height(19)))
             {
                 ADClipSettings_Modificators.CopyingFrom = modSet;
             }
@@ -71,7 +71,7 @@ namespace FIMSpace.AnimationTools
 
 
             GUILayout.Space(4);
-            AnimationDesignerWindow.GUIDrawFloatPercentage(ref modSet.AllModificatorsBlend, new GUIContent("All Modificators Blend:  "));
+            AnimationDesignerWindow.GUIDrawFloatPercentage(ref modSet.AllModificatorsBlend, new GUIContent("All Modifiers Blend:  "));
             FGUI_Inspector.DrawUILine(0.3f, 0.5f, 1, 14, 0.975f);
 
             #region Adding Modificator
@@ -137,7 +137,7 @@ namespace FIMSpace.AnimationTools
 
             if (modSet.BonesModificators.Count == 0)
             {
-                EditorGUILayout.HelpBox("No Bones Modificators in '" + TargetClip.name + "' animation clip yet!", MessageType.Info);
+                EditorGUILayout.HelpBox("No Bones Modifiers in '" + TargetClip.name + "' animation clip yet!", MessageType.Info);
             }
             else
             {
@@ -210,8 +210,8 @@ namespace FIMSpace.AnimationTools
 
                         }
 
-                        mod.DrawTopGUI(animationProgress, _anim_MainSet, _sel_mod_index);
-                        mod.DrawParamsGUI(animationProgress, S);
+                        mod.DrawTopGUI(animationProgressForEval, _anim_MainSet, _sel_mod_index);
+                        mod.DrawParamsGUI(animationProgressForEval, S);
                     }
 
                     EndUndoCheck();
@@ -238,13 +238,14 @@ namespace FIMSpace.AnimationTools
 
             if (sectionFocusMode)
             {
-                if (AnimationDesignerWindow.Get)
+                if (Get)
                 {
                     GUILayout.Space(3);
                     EditorGUILayout.BeginHorizontal();
-                    AnimationDesignerWindow.Get.DrawPlaybackButton();
+                    DrawPlaybackStopButton();
+                    DrawPlaybackButton();
                     GUILayout.Space(5);
-                    AnimationDesignerWindow.Get.DrawPlaybackTimeSlider();
+                    DrawPlaybackTimeSlider();
                     EditorGUILayout.EndHorizontal();
                     GUILayout.Space(5);
                 }

@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 5f50f2a4a34f3ea4db65daf9352cef36, type: 3}
   ItemName: Primal Rage Potion
   ItemTier: 3
+  cost: 50
   MaximumStacks: 5
   IsConsumable: 1
   Notes: 

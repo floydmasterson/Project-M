@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: d1bfbf307ee1b514c85e54271aab1822, type: 3}
   ItemName: Renegade Gloves
   ItemTier: 2
+  cost: 330
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

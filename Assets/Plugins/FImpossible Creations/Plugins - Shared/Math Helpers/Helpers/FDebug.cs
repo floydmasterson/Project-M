@@ -54,8 +54,21 @@ namespace FIMSpace
         public static void EndMeasureAndLog(string v)
         {
             _debugWatch.Stop();
+            _LastMeasureMilliseconds = _debugWatch.ElapsedMilliseconds;
+            _LastMeasureTicks = _debugWatch.ElapsedTicks;
             UnityEngine.Debug.Log("Measure " + v + ": " + _debugWatch.ElapsedTicks + " ticks   " + _debugWatch.ElapsedMilliseconds + "ms");
         }
+
+        public static long EndMeasureAndGetTicks()
+        {
+            _debugWatch.Stop();
+            _LastMeasureMilliseconds = _debugWatch.ElapsedMilliseconds;
+            _LastMeasureTicks = _debugWatch.ElapsedTicks;
+            return _debugWatch.ElapsedTicks;
+        }
+
+        public static long _LastMeasureMilliseconds = 0;
+        public static long _LastMeasureTicks = 0;
 
         /// <summary>
         /// Rich text marker for color
@@ -87,32 +100,34 @@ namespace FIMSpace
             Debug.DrawLine(fl1, fr1, c, duration);
         }
 
-        public static void DrawBounds3D(this Bounds b, Color c, float scale = 1f)
+        public static void DrawBounds3D(this Bounds b, Color c, float scale = 1f, float time = 1.01f)
         {
             Vector3 fr1 = new Vector3(b.max.x, b.min.y, b.max.z) * scale;
             Vector3 br1 = new Vector3(b.max.x, b.min.y, b.min.z) * scale;
             Vector3 bl1 = new Vector3(b.min.x, b.min.y, b.min.z) * scale;
             Vector3 fl1 = new Vector3(b.min.x, b.min.y, b.max.z) * scale;
-            Debug.DrawLine(fr1, br1, c, 1.1f);
-            Debug.DrawLine(br1, bl1, c, 1.1f);
-            Debug.DrawLine(br1, bl1, c, 1.1f);
-            Debug.DrawLine(bl1, fl1, c, 1.1f);
-            Debug.DrawLine(fl1, fr1, c, 1.1f);
+            Debug.DrawLine(fr1, br1, c, time);
+            Debug.DrawLine(br1, bl1, c, time);
+            Debug.DrawLine(br1, bl1, c, time);
+            Debug.DrawLine(bl1, fl1, c, time);
+            Debug.DrawLine(fl1, fr1, c, time);
 
             Vector3 fr = new Vector3(b.max.x, b.max.y, b.max.z) * scale;
             Vector3 br = new Vector3(b.max.x, b.max.y, b.min.z) * scale;
             Vector3 bl = new Vector3(b.min.x, b.max.y, b.min.z) * scale;
             Vector3 fl = new Vector3(b.min.x, b.max.y, b.max.z) * scale;
-            Debug.DrawLine(fr, br, c, 1.1f);
-            Debug.DrawLine(br, bl, c, 1.1f);
-            Debug.DrawLine(br, bl, c, 1.1f);
-            Debug.DrawLine(bl, fl, c, 1.1f);
-            Debug.DrawLine(fl, fr, c, 1.1f);
+            Debug.DrawLine(fr, br, c, time);
+            Debug.DrawLine(br, bl, c, time);
+            Debug.DrawLine(br, bl, c, time);
+            Debug.DrawLine(bl, fl, c, time);
+            Debug.DrawLine(fl, fr, c, time);
 
-            Debug.DrawLine(fr1, fr1, c, 1.1f);
-            Debug.DrawLine(br, br1, c, 1.1f);
-            Debug.DrawLine(bl1, bl, c, 1.1f);
-            Debug.DrawLine(fl1, fl, c, 1.1f);
+            Debug.DrawLine(fr1, fr1, c,time);
+            Debug.DrawLine(br, br1, c, time);
+            Debug.DrawLine(bl1, bl, c, time);
+            Debug.DrawLine(fl1, fl, c, time);
         }
+
+
     }
 }

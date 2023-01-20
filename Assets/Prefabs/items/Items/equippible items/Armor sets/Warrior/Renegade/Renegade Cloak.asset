@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: a1a6386b95ea06848aa60e460a6a2c13, type: 3}
   ItemName: Renegade Cloak
   ItemTier: 2
+  cost: 370
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

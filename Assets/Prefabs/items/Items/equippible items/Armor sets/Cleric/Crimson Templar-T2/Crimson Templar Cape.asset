@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 6fae972dfbead37429511642fd1b7113, type: 3}
   ItemName: Crimson Templar Cape
   ItemTier: 2
+  cost: 400
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

@@ -73,7 +73,7 @@ namespace FIMSpace.AnimationTools
 
                 //BonesModificators[i].ModificatorPreLateUpdate(dt);
 
-                if (b.UpdateOrder != ModificatorSet.EOrder.InheritElasticness) continue;
+                if (b.UpdateOrder != ModificatorSet.EOrder.InheritElasticity) continue;
                 BonesModificators[i].ModificatorLateUpdateSimulation(dt, progr, this, save, _anim_MainSet);
             }
         }
@@ -282,10 +282,18 @@ namespace FIMSpace.AnimationTools
 
                             if (alignTo != null) if (AlignToBlend > 0f) target = Vector3.Lerp(target, alignTo.position, AlignToBlend);
 
+                            Quaternion newRot;
                             Vector3 toTarget = target - RotationBone.transform.position;
-                            Vector2 lookAngles = RotationBone.GetCustomLookAngles(toTarget, RotationBone);
 
-                            Quaternion newRot = RotationBone.RotateCustomAxis(lookAngles.x, lookAngles.y, RotationBone) * RotationBone.transform.rotation;
+                            if (ModeSwitcher == 0)
+                            {
+                                Vector2 lookAngles = RotationBone.GetCustomLookAngles(toTarget, RotationBone);
+                                newRot = RotationBone.RotateCustomAxis(lookAngles.x, lookAngles.y, RotationBone) * RotationBone.transform.rotation;
+                            }
+                            else 
+                            {
+                                newRot = RotationBone.RotationTowards(toTarget);
+                            }
 
                             if (blendC == 1f) T.rotation = newRot;
                             else T.rotation = Quaternion.LerpUnclamped(T.rotation, newRot, blendC);

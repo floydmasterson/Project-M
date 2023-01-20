@@ -46,14 +46,17 @@ public class PlayerUi : MonoBehaviourPun
     public GameObject Minimap;
     [TabGroup("MiniMap")]
     public Canvas UiCanvas;
-    [TabGroup("Escape Menu"), SerializeField]
+    [TabGroup("Escape Menu"), SerializeField, Required]
     EscapeMenu escapeMenu;
+    [TabGroup("Escape Menu"), SerializeField, Required]
+    sensitivityControler[] controllers;
     [HideInInspector]
     public PlayerInput playerInput;
     int quickAmount;
     private MagicController MagicController;
     private MeeleController MeleeController;
     public static PlayerUi Instance;
+    [Tooltip("Set at runtime")]
     public PlayerManger target;
     public delegate void TargetSet();
     public static event TargetSet OnTargetSet;
@@ -281,8 +284,7 @@ public class PlayerUi : MonoBehaviourPun
         targetTransform = this.target.GetComponent<Transform>();
         targetRenderer = this.target.GetComponentInChildren<Renderer>();
         playerInput = target.GetComponent<PlayerInput>();
-        sensitivityControler[] sens = gameObject.GetComponentsInChildren<sensitivityControler>();
-        foreach (sensitivityControler controler in sens)
+        foreach (sensitivityControler controler in controllers)
         {
             controler.playerInput = playerInput;
         }

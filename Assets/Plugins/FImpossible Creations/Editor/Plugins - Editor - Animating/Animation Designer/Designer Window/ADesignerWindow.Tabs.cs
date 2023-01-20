@@ -12,7 +12,7 @@ namespace FIMSpace.AnimationTools
     {
         public static bool debugLogs = false;
         bool debugTabFoldout = false;
-        public enum ECategory { Setup, Elasticness, Modificators, IK, Morphing, Springs }
+        public enum ECategory { Setup, Elasticity, Modifiers, IK, Morphing, Custom }
         public ECategory Category = ECategory.Setup;
 
         #region Fitting Save Check
@@ -36,7 +36,7 @@ namespace FIMSpace.AnimationTools
         #endregion
 
         GUIContent _undoTex = null;
-
+        
         void DisplaySaveHeaderTab()
         {
             if (latestAnimator == null) return;
@@ -98,7 +98,7 @@ namespace FIMSpace.AnimationTools
             if (BaseDirectory)
             {
 
-                if (GUILayout.Button(new GUIContent(FGUI_Resources.Tex_DownFold, "Display quick selection menu for FieldSetups contained in the drafts directory"), EditorStyles.label, GUILayout.Width(16), GUILayout.Height(16)))
+                if (GUILayout.Button(new GUIContent(FGUI_Resources.Tex_DownFold, "Display quick selection menu for AnimationDesigner Saves contained in the target directory"), EditorStyles.label, GUILayout.Width(16), GUILayout.Height(16)))
                 {
                     CheckDraftsFoldersForFileCount(true);
 
@@ -115,7 +115,7 @@ namespace FIMSpace.AnimationTools
 
                             if (fs)
                             {
-                                draftsMenu.AddItem(new GUIContent(fs.name), ProjectFileSave == fs, () => { _toSet_ProjectFileSave = fs; });
+                                draftsMenu.AddItem(new GUIContent(fs.name), ProjectFileSave == fs, () => { _toSet_ProjectFileSave = fs;  });
                             }
                         }
 
@@ -296,6 +296,11 @@ namespace FIMSpace.AnimationTools
         }
 
 
+        public void DrawPlaybackStopButton()
+        {
+            if (GUILayout.Button(new GUIContent(Tex_Stop), EditorStyles.label, GUILayout.Width(22), GUILayout.Height(20))) { playPreview = false; animationElapsed = 0f; SampleCurrentAnimation(); }
+        }
+
         public void DrawPlaybackButton()
         {
             if (playPreview) GUI.color = Color.gray;
@@ -406,7 +411,7 @@ namespace FIMSpace.AnimationTools
         public void DrawPlaybackPanel()
         {
             EditorGUILayout.BeginHorizontal();
-            if (GUILayout.Button(new GUIContent(Tex_Stop), EditorStyles.label, GUILayout.Width(22), GUILayout.Height(20))) { playPreview = false; animationElapsed = 0f; SampleCurrentAnimation(); }
+            DrawPlaybackStopButton();
             DrawPlaybackButton();
             GUILayout.Space(6);
             DrawPlaybackSpeedSlider();
@@ -477,6 +482,15 @@ namespace FIMSpace.AnimationTools
                         {
                             var clp = clips[i];
                             clipsMenu.AddItem(new GUIContent(clp.name), TargetClip == clp, () => { TargetClip = clp; });
+                        }
+
+                        if (TargetClip != null)
+                        {
+                            clipsMenu.AddItem(new GUIContent(""), false, () => { });
+                            clipsMenu.AddItem(new GUIContent(""), false, () => { });
+                            clipsMenu.AddItem(new GUIContent(""), false, () => { });
+                            AnimationClip toRemove = TargetClip;
+                            clipsMenu.AddItem(new GUIContent("REMOVE Designer Save Data for '" + TargetClip.name + "'"), false, () => {  TargetClip = null; ProjectFileSave.RemoveSaveDataForClip(toRemove); });
                         }
 
                         clipsMenu.ShowAsContext();
@@ -801,10 +815,11 @@ namespace FIMSpace.AnimationTools
                     {
                         case ECategory.Setup: DrawSetupTab(); break;
                         case ECategory.IK: DrawIKTab(); break;
-                        case ECategory.Modificators: DrawModificatorsTab(); break;
-                        case ECategory.Springs: DrawSpringsTab(); break;
-                        case ECategory.Elasticness: DrawElasticnessTab(); break;
+                        case ECategory.Modifiers: DrawModificatorsTab(); break;
+                        //case ECategory.Springs: DrawSpringsTab(); break;
+                        case ECategory.Elasticity: DrawElasticnessTab(); break;
                         case ECategory.Morphing: DrawMorphingTab(); break;
+                        case ECategory.Custom: DrawCustomModulesTab(); break;
                     }
                 }
             }
@@ -846,6 +861,9 @@ namespace FIMSpace.AnimationTools
         public static Texture2D Tex_Pixel { get { if (__texpixl != null) return __texpixl; __texpixl = new Texture2D(1, 1); __texpixl.SetPixel(0, 0, Color.white); __texpixl.Apply(false, true); return __texpixl; } }
         private static Texture2D __texpixl = null;
 
+        public static Texture2D Tex_CModules { get { if (__texCMods != null) return __texCMods; __texCMods = Resources.Load<Texture2D>("AnimationDesigner/ADModuleIcon"); return __texCMods; } }
+        private static Texture2D __texCMods = null;
+
         private void DrawCategorySelector(ref ECategory categoryVar)
         {
             EditorGUILayout.BeginHorizontal();
@@ -854,11 +872,12 @@ namespace FIMSpace.AnimationTools
 
             StartUndoCheckFor(this, ": Category");
             DrawSectionSelButton(ref Category, ECategory.Setup, FGUI_Resources.Tex_GearSetup, height);
-            DrawSectionSelButton(ref Category, ECategory.Elasticness, Tex_Elastic, height);
-            DrawSectionSelButton(ref Category, ECategory.Modificators, FGUI_Resources.Tex_Limits, height);
+            DrawSectionSelButton(ref Category, ECategory.Elasticity, Tex_Elastic, height);
+            DrawSectionSelButton(ref Category, ECategory.Modifiers, FGUI_Resources.Tex_Limits, height);
             DrawSectionSelButton(ref Category, ECategory.IK, Tex_IK, height);
             //DrawSectionSelButton(ref Category, ECategory.Springs, Tex_Hips, height);
             DrawSectionSelButton(ref Category, ECategory.Morphing, FGUI_Resources.TexBehaviourIcon, height);
+            DrawSectionSelButton(ref Category, ECategory.Custom, Tex_CModules, height, 32);
             GUI.color = preGuiC;
             EndUndoCheckFor(this);
 
@@ -867,32 +886,39 @@ namespace FIMSpace.AnimationTools
 
             #region Selection Helper Guide
 
-            float animVal = 0f;
-            if (!sectionFocusMode) animVal = timeSin01;
+            if ((int)Category < 5)
+            {
+                float animVal = 0f;
+                if (!sectionFocusMode) animVal = timeSin01;
 
-            Rect preR = GUILayoutUtility.GetLastRect();
-            float startWdth = preR.width;
-            float startPx = preR.position.x;
-            float elWdth = (startWdth / 5f);
-            preR.position += new Vector2(0, preR.height + 1);
-            preR.height = 3;
-            preR.width = elWdth * 0.5f;
-            float barWdth = preR.width;
-            preR.position = new Vector2(startPx * 1.0f + elWdth * (float)((int)Category) + elWdth * 0.5f - barWdth * 0.5f, preR.position.y);
+                Rect preR = GUILayoutUtility.GetLastRect();
+                float startWdth = preR.width - 32f;
+                float startPx = preR.position.x;
+                float elWdth = (startWdth / 5f); // 5 but Custom modules button is shorter
+                preR.position += new Vector2(0, preR.height + 1);
+                preR.height = 3;
+                preR.width = elWdth * 0.5f;
+                float barWdth = preR.width - 32f; // 32 is custom modules button width
+                preR.position = new Vector2(startPx * 1.0f + elWdth * (float)((int)Category) + elWdth * 0.5f - barWdth * 0.5f - 16f, preR.position.y);
 
-            GUI.color = new Color(0.3f, 0.85f, 0.3f, 0.4f - animVal * 0.2f);
-            GUI.DrawTexture(preR, Tex_Blank);
-            GUI.color = preGuiC;
+                GUI.color = new Color(0.3f, 0.85f, 0.3f, 0.4f - animVal * 0.2f);
+                GUI.DrawTexture(preR, Tex_Blank);
+                GUI.color = preGuiC;
+            }
 
             #endregion
 
         }
 
-        void DrawSectionSelButton(ref ECategory cat, ECategory target, Texture icon, int height)
+        void DrawSectionSelButton(ref ECategory cat, ECategory target, Texture icon, int height, int overrideWidth = 0)
         {
             if (cat == target) GUI.backgroundColor = Color.green;
 
-            if (GUILayout.Button(new GUIContent(icon, target.ToString()), FGUI_Resources.ButtonStyle, GUILayout.Height(height)))
+            GUILayoutOption opt2 = null;
+            if (overrideWidth > 0) opt2 = GUILayout.Width(overrideWidth);
+            else opt2 = GUILayout.MinWidth(32);
+
+            if (GUILayout.Button(new GUIContent(icon, target.ToString()), FGUI_Resources.ButtonStyle, GUILayout.Height(height), opt2))
             {
                 if (target == ECategory.Setup)
                 {
@@ -1263,6 +1289,22 @@ namespace FIMSpace.AnimationTools
             }
         }
 
+
+
+        void DrawRootBoneField()
+        {
+            EditorGUILayout.BeginHorizontal();
+            Transform skelRoot = (Transform)EditorGUILayout.ObjectField(new GUIContent("Skeleton Root"), S.Armature.RootBoneReference.TempTransform, typeof(Transform), true);
+            if (skelRoot != S.SkelRootBone) { S.Armature.SetRootBoneRef(skelRoot); S._SetDirty(); }
+
+            GUI.color = preGuiC;
+            if (S.SkelRootBone == latestAnimator) GUILayout.Label(new GUIContent(FGUI_Resources.Tex_Warning, "Skeleton root is same as animator transform, it probably will produce glitches!"), GUILayout.Width(16));
+
+            EditorGUILayout.EndHorizontal();
+        }
+
+
+
         void DrawBaseToolsTab()
         {
             if (S.Armature.BonesSetup.Count == 0)
@@ -1286,6 +1328,9 @@ namespace FIMSpace.AnimationTools
                     GUI.backgroundColor = Color.green;
                     DrawRefreshArmatureStartDesignButton(); // if (GUILayout.Button(new GUIContent("     Refresh Armature Bone References\n   Start Design", Tex_AD), GUILayout.Height(40))) { S.GatherBones(); repaintRequest = true; }
                     GUI.backgroundColor = preBG;
+
+                    //DrawRootBoneField();
+                    //for (int i = 0; i < S.Armature.BonesSetup.Count; i++) EditorGUILayout.LabelField("[" + i + "] " + S.Armature.BonesSetup[i].BoneName);
                 }
             }
 

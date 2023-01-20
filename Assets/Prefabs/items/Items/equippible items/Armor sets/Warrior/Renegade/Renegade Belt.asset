@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 1e178579d91f1a54cbe25f5cbd8e0ec3, type: 3}
   ItemName: Renegade Belt
   ItemTier: 2
+  cost: 330
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

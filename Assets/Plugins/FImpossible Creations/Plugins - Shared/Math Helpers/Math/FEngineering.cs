@@ -169,10 +169,10 @@ namespace FIMSpace
         { return new Vector3(UnwrapAngle(angles.x), UnwrapAngle(angles.y), UnwrapAngle(angles.z)); }
 
 
-#endregion
+        #endregion
 
 
-#region Animation Related
+        #region Animation Related
 
 
         public static Quaternion SmoothDampRotation(this Quaternion current, Quaternion target, ref Quaternion velocityRef, float duration, float delta)
@@ -205,11 +205,11 @@ namespace FIMSpace
         }
 
 
-#endregion
+        #endregion
 
 
 
-#region Helper Maths
+        #region Helper Maths
 
 
         public static bool SameDirection(this float a, float b)
@@ -237,11 +237,11 @@ namespace FIMSpace
         }
 
 
-#endregion
+        #endregion
 
 
 
-#region Matrixes
+        #region Matrixes
 
 
         /// <summary>
@@ -292,6 +292,28 @@ namespace FIMSpace
             );
         }
 
+        public static Bounds TransformBounding(Bounds b, Transform by)
+        {
+            return TransformBounding(b, by.localToWorldMatrix);
+        }
+
+        public static Bounds TransformBounding(Bounds b, Matrix4x4 mx)
+        {
+            Vector3 min = mx.MultiplyPoint(b.min);
+            Vector3 max = mx.MultiplyPoint(b.max);
+
+            Vector3 minB = mx.MultiplyPoint(new Vector3(b.max.x, b.center.y, b.min.z));
+            Vector3 maxB = mx.MultiplyPoint(new Vector3(b.min.x, b.center.y, b.max.z));
+
+            b = new Bounds(min, Vector3.zero);
+
+            b.Encapsulate(min);
+            b.Encapsulate(max);
+            b.Encapsulate(minB);
+            b.Encapsulate(maxB);
+
+            return b;
+        }
 
 #if UNITY_2018_4_OR_NEWER
         public static Bounds RotateBoundsByMatrix(this Bounds b, Quaternion rotation)
@@ -366,7 +388,7 @@ namespace FIMSpace
 
 
 
-#endregion
+        #endregion
 
 
         public static int[] GetLayermaskValues(int mask, int optionsCount)
@@ -383,7 +405,20 @@ namespace FIMSpace
         }
 
 
-#region Physical Materials Stuff
+        #region Physical Materials Stuff
+
+
+        public static LayerMask GetLayerMaskUsingPhysicsProjectSettingsMatrix(int maskForLayer)
+        {
+            LayerMask layerMask = 0;
+
+            for (int i = 0; i < 32; i++)
+            {
+                if (!Physics.GetIgnoreLayerCollision(maskForLayer, i)) layerMask = layerMask | 1 << i;
+            }
+
+            return layerMask;
+        }
 
         public static PhysicMaterial PMSliding
         {
@@ -453,7 +488,7 @@ namespace FIMSpace
 
         private static PhysicsMaterial2D _frictMat2D;
 
-#endregion
+        #endregion
 
     }
 }

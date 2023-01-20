@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 1783761f3af063a44881552166944bfb, type: 3}
   ItemName: Cultist Pants
   ItemTier: 3
+  cost: 615
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

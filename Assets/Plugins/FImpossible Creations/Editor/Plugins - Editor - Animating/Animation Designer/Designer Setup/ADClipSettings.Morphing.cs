@@ -28,8 +28,14 @@ namespace FIMSpace.AnimationTools
         public void OnConstructed(AnimationClip clip, int hash) { settingsForClip = clip; setIdHash = hash; }
 
 
-
-        public void RefreshWithSetup(AnimationDesignerSave save) { }
+        public void RefreshWithSetup(ADClipSettings_Main main)
+        {
+            for (int i = 0; i < Morphs.Count; i++)
+            {
+                var morph = Morphs[i];
+                morph.Refresh(main);
+            }
+        }
 
 
         public ADClipSettings_Morphing Copy(ADClipSettings_Morphing to, AnimationDesignerSave save, bool noCopy)
@@ -89,14 +95,25 @@ namespace FIMSpace.AnimationTools
             public float TimeStretchMultiplier = 1;
             public float CycleOffset = 0f;
 
+            public bool UseClipTimeModify = true;
+            public AnimationCurve TimeEvaluation = AnimationCurve.Linear(0f, 0f, 1f, 1f);
+
             public enum EOrder
             {
-                InheritElasticness,
+                InheritElasticity,
                 OverrideModsAndIK,
             }
 
-            public EOrder UpdateOrder = EOrder.InheritElasticness;
+            public EOrder UpdateOrder = EOrder.InheritElasticity;
 
+
+            public MorphingSet()
+            {
+                Enabled = true;
+                Index = -1;
+                MorphName = "New Morph";
+                Blend = 1f;
+            }
 
             public MorphingSet(bool enabled = false, string id = "", int index = -1, float blend = 1f)
             {
@@ -114,14 +131,52 @@ namespace FIMSpace.AnimationTools
             private void SampleMorphAnimation(AnimationDesignerSave save)
             {
                 float morphClipTime = AnimationDesignerWindow.Get.GetMainClipAnimationSampleTime(null);
-                morphClipTime = (AnimationDesignerWindow.Get.GetAnimationProgressFromSampleTime(null, morphClipTime)) % 1f;
+                morphClipTime = (AnimationDesignerWindow.Get.GetAnimationProgressFromSampleTime(null, null)) % 1f;
                 morphClipTime *= TimeStretchMultiplier;
                 morphClipTime += CycleOffset;
                 if (morphClipTime < 0f) morphClipTime = 1f - (-morphClipTime);
                 morphClipTime = (morphClipTime * MorphWithClip.length) % MorphWithClip.length;
 
+                float maxClipTime = MorphWithClip.length;
+
+                if (UseClipTimeModify)
+                    if (MorphWithClip != null)
+                    {
+                        if (_latestMain != null)
+                        {
+                            if (_latestMain.ClipSampleTimeCurve != null)
+                                if (_latestMain.ClipSampleTimeCurve.keys.Length > 0)
+                                {
+                                    morphClipTime = Mathf.LerpUnclamped(0f, morphClipTime, _latestMain.ClipSampleTimeCurve.Evaluate(morphClipTime / MorphWithClip.length));
+                                }
+                        }
+                        else
+                        {
+                            UnityEngine.Debug.Log("[AD Error] Main Clip Setup is null - it shouldn't happen");
+                        }
+                    }
+
+                morphClipTime = AnimationDesignerWindow.Get.EnsureMorphClipTime(morphClipTime, MorphWithClip, this);
+
+
+                if (TimeEvaluation != null) if (TimeEvaluation.keys.Length > 1)
+                    {
+                        bool isDefault = false;
+
+                        if (TimeEvaluation.keys[0].time == 0f && TimeEvaluation.keys[0].value == 0f)
+                            if (TimeEvaluation.keys[1].time == 1f && TimeEvaluation.keys[1].value == 1f)
+                                if (TimeEvaluation.keys[0].inTangent == 1f && TimeEvaluation.keys[0].outTangent == 1f)
+                                    if (TimeEvaluation.keys[1].inTangent == 1f && TimeEvaluation.keys[1].outTangent == 1f)
+                                    {
+                                        isDefault = true;
+                                    }
+
+                        if (!isDefault)
+                            morphClipTime = TimeEvaluation.Evaluate(morphClipTime / maxClipTime) * maxClipTime;
+                    }
+
                 MorphWithClip.SampleAnimation(save.LatestAnimator.gameObject, morphClipTime);
-                AnimationDesignerWindow.Get.UpdateHumanoidIKPreview(MorphWithClip , morphClipTime);
+                AnimationDesignerWindow.Get.UpdateHumanoidIKPreview(MorphWithClip, morphClipTime);
             }
 
             void ValidateData(AnimationDesignerSave save)
@@ -317,6 +372,7 @@ namespace FIMSpace.AnimationTools
                 to.UpdateOrder = from.UpdateOrder;
                 to.TimeStretchMultiplier = from.TimeStretchMultiplier;
                 to.CycleOffset = from.CycleOffset;
+                to.UseClipTimeModify = from.UseClipTimeModify;
 
                 if (to.MorphWithClip == null) to.MorphWithClip = from.MorphWithClip;
 
@@ -339,6 +395,11 @@ namespace FIMSpace.AnimationTools
 
 
             private ADClipSettings_Main _latestMain = null;
+            public void Refresh(ADClipSettings_Main main)
+            {
+                _latestMain = main;
+            }
+
             internal void DrawTopGUI(float animProgr, ADClipSettings_Main main, int i)
             {
                 _latestMain = main;
@@ -406,7 +467,7 @@ namespace FIMSpace.AnimationTools
                     Foldown = !Foldown;
                 }
 
-                MorphName = EditorGUILayout.TextArea(MorphName);
+                MorphName = EditorGUILayout.TextField(MorphName);
                 GUILayout.Space(4);
 
 
@@ -508,8 +569,30 @@ namespace FIMSpace.AnimationTools
                     GUILayout.BeginHorizontal();
                     GUILayout.Space(14);
                     if (GUILayout.Button(" Close Limb Selector ", FGUI_Resources.ButtonStyle, GUILayout.Height(17))) Foldown = !Foldown;
+
+                    if (GUILayout.Button("Switch All", FGUI_Resources.ButtonStyle, GUILayout.Width(70), GUILayout.Height(17)))
+                    {
+                        for (int i = 0; i < MorphingLimbSets.Count; i++)
+                        {
+                            morphLimb = MorphingLimbSets[i];
+                            morphLimb.LimbEnabled = !morphLimb.LimbEnabled;
+                            EditorUtility.SetDirty(save);
+                        }
+                    }
+
                     GUILayout.Space(14);
                     GUILayout.EndHorizontal();
+
+                    GUILayout.Space(4);
+
+                    EditorGUILayout.BeginVertical(FGUI_Resources.BGInBoxStyle);
+                    EditorGUIUtility.labelWidth = 200;
+                    UseClipTimeModify = EditorGUILayout.Toggle("Clip Time Modify Vulnerable: ", UseClipTimeModify);
+                    EditorGUIUtility.labelWidth = 140;
+                    AnimationDesignerWindow.DrawCurve(ref TimeEvaluation, "Time Flow: ", 0, 0f, 0f, 1f, 1f, 0f, 1f, 1f, 1f, "Easily control time flow for the played morph clip.");
+                    GUILayout.Space(5);
+                    EditorGUIUtility.labelWidth = 0;
+                    EditorGUILayout.EndVertical();
 
                     return;
                 }

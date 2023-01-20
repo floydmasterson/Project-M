@@ -91,20 +91,18 @@ public class StatBuffItemEffect : UseableItemEffect
     {
         if (value != 0)
         {
-          
             if (value > 0)
             {
                 sb.Append("+");
             }
             else
             {
-                sb.Append("-");
+                sb.Append("-");      
             }
             sb.Append(value);
             sb.Append(" ");
             sb.Append(statName);
             sb.Append(" ");
-            sb.AppendLine();
         }
     }
 
