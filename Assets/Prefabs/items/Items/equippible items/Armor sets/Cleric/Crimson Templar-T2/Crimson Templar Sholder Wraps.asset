@@ -15,11 +15,11 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 2feb7caa51a4cdb4abea1caece17699b, type: 3}
   ItemName: Crimson Templar Sholder Wraps
   ItemTier: 2
+  cost: 410
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: 204577c7f80f08e46aaa8743130a155b
-  cost: 0
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 8

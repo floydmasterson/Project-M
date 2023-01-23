@@ -15,11 +15,11 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 367922f3fbfba354493f12a9068dc6f0, type: 3}
   ItemName: Training Sword
   ItemTier: 0
+  cost: 0
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: 94b0b717223e73947b0d1f6e08a59465
-  cost: 0
   StrengthBonus: 1
   AgilityBonus: 0
   IntelligenceBonus: 0

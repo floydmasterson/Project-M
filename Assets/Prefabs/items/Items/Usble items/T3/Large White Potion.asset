@@ -15,11 +15,11 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 4af3de4057d72344199db9117b1d91e9, type: 3}
   ItemName: Large White Potion
   ItemTier: 3
+  cost: 50
   MaximumStacks: 5
   IsConsumable: 1
   Notes: 
   id: 3fe165998f2be6d4ea3a0c2a6e73d02e
-  cost: 0
   Effects:
   - {fileID: 11400000, guid: 25471352fbd85744bae80bbe048b939a, type: 2}
   - {fileID: 11400000, guid: e515c6c74ee9d1540b2d8d5a08166743, type: 2}

@@ -15,11 +15,11 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 6dfabd7c955bb9942b5a1cada93e11fa, type: 3}
   ItemName: Crimson Templar Belt
   ItemTier: 2
+  cost: 360
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: d8ce206b55b45e24ea7236b93535f022
-  cost: 0
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 4

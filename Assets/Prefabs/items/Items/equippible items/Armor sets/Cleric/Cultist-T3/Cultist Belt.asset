@@ -15,11 +15,11 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 994e0aa9ecb8c9f4baa6d02726d5ad36, type: 3}
   ItemName: Cultist Belt
   ItemTier: 3
+  cost: 615
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: 9d698af9ea8218e4b9c7c96a38446c54
-  cost: 0
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 5

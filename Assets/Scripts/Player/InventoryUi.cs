@@ -1,7 +1,6 @@
 using Photon.Pun;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class InventoryUi : MonoBehaviourPun
@@ -9,6 +8,8 @@ public class InventoryUi : MonoBehaviourPun
     public static InventoryUi Instance;
     private PlayerManger target;
     public TextMeshProUGUI timeText;
+    [SerializeField] TextMeshProUGUI goldText;
+    private int gold;
     public Image[] hearts;
     public Canvas InvCanvas;
     float characterControllerHeight = 0f;
@@ -17,12 +18,14 @@ public class InventoryUi : MonoBehaviourPun
     Renderer targetRenderer;
     CanvasGroup _canvasGroup;
     Vector3 targetPosition;
- 
+
     //Start is called before the first frame update
 
     private void Awake()
     {
         Instance = this;
+        gold = 0;
+        goldText.text = gold.ToString() + "G";
     }
     private void OnEnable()
     {
@@ -85,6 +88,22 @@ public class InventoryUi : MonoBehaviourPun
         if (lifes == 1)
             hearts[0].gameObject.SetActive(false);
     }
+    public void UpdateGold(int amount)
+    {
+        gold += amount;
+        goldText.text = gold.ToString() + "G";
+    }
+
+    public bool HasEnoughGold(int amount)
+    {
+        return gold >= amount;
+    }
+    public int CheckGold()
+    {
+
+        return gold;
+    }
+
     private void updateTimer(float currentTime)
     {
         currentTime += 1;

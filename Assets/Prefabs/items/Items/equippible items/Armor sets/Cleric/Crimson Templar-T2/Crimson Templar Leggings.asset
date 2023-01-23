@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 1078197190d71404b8e51036fb2cbbc1, type: 3}
   ItemName: Crimson Templar Leggings
   ItemTier: 2
+  cost: 360
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

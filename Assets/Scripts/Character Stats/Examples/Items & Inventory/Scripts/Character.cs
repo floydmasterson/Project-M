@@ -29,6 +29,7 @@ public class Character : MonoBehaviour
     [SerializeField] ItemTooltip itemTooltip;
     [TabGroup("Setup")]
     [SerializeField] Image draggableItem;
+    private InventoryUi inventoryUi;
     [TabGroup("Quick Slot")]
     public Image currentQuickItem;
     [TabGroup("Quick Slot")]
@@ -79,6 +80,7 @@ public class Character : MonoBehaviour
     private void Start()
     {
         statPanel.UpdateStatValues();
+        inventoryUi = gameObject.GetComponent<InventoryUi>();
     }
 
 
@@ -172,7 +174,6 @@ public class Character : MonoBehaviour
         dropItemSlot.Amount += stacksToAdd;
         dragItemSlot.Amount -= stacksToAdd;
     }
-
     private void SwapItems(BaseItemSlot dropItemSlot)
     {
         EquippableItem dragEquipItem = dragItemSlot.Item as EquippableItem;
@@ -213,26 +214,25 @@ public class Character : MonoBehaviour
             {
                 if (previousItem != null)
                 {
-                    Inventory.AddItem(previousItem, 1);
+                    Inventory.AddItem(previousItem);
                     previousItem.Unequip(this);
                 }
                 item.Equip(this);
             }
             else
             {
-                Inventory.AddItem(item, 1);
+                Inventory.AddItem(item);
             }
             statPanel.UpdateStatValues();
         }
     }
-
     public void Unequip(EquippableItem item)
     {
         if (Inventory.CanAddItem(item) && EquipmentPanel.RemoveItem(item))
         {
             item.Unequip(this);
             statPanel.UpdateStatValues();
-            Inventory.AddItem(item, 1);
+            Inventory.AddItem(item);
         }
     }
 
@@ -244,20 +244,25 @@ public class Character : MonoBehaviour
         if (item != null && openItemContainer.CanAddItem(item))
         {
             Inventory.RemoveItem(item);
-            openItemContainer.AddItem(item, 0);
+            openItemContainer.AddItem(item, startSlot: 0);
         }
     }
 
     private void TransferToInventory(BaseItemSlot itemSlot)
     {
         Item item = itemSlot.Item;
-        if (item != null && Inventory.CanAddItem(item))
+        if (item != null && item.ID == "f6b9d006392af6f49b4db9574b8a1088")
+        {
+            inventoryUi.UpdateGold(itemSlot.Amount);
+            openItemContainer.RemoveItem(item, itemSlot.Amount);
+        }
+        if (item != null && Inventory.CanAddItem(item) && item.ID != "f6b9d006392af6f49b4db9574b8a1088")
         {
             openItemContainer.RemoveItem(item);
             if (item.IsConsumable)
-                Inventory.AddItem(item, 0);
+                Inventory.AddItem(item, startSlot:0);
             else if (!item.IsConsumable)
-                Inventory.AddItem(item, 1);
+                Inventory.AddItem(item);
         }
     }
 

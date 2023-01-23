@@ -15,11 +15,11 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: a1d667959d30d9646b72dca35db51163, type: 3}
   ItemName: Spectral Cane
   ItemTier: 2
+  cost: 395
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: 729a5d6ce55a7154496c97eb48c69ee5
-  cost: 0
   StrengthBonus: 0
   AgilityBonus: 0
   IntelligenceBonus: 6

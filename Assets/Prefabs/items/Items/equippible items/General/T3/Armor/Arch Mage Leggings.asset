@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: a80e723a025d30e4ebb0d73f66385040, type: 3}
   ItemName: 'Arch Mage Leggings '
   ItemTier: 3
+  cost: 650
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

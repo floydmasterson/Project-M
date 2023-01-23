@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: effcabc31d57322488f92a2a6654ee72, type: 3}
   ItemName: Tracers Rod
   ItemTier: 3
+  cost: 710
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

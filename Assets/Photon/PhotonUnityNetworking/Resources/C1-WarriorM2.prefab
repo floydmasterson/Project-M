@@ -987,6 +987,7 @@ MonoBehaviour:
   MiniMapIcon: {fileID: 6993208272012004011}
   InvIsOpen: 0
   inChest: 0
+  shop: {fileID: 0}
   walk:
     sfxType: 0
     sfxToPlay: {fileID: 0}

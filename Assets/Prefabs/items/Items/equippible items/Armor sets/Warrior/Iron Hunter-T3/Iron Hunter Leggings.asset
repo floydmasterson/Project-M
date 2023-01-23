@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 9bd49c404e772c241a68ae4a7e9021ba, type: 3}
   ItemName: Iron Hunter Leggings
   ItemTier: 3
+  cost: 695
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

@@ -24,15 +24,16 @@ public class Inventory : ItemContainer
 
     private void SetStartingItems()
     {
-
-        Clear();
         foreach (Item item in startingItems)
         {
             if (item != null)
+            {
                 item.name = item.name.Replace("(Clone", "").Trim();
-            if (item != null)
                 AddItem(item.GetCopy(), 0);
+            }
+
         }
 
     }
+
 }

@@ -15,11 +15,11 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 337da860b01e61c4ebfdee41371ad20a, type: 3}
   ItemName: Iron Hunter Sholder Guards
   ItemTier: 3
+  cost: 710
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: fae16b4f6833b2f40b5224c0db5dc4dc
-  cost: 0
   StrengthBonus: 9
   AgilityBonus: 0
   IntelligenceBonus: 0

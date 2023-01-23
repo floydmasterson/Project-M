@@ -56,14 +56,12 @@ public class sensitivityControler : MonoBehaviour
             if (scaleMode == Scheme.Keyboard)
             {
                 playerInput.actions.FindAction(actionName).ApplyParameterOverride("scaleVector2:x", value * .3f / 7.2f);
-                Debug.Log("Locked Key Set to " + value * .3f / 7.2f);
                 valueText.text = "Locked Camera: " + value.ToString();
 
             }
             else if (scaleMode == Scheme.Gamepad)
             {
                 playerInput.actions.FindAction(actionName).ApplyParameterOverride("scaleVector2:x", value * 1.1f / 2f);
-                Debug.Log("Locked Key Set to " + value * 1.1f / 2f);
                 valueText.text = "Locked Camera: " + value.ToString();
             }
         }

@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 57bd95fc4ddd87c43a770856b8847cff, type: 3}
   ItemName: Swifties
   ItemTier: 3
+  cost: 525
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

@@ -169,10 +169,10 @@ public class PlayerManger : MonoBehaviourPun
     GameObject InventoryPrefab;
     [TabGroup("Ui"), Required, SerializeField]
     GameObject MiniMapIcon;
-    [HideInInspector]
-    public bool InvIsOpen = false;
-    [HideInInspector]
-    public bool inChest = false;
+    [TabGroup("Ui")]
+     public bool InvIsOpen = false;
+    [TabGroup("Ui")]
+     public bool inChest = false;
     Character character;
     [HideInInspector]
     public ShopController shop;
@@ -430,7 +430,7 @@ public class PlayerManger : MonoBehaviourPun
             {
                 if (quickItem.UseableCheck())
                 {
-                    quickItem.Use(Character.Instance);
+                    quickItem.Use(character);
                     quickSlot.Amount--;
                     PlayerUi.Instance.CheckAmount();
                     quickItem.Destroy();

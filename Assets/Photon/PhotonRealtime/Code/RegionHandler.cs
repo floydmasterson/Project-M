@@ -470,7 +470,9 @@ namespace Photon.Realtime
             Stopwatch sw = new Stopwatch();
             for (this.CurrentAttempt = 0; this.CurrentAttempt < Attempts; this.CurrentAttempt++)
             {
+#pragma warning disable CS0219 // Variable is assigned but its value is never used
                 bool overtime = false;
+#pragma warning restore CS0219 // Variable is assigned but its value is never used
                 sw.Reset();
                 sw.Start();
 
@@ -548,7 +550,9 @@ namespace Photon.Realtime
             Stopwatch sw = new Stopwatch();
             for (this.CurrentAttempt = 0; this.CurrentAttempt < Attempts; this.CurrentAttempt++)
             {
+#pragma warning disable CS0219 // Variable is assigned but its value is never used
                 bool overtime = false;
+#pragma warning restore CS0219 // Variable is assigned but its value is never used
                 sw.Reset();
                 sw.Start();
 

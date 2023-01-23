@@ -862,8 +862,10 @@ MonoBehaviour:
   - {fileID: 3955399380446306293}
   - {fileID: 3955399380390851442}
   containerType: 0
+  containerTier: 1
   itemsParent: {fileID: 3955399380283665994}
   inventory: {fileID: 3955399381236164396}
+  Gold: {fileID: 0}
   meshFilter: {fileID: 2950683792388771847}
   close: {fileID: 211121305254445819, guid: 5558c09e1f7985d48a12a443cc6aab1e, type: 3}
   open: {fileID: 9104530304119377906, guid: bfe1ad93928ff174ba957741efcd2f9e, type: 3}
@@ -3573,13 +3575,7 @@ MonoBehaviour:
   - {fileID: 3955399380005261741}
   - {fileID: 3955399380446306293}
   - {fileID: 3955399380390851442}
-  startingItems:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  startingItems: []
   itemsParent: {fileID: 3955399381236164399}
 --- !u!1 &3955399381413224966
 GameObject:

@@ -15,6 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: eb45acec32136bc4fa7499b2239f01bf, type: 3}
   ItemName: Crimson Templar Gambeson
   ItemTier: 2
+  cost: 440
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

@@ -55,37 +55,37 @@ public abstract class ItemContainer : MonoBehaviour, IItemContainer
         return freeSpaces >= amount;
     }
 
-    public virtual bool AddItem(Item item, int num )
+    public virtual bool AddItem(Item item, int startSlot = 1, int amount = 1)
     {
-        for (int i = num; i < ItemSlots.Count; i++)
+
+        for (int i = startSlot; i < ItemSlots.Count; i++)
         {
-            if (ItemSlots[i].CanAddStack(item))
+            if (ItemSlots[i].CanAddStack(item, amount))
             {
                 ItemSlots[i].Item = item;
-                ItemSlots[i].Amount++;
+                ItemSlots[i].Amount += amount;
                 return true;
             }
         }
-
-        for (int i = num; i < ItemSlots.Count; i++)
+        for (int i = startSlot; i < ItemSlots.Count; i++)
         {
             if (ItemSlots[i].Item == null)
             {
                 ItemSlots[i].Item = item;
-                ItemSlots[i].Amount++;
+                ItemSlots[i].Amount = amount;
                 return true;
             }
         }
         return false;
     }
 
-    public virtual bool RemoveItem(Item item)
+    public virtual bool RemoveItem(Item item, int amount = 1)
     {
         for (int i = 0; i < ItemSlots.Count; i++)
         {
             if (ItemSlots[i].Item == item)
-            {
-                ItemSlots[i].Amount--;
+            {        
+                ItemSlots[i].Amount -= amount;
                 return true;
             }
         }
@@ -125,10 +125,6 @@ public abstract class ItemContainer : MonoBehaviour, IItemContainer
     {
         for (int i = 0; i < ItemSlots.Count; i++)
         {
-            if (ItemSlots[i].Item != null && Application.isPlaying)
-            {
-                ItemSlots[i].Item.Destroy();
-            }
             ItemSlots[i].Item = null;
             ItemSlots[i].Amount = 0;
         }

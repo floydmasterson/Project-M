@@ -1,7 +1,9 @@
 using Photon.Pun;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class LootContainerControl : ItemContainer
 {
@@ -10,12 +12,23 @@ public class LootContainerControl : ItemContainer
         Chest,
         Dropbag,
     }
-    [EnumToggleButtons]
+    public enum ContainerTier
+    {
+        T0,
+        T1,
+        T2,
+        T3,
+    }
+    [EnumToggleButtons, TabGroup("Setup")]
     public ContainerType containerType;
+    [EnumToggleButtons, TabGroup("Setup")]
+    public ContainerTier containerTier;
     [TabGroup("Setup")]
     [SerializeField] Transform itemsParent;
     [TabGroup("Setup")]
     [SerializeField] Inventory inventory;
+    [TabGroup("Setup"), HideIf("@containerType != ContainerType.Dropbag")]
+    [SerializeField] Item Gold;
     [TabGroup("GFX")]
     [SerializeField] private MeshFilter meshFilter;
     [TabGroup("GFX")]
@@ -41,11 +54,14 @@ public class LootContainerControl : ItemContainer
     [TabGroup("Audio"), SerializeField]
     SFX bagOpen;
     LootContainerManager lootContainerManager;
-    public IEnumerator Despawn()
+    Character ECharacter;
+    public IEnumerator Despawn(int time)
     {
-        yield return new WaitForSecondsRealtime(20);
-        lootContainerManager.RemoveFromList(this);
-        Destroy(gameObject);
+        yield return new WaitForSecondsRealtime(time);
+        if (lootContainerManager != null)
+            lootContainerManager.RemoveFromList(this);
+        if (isActiveAndEnabled)
+            Destroy(gameObject);
     }
     protected override void OnValidate()
     {
@@ -55,18 +71,19 @@ public class LootContainerControl : ItemContainer
     private void Awake()
     {
         LoadItems();
-        if(containerType == ContainerType.Dropbag) 
-            Destroy(gameObject, 60);
+        if (containerType == ContainerType.Dropbag)
+            StartCoroutine(Despawn(60));
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && other.GetComponent<PhotonView>().IsMine)
-        {      
+        {
             lootContainerManager = other.GetComponent<LootContainerManager>();
             lootContainerManager.AddToList(this);
             pickUpAllowed = true;
             playerInRange = true;
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
+
         }
     }
     private void OnTriggerExit(Collider other)
@@ -81,6 +98,7 @@ public class LootContainerControl : ItemContainer
             pickUpAllowed = false;
             playerInRange = false;
             gameObject.transform.GetChild(1).gameObject.SetActive(false);
+            StartCoroutine(Despawn(120));
         }
 
     }
@@ -93,7 +111,8 @@ public class LootContainerControl : ItemContainer
     }
     public void Open(Character character)
     {
-        if (containerType == ContainerType.Chest && meshFilter.sharedMesh != null)
+        StopAllCoroutines();
+        if (containerType == ContainerType.Chest && meshFilter != null)
             meshFilter.sharedMesh = open;
         isOpen = true;
         if (containerType == ContainerType.Chest)
@@ -103,16 +122,16 @@ public class LootContainerControl : ItemContainer
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
         gameObject.transform.GetChild(1).gameObject.SetActive(false);
         character.OpenItemContainer(this);
-        StopCoroutine("Despawn");
+        ECharacter = character;
     }
     public void Close(Character character)
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        character.CloseItemContainer(this);
+        if (isOpen)
+            character.CloseItemContainer(this);
         if (containerType == ContainerType.Chest && meshFilter.sharedMesh != null)
             meshFilter.sharedMesh = close;
-        if (character != null)
-            gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        gameObject.transform.GetChild(1).gameObject.SetActive(true);
         CheckEmpty();
         isOpen = false;
     }
@@ -122,7 +141,12 @@ public class LootContainerControl : ItemContainer
         {
             for (int i = 0; i < amount; i++)
             {
-                inventory.startingItems[i] = lootTable.GetRandom();
+                Item item = lootTable.GetRandom();
+                inventory.AddItem(item, 0);
+            }
+            if (containerType == ContainerType.Dropbag)
+            {
+                inventory.AddItem(Gold, amount: goldDrop());
             }
         }
         if (randomAmount == true && BetterRandomAmount == false)
@@ -130,7 +154,8 @@ public class LootContainerControl : ItemContainer
             float Ramount = Random.Range(1, 3);
             for (int i = 0; i < Ramount; i++)
             {
-                inventory.startingItems[i] = lootTable.GetRandom();
+                Item item = lootTable.GetRandom();
+                inventory.AddItem(item, 0);
             }
         }
         if (BetterRandomAmount == true && randomAmount == true)
@@ -138,9 +163,28 @@ public class LootContainerControl : ItemContainer
             float Ramount = Random.Range(2, 4);
             for (int i = 0; i < Ramount; i++)
             {
-                inventory.startingItems[i] = lootTable.GetRandom();
+                Item item = lootTable.GetRandom();
+                inventory.AddItem(item, 0);
             }
         }
+    }
+    private int goldDrop()
+    {
+        int gold = 0;
+        switch (containerTier)
+        {
+            case ContainerTier.T1:
+                gold = Random.Range(15, 30);
+                break;
+            case ContainerTier.T2:
+                gold = Random.Range(50, 80);
+                break;
+            case ContainerTier.T3:
+                gold = Random.Range(90, 150);
+                break;
+            default: break;
+        }
+        return gold;
     }
     void CheckEmpty()
     {
@@ -150,7 +194,8 @@ public class LootContainerControl : ItemContainer
             if (slots.Item != null)
             {
                 empty = false;
-                StartCoroutine("Despawn");
+                if (gameObject.activeInHierarchy)
+                    StartCoroutine(Despawn(20));
                 break;
             }
         }
@@ -160,6 +205,6 @@ public class LootContainerControl : ItemContainer
             Destroy(gameObject);
         }
     }
- 
+
 }
 
