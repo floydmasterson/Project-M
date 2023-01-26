@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,13 +10,13 @@ public class UsableItem : Item
     [InlineEditor(Expanded = true, ObjectFieldMode = InlineEditorObjectFieldModes.Boxed)]
     [TableColumnWidth(190, resizable: false)]
     public List<UseableItemEffect> Effects;
+    
 
     public virtual void Use(Character character)
     {
         foreach (UseableItemEffect effect in Effects)
         {
             effect.ExecuteEffect(this, character);
-
         }
     }
 

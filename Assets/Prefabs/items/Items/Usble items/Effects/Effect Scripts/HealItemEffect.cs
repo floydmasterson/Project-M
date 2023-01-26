@@ -9,6 +9,7 @@ public class HealItemEffect : UseableItemEffect
     public override void ExecuteEffect(UsableItem parentItem, Character character)
     {
         player.Heal(HealAmount);
+        base.ExecuteEffect(parentItem, character);
     }
 
     public override string GetDescription()

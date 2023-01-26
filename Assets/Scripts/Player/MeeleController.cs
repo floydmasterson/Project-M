@@ -150,31 +150,31 @@ public class MeeleController : MonoBehaviourPun, IAttack
             {
                 if (CurrentRage == 1)
                 {
-                    manger.Heal(10);
+                    manger.Heal(5);
                     CurrentRage = 0;
                 }
                 if (CurrentRage == 2)
                 {
-                    manger.Heal(20);
+                    manger.Heal(15);
                     StartCoroutine(RageMode(0.05f, 0.05f, 3));
                 }
                 if (CurrentRage == 3)
                 {
-                    manger.Heal(30);
+                    manger.Heal(20);
                     StartCoroutine(RageMode(0.08f, 0.08f, 5));
                 }
                 if (CurrentRage == 4)
                 {
-                    manger.Heal(40);
+                    manger.Heal(30);
                     manger.LifeSteal = true;
                     StartCoroutine(RageMode(0.1f, 0.1f, 8));
                 }
                 if (CurrentRage >= 5)
                 {
                     if (CurrentRage == 5)
-                        manger.Heal(50);
+                        manger.Heal(40);
                     if (CurrentRage > 5)
-                        manger.Heal(50 + (10 * (CurrentRage - 5)));
+                        manger.Heal(40 + (10 * (CurrentRage - 5)));
                     manger.LifeSteal = true;
                     StartCoroutine(RageMode(0.15f, 0.2f, 10));
 

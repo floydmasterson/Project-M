@@ -13,18 +13,18 @@ public class Crosshair : MonoBehaviourPun
 
     private void OnEnable()
     {
-        MapManager.MapState += state => sizeToggle();
         PlayerManger.onInventoryOpen += sizeToggle;
         PlayerManger.onInventoryClose += sizeToggle;
         PlayerManger.escapeMenu += sizeToggle;
-     
+        PlayerManger.map += sizeToggle;
+
     }
     private void OnDisable()
     {
-        MapManager.MapState -= state => sizeToggle();
         PlayerManger.onInventoryOpen -= sizeToggle;
         PlayerManger.onInventoryClose -= sizeToggle;
         PlayerManger.escapeMenu -= sizeToggle;
+        PlayerManger.map -= sizeToggle;
     }
     void LookHight(float value)
     {

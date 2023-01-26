@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5692354cd917b3d46aa5ef1c13b65ec9, type: 3}
   m_Name: M Mana Potion
   m_EditorClassIdentifier: 
+  SickTime: 6
   amount: 40

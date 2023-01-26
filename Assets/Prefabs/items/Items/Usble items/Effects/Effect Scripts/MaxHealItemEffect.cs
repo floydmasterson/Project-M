@@ -8,6 +8,7 @@ public class MaxHealItemEffect : UseableItemEffect
     {
         player = PlayerUi.Instance.target;
         player.Heal((int)(player.MaxHealth - player.CurrentHealth));
+        base.ExecuteEffect(parentItem, character);
     }
 
     public override string GetDescription()

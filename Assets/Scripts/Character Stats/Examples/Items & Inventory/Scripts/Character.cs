@@ -1,9 +1,10 @@
 ﻿using Kryz.CharacterStats;
 using Kryz.CharacterStats.Examples;
 using Sirenix.OdinInspector;
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class Character : MonoBehaviour
 {
     public static Character Instance;
@@ -34,9 +35,19 @@ public class Character : MonoBehaviour
     public Image currentQuickItem;
     [TabGroup("Quick Slot")]
     public int currentQuickItemAmount;
+    [TabGroup("Quick Slot")]
+    public bool Sick;
+
+    public static event Action<float> Sicktime;
 
     private BaseItemSlot dragItemSlot;
 
+    IEnumerator ApplyPotionSickness(float time)
+    {
+        Sick = true;
+        yield return new WaitForSeconds(time);
+        Sick = false;
+    }
     private void OnValidate()
     {
         if (itemTooltip == null)
@@ -47,7 +58,7 @@ public class Character : MonoBehaviour
     {
         Instance = this;
         statPanel.SetStats(Strength, Agility, Intelligence, Vitality);
-
+        UseableItemEffect.PotionSick += PotionSickness;
 
         // Setup Events:
         // Right Click
@@ -76,14 +87,11 @@ public class Character : MonoBehaviour
         //dropItemArea.OnDropEvent += DropItemOutsideUI;
     }
 
-
     private void Start()
     {
         statPanel.UpdateStatValues();
         inventoryUi = gameObject.GetComponent<InventoryUi>();
     }
-
-
     private void InventoryRightClick(BaseItemSlot itemSlot)
     {
         if (itemSlot.Item is EquippableItem)
@@ -93,19 +101,24 @@ public class Character : MonoBehaviour
         else if (itemSlot.Item is UsableItem)
         {
             UsableItem usableItem = (UsableItem)itemSlot.Item;
-            if (usableItem.UseableCheck())
+            if (usableItem.UseableCheck() && !Sick)
             {
                 usableItem.Use(this);
 
                 if (usableItem.IsConsumable)
                 {
                     itemSlot.Amount--;
+                    PlayerUi.Instance.CheckAmount();
                     usableItem.Destroy();
                 }
             }
         }
     }
-
+    private void PotionSickness(float time)
+    {
+        StartCoroutine(ApplyPotionSickness(time));
+        Sicktime(time);
+    }
     private void EquipmentPanelRightClick(BaseItemSlot itemSlot)
     {
         if (itemSlot.Item is EquippableItem)
@@ -260,7 +273,7 @@ public class Character : MonoBehaviour
         {
             openItemContainer.RemoveItem(item);
             if (item.IsConsumable)
-                Inventory.AddItem(item, startSlot:0);
+                Inventory.AddItem(item, startSlot: 0);
             else if (!item.IsConsumable)
                 Inventory.AddItem(item);
         }
@@ -303,4 +316,6 @@ public class Character : MonoBehaviour
     {
         statPanel.UpdateStatValues();
     }
+
+
 }

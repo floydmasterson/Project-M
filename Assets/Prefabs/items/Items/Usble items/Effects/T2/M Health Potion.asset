@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9917e6a4562183b4ea3c19150322538d, type: 3}
   m_Name: M Health Potion
   m_EditorClassIdentifier: 
+  SickTime: 10
   HealAmount: 30

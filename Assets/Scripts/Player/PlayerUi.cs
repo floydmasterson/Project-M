@@ -1,5 +1,6 @@
 using Photon.Pun;
 using Sirenix.OdinInspector;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -42,6 +43,18 @@ public class PlayerUi : MonoBehaviourPun
     [SerializeField] GameObject quickSlot;
     [TabGroup("Quick Slot")]
     [SerializeField] TextMeshProUGUI quickSlotAmountText;
+    [TabGroup("Quick Slot"), SerializeField]
+    Image QSlotCooldown;
+    [TabGroup("Quick Slot"), SerializeField]
+    TextMeshProUGUI QSlotCooldownText;
+    [TabGroup("Quick Slot"), SerializeField]
+    Image UiSlotCooldown;
+    [TabGroup("Quick Slot"), SerializeField]
+    Image UiCooldownIcon;
+
+    private float cooldownTime;
+    private float cooldownTimer = 0f;
+
     [TabGroup("MiniMap")]
     public GameObject Minimap;
     [TabGroup("MiniMap")]
@@ -82,27 +95,60 @@ public class PlayerUi : MonoBehaviourPun
         Instance = this;
         _canvasGroup = this.GetComponent<CanvasGroup>();
         gamepadCursor = GetComponentInChildren<GamepadCursor>();
+        QSlotCooldownText.gameObject.SetActive(false);
+        UiCooldownIcon.gameObject.SetActive(false);
+        QSlotCooldown.fillAmount = 0f;
+        UiSlotCooldown.fillAmount = 0f; ;
         Health = gameObject.transform.GetChild(2).gameObject;
         Mana = gameObject.transform.GetChild(3).gameObject;
         Rage = gameObject.transform.GetChild(4).gameObject;
         RageInv = gameObject.transform.GetChild(5).gameObject;
         ManaInv = gameObject.transform.GetChild(6).gameObject;
         HealthInv = gameObject.transform.GetChild(7).gameObject;
+        Character.Sicktime += CooldownGFX;
     }
     private void OnEnable()
     {
         PlayerManger.onInventoryOpen += CloseUi;
         PlayerManger.onInventoryClose += OpenUi;
         PlayerManger.escapeMenu += toggleUi;
-        MapManager.MapState += ctx => toggleUi();
-
     }
+
+    private void CooldownGFX(float time)
+    {
+        cooldownTime = time;
+        cooldownTimer = cooldownTime;
+        CheckAmount();
+        QSlotCooldownText.gameObject.SetActive(true);
+        UiCooldownIcon.gameObject.SetActive(true);
+        StartCoroutine(applyCooldown(time));
+    }
+    IEnumerator applyCooldown(float time)
+    {
+        cooldownTimer -= Time.deltaTime;
+        if (cooldownTimer < 0f)
+        {
+            QSlotCooldownText.gameObject.SetActive(false);
+            UiCooldownIcon.gameObject.SetActive(false);
+            QSlotCooldown.fillAmount = 0f;
+            UiSlotCooldown.fillAmount = 0f;
+            cooldownTime = 0f;
+        }
+        else
+        {
+            QSlotCooldownText.text = Mathf.RoundToInt(cooldownTimer).ToString();
+            QSlotCooldown.fillAmount = cooldownTimer / cooldownTime;
+            UiSlotCooldown.fillAmount = cooldownTimer / cooldownTime;
+            yield return new WaitForEndOfFrame();
+            StartCoroutine(applyCooldown(cooldownTimer));
+        }
+    }
+
     private void OnDisable()
     {
         PlayerManger.onInventoryOpen -= CloseUi;
         PlayerManger.onInventoryClose -= OpenUi;
         PlayerManger.escapeMenu -= toggleUi;
-        MapManager.MapState -= ctx => toggleUi();
     }
     private void Start()
     {

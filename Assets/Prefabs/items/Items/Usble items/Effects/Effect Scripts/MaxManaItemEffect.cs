@@ -8,6 +8,7 @@ public class MaxManaItemEffect : UseableItemEffect
     {
         if (MC != null)
             MC.CurrMana = MC.MaxMana;
+        base.ExecuteEffect(parentItem, character);
     }
 
     public override string GetDescription()

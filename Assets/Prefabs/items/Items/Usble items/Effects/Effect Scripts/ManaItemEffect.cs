@@ -13,10 +13,7 @@ public class ManaItemEffect : UseableItemEffect
     {
         if (MC != null)
             MC.CurrMana += amount;
-        else
-        {
-            Debug.Log("You dont have mana");
-        }
+        base.ExecuteEffect(parentItem, character);
     }
 
     public override string GetDescription()

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d4ea1b0c35f27458fef846a6f42931, type: 3}
   m_Name: Max Mana
   m_EditorClassIdentifier: 
-  amount: 0
+  SickTime: 15

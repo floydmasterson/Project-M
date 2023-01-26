@@ -11,8 +11,9 @@ public class StatBuffItemEffect : UseableItemEffect
     public int IntelligenceBuff;
     public int VitalityBuff;
     public float Duration;
+
     StringBuilder sb = new StringBuilder();
-   public IEnumerator RemoveBuff(Character character, StatModifier statModifier, float duration)
+    public IEnumerator RemoveBuff(Character character, StatModifier statModifier, float duration)
     {
         yield return new WaitForSecondsRealtime(duration);
         if (StrengthBuff != 0)
@@ -40,7 +41,6 @@ public class StatBuffItemEffect : UseableItemEffect
     }
     public override void ExecuteEffect(UsableItem parentItem, Character character)
     {
-
         StatModifier statModifierA = new StatModifier(AgilityBuff, StatModType.Flat, parentItem);
         StatModifier statModifierS = new StatModifier(StrengthBuff, StatModType.Flat, parentItem);
         StatModifier statModifierI = new StatModifier(IntelligenceBuff, StatModType.Flat, parentItem);
@@ -73,6 +73,8 @@ public class StatBuffItemEffect : UseableItemEffect
 
         }
         character.statPanel.UpdateStatValues();
+        base.ExecuteEffect(parentItem, character);
+
     }
 
     public override string GetDescription()
@@ -97,7 +99,7 @@ public class StatBuffItemEffect : UseableItemEffect
             }
             else
             {
-                sb.Append("-");      
+                sb.Append("-");
             }
             sb.Append(value);
             sb.Append(" ");

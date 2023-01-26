@@ -129,7 +129,7 @@ public class LootContainerControl : ItemContainer
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
         if (isOpen)
             character.CloseItemContainer(this);
-        if (containerType == ContainerType.Chest && meshFilter.sharedMesh != null)
+        if (containerType == ContainerType.Chest && meshFilter != null)
             meshFilter.sharedMesh = close;
         gameObject.transform.GetChild(1).gameObject.SetActive(true);
         CheckEmpty();

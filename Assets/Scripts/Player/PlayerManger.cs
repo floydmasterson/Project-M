@@ -139,6 +139,7 @@ public class PlayerManger : MonoBehaviourPun
     Vector3 Direction;
     float ActCooldown;
     bool isRollExecuting = false;
+    private float turnSens = 0.025f;
 
 
     //attacking
@@ -170,9 +171,9 @@ public class PlayerManger : MonoBehaviourPun
     [TabGroup("Ui"), Required, SerializeField]
     GameObject MiniMapIcon;
     [TabGroup("Ui")]
-     public bool InvIsOpen = false;
+    public bool InvIsOpen = false;
     [TabGroup("Ui")]
-     public bool inChest = false;
+    public bool inChest = false;
     Character character;
     [HideInInspector]
     public ShopController shop;
@@ -186,6 +187,8 @@ public class PlayerManger : MonoBehaviourPun
 
     public delegate void EscapeMenu();
     public static event EscapeMenu escapeMenu;
+    public delegate void MapD();
+    public static event MapD map;
     public delegate void inventoryO();
     public static event inventoryO onInventoryOpen;
     public delegate void inventoryC();
@@ -303,7 +306,8 @@ public class PlayerManger : MonoBehaviourPun
             gameObject.name = PhotonNetwork.NickName;
             lootContainerManager = GetComponent<LootContainerManager>();
             MiniMapIcon.SetActive(true);
-            cineCamera.Priority = 10;
+            lockCamera.Priority = 10;
+            locked = true;
             if (InventoryPrefab != null)
             {
                 GameObject _uiGoi = Instantiate(InventoryPrefab) as GameObject;
@@ -324,6 +328,7 @@ public class PlayerManger : MonoBehaviourPun
                 Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
             }
             GamepadCursor.Instance.playerInput = playerInput;
+         
         }
         else
         {
@@ -338,6 +343,7 @@ public class PlayerManger : MonoBehaviourPun
         CheckDefense();
         StartCoroutine(PreLoad());
         CurrentHealth = MaxHealth;
+        updateSens();
 
     }
     private void FixedUpdate()
@@ -347,7 +353,7 @@ public class PlayerManger : MonoBehaviourPun
             float x = inputMove.x;
             float y = inputMove.y;
             Vector3 direction = new Vector3(x, 0f, y).normalized;
-
+           
             //gravity
             isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
             if (isGrounded && velocity.y < 0)
@@ -378,7 +384,9 @@ public class PlayerManger : MonoBehaviourPun
             }
             else if (locked)
             {
-                turn += inputTurn;
+                if (turnSens == 0)
+                    updateSens();
+                turn += inputTurn * turnSens;
                 transform.rotation = Quaternion.Euler(0f, turn.x, 0f);
 
                 if (direction.magnitude >= 0.1f && canMove)
@@ -432,7 +440,6 @@ public class PlayerManger : MonoBehaviourPun
                 {
                     quickItem.Use(character);
                     quickSlot.Amount--;
-                    PlayerUi.Instance.CheckAmount();
                     quickItem.Destroy();
                 }
             }
@@ -447,10 +454,10 @@ public class PlayerManger : MonoBehaviourPun
     }
     public void LockedCam()
     {
-        if (locked == false)
-            ForwardCamLock(true);
-        else if (locked == true)
-            ForwardCamLock(false);
+        //if (locked == false)
+        //    ForwardCamLock(true);
+        //else if (locked == true)
+        //    ForwardCamLock(false);
     }
     public void Movement(InputAction.CallbackContext context)
     {
@@ -508,7 +515,7 @@ public class PlayerManger : MonoBehaviourPun
             playerInput.SwitchCurrentActionMap("Player");
             CursorToggle(false);
         }
-        else if(shop != null && !shop.isOpen) 
+        else if (shop != null && !shop.isOpen)
         {
             UpdateMoving(false);
             UpdateRun(false);
@@ -517,7 +524,7 @@ public class PlayerManger : MonoBehaviourPun
             playerInput.SwitchCurrentActionMap("Container");
             CursorToggle(true);
         }
-        else if(shop != null && shop.isOpen)
+        else if (shop != null && shop.isOpen)
         {
             shop.Close(character);
             onInventoryClose();
@@ -546,7 +553,7 @@ public class PlayerManger : MonoBehaviourPun
                     escapeMenu();
                 escapeMenuOpen = false;
                 CursorToggle(false);
-
+                updateSens();
             }
         }
 
@@ -559,11 +566,13 @@ public class PlayerManger : MonoBehaviourPun
         {
             MapManager.Instance.MapChange();
             CursorToggle(true);
+            map();
         }
         else if (MapManager.Instance.mapOpen)
         {
             MapManager.Instance.MapChange();
             CursorToggle(false);
+            map();
         }
     }
     public void Sprint(InputAction.CallbackContext context)
@@ -825,6 +834,13 @@ public class PlayerManger : MonoBehaviourPun
             showDmgNumber = true;
         else if (!state)
             showDmgNumber = false;
+    }
+    public void updateSens()
+    {
+        if (playerInput.currentControlScheme == "Keyboard")
+            turnSens = PlayerPrefs.GetFloat("KS");
+        if (playerInput.currentControlScheme == "Controller")
+            turnSens = PlayerPrefs.GetFloat("KS");
     }
 }
 #endregion

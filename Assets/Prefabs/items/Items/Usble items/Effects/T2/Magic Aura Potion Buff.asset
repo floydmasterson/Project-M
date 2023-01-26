@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 841dcb57ed67ae044b60bf313f51dd3f, type: 3}
   m_Name: Magic Aura Potion Buff
   m_EditorClassIdentifier: 
+  SickTime: 15
   StrengthBuff: 0
   AgilityBuff: 0
   IntelligenceBuff: 1

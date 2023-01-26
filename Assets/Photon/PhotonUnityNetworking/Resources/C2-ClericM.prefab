@@ -298,7 +298,19 @@ MonoBehaviour:
       m_Calls: []
   m_ControlsChangedEvent:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1633790731590478555}
+        m_TargetAssemblyTypeName: PlayerManger, Scripts.Externl
+        m_MethodName: updateSens
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
@@ -669,7 +681,7 @@ MonoBehaviour:
   groundCheck: {fileID: 1633790732705830235}
   groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 32776
   isGrounded: 0
   canMove: 1
   currentCameraSpeed: 0
@@ -1318,7 +1330,7 @@ MonoBehaviour:
   m_MinimumOcclusionTime: 0
   m_CameraRadius: 1
   m_Strategy: 1
-  m_MaximumEffort: 10
+  m_MaximumEffort: 4
   m_SmoothingTime: 0
   m_Damping: 0
   m_DampingWhenOccluded: 0
@@ -1418,7 +1430,7 @@ MonoBehaviour:
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
   m_HorizontalDamping: 0
-  m_VerticalDamping: 0.5
+  m_VerticalDamping: 0
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_DeadZoneWidth: 0
@@ -1444,7 +1456,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1633790732015004095
 Transform:
   m_ObjectHideFlags: 0
@@ -1452,15 +1464,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633790732015004093}
-  m_LocalRotation: {x: 0.06162845, y: -0.7044161, z: -0.7044161, w: -0.06162845}
-  m_LocalPosition: {x: 0, y: 3.13, z: 0}
-  m_LocalScale: {x: 6.1415324, y: 7.476127, z: 1}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0.7071068, w: 0}
+  m_LocalPosition: {x: 0, y: 3.13, z: 1.52}
+  m_LocalScale: {x: 6.1415324, y: 9.109661, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1633790732333166547}
   m_Father: {fileID: 1633790731590478549}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -190}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -180}
 --- !u!212 &1633790732015004092
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1538,7 +1550,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633790732113323746}
   m_LocalRotation: {x: 0.23056088, y: 0.13724375, z: -0.032866698, w: 0.9627698}
-  m_LocalPosition: {x: -4.547473e-13, y: 0.000014305115, z: 0.00000095367005}
+  m_LocalPosition: {x: -4.547473e-13, y: 0.00002193451, z: 0.0000009536678}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1615,14 +1627,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633790732333166544}
-  m_LocalRotation: {x: -0, y: -0, z: 0.9961947, w: -0.08715579}
-  m_LocalPosition: {x: 0.013513209, y: -0.092412196, z: 0}
-  m_LocalScale: {x: 1.2941267, y: 1.0758646, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1633790732015004095}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1633790732333166546
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1664,7 +1676,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300064, guid: 34ecf51bcd3f4424eafda7dafd885bd0, type: 3}
+  m_Sprite: {fileID: 21300054, guid: 34ecf51bcd3f4424eafda7dafd885bd0, type: 3}
   m_Color: {r: 0.69803923, g: 0.7843138, b: 0.58431375, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2120,7 +2132,7 @@ MonoBehaviour:
   m_MinimumOcclusionTime: 0
   m_CameraRadius: 1
   m_Strategy: 1
-  m_MaximumEffort: 10
+  m_MaximumEffort: 4
   m_SmoothingTime: 0
   m_Damping: 0
   m_DampingWhenOccluded: 0
