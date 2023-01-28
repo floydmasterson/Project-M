@@ -43,7 +43,7 @@ public class Spell : MonoBehaviourPun
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.isTrigger = true;
         sphereCollider.radius = spellToCast.spellRadius;
-        if (GameManger.Instance.GameTimeLeft <= 0)
+        if (GameManger.Instance.GameTimeLeft <= 0 && PlayerUi.Instance.target.pvp == true)
             EnemyMask |= LayerMask.GetMask("enenmyMask") | LayerMask.GetMask("target");
         StartCoroutine(LifeTime());
     }

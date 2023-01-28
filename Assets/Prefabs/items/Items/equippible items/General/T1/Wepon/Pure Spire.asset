@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
+  m_Name: Pure Spire
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: 92a40214ec4fdf14e99570ac5c5625c9, type: 3}
+  ItemName: Pure Spire
+  ItemTier: 1
+  cost: 204
+  MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
+  id: cab71607e10bb984682fee7e29da7982
+  StrengthBonus: 0
+  AgilityBonus: 0
+  IntelligenceBonus: 2
+  VitalityBonus: 0
+  StrengthPercentBonus: 0
+  AgilityPercentBonus: 0.05
+  IntelligencePercentBonus: 0
+  VitalityPercentBonus: 0
+  Passives:
+  - {fileID: 11400000, guid: 3311348d6c64e1244a488539783eca6c, type: 2}
+  EquipmentType: 6
+  BoundSpell: {fileID: 8535670027616370256, guid: 67ca924aa0e06b147a77b9fa9ca1e4ca, type: 3}

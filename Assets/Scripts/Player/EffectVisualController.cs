@@ -15,6 +15,10 @@ public class EffectVisualController : MonoBehaviourPun
     {
         photonView.RPC("DisableEffectRPC", RpcTarget.All, number);
     }
+    public void PlayParticleEffect(int number)
+    {
+        photonView.RPC("PlayParticleEffectRPC", RpcTarget.All, number);
+    }
 
     [PunRPC]
     public void EnableEffectRPC(int number)
@@ -28,4 +32,11 @@ public class EffectVisualController : MonoBehaviourPun
         Effects[number].SetActive(false);
     }
 
+    [PunRPC]
+    public void PlayParticleEffectRPC(int number)
+    {
+        ParticleSystem ps = Effects[number].GetComponent<ParticleSystem>();
+        if (ps != null)
+            ps.Play();
+    }
 }

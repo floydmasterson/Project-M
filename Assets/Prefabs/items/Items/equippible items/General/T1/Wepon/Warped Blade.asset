@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
+  m_Name: Warped Blade
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: 1c67a41ff70b6084d86600587d9554f1, type: 3}
+  ItemName: Warped Blade
+  ItemTier: 1
+  cost: 234
+  MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
+  id: 6280073f16f47174c8d9ae2810f8c791
+  StrengthBonus: 2
+  AgilityBonus: 0
+  IntelligenceBonus: 0
+  VitalityBonus: 0
+  StrengthPercentBonus: 0
+  AgilityPercentBonus: 0.05
+  IntelligencePercentBonus: 0
+  VitalityPercentBonus: 0
+  Passives:
+  - {fileID: 11400000, guid: 01b30b3f02f7f494e92fe060df649984, type: 2}
+  - {fileID: 11400000, guid: cc01029acf5928c429958e6638b70715, type: 2}
+  EquipmentType: 0
+  BoundSpell: {fileID: 0}

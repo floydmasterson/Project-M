@@ -36,18 +36,8 @@ public class Character : MonoBehaviour
     [TabGroup("Quick Slot")]
     public int currentQuickItemAmount;
     [TabGroup("Quick Slot")]
-    public bool Sick;
-
-    public static event Action<float> Sicktime;
-
     private BaseItemSlot dragItemSlot;
-
-    IEnumerator ApplyPotionSickness(float time)
-    {
-        Sick = true;
-        yield return new WaitForSeconds(time);
-        Sick = false;
-    }
+   
     private void OnValidate()
     {
         if (itemTooltip == null)
@@ -58,7 +48,7 @@ public class Character : MonoBehaviour
     {
         Instance = this;
         statPanel.SetStats(Strength, Agility, Intelligence, Vitality);
-        UseableItemEffect.PotionSick += PotionSickness;
+ 
 
         // Setup Events:
         // Right Click
@@ -91,8 +81,15 @@ public class Character : MonoBehaviour
     {
         statPanel.UpdateStatValues();
         inventoryUi = gameObject.GetComponent<InventoryUi>();
+        for (int i = 0; i < Inventory.startingItems.Length; i++)
+        {
+            if (Inventory.startingItems[i] != null && Inventory.startingItems[i] is EquippableItem)
+            {
+                Equip((EquippableItem)Inventory.startingItems[i]);
+            }
+        }
     }
-    private void InventoryRightClick(BaseItemSlot itemSlot)
+    public void InventoryRightClick(BaseItemSlot itemSlot)
     {
         if (itemSlot.Item is EquippableItem)
         {
@@ -101,7 +98,7 @@ public class Character : MonoBehaviour
         else if (itemSlot.Item is UsableItem)
         {
             UsableItem usableItem = (UsableItem)itemSlot.Item;
-            if (usableItem.UseableCheck() && !Sick)
+            if (usableItem.UseableCheck(PlayerUi.Instance))
             {
                 usableItem.Use(this);
 
@@ -109,16 +106,11 @@ public class Character : MonoBehaviour
                 {
                     itemSlot.Amount--;
                     PlayerUi.Instance.CheckAmount();
-                    usableItem.Destroy();
                 }
             }
         }
     }
-    private void PotionSickness(float time)
-    {
-        StartCoroutine(ApplyPotionSickness(time));
-        Sicktime(time);
-    }
+   
     private void EquipmentPanelRightClick(BaseItemSlot itemSlot)
     {
         if (itemSlot.Item is EquippableItem)

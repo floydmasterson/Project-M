@@ -319,6 +319,10 @@ public class Enemys : MonoBehaviourPun
     }
     #endregion
     #region Mono
+    private void OnDestroy()
+    {
+        SettingMenu.DmgNumberToggle -= toggleDmgNumber;
+    }
     private void Awake()
     {
         if (typeSetting != 0)
@@ -337,6 +341,8 @@ public class Enemys : MonoBehaviourPun
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         SettingMenu.DmgNumberToggle += toggleDmgNumber;
+        if (GameManger.Instance != null)
+            Destroy(gameObject, GameManger.Instance.gameTime);
     }
     void Start()
     {

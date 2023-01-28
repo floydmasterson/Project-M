@@ -25,11 +25,11 @@ public class UsableItem : Item
         return IsConsumable ? "Consumable" : "Usable";
     }
    
-   public bool UseableCheck()
+   public bool UseableCheck(PlayerUi player)
     {
         foreach (UseableItemEffect effect in Effects)
         {
-           if (effect.canBeUsed())
+           if (effect.canBeUsed() && !player.Sick)
                 return true;
         }
         return false;

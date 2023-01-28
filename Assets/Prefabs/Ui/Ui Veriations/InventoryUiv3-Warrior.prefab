@@ -5528,7 +5528,6 @@ MonoBehaviour:
   draggableItem: {fileID: 9211024839165458771}
   currentQuickItem: {fileID: 5835966413969606600}
   currentQuickItemAmount: 0
-  Sick: 0
 --- !u!1 &3824153725247114134
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,13 +34,13 @@ public class EquippableItem : Item
     public int VitalityBonus;
 
     [TableColumnWidth(190, resizable: false)]
-    [FoldoutGroup("Percentage Stat Modifier", expanded: false)]
+    [FoldoutGroup("Percentage Stat Modifier", expanded: true)]
     public float StrengthPercentBonus;
-    [FoldoutGroup("Percentage Stat Modifier", expanded: false)]
+    [FoldoutGroup("Percentage Stat Modifier", expanded: true)]
     public float AgilityPercentBonus;
-    [FoldoutGroup("Percentage Stat Modifier", expanded: false)]
+    [FoldoutGroup("Percentage Stat Modifier", expanded: true)]
     public float IntelligencePercentBonus;
-    [FoldoutGroup("Percentage Stat Modifier", expanded: false)]
+    [FoldoutGroup("Percentage Stat Modifier", expanded: true)]
     public float VitalityPercentBonus;
     [TableColumnWidth(190, resizable: false)]
     public PassiveSO[] Passives;

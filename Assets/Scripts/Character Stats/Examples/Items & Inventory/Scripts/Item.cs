@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using static UnityEditor.Progress;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -86,11 +85,11 @@ public class Item : ScriptableObject
 
     public virtual int FindCost(Item Item)
     {
-        int value = 0;
+        float value = 0;
         if (ItemName == "Gold Coin")
             return 1;
         if (ItemTier == Tier.T0)
-            return value;
+            return Mathf.RoundToInt(value);
         if (IsConsumable)
         {
             switch (ItemTier)
@@ -121,36 +120,40 @@ public class Item : ScriptableObject
                     value += 500;
                     break;
             }
-            EquippableItem item = Item as EquippableItem;
-            value += item.AgilityBonus * 15;
-            value += item.VitalityBonus * 15;
-            value += item.IntelligenceBonus * 20;
-            value += item.StrengthBonus * 20;
-
-            value += (int)item.AgilityPercentBonus / 5;
-            value += (int)item.VitalityPercentBonus / 5;
-            value += (int)item.IntelligencePercentBonus / 10;
-            value += (int)item.StrengthPercentBonus / 10;
-
-            foreach (PassiveSO passive in item.Passives)
+            if (this is EquippableItem)
             {
-                if (passive != null)
-                {
-                    value += 25;
-                }
+                EquippableItem item = Item as EquippableItem;
+                value += item.AgilityBonus * 15;
+                value += item.VitalityBonus * 15;
+                value += item.IntelligenceBonus * 20;
+                value += item.StrengthBonus * 20;
 
+                value += item.AgilityPercentBonus * 100;
+                value += item.VitalityPercentBonus * 100;
+                value += item.IntelligencePercentBonus * 200;
+                value += item.StrengthPercentBonus * 200;
+
+                foreach (PassiveSO passive in item.Passives)
+                {
+                    if (passive != null)
+                    {
+                        value += 25;
+                    }
+
+                }
             }
+
 
             switch (ItemTier)
             {
                 case Tier.T1:
-                    value += value * (int).2f;
+                    value += value * .2f;
                     break;
                 case Tier.T2:
-                    value += value * (int).3f;
+                    value += value * .3f;
                     break;
                 case Tier.T3:
-                    value += value * (int).5f;
+                    value += value * .5f;
                     break;
             }
         }

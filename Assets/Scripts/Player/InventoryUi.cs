@@ -69,7 +69,7 @@ public class InventoryUi : MonoBehaviourPun
     }
     private void Update()
     {
-        if (GameManger.Instance && GameManger.Instance.GameTimeLeft > 0)
+        if (GameManger.Instance != null && GameManger.Instance.GameTimeLeft > 0)
         {
             updateTimer(GameManger.Instance.GameTimeLeft);
         }

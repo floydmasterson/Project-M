@@ -15,7 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: ea7cd8a9d92f5bb479977f7e48bfec50, type: 3}
   ItemName: Rhino Guard
   ItemTier: 3
-  cost: 560
+  cost: 862
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
@@ -25,7 +25,7 @@ MonoBehaviour:
   IntelligenceBonus: 0
   VitalityBonus: 4
   StrengthPercentBonus: 0
-  AgilityPercentBonus: 0.1
+  AgilityPercentBonus: 0.15
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
   Passives: []

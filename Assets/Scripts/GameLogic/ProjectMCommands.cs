@@ -10,7 +10,7 @@ public class ProjectMCommands : CommandBehaviour
     [SerializeField] GameManger gameManger;
     [SerializeField] PhotonView photonView;
     #region SetUp
-   
+
     protected override void Start()
     {
         base.Start();
@@ -112,19 +112,66 @@ public class ProjectMCommands : CommandBehaviour
         else
             Debug.LogWarning("Local Player is not set. Try setup");
     }
+
     [Command]
-    private void tp_to_shop()
+    private void tp_to(int POIid)
     {
         if (localPlayer != null)
         {
-            localPlayer.transform.position = new Vector3(-66, 0, 28);
+            switch (POIid)
+            {
+                case 0:
+                    localPlayer.transform.position = new Vector3(-66, 0, 28); // Debug Shop
+                    Debug.Log("TP to Debug Shop");
+                    break;
+                case 1:
+                    localPlayer.transform.position = new Vector3(25, 3, -45); // Sector 1 Spawn
+                    Debug.Log("TP to Sector 1 spawn");
+                    break;
+                case 2:
+                    localPlayer.transform.position = new Vector3(286, 3, -744); // Sector 3  TempSpawn
+                    Debug.Log("TP to Sector 3 temp spawn");
+                    break;
+                case 3:
+                    localPlayer.transform.position = new Vector3(302, 3, -1095); // Sector 3  TempSpawn
+                    Debug.Log("TP to Sector 5 temp spawn");
+                    break;
+                case 4:
+                    localPlayer.transform.position = new Vector3(216, -107, -560); // Shop Spawn
+                    Debug.Log("TP to Shop Spawn");
+                    break;
+                    
+                default:
+                    Debug.LogWarning("Unknown or unassiged ID");
+                    break;
+            }
         }
         else
             Debug.LogWarning("Local Player is not set. Try setup");
     }
-        #endregion
-        #region Spawn Things
-        [Command]
+    [Command]
+    private void tp_id_list()
+    {
+        Debug.Log("0:Debug Shop");
+        Debug.Log("1:Sector 1 spawn");
+        Debug.Log("2:Sector 3 temp spawn");
+        Debug.Log("3:Sector 5 temp spawn");
+        Debug.Log("4:Shop Spawn");
+
+    }
+    [Command]
+    private void tp(float xCord, float yCord, float zCord)
+    {
+        if (localPlayer != null)
+        {
+            localPlayer.transform.position = new Vector3(xCord, yCord, zCord);
+        }
+        else
+            Debug.LogWarning("Local Player is not set. Try setup");
+    }
+    #endregion
+    #region Spawn Things
+    [Command]
     private void spawn_chest(string chesttier)
     {
         if (localPlayer != null)
@@ -165,7 +212,7 @@ public class ProjectMCommands : CommandBehaviour
         if (gameManger != null)
         {
             if (PhotonNetwork.IsMasterClient)
-               gameManger.SetGameTime(timeinseconds);
+                gameManger.SetGameTime(timeinseconds);
             else
                 Debug.LogError("You must be master client to use this command");
         }
@@ -173,7 +220,7 @@ public class ProjectMCommands : CommandBehaviour
             Debug.LogWarning("Game Manager is not set. Try setup");
     }
 
-  
+
 
     #endregion
     #region Misc

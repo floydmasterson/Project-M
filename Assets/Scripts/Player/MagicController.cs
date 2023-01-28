@@ -2,13 +2,16 @@ using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MagicController : MonoBehaviourPun, IAttack
 {
 
     private float currentManaRechargeTimer;
     private float currentCastTimer;
+    private float currentPulseTimer;
     private PlayerManger manger;
+    private bool pulseOnCooldown;
 
     [TabGroup("Spell and Mana")]
     public Spell selectedSpell;
@@ -18,6 +21,11 @@ public class MagicController : MonoBehaviourPun, IAttack
     [SerializeField] float _maxMana = 100f;
     [TabGroup("Spell and Mana"), ProgressBar(0, "_maxMana", 0, 0, 1)]
     [SerializeField] float _currMana;
+    [TabGroup("Spell and Mana")]
+    [SerializeField] float _manaPulseCost = 20f;
+
+
+
 
     [TabGroup("Setup")]
     [SerializeField] Transform castPoint;
@@ -27,9 +35,19 @@ public class MagicController : MonoBehaviourPun, IAttack
     [SerializeField] float _BasemanaRegenRate = 2f;
     [TabGroup("Setup")]
     [SerializeField] private float _castCooldown = .25f;
+    [TabGroup("Setup")]
+    [SerializeField] float _pushForce = 10.0f;
+    [TabGroup("Setup")]
+    [SerializeField] float pulseCooldown = 10f;
+    [TabGroup("Setup")]
+    [SerializeField] float pulseRange = 10f;
+
+    EffectVisualController EffectVisualContol;
 
     [TabGroup("Audio"), Required, SerializeField]
     SFX spellcast;
+    [TabGroup("Audio"), Required, SerializeField]
+    SFX manaPulse;
     public float ManaRegenRate
     {
         get { return _BasemanaRegenRate; }
@@ -59,6 +77,23 @@ public class MagicController : MonoBehaviourPun, IAttack
             }
         }
     }
+    public float PushForce
+    {
+        get { return _pushForce; }
+
+        set { _pushForce = value; }
+    }
+    public float ManaPulseCost
+    {
+        get
+        {
+            return _manaPulseCost;
+        }
+        set
+        {
+            _manaPulseCost = value;
+        }
+    }
 
     private IEnumerator AttackSpell()
     {
@@ -71,10 +106,26 @@ public class MagicController : MonoBehaviourPun, IAttack
         manger.photonView.RPC("UpdateAttack", RpcTarget.All);
         yield return new WaitForSecondsRealtime(.1f);
     }
-    private void Awake()
+    private IEnumerator ManaPulsePush(Transform target, Vector3 direction, float speed)
     {
+        float startime = Time.time;
+        Vector3 start_pos = target.position; //Starting position.
+        Vector3 end_pos = target.position + direction; //Ending position.
 
-        manger = PlayerUi.Instance.target;
+        while (start_pos != end_pos && ((Time.time - startime) * speed) < 1f)
+        {
+            float move = Mathf.Lerp(0, 1, (Time.time - startime) * speed);
+
+            target.position += direction * move;
+
+            yield return null;
+        }
+    }
+
+        private void Awake()
+    {
+        EffectVisualContol = GetComponent<EffectVisualController>();
+        manger = GetComponent<PlayerManger>();
         _currMana = _maxMana;
     }
     private void OnEnable()
@@ -101,6 +152,16 @@ public class MagicController : MonoBehaviourPun, IAttack
                 if (_currMana >= _maxMana)
                     _currMana = _maxMana;
             }
+        }
+        if(currentPulseTimer > 0)
+        {
+            pulseOnCooldown = true;
+            currentPulseTimer -= Time.deltaTime;
+        }
+        else if(currentPulseTimer < 0)
+        {
+            pulseOnCooldown= false;
+            currentPulseTimer = 0;
         }
     }
     public void Attack()
@@ -153,14 +214,51 @@ public class MagicController : MonoBehaviourPun, IAttack
             }
         }
     }
+    public void ManaPulse(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            bool hasEnoughMana = _currMana - ManaPulseCost >= 0f;
+            if (hasEnoughMana && !isCasting && !pulseOnCooldown)
+            {
+
+                manger.StartCoroutine(manger.IFrames(.8f));
+                isCasting = true;
+                currentPulseTimer = pulseCooldown;
+                currentCastTimer = 0;
+                _currMana -= ManaPulseCost;
+                photonView.RPC("ManaPulseSFX", RpcTarget.All);
+                EffectVisualContol.EnableEffect(2);
+                Collider[] colliders = Physics.OverlapSphere(transform.position, pulseRange, manger.enemyLayers);
+                foreach (Collider col in colliders)
+                {
+                    Transform target = col.transform;
+                    Vector3 pushDirection = (col.transform.position - transform.position).normalized;
+                    StartCoroutine(ManaPulsePush(target, pushDirection, PushForce));
+                }
+                currentManaRechargeTimer = 0;
+                isCasting = false;
+            }
+        }
+    }
     private void onDeath(PlayerManger player)
     {
         CurrMana = MaxMana;
     }
-
     [PunRPC]
     private void spellCastSFX()
     {
         spellcast.PlaySFX();
     }
+    [PunRPC]
+    private void ManaPulseSFX()
+    {
+        manaPulse.PlaySFX();
+    }
+    private void OnDrawGizmosSelected()
+    {
+       
+        Gizmos.DrawSphere(transform.position, pulseRange);
+    }
 }
+

@@ -25,8 +25,8 @@ MonoBehaviour:
   IntelligenceBonus: 0
   VitalityBonus: 0
   StrengthPercentBonus: 0
-  AgilityPercentBonus: 0.02
-  IntelligencePercentBonus: 0.02
+  AgilityPercentBonus: 0.01
+  IntelligencePercentBonus: 0.01
   VitalityPercentBonus: 0
   Passives: []
   EquipmentType: 10

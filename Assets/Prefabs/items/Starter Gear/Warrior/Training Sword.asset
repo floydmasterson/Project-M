@@ -25,7 +25,7 @@ MonoBehaviour:
   IntelligenceBonus: 0
   VitalityBonus: 0
   StrengthPercentBonus: 0
-  AgilityPercentBonus: 0.1
+  AgilityPercentBonus: 0.01
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
   Passives: []

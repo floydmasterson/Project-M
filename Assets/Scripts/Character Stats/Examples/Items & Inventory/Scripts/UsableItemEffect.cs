@@ -1,5 +1,3 @@
-using Codice.Client.Common;
-using Kryz.CharacterStats.Examples;
 using System;
 using UnityEngine;
 

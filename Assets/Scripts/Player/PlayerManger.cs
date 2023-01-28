@@ -308,6 +308,15 @@ public class PlayerManger : MonoBehaviourPun
             MiniMapIcon.SetActive(true);
             lockCamera.Priority = 10;
             locked = true;
+           if (UiPrefab != null)
+            {
+                GameObject _uiGo = Instantiate(UiPrefab) as GameObject;
+                _uiGo.GetComponent<PlayerUi>().SetTarget(this);
+            }
+            else
+            {
+                Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
+            }
             if (InventoryPrefab != null)
             {
                 GameObject _uiGoi = Instantiate(InventoryPrefab) as GameObject;
@@ -317,15 +326,6 @@ public class PlayerManger : MonoBehaviourPun
             else
             {
                 Debug.LogWarning("<Color=Red><a>Missing</a></Color> IventoryPrefab reference on player Prefab.", this);
-            }
-            if (UiPrefab != null)
-            {
-                GameObject _uiGo = Instantiate(UiPrefab) as GameObject;
-                _uiGo.GetComponent<PlayerUi>().SetTarget(this);
-            }
-            else
-            {
-                Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
             }
             GamepadCursor.Instance.playerInput = playerInput;
          
@@ -421,7 +421,7 @@ public class PlayerManger : MonoBehaviourPun
     #region PlayerInput Events
     public void Roll()
     {
-        if (ActCooldown <= 0 && characterController.velocity != Vector3.zero)
+        if (ActCooldown <= 0 && !Rb.IsSleeping())
         {
             ActCooldown = dodgeCooldown;
             StartCoroutine(IFrames(.8f));
@@ -435,12 +435,12 @@ public class PlayerManger : MonoBehaviourPun
             UsableItem quickItem = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Item as UsableItem;
             QuickSlot quickSlot = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true);
             if (quickItem != null)
-            {
-                if (quickItem.UseableCheck())
+            { 
+                if (quickItem.UseableCheck(PlayerUi.Instance))
                 {
                     quickItem.Use(character);
                     quickSlot.Amount--;
-                    quickItem.Destroy();
+                    PlayerUi.Instance.CheckAmount();
                 }
             }
         }
@@ -560,19 +560,22 @@ public class PlayerManger : MonoBehaviourPun
     }
     public void Map(InputAction.CallbackContext context)
     {
-        if (!context.started)
-            return;
-        if (!MapManager.Instance.mapOpen)
+        if (photonView.IsMine)
         {
-            MapManager.Instance.MapChange();
-            CursorToggle(true);
-            map();
-        }
-        else if (MapManager.Instance.mapOpen)
-        {
-            MapManager.Instance.MapChange();
-            CursorToggle(false);
-            map();
+            if (!context.started)
+                return;
+            if (!MapManager.Instance.mapOpen)
+            {
+                MapManager.Instance.MapChange();
+                CursorToggle(true);
+                map();
+            }
+            else if (MapManager.Instance.mapOpen)
+            {
+                MapManager.Instance.MapChange();
+                CursorToggle(false);
+                map();
+            }
         }
     }
     public void Sprint(InputAction.CallbackContext context)
@@ -793,7 +796,7 @@ public class PlayerManger : MonoBehaviourPun
     private void EnbalePvpCombat()
     {
         enemyLayers |= LayerMask.GetMask("enenmyMask") | LayerMask.GetMask("target");
-        pvp = true;
+        transform.position = new Vector3(216, -107, -560);
     }
 
     private void ForwardCamLock(bool state)

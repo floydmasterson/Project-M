@@ -9,19 +9,23 @@ public class Inventory : ItemContainer
     [SerializeField] public Item[] startingItems;
     [TabGroup("Setup")]
     [SerializeField] protected Transform itemsParent;
+    Character character;
 
     protected override void OnValidate()
     {
         if (itemsParent != null)
             itemsParent.GetComponentsInChildren(includeInactive: true, result: ItemSlots);
     }
+    private void Awake()
+    {
+        character = GetComponentInParent<Character>();
+        SetStartingItems();     
+    }
 
     protected override void Start()
     {
         base.Start();
-        SetStartingItems();
     }
-
     private void SetStartingItems()
     {
         foreach (Item item in startingItems)
@@ -31,8 +35,12 @@ public class Inventory : ItemContainer
                 item.name = item.name.Replace("(Clone", "").Trim();
                 AddItem(item.GetCopy(), 0);
             }
-
         }
+        for (int i = 0; i < ItemSlots.Count; i++)
+        {
+            if (ItemSlots[i].Item is EquippableItem)
+                character.InventoryRightClick(ItemSlots[i]);
+        }       
 
     }
 

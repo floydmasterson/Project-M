@@ -9,13 +9,19 @@ public class GameManger : MonoBehaviourPunCallbacks
     public static GameManger Instance;
     [TabGroup("Prefabs")]
     public GameObject[] playerPrefab;
+    [TabGroup("Prefabs")]
+    public GameObject Sector3;
+    [TabGroup("Prefabs")]
+    public GameObject Sector1;
+    [TabGroup("Prefabs")]
+    public GameObject Sector5;
     public static GameObject LocalPlayerInstance;
     [TabGroup("Spawning")]
     public bool spawnEnemys;
     [TabGroup("Spawning")]
     public bool spawnPlayersTogther;
     [TabGroup("Spawning")]
-    [SerializeField] List<Vector3> playerSpawnPoints = new List<Vector3>();
+    [SerializeField] List<RespawnPoint> playerSpawnPoints = new List<RespawnPoint>();
     public delegate void PvPEnable();
     public static event PvPEnable PvPon;
     public delegate void spawn();
@@ -23,7 +29,7 @@ public class GameManger : MonoBehaviourPunCallbacks
     [TabGroup("Game Time")]
     public float GameTimeLeft = 0f;
     [TabGroup("Game Time")]
-    [SerializeField] int gameTime;
+    [SerializeField] public int gameTime;
     public bool timerOn = false;
     bool[] picked = new bool[2];
     [TabGroup("Audio")]
@@ -34,7 +40,18 @@ public class GameManger : MonoBehaviourPunCallbacks
     private void Awake()
     {
         Instance = this;
-        //PhotonNetwork.OfflineMode = true;
+    }
+    private void TimesUp()
+    {
+        Debug.Log("time is up");
+        GameTimeLeft = 0;
+        timerOn = false;
+        PvPon();
+        Sector1.SetActive(false);
+        Sector5.SetActive(false);
+        Sector3.SetActive(true);
+        if (spawnEnemys == true && spawnMobs != null)
+            spawnMobs();
     }
 
     void Start()
@@ -44,30 +61,29 @@ public class GameManger : MonoBehaviourPunCallbacks
         dungonAmbient.PlaySFX();
         if (PhotonNetwork.IsMasterClient)
         {
-            int index = 0;
-
-            if (spawnEnemys == true)
+            if (spawnEnemys == true && spawnMobs != null)
                 spawnMobs();
             foreach (Player player in PhotonNetwork.PlayerList)
             {
-                if (index >= 2)
-                    index = 0;
-                photonView.RPC("InstantiationPlayer", player, index);
-                if (spawnPlayersTogther == false)
-                    index++;
-
+                int selctedSpawn = Random.Range(0, playerSpawnPoints.Count);
+                photonView.RPC("InstantiationPlayer", player, selctedSpawn);
+                photonView.RPC("Removepoint", RpcTarget.All, selctedSpawn);
             }
+            SetGameTime(gameTime);
         }
-        GameTimeLeft = gameTime;
-        timerOn = true;
     }
     [PunRPC]
-    void InstantiationPlayer(int index)
+    void InstantiationPlayer(int spawnPoint)
     {
         GameObject playerToSpawn = playerPrefab[(int)PhotonNetwork.LocalPlayer.CustomProperties["playerAvatar"]];
-        PhotonNetwork.Instantiate(playerToSpawn.name, playerSpawnPoints[index], Quaternion.identity);
-
+        PhotonNetwork.Instantiate(playerToSpawn.name, playerSpawnPoints[spawnPoint].spawnPoint.transform.position, Quaternion.identity);
     }
+    [PunRPC]
+    void Removepoint(int spawnPoint)
+    {
+        playerSpawnPoints.Remove(playerSpawnPoints[spawnPoint]);
+    }
+
 
     private void Update()
     {
@@ -77,21 +93,16 @@ public class GameManger : MonoBehaviourPunCallbacks
             {
                 GameTimeLeft -= Time.deltaTime;
             }
-            else
+            else if (GameTimeLeft < 0)
             {
-                Debug.Log("time is up");
-                GameTimeLeft = 0;
-                timerOn = false;
-                PvPon();
-                //despawn enemys 
-                //despawn chests?
+                TimesUp();
             }
         }
     }
 
     public void SetGameTime(float time)
     {
-        photonView.RPC("SetGameTimeRPC", RpcTarget.All, time);
+        photonView.RPC("SetGameTimeRPC", RpcTarget.AllBuffered, time);
     }
     [PunRPC]
     public void SetGameTimeRPC(float time)

@@ -30,6 +30,8 @@ public class MeeleController : MonoBehaviourPun, IAttack
     [SerializeField] private bool damaged;
     [TabGroup("Rage")]
     [SerializeField] public float lifeStealAmount = .25f;
+    [TabGroup("Rage")]
+    [SerializeField] EffectVisualController effectVisualController;
     [TabGroup("Audio"), SerializeField]
     SFX attackSwish;
     public int MaxRage
@@ -65,6 +67,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
         raging = true;
         int startingRage = CurrentRage;
         Color rageColor = new Color32(170, 38, 64, 255);
+        effectVisualController.EnableEffect(2);
         Character.Instance.Strength.AddModifier(new StatModifier(StrengthMod, StatModType.PercentMult, Rage));
         Character.Instance.Agility.AddModifier(new StatModifier(AgilityMod, StatModType.PercentMult, Rage));
         manger.DefenseMod += DefenseMod;
@@ -96,7 +99,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
             Transform target = hitEnemins[0].transform;
             PlayerManger player = target.GetComponent<PlayerManger>();
             Enemys Etarget = target.GetComponent<Enemys>();
-            if (player != null && player != PlayerUi.Instance.target)
+            if (player != null && player != PlayerUi.Instance.target && player.pvp)
             {
                 player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
             }
@@ -108,7 +111,8 @@ public class MeeleController : MonoBehaviourPun, IAttack
     }
     private void Start()
     {
-        manger = PlayerUi.Instance.target;
+        manger = GetComponent<PlayerManger>();
+        effectVisualController = GetComponent<EffectVisualController>();
         CurrentRage = 0;
     }
     private void OnEnable()

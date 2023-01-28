@@ -43,13 +43,13 @@ public class PlayerUi : MonoBehaviourPun
     [SerializeField] GameObject quickSlot;
     [TabGroup("Quick Slot")]
     [SerializeField] TextMeshProUGUI quickSlotAmountText;
-    [TabGroup("Quick Slot"), SerializeField]
+    [TabGroup("Quick Slot")]
     Image QSlotCooldown;
-    [TabGroup("Quick Slot"), SerializeField]
+    [TabGroup("Quick Slot")]
     TextMeshProUGUI QSlotCooldownText;
-    [TabGroup("Quick Slot"), SerializeField]
+    [TabGroup("Quick Slot")]
     Image UiSlotCooldown;
-    [TabGroup("Quick Slot"), SerializeField]
+    [TabGroup("Quick Slot")]
     Image UiCooldownIcon;
 
     private float cooldownTime;
@@ -88,40 +88,12 @@ public class PlayerUi : MonoBehaviourPun
     Vector3 targetPosition;
     private bool toggle = true;
     GamepadCursor gamepadCursor;
-
-    // Start is called before the first frame update
-    void Awake()
+    public bool Sick = false;
+    IEnumerator ApplyPotionSickness(float time)
     {
-        Instance = this;
-        _canvasGroup = this.GetComponent<CanvasGroup>();
-        gamepadCursor = GetComponentInChildren<GamepadCursor>();
-        QSlotCooldownText.gameObject.SetActive(false);
-        UiCooldownIcon.gameObject.SetActive(false);
-        QSlotCooldown.fillAmount = 0f;
-        UiSlotCooldown.fillAmount = 0f; ;
-        Health = gameObject.transform.GetChild(2).gameObject;
-        Mana = gameObject.transform.GetChild(3).gameObject;
-        Rage = gameObject.transform.GetChild(4).gameObject;
-        RageInv = gameObject.transform.GetChild(5).gameObject;
-        ManaInv = gameObject.transform.GetChild(6).gameObject;
-        HealthInv = gameObject.transform.GetChild(7).gameObject;
-        Character.Sicktime += CooldownGFX;
-    }
-    private void OnEnable()
-    {
-        PlayerManger.onInventoryOpen += CloseUi;
-        PlayerManger.onInventoryClose += OpenUi;
-        PlayerManger.escapeMenu += toggleUi;
-    }
-
-    private void CooldownGFX(float time)
-    {
-        cooldownTime = time;
-        cooldownTimer = cooldownTime;
-        CheckAmount();
-        QSlotCooldownText.gameObject.SetActive(true);
-        UiCooldownIcon.gameObject.SetActive(true);
-        StartCoroutine(applyCooldown(time));
+        Sick = true;
+        yield return new WaitForSeconds(time);
+        Sick = false;
     }
     IEnumerator applyCooldown(float time)
     {
@@ -144,11 +116,41 @@ public class PlayerUi : MonoBehaviourPun
         }
     }
 
+    // Start is called before the first frame update
+    void Awake()
+    {
+        Instance = this;
+        _canvasGroup = this.GetComponent<CanvasGroup>();
+        gamepadCursor = GetComponentInChildren<GamepadCursor>();
+        Health = gameObject.transform.GetChild(2).gameObject;
+        Mana = gameObject.transform.GetChild(3).gameObject;
+        Rage = gameObject.transform.GetChild(4).gameObject;
+        RageInv = gameObject.transform.GetChild(5).gameObject;
+        ManaInv = gameObject.transform.GetChild(6).gameObject;
+        HealthInv = gameObject.transform.GetChild(7).gameObject;
+        QSlotCooldown = quickSlot.transform.GetChild(3).GetComponent<Image>();
+        QSlotCooldownText = quickSlot.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
+        UiCooldownIcon = Health.transform.GetChild(4).GetComponent<Image>();
+        UiSlotCooldown = UiCooldownIcon.gameObject.transform.GetChild(0).GetComponent<Image>();
+        QSlotCooldown.fillAmount = 0f;
+        UiSlotCooldown.fillAmount = 0f;
+        QSlotCooldownText.gameObject.SetActive(false);
+        UiCooldownIcon.gameObject.SetActive(false);
+    }
+    private void OnEnable()
+    {
+        UseableItemEffect.PotionSick += PotionSickness;
+        PlayerManger.onInventoryOpen += CloseUi;
+        PlayerManger.onInventoryClose += OpenUi;
+        PlayerManger.escapeMenu += toggleUi;
+    }
+
     private void OnDisable()
     {
         PlayerManger.onInventoryOpen -= CloseUi;
         PlayerManger.onInventoryClose -= OpenUi;
         PlayerManger.escapeMenu -= toggleUi;
+        UseableItemEffect.PotionSick -= PotionSickness;
     }
     private void Start()
     {
@@ -174,6 +176,20 @@ public class PlayerUi : MonoBehaviourPun
         }
     }
     // Update is called once per frame
+    private void CooldownGFX(float time)
+    {
+        cooldownTime = time;
+        cooldownTimer = cooldownTime;
+        CheckAmount();
+        QSlotCooldownText.gameObject.SetActive(true);
+        UiCooldownIcon.gameObject.SetActive(true);
+        StartCoroutine(applyCooldown(time));
+    }
+    private void PotionSickness(float time)
+    {
+        StartCoroutine("ApplyPotionSickness", time);
+        CooldownGFX(time);
+    }
     void Update()
     {
         if (playerHealthSlider != null)
@@ -225,9 +241,16 @@ public class PlayerUi : MonoBehaviourPun
             return;
         }
         if (Character.Instance.currentQuickItem.sprite != null)
+        {
+            quickSlotImage.color = new Color(1, 1, 1, 1);
             quickSlotImage.sprite = Character.Instance.currentQuickItem.sprite;
+        }
         else
-            quickSlot.SetActive(false);
+        {
+            quickSlotImage.color = new Color(1, 1, 1, 0);
+            if (!quickSlot.activeInHierarchy && Health.activeInHierarchy)
+                quickSlot.SetActive(true);
+        }
 
     }
     void LateUpdate()
@@ -312,7 +335,6 @@ public class PlayerUi : MonoBehaviourPun
             toggle = true;
         }
     }
-
     public void CheckAmount()
     {
         quickAmount = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Amount;

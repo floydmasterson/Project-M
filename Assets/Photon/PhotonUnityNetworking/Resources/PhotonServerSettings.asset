@@ -63,6 +63,11 @@ MonoBehaviour:
   - PlaySFXRPC
   - spellCastSFX
   - swingSFX
+  - PlayParticleEffectRPC
+  - ManaPulseSFX
+  - RemoveSpawn
+  - FirstPlayer
+  - Removepoint
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
