@@ -338,7 +338,16 @@ public class PlayerUi : MonoBehaviourPun
     public void CheckAmount()
     {
         quickAmount = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Amount;
-        quickSlotAmountText.text = quickAmount.ToString();
+        if (quickAmount > 1)
+        {
+            quickSlotAmountText.gameObject.SetActive(true);
+            quickSlotAmountText.text = quickAmount.ToString();
+
+        }
+        else if(quickAmount <= 1)
+        {
+            quickSlotAmountText.gameObject.SetActive(false);
+        }
     }
     public void SetTarget(PlayerManger _target)
     {

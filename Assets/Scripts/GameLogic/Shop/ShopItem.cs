@@ -1,6 +1,8 @@
 using Sirenix.OdinInspector;
+using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ShopItem : MonoBehaviour
@@ -11,6 +13,8 @@ public class ShopItem : MonoBehaviour
     Button button;
     [TabGroup("Setup"), SerializeField, Required]
     Image ItemIcon;
+    [TabGroup("Setup"), SerializeField, Required]
+    private BaseItemSlot slot;
     [TabGroup("Setup"), SerializeField, Tooltip("Set at runtime")]
     public Item ItemForSale;
     [TabGroup("Setup"), SerializeField, Tooltip("Set at runtime")]
@@ -18,6 +22,7 @@ public class ShopItem : MonoBehaviour
     int amountForSale;
     Transform inCart;
     Transform inShop;
+
     public void Setup(ShopController shop, Item saleItem, Transform InCart, Transform InShop)
     {
         Shop = shop;
@@ -26,10 +31,12 @@ public class ShopItem : MonoBehaviour
         inShop = InShop;
         ItemIcon.sprite = ItemForSale.Icon;
         if (ItemForSale is UsableItem)
-            amountForSale = Random.Range(2, 6);
+            amountForSale = UnityEngine.Random.Range(2, 6);
         else
             amountForSale = 1;
-        Gold.text = Shop.BuyCost(ItemForSale).ToString() + "G x" + amountForSale;
+        slot.Item = saleItem;
+        slot.Amount = amountForSale;
+        Gold.text = (ItemForSale.BuyPrice).ToString() + "G x" + amountForSale;
         button.onClick.AddListener(addToCart);
         Shop.RemovedFromCart += ReEnable;
     }
@@ -50,7 +57,7 @@ public class ShopItem : MonoBehaviour
         }
         else
         {
-            Gold.text = Shop.BuyCost(ItemForSale).ToString() + "G x" + amountForSale;
+            Gold.text = (ItemForSale.BuyPrice).ToString() + "G x" + amountForSale;
         }
     }
 
@@ -59,10 +66,11 @@ public class ShopItem : MonoBehaviour
         if (item.ID == ItemForSale.ID)
         {
             amountForSale += 1;   
-            Gold.text = Shop.BuyCost(ItemForSale).ToString() + "G x" + amountForSale;
+            Gold.text = (ItemForSale.BuyPrice).ToString() + "G x" + amountForSale;
             gameObject.transform.SetParent(inShop);
             gameObject.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 
+  
 }

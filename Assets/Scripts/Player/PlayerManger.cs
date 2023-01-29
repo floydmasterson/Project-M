@@ -12,7 +12,7 @@ public class PlayerManger : MonoBehaviourPun
 {
     #region Vars
     //Partds
-    [TabGroup("Components"), SerializeField, Required]
+    [TabGroup("Components"), Required]
     public CinemachineFreeLook cineCamera;
 
     [TabGroup("Components"), SerializeField, Required]
@@ -24,7 +24,7 @@ public class PlayerManger : MonoBehaviourPun
     [TabGroup("Components"), SerializeField, Required]
     Collider col;
 
-    [TabGroup("Components"), SerializeField, Required]
+    [TabGroup("Components"), Required]
     public PlayerInput playerInput;
 
     [TabGroup("Components"), SerializeField, Required]
@@ -45,7 +45,7 @@ public class PlayerManger : MonoBehaviourPun
     [TabGroup("Components"), SerializeField]
     Transform HealTextspawn;
 
-    [TabGroup("Components"), SerializeField, Required]
+    [TabGroup("Components"), Required]
     public bool IsLocal = false;
 
     private GameObject cam;
@@ -106,8 +106,7 @@ public class PlayerManger : MonoBehaviourPun
 
 
     //Movment
-    [TabGroup("Movement")]
-    [SerializeField] float turnSmoothTime = 0.1f;
+
     [TabGroup("Movement")]
     [SerializeField] float SprintSpeed = 12f;
     [TabGroup("Movement")]
@@ -120,7 +119,7 @@ public class PlayerManger : MonoBehaviourPun
     [SerializeField] Vector2 turn;
     readonly float _groundDistance = .0001f;
     readonly float _gravity = -9.81f;
-    float turnSmoothVelc;
+    readonly float turnSmoothVelc;
     [Space]
     [TabGroup("Movement")]
     public Transform groundCheck;
@@ -180,15 +179,15 @@ public class PlayerManger : MonoBehaviourPun
 
     bool escapeMenuOpen;
     const string gamepadScheme = "Controller";
-    LootContainerControl lootContainerControl;
     bool locked;
     bool showHealingNumber;
     bool showDmgNumber;
+    public bool inShop;
 
     public delegate void EscapeMenu();
     public static event EscapeMenu escapeMenu;
     public delegate void MapD();
-    public static event MapD map;
+    public static event MapD CrossToggle;
     public delegate void inventoryO();
     public static event inventoryO onInventoryOpen;
     public delegate void inventoryC();
@@ -274,7 +273,7 @@ public class PlayerManger : MonoBehaviourPun
         while (Time.time < startTime + .6f)
         {
             canMove = false;
-            characterController.Move(initalDirection * (pushAmt + Character.Instance.Agility.Value * .8f) * Time.fixedDeltaTime);
+            characterController.Move((pushAmt + Character.Instance.Agility.Value) * Time.deltaTime * initalDirection);
             yield return null;
         }
         canMove = true;
@@ -308,7 +307,7 @@ public class PlayerManger : MonoBehaviourPun
             MiniMapIcon.SetActive(true);
             lockCamera.Priority = 10;
             locked = true;
-           if (UiPrefab != null)
+            if (UiPrefab != null)
             {
                 GameObject _uiGo = Instantiate(UiPrefab) as GameObject;
                 _uiGo.GetComponent<PlayerUi>().SetTarget(this);
@@ -328,7 +327,7 @@ public class PlayerManger : MonoBehaviourPun
                 Debug.LogWarning("<Color=Red><a>Missing</a></Color> IventoryPrefab reference on player Prefab.", this);
             }
             GamepadCursor.Instance.playerInput = playerInput;
-         
+
         }
         else
         {
@@ -353,7 +352,7 @@ public class PlayerManger : MonoBehaviourPun
             float x = inputMove.x;
             float y = inputMove.y;
             Vector3 direction = new Vector3(x, 0f, y).normalized;
-           
+
             //gravity
             isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
             if (isGrounded && velocity.y < 0)
@@ -365,24 +364,7 @@ public class PlayerManger : MonoBehaviourPun
                 velocity.y += _gravity * Time.fixedDeltaTime;
                 characterController.Move(velocity * Time.fixedDeltaTime);
             }
-
-            if (canMove && !locked)
-            {
-
-                //Primary Move + Camera smooth effect
-                if (direction.magnitude >= 0.1f)
-                {
-                    float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
-                    float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelc, turnSmoothTime);
-                    transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-                    Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-                    Direction = moveDirection;
-                    characterController.Move(speed * Time.fixedDeltaTime * moveDirection.normalized);
-                }
-                //Locked cam movemnt
-            }
-            else if (locked)
+            if (canMove && locked)
             {
                 if (turnSens == 0)
                     updateSens();
@@ -435,7 +417,7 @@ public class PlayerManger : MonoBehaviourPun
             UsableItem quickItem = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Item as UsableItem;
             QuickSlot quickSlot = InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true);
             if (quickItem != null)
-            { 
+            {
                 if (quickItem.UseableCheck(PlayerUi.Instance))
                 {
                     quickItem.Use(character);
@@ -451,13 +433,6 @@ public class PlayerManger : MonoBehaviourPun
         {
             StartCoroutine(AttackSet());
         }
-    }
-    public void LockedCam()
-    {
-        //if (locked == false)
-        //    ForwardCamLock(true);
-        //else if (locked == true)
-        //    ForwardCamLock(false);
     }
     public void Movement(InputAction.CallbackContext context)
     {
@@ -540,8 +515,7 @@ public class PlayerManger : MonoBehaviourPun
                 return;
             if (!escapeMenuOpen)
             {
-                if (escapeMenu != null)
-                    escapeMenu();
+                escapeMenu?.Invoke();
                 CursorToggle(true);
                 escapeMenuOpen = true;
 
@@ -549,8 +523,7 @@ public class PlayerManger : MonoBehaviourPun
             }
             else if (escapeMenuOpen)
             {
-                if (escapeMenu != null)
-                    escapeMenu();
+                escapeMenu?.Invoke();
                 escapeMenuOpen = false;
                 CursorToggle(false);
                 updateSens();
@@ -568,13 +541,11 @@ public class PlayerManger : MonoBehaviourPun
             {
                 MapManager.Instance.MapChange();
                 CursorToggle(true);
-                map();
             }
             else if (MapManager.Instance.mapOpen)
             {
                 MapManager.Instance.MapChange();
                 CursorToggle(false);
-                map();
             }
         }
     }
@@ -626,17 +597,12 @@ public class PlayerManger : MonoBehaviourPun
     {
         if (state == true)
         {
-            onInventoryClose();
-            playerInput.DeactivateInput();
-            canMove = false;
-            canAttack = false;
+            playerInput.SwitchCurrentActionMap("Dead");
             CursorToggle(true);
         }
         else if (state == false)
         {
-            playerInput.ActivateInput();
-            canMove = true;
-            canAttack = true;
+            playerInput.SwitchCurrentActionMap("Player");
             CursorToggle(false);
         }
     }
@@ -645,14 +611,14 @@ public class PlayerManger : MonoBehaviourPun
     {
         if (state == true)
         {
-            cineCamera.m_XAxis.m_MaxSpeed = 0f;
             Cursor.lockState = CursorLockMode.None;
+            CrossToggle?.Invoke();
             if (playerInput.currentControlScheme == gamepadScheme)
                 GamepadCursor.Instance.ToggleTracking(true);
         }
         else if (state == false)
         {
-            cineCamera.m_XAxis.m_MaxSpeed = currentCameraSpeed;
+            CrossToggle?.Invoke();
             Cursor.lockState = CursorLockMode.Locked;
             GamepadCursor.Instance.ToggleTracking(false);
         }
@@ -693,6 +659,7 @@ public class PlayerManger : MonoBehaviourPun
         if (isInvulnerable == false)
         {
             hurt.PlaySFX();
+            StartCoroutine(IFrames(0.5f));
             Debug.Log(this + "takes " + damage + " damage.");
             if (photonView.IsMine)
             {
@@ -796,28 +763,10 @@ public class PlayerManger : MonoBehaviourPun
     private void EnbalePvpCombat()
     {
         enemyLayers |= LayerMask.GetMask("enenmyMask") | LayerMask.GetMask("target");
-        transform.position = new Vector3(216, -107, -560);
+        if (!inShop)
+            transform.position = new Vector3(1753, -107, -592);
     }
 
-    private void ForwardCamLock(bool state)
-    {
-        if (photonView.IsMine)
-        {
-            if (state == true)
-            {
-                locked = true;
-                cineCamera.Priority = 1;
-                lockCamera.Priority = 10;
-
-            }
-            else if (state == false)
-            {
-                locked = false;
-                cineCamera.Priority = 10;
-                lockCamera.Priority = 1;
-            }
-        }
-    }
     [PunRPC]
     public void PlaySFXRPC(SFX sFX)
     {

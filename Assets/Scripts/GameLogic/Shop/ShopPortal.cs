@@ -24,7 +24,7 @@ public class ShopPortal : MonoBehaviourPun
 
     private void Start()
     {
-        shopSpawn = new Vector3(216, -107, -560);
+        shopSpawn = new Vector3(1753, -107, -592);
         col = gameObject.GetComponent<CapsuleCollider>();
         col.enabled = false;
         GFX = gameObject.transform.GetChild(0).gameObject;
@@ -33,7 +33,7 @@ public class ShopPortal : MonoBehaviourPun
             StartCoroutine(OpenPortal(GameManger.Instance.gameTime + 60));
         else if (toShop)
         {
-            StartCoroutine(OpenPortal(120));
+            StartCoroutine(OpenPortal(GameManger.Instance.gameTime / 3));
             Destroy(gameObject, GameManger.Instance.gameTime);
         }
     }
@@ -55,13 +55,20 @@ public class ShopPortal : MonoBehaviourPun
     {
         if (toShop)
         {
+            PlayerManger manger = player.GetComponent<PlayerManger>();
+            if (manger != null)
+                manger.inShop = true;
             player.transform.position = shopSpawn;
             Destroy(gameObject);
         }
         else if (!toShop)
         {
             PlayerManger manger = player.GetComponent<PlayerManger>();
-            manger.pvp = true;
+            if (manger != null)
+            {
+                manger.pvp = true;
+                manger.inShop = false;
+            }
             int selctedSpawn = Random.Range(0, respawnPoints.Count);
             respawnPoints[selctedSpawn].Selcted(player);
             photonView.RPC("RemoveSpawn", RpcTarget.All, selctedSpawn);

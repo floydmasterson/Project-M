@@ -975,7 +975,7 @@ MonoBehaviour:
   turnSmoothTime: 0.1
   SprintSpeed: 12
   speed: 6
-  pushAmt: 4
+  pushAmt: 13
   dodgeCooldown: 1
   turn: {x: 0, y: 0}
   groundCheck: {fileID: 6223124222561296264}
@@ -1000,6 +1000,7 @@ MonoBehaviour:
   InvIsOpen: 0
   inChest: 0
   shop: {fileID: 0}
+  inShop: 0
   walk:
     sfxType: 0
     sfxToPlay: {fileID: 0}

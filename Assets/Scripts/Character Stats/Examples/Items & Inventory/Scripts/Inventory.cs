@@ -38,7 +38,7 @@ public class Inventory : ItemContainer
         }
         for (int i = 0; i < ItemSlots.Count; i++)
         {
-            if (ItemSlots[i].Item is EquippableItem)
+            if (ItemSlots[i].Item is EquippableItem && character != null)
                 character.InventoryRightClick(ItemSlots[i]);
         }       
 

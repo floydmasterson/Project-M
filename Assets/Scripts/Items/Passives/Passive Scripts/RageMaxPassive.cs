@@ -23,7 +23,7 @@ public class RageMaxPassive : PassiveSO
     }
     public override string GetDescription()
     {
-        return "Boundless Rage: This item filles you with rage increasing max rage by 1";
+        return "Boundless Rage: This item fills you with rage increasing max rage by 1";
 
 
     }

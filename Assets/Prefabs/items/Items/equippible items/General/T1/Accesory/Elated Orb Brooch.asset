@@ -15,7 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 32ad7257e4e54af44966cc3ba7efa5ba, type: 3}
   ItemName: Elated Orb Brooch
   ItemTier: 1
-  cost: 168
+  cost: 180
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
@@ -28,6 +28,7 @@ MonoBehaviour:
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  Passives: []
+  Passives:
+  - {fileID: 11400000, guid: e126bd6c92be4f7418f0d1306aa056c1, type: 2}
   EquipmentType: 9
   BoundSpell: {fileID: 0}

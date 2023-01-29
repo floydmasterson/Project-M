@@ -15,7 +15,8 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 1dd744e4eaa54aa4f825489c110ef120, type: 3}
   ItemName: Magic Aura Potion
   ItemTier: 2
-  cost: 25
+  BuyPrice: 33
+  SellValue: 21
   MaximumStacks: 10
   IsConsumable: 1
   Notes: 

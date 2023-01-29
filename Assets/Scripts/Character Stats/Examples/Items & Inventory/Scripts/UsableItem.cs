@@ -35,14 +35,17 @@ public class UsableItem : Item
         return false;
     }
 
-    public override string GetDescription()
+    public override string GetDescription(bool sell)
     {
         sb.Length = 0;
         foreach (UseableItemEffect effect in Effects)
         {
             sb.AppendLine(effect.GetDescription());
         }
-        sb.Append("Sell Value: " + GetSellValue() + "G");
+        if (sell)
+            sb.Append("Sell Value: " + GetSellValue() + "G");
+        else if (!sell)
+            sb.Append("Buy Price: " + GetBuyValue() + "G");
         return sb.ToString();
     }
 }

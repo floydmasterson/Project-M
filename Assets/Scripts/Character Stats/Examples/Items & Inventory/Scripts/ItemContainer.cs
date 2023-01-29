@@ -12,7 +12,7 @@ public abstract class ItemContainer : MonoBehaviour, IItemContainer
     public event Action<BaseItemSlot> OnPointerExitEvent;
     public event Action<BaseItemSlot> OnRightClickEvent;
     public event Action<BaseItemSlot> OnBeginDragEvent;
-    public event Action<BaseItemSlot> OnEndDragEvent;
+    public event Action<BaseItemSlot> OnEndDragEvent;    
     public event Action<BaseItemSlot> OnDragEvent;
     public event Action<BaseItemSlot> OnDropEvent;
 

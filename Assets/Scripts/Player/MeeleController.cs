@@ -149,7 +149,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
     }
     public void RageMode(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && photonView.IsMine)
             if (CurrentRage > 0 && raging == false && PlayerUi.Instance.target.isAlive)
             {
                 if (CurrentRage == 1)

@@ -117,6 +117,7 @@ public class Enemys : MonoBehaviourPun
     SFX boom;
     private bool firstAttack = true;
     private bool showDmgNumber;
+    private bool showIsDirty = false;
     #endregion
     #region Base IEnumerators 
     IEnumerator ExecuteAfterTime()
@@ -135,7 +136,7 @@ public class Enemys : MonoBehaviourPun
         yield return new WaitForSeconds(3);
         int chance;
         chance = Random.Range(1, 10);
-        if (chance > 4)
+        if (chance > 6)
             PhotonNetwork.Instantiate(possibleBags.GetRandom().name, transform.position, Quaternion.identity);
     }
 
@@ -343,6 +344,7 @@ public class Enemys : MonoBehaviourPun
         SettingMenu.DmgNumberToggle += toggleDmgNumber;
         if (GameManger.Instance != null)
             Destroy(gameObject, GameManger.Instance.gameTime);
+      
     }
     void Start()
     {
@@ -350,6 +352,15 @@ public class Enemys : MonoBehaviourPun
         if (typeSetting != 0)
             StartCoroutine(FOVRoutine());
         currentHealth = maxHealth;
+        if (!showIsDirty && SettingMenu.instance != null)
+        {
+            showDmgNumber = SettingMenu.instance.DmgToggle;
+            showIsDirty = true;
+        }
+        else if(SettingMenu.instance == null)
+        {
+            Debug.LogWarning("No setting Menu yet");
+        }
     }
     private void FixedUpdate()
     {
@@ -626,9 +637,15 @@ public class Enemys : MonoBehaviourPun
     void toggleDmgNumber(bool state)
     {
         if (state)
+        {
             showDmgNumber = true;
+            showIsDirty = true;
+        }
         else if (!state)
+        {
             showDmgNumber = false;
+            showIsDirty = true;
+        }
     }
 }
 #endregion

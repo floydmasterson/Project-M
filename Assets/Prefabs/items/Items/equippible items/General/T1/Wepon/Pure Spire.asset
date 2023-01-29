@@ -15,7 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 92a40214ec4fdf14e99570ac5c5625c9, type: 3}
   ItemName: Pure Spire
   ItemTier: 1
-  cost: 204
+  cost: 184
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
@@ -25,7 +25,7 @@ MonoBehaviour:
   IntelligenceBonus: 2
   VitalityBonus: 0
   StrengthPercentBonus: 0
-  AgilityPercentBonus: 0.05
+  AgilityPercentBonus: 0.03
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
   Passives:

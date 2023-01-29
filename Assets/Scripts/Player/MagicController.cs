@@ -122,7 +122,7 @@ public class MagicController : MonoBehaviourPun, IAttack
         }
     }
 
-        private void Awake()
+    private void Awake()
     {
         EffectVisualContol = GetComponent<EffectVisualController>();
         manger = GetComponent<PlayerManger>();
@@ -153,14 +153,14 @@ public class MagicController : MonoBehaviourPun, IAttack
                     _currMana = _maxMana;
             }
         }
-        if(currentPulseTimer > 0)
+        if (currentPulseTimer > 0)
         {
             pulseOnCooldown = true;
             currentPulseTimer -= Time.deltaTime;
         }
-        else if(currentPulseTimer < 0)
+        else if (currentPulseTimer < 0)
         {
-            pulseOnCooldown= false;
+            pulseOnCooldown = false;
             currentPulseTimer = 0;
         }
     }
@@ -216,7 +216,7 @@ public class MagicController : MonoBehaviourPun, IAttack
     }
     public void ManaPulse(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && photonView.IsMine)
         {
             bool hasEnoughMana = _currMana - ManaPulseCost >= 0f;
             if (hasEnoughMana && !isCasting && !pulseOnCooldown)
@@ -229,13 +229,24 @@ public class MagicController : MonoBehaviourPun, IAttack
                 _currMana -= ManaPulseCost;
                 photonView.RPC("ManaPulseSFX", RpcTarget.All);
                 EffectVisualContol.EnableEffect(2);
-                Collider[] colliders = Physics.OverlapSphere(transform.position, pulseRange, manger.enemyLayers);
-                foreach (Collider col in colliders)
+                Collider[] hitenemines = Physics.OverlapSphere(transform.position, pulseRange, manger.enemyLayers);
+                for (int i = 0; i < hitenemines.Length; i++)
                 {
-                    Transform target = col.transform;
-                    Vector3 pushDirection = (col.transform.position - transform.position).normalized;
+                    Transform target = hitenemines[i].transform;
+                    PlayerManger player = target.GetComponent<PlayerManger>();
+                    Enemys Etarget = target.GetComponent<Enemys>();
+                    if (player != null && player != PlayerUi.Instance.target)
+                    {
+                        player.TakeDamge(Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Intelligence.Value))), manger); ;
+                    }
+                    if (Etarget != null)
+                    {
+                        Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2, (Etarget.Defense / Character.Instance.Intelligence.Value)))); ;
+                    }
+                    Vector3 pushDirection = (target.transform.position - transform.position).normalized;
                     StartCoroutine(ManaPulsePush(target, pushDirection, PushForce));
                 }
+
                 currentManaRechargeTimer = 0;
                 isCasting = false;
             }
@@ -257,7 +268,7 @@ public class MagicController : MonoBehaviourPun, IAttack
     }
     private void OnDrawGizmosSelected()
     {
-       
+
         Gizmos.DrawSphere(transform.position, pulseRange);
     }
 }

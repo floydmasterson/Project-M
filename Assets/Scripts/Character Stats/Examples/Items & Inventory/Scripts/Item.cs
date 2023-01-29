@@ -1,9 +1,8 @@
 ﻿using System.Text;
 using UnityEngine;
 using Sirenix.OdinInspector;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+
 
 
 [CreateAssetMenu(menuName = "Items/Item")]
@@ -27,7 +26,11 @@ public class Item : ScriptableObject
     [EnumToggleButtons]
     public Tier ItemTier;
     [VerticalGroup("Item/Right"), LabelWidth(65)]
-    public int cost;
+    private int value;
+    [VerticalGroup("Item/Right"), LabelWidth(65)]
+    public int BuyPrice;
+    [VerticalGroup("Item/Right"), LabelWidth(65)]
+    public int SellValue;
     [VerticalGroup("Item/Right"), LabelWidth(105)]
     [Range(1, 999)]
     public int MaximumStacks = 1;
@@ -52,7 +55,9 @@ public class Item : ScriptableObject
     {
         string path = AssetDatabase.GetAssetPath(this);
         id = AssetDatabase.AssetPathToGUID(path);
-        cost = FindCost(this);
+        value = FindCost(this);
+        SellValue = GetSellValue();
+        BuyPrice = GetBuyValue();
     }
 #endif
 
@@ -74,13 +79,17 @@ public class Item : ScriptableObject
         return "";
     }
 
-    public virtual string GetDescription()
+    public virtual string GetDescription(bool goldType)
     {
         return "";
     }
     public virtual int GetSellValue()
     {
-        return cost - (int)(cost * .2f);
+        return value - (int)(value * .25f);
+    }
+    public virtual int GetBuyValue()
+    {
+        return value + (int)(value * .2f);
     }
 
     public virtual int FindCost(Item Item)
@@ -104,7 +113,7 @@ public class Item : ScriptableObject
                     value += 50;
                     break;
             }
-            value += value * (int).1f;
+            value += value * .1f;
         }
         else if (!IsConsumable)
         {
@@ -117,16 +126,16 @@ public class Item : ScriptableObject
                     value += 250;
                     break;
                 case Tier.T3:
-                    value += 500;
+                    value += 400;
                     break;
             }
             if (this is EquippableItem)
             {
                 EquippableItem item = Item as EquippableItem;
-                value += item.AgilityBonus * 15;
-                value += item.VitalityBonus * 15;
-                value += item.IntelligenceBonus * 20;
-                value += item.StrengthBonus * 20;
+                value += item.AgilityBonus * 10;
+                value += item.VitalityBonus * 10;
+                value += item.IntelligenceBonus * 15;
+                value += item.StrengthBonus * 15;
 
                 value += item.AgilityPercentBonus * 100;
                 value += item.VitalityPercentBonus * 100;
@@ -137,7 +146,7 @@ public class Item : ScriptableObject
                 {
                     if (passive != null)
                     {
-                        value += 25;
+                        value += 20;
                     }
 
                 }
@@ -147,13 +156,13 @@ public class Item : ScriptableObject
             switch (ItemTier)
             {
                 case Tier.T1:
-                    value += value * .2f;
+                    value += value / 5;
                     break;
                 case Tier.T2:
-                    value += value * .3f;
+                    value += value / 3;
                     break;
                 case Tier.T3:
-                    value += value * .5f;
+                    value += value / 2;
                     break;
             }
         }

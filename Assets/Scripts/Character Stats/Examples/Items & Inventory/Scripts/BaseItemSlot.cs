@@ -87,7 +87,7 @@ public class BaseItemSlot : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
         if (amountText == null)
             amountText = GetComponentInChildren<TextMeshProUGUI>();
-
+  
         Item = _item;
         Amount = _amount;
     }

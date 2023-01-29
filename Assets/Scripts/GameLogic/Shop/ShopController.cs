@@ -29,6 +29,13 @@ public class ShopController : ItemContainer
     TextMeshProUGUI StartingGoldText;
     [TabGroup("Buy Setup"), SerializeField]
     TextMeshProUGUI RunningGoldText;
+    [TabGroup("Buy Setup"), TableList(AlwaysExpanded = true), HideLabel]
+    public WeightedRandomList<Item> lootTable;
+    [TabGroup("Buy Setup"), SerializeField]
+    int amount;
+    [TabGroup("Setup")]
+    [SerializeField] ItemTooltip itemTooltip;
+
     public event Action<Item> RemovedFromCart;
     int playerStartingGold;
     int SellAmount;
@@ -38,7 +45,14 @@ public class ShopController : ItemContainer
     Inventory currentPlayer;
     Character currentCharacter;
 
-
+    private void Awake()
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            Item item = lootTable.GetRandom();
+            itemsForSale.Add(item);
+        }
+    }
     public void Open(Character character)
     {
         SellInventory.Clear();
@@ -103,6 +117,8 @@ public class ShopController : ItemContainer
             foreach (ItemSlot slot in BuyInventory.ItemSlots)
             {
                 slot.OnLeftClickEvent += RemoveFromCart;
+                slot.OnPointerEnterEvent += ShowTooltip;
+                slot.OnPointerExitEvent += HideTooltip;
             }
             foreach (Item item in itemsForSale)
             {
@@ -135,6 +151,8 @@ public class ShopController : ItemContainer
             foreach (ItemSlot slot in BuyInventory.ItemSlots)
             {
                 slot.OnLeftClickEvent -= RemoveFromCart;
+                slot.OnPointerEnterEvent -= ShowTooltip;
+                slot.OnPointerExitEvent -= HideTooltip;
             }
             for (int i = 0; i < scrollArea.childCount; i++)
             {
@@ -163,13 +181,13 @@ public class ShopController : ItemContainer
         {
             if (SellInventory.ItemSlots[i].Item != null && SellInventory.ItemSlots[i].Amount == 1)
             {
-                sellAmount += SellCost(SellInventory.ItemSlots[i].Item);
+                sellAmount += SellInventory.ItemSlots[i].Item.SellValue;
                 SellInventory.ItemSlots[i].Item = null;
                 SellInventory.ItemSlots[i].Amount = 0;
             }
             else if (SellInventory.ItemSlots[i].Item != null && SellInventory.ItemSlots[i].Amount > 1)
             {
-                sellAmount += SellCost(SellInventory.ItemSlots[i].Item) * SellInventory.ItemSlots[i].Amount;
+                sellAmount += SellInventory.ItemSlots[i].Item.SellValue * SellInventory.ItemSlots[i].Amount;
                 SellInventory.ItemSlots[i].Item = null;
                 SellInventory.ItemSlots[i].Amount = 0;
             }
@@ -205,18 +223,6 @@ public class ShopController : ItemContainer
             StartingGoldText.text = "Total Gold: " + currentPlayerUI.CheckGold().ToString() + "G";
         }
     }
-    int SellCost(Item item)
-    {
-        int sellAmount = 0;
-        sellAmount += (item.cost - (int)(item.cost * .2f));
-        return sellAmount;
-    }
-    public int BuyCost(Item item)
-    {
-        int sellAmount = 0;
-        sellAmount += (item.cost + (int)(item.cost * .1f));
-        return sellAmount;
-    }
     public void AddToCart(Item item)
     {
         BuyInventory.AddItem(item, startSlot: 0);
@@ -234,9 +240,9 @@ public class ShopController : ItemContainer
         for (int i = 0; i < SellInventory.ItemSlots.Count; i++)
         {
             if (SellInventory.ItemSlots[i].Item != null && SellInventory.ItemSlots[i].Amount == 1 && SellInventory.ItemSlots[i].Item != Gold)
-                SellAmount += SellCost(SellInventory.ItemSlots[i].Item);
+                SellAmount += SellInventory.ItemSlots[i].Item.SellValue;
             else if (SellInventory.ItemSlots[i].Item != null && SellInventory.ItemSlots[i].Amount > 1 && SellInventory.ItemSlots[i].Item != Gold)
-                SellAmount += SellCost(SellInventory.ItemSlots[i].Item) * SellInventory.ItemSlots[i].Amount;
+                SellAmount += SellInventory.ItemSlots[i].Item.SellValue * SellInventory.ItemSlots[i].Amount;
         }
         sellText.text = "Sell Value: " + SellAmount.ToString() + "G";
     }
@@ -247,13 +253,27 @@ public class ShopController : ItemContainer
         for (int i = 0; i < BuyInventory.ItemSlots.Count; i++)
         {
             if (BuyInventory.ItemSlots[i].Item != null && BuyInventory.ItemSlots[i].Amount == 1)
-                BuyAmount += BuyCost(BuyInventory.ItemSlots[i].Item);
+                BuyAmount += BuyInventory.ItemSlots[i].Item.BuyPrice;
             else if (BuyInventory.ItemSlots[i].Item != null && BuyInventory.ItemSlots[i].Amount > 1)
-                BuyAmount += BuyCost(BuyInventory.ItemSlots[i].Item) * BuyInventory.ItemSlots[i].Amount;
+                BuyAmount += BuyInventory.ItemSlots[i].Item.BuyPrice * BuyInventory.ItemSlots[i].Amount;
         }
         leftOverGold = currentPlayerUI.CheckGold() - BuyAmount;
         RunningGoldText.text = "Current Gold: " + leftOverGold.ToString() + "G";
         BuyText.text = "Buy Price: " + BuyAmount.ToString() + "G";
+    }
+    private void ShowTooltip(BaseItemSlot itemSlot)
+    {
+        if (itemSlot.Item != null)
+        {
+            itemTooltip.ShowTooltip(itemSlot.Item);
+        }
+    }
+    private void HideTooltip(BaseItemSlot itemSlot)
+    {
+        if (itemTooltip.gameObject.activeSelf)
+        {
+            itemTooltip.HideTooltip();
+        }
     }
     private void OnTriggerEnter(Collider other)
     {

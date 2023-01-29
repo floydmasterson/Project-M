@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class Character : MonoBehaviour
 {
     public static Character Instance;
@@ -277,9 +278,7 @@ public class Character : MonoBehaviour
 
         Inventory.OnRightClickEvent -= InventoryRightClick;
         Inventory.OnRightClickEvent += TransferToItemContainer;
-
         itemContainer.OnRightClickEvent += TransferToInventory;
-
         itemContainer.OnPointerEnterEvent += ShowTooltip;
         itemContainer.OnPointerExitEvent += HideTooltip;
         itemContainer.OnBeginDragEvent += BeginDrag;

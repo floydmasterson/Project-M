@@ -6,15 +6,19 @@ using UnityEngine.UI;
 
 public class SettingMenu : MonoBehaviour
 {
+    public static SettingMenu instance;
     Resolution[] Res;
     public TMP_Dropdown ResDrop;
     public static event Action<bool> HealNumberToggle;
     public static event Action<bool> DmgNumberToggle;
     [SerializeField] Toggle Healtoggle;
     [SerializeField] Toggle Dmgtoggle;
+    public bool HealToggle;
+    public bool DmgToggle;
 
     private void Awake()
     {
+        instance = this;
         Healtoggle.onValueChanged.AddListener(healNumberToggle);
         Dmgtoggle.onValueChanged.AddListener(dmgNumberToggle);
     }
@@ -92,15 +96,27 @@ public class SettingMenu : MonoBehaviour
     void healNumberToggle(bool togglestate)
     {
         if (togglestate)
+        {
             HealNumberToggle(true);
+            HealToggle = true;
+        }
         else if (!togglestate)
+        {
             HealNumberToggle(false);
+            HealToggle = false;
+        }
     }
     void dmgNumberToggle(bool togglestate)
     {
         if (togglestate)
+        {
             DmgNumberToggle(true);
+            DmgToggle = true;
+        }
         else if (!togglestate)
+        {
             DmgNumberToggle(false);
+            DmgToggle = false;
+        }
     }
 }

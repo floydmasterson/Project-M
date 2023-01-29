@@ -2638,6 +2638,7 @@ GameObject:
   - component: {fileID: 4241361436811412870}
   - component: {fileID: 6060858752418257350}
   - component: {fileID: 8880091359569570710}
+  - component: {fileID: -562863663172890622}
   - component: {fileID: 4860510866368125536}
   - component: {fileID: 1942934937522772241}
   m_Layer: 0
@@ -2718,7 +2719,7 @@ MonoBehaviour:
   meshFilter: {fileID: 0}
   close: {fileID: 0}
   open: {fileID: 0}
-  outline: {fileID: 4989011361050135033}
+  outline: {fileID: -562863663172890622}
   pickUpAllowed: 0
   playerInRange: 0
   isOpen: 0
@@ -2726,7 +2727,67 @@ MonoBehaviour:
   randomAmount: 0
   BetterRandomAmount: 0
   lootTable:
-    list: []
+    list:
+    - item: {fileID: 11400000, guid: 21510c815af9ecc4cbacf22bbf0431c3, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 36f161c307c86bb4c8ea024aa1bf2688, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: c13013c2dc953f14f9c736cb73ff637d, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 70240356a501894458b17f65347c907e, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 9d129fd97dfd2184386654109d87debf, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: b30d49620503d2c498030a3929e25146, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: af9abff9f368ac8448d003d328304a3d, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: f20bc098b2521d740af3c08edc696ef3, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 3412e52ad9ef2db40b93cc0d0854c748, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: ce605ec5e16856a49a2da3ec3bf78fe1, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: e6998fbb195c0ca41b2afedfbde9312a, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 41f498c9e6b6e8742af28656528f98ac, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 7717f905063620340bb309aab173ef10, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 50b35851aea965548a805a18a548af69, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 4378b7ef3ec665d469cc288016180fb9, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 90aa8baec2c3e0943aea1d22d10db7c8, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 2a45a2c89a3855744ad27d4daafac9eb, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 6280073f16f47174c8d9ae2810f8c791, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 650a55ada548fff4ab057eb4631792ea, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 4eb855ba292208a4a8321a0738496a94, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 55304758ed5ef3146b7982dc8b7d4e04, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 2ee42e65b61b2eb45b924a061d64c678, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 96d75646e81e70c4794983ed62a533ce, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: cf88d41b025312a44abb46177e7f614d, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 5b34a5613f7a04346bc5c8e62f0e32bb, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: ce72b0a89aab601479b571121af269c8, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: f4598943d4ae6324e914d9d8a123a675, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 26e5a8bcb434bad41a4903959b1a6c7c, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: bc7acc1548faaaa4794a41ee6872ac31, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 63d96bf34e2cb3843a0b50c08ff871d8, type: 2}
+      weight: 1
   ChestOpen:
     sfxType: 0
     sfxToPlay: {fileID: 11400000, guid: d515be3d2a981764591575f71f392fea, type: 2}
@@ -2745,6 +2806,24 @@ MonoBehaviour:
     waitToPlay: 1
     useDefualt: 0
     audioSource: {fileID: 4860510866368125536}
+--- !u!114 &-562863663172890622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3573473735180492604}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 0.83482486, g: 0.8773585, b: 0.19450872, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!82 &4860510866368125536
 AudioSource:
   m_ObjectHideFlags: 0

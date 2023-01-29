@@ -10,7 +10,7 @@ public class T2Spawner : Spawner
     {
         spawnChance = Random.Range(1, 10);
 
-        if (spawnChance <= 7)
+        if (spawnChance <= 9)
         {
             int randomEnemy = Random.Range(0, enemys.Length);
             GameObject enemy = PhotonNetwork.Instantiate(enemys[randomEnemy].name, gameObject.transform.position, Quaternion.identity);

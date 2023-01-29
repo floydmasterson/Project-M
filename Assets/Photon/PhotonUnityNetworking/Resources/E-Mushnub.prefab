@@ -248,6 +248,8 @@ MonoBehaviour:
     m_Bits: 1024
   possibleBags:
     list:
+    - item: {fileID: 8880091359569570710, guid: 45d3c064a985fb44dba2c5aa8e682bfd, type: 3}
+      weight: 9
     - item: {fileID: 8880091359569570710, guid: 38dc6ef9591616441aeda61f628f78ef, type: 3}
       weight: 1
   AttackSounds:

@@ -126,7 +126,7 @@ public class EquippableItem : Item
         return EquipmentType.ToString();
     }
 
-    public override string GetDescription()
+    public override string GetDescription(bool sell)
     {
         sb.Length = 0;
         AddStat(StrengthBonus, "Strength");
@@ -156,7 +156,10 @@ public class EquippableItem : Item
 
             }
             sb.AppendLine();
-            sb.Append("Sell Value: " + GetSellValue() + "G");
+            if (sell)
+                sb.Append("Sell Value: " + SellValue + "G");
+            else if(!sell)
+                sb.Append("Buy Price: " + BuyPrice + "G");
         }
 
         return sb.ToString();

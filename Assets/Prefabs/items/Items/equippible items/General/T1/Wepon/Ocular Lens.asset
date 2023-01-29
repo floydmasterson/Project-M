@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
-  m_Name: Twisted Chestguard of Clarity
+  m_Name: Ocular Lens
   m_EditorClassIdentifier: 
-  Icon: {fileID: 21300000, guid: de41c8e02ca78c441b6de540d241250b, type: 3}
-  ItemName: Twisted Chestguard of Clarity
+  Icon: {fileID: 21300000, guid: 592e70a00b34b1e42853d382cbe3d179, type: 3}
+  ItemName: Ocular Lens
   ItemTier: 1
-  cost: 282
+  cost: 184
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
-  id: 1b8b60538dff23847ae31bfebb7f2d5a
+  id: 2b4261a3ac589e347a071799de114424
   StrengthBonus: 0
   AgilityBonus: 0
-  IntelligenceBonus: 5
+  IntelligenceBonus: 1
   VitalityBonus: 0
   StrengthPercentBonus: 0
-  AgilityPercentBonus: 0.1
+  AgilityPercentBonus: 0.08
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
   Passives:
-  - {fileID: 11400000, guid: e126bd6c92be4f7418f0d1306aa056c1, type: 2}
-  EquipmentType: 1
-  BoundSpell: {fileID: 0}
+  - {fileID: 11400000, guid: 5a5866b95a315074280760266b9487d3, type: 2}
+  EquipmentType: 6
+  BoundSpell: {fileID: 8535670027616370256, guid: 67ca924aa0e06b147a77b9fa9ca1e4ca, type: 3}

@@ -61,14 +61,23 @@ public class GameManger : MonoBehaviourPunCallbacks
         dungonAmbient.PlaySFX();
         if (PhotonNetwork.IsMasterClient)
         {
-            if (spawnEnemys == true && spawnMobs != null)
-                spawnMobs();
             foreach (Player player in PhotonNetwork.PlayerList)
             {
-                int selctedSpawn = Random.Range(0, playerSpawnPoints.Count);
-                photonView.RPC("InstantiationPlayer", player, selctedSpawn);
-                photonView.RPC("Removepoint", RpcTarget.All, selctedSpawn);
+                if (!spawnPlayersTogther)
+                {
+                    int selctedSpawn = Random.Range(0, playerSpawnPoints.Count);
+                    photonView.RPC("InstantiationPlayer", player, selctedSpawn);
+                    photonView.RPC("Removepoint", RpcTarget.All, selctedSpawn);
+                }
+                else if(spawnPlayersTogther)
+                {
+                    int selctedSpawn = 0;
+                    photonView.RPC("InstantiationPlayer", player, selctedSpawn);
+                    photonView.RPC("Removepoint", RpcTarget.All, selctedSpawn);
+                }
             }
+            if (spawnEnemys == true && spawnMobs != null)
+                spawnMobs();
             SetGameTime(gameTime);
         }
     }

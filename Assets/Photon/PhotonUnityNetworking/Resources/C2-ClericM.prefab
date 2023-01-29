@@ -687,8 +687,8 @@ MonoBehaviour:
   turnSmoothTime: 0.1
   SprintSpeed: 12
   speed: 6
-  pushAmt: 4
-  dodgeCooldown: 1
+  pushAmt: 15
+  dodgeCooldown: 1.2
   turn: {x: 0, y: 0}
   groundCheck: {fileID: 1633790732705830235}
   groundMask:
@@ -712,6 +712,7 @@ MonoBehaviour:
   InvIsOpen: 0
   inChest: 0
   shop: {fileID: 0}
+  inShop: 0
   walk:
     sfxType: 2
     sfxToPlay: {fileID: 0}
@@ -755,7 +756,7 @@ MonoBehaviour:
   isCasting: 0
   _maxMana: 100
   _currMana: 0
-  _manaPulseCost: 20
+  _manaPulseCost: 30
   castPoint: {fileID: 1633790733091047828}
   _timeToWaitForRecharge: 1.5
   _BasemanaRegenRate: 1
@@ -1577,7 +1578,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633790732113323746}
   m_LocalRotation: {x: 0.23056088, y: 0.13724375, z: -0.032866698, w: 0.9627698}
-  m_LocalPosition: {x: -2.261822e-26, y: 0.00000333786, z: -9.947599e-13}
+  m_LocalPosition: {x: -3.5542917e-26, y: 0.0000052452087, z: -1.5631941e-12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

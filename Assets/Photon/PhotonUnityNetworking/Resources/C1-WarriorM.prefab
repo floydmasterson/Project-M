@@ -1548,8 +1548,8 @@ MonoBehaviour:
   turnSmoothTime: 0.1
   SprintSpeed: 12
   speed: 6
-  pushAmt: 3
-  dodgeCooldown: 1.5
+  pushAmt: 13
+  dodgeCooldown: 1.7
   turn: {x: 0, y: 0}
   groundCheck: {fileID: 2228801720644152411}
   groundMask:
@@ -1572,6 +1572,8 @@ MonoBehaviour:
   MiniMapIcon: {fileID: 7173288505419927480}
   InvIsOpen: 0
   inChest: 0
+  shop: {fileID: 0}
+  inShop: 0
   walk:
     sfxType: 0
     sfxToPlay: {fileID: 0}
@@ -1619,6 +1621,7 @@ MonoBehaviour:
   raging: 0
   damaged: 0
   lifeStealAmount: 0.25
+  effectVisualController: {fileID: 0}
   attackSwish:
     sfxType: 2
     sfxToPlay: {fileID: 11400000, guid: 6be313bd3490b5e449feb78a0f9953df, type: 2}

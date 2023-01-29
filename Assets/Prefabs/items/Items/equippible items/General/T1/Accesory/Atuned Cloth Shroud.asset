@@ -15,7 +15,7 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: f9f40fe0e048371489c0c50036b0dce6, type: 3}
   ItemName: Atuned Cloth Shroud
   ItemTier: 1
-  cost: 246
+  cost: 216
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
@@ -30,6 +30,6 @@ MonoBehaviour:
   VitalityPercentBonus: 0
   Passives:
   - {fileID: 11400000, guid: 5a5866b95a315074280760266b9487d3, type: 2}
-  - {fileID: 11400000, guid: e126bd6c92be4f7418f0d1306aa056c1, type: 2}
-  EquipmentType: 0
+  - {fileID: 11400000, guid: 3311348d6c64e1244a488539783eca6c, type: 2}
+  EquipmentType: 9
   BoundSpell: {fileID: 0}

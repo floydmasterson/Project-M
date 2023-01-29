@@ -15,12 +15,13 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 1e178579d91f1a54cbe25f5cbd8e0ec3, type: 3}
   ItemName: Renegade Belt
   ItemTier: 2
-  cost: 330
+  BuyPrice: 519
+  SellValue: 325
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: a8d342645f9444349b035e006568ccb0
-  StrengthBonus: 4
+  StrengthBonus: 5
   AgilityBonus: 0
   IntelligenceBonus: 0
   VitalityBonus: 0

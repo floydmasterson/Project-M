@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Pyromancer Mantle
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: b27255974c159564da35118cadef41d1, type: 3}
-  ItemName: Pyromancer Mantle
+  ItemName: Cryomancer Mantle
   ItemTier: 2
-  cost: 494
+  BuyPrice: 560
+  SellValue: 351
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 

@@ -6,6 +6,7 @@ public class ItemTooltip : MonoBehaviour
     [SerializeField] Text ItemNameText;
     [SerializeField] Text ItemTypeText;
     [SerializeField] Text ItemDescriptionText;
+    [SerializeField] bool sell = true;
 
     private void OnEnable()
     {
@@ -39,7 +40,7 @@ public class ItemTooltip : MonoBehaviour
         {
             ItemTypeText.text = "<color=#532B47>" + item.GetTier() + " </color>" + item.GetItemType().Replace("_", " ");
         }
-        ItemDescriptionText.text = item.GetDescription();
+        ItemDescriptionText.text = item.GetDescription(sell);
         gameObject.SetActive(true);
     }
 

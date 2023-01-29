@@ -137,7 +137,7 @@ public class ProjectMCommands : CommandBehaviour
                     Debug.Log("TP to Sector 5 temp spawn");
                     break;
                 case 4:
-                    localPlayer.transform.position = new Vector3(216, -107, -560); // Shop Spawn
+                    localPlayer.transform.position = new Vector3(1753, -107, -592); // Shop Spawn
                     Debug.Log("TP to Shop Spawn");
                     break;
                     
