@@ -73,8 +73,8 @@ public class LootContainerControl : ItemContainer
         LoadItems();
         if (containerType == ContainerType.Dropbag)
             StartCoroutine(Despawn(60));
-        if(GameManger.Instance != null)
-        Destroy(gameObject, GameManger.Instance.gameTime); 
+        if (GameManger.Instance != null && containerTier == ContainerTier.T1)
+            Destroy(gameObject, GameManger.Instance.gameTime);
     }
     private void OnTriggerEnter(Collider other)
     {

@@ -26,20 +26,8 @@ public class VolumeControler : MonoBehaviour
     }
     private void Start()
     {
-        if (PlayerPrefs.HasKey(volumeParameter))
-            slider.value = PlayerPrefs.GetFloat(volumeParameter, slider.value);
-        else if (!PlayerPrefs.HasKey(volumeParameter))
-        {
-            PlayerPrefs.SetFloat(volumeParameter, slider.maxValue);
-            slider.value = slider.maxValue;
-        }
-        if (PlayerPrefs.HasKey(toggle.gameObject.name.ToString()))
-            toggle.isOn = PlayerPrefs.GetInt(toggle.gameObject.name.ToString(), 1) > 0;
-        else if (!PlayerPrefs.HasKey(toggle.gameObject.name.ToString()))
-        {
-            PlayerPrefs.SetInt(toggle.gameObject.name.ToString(), 1);
-            toggle.isOn = true;
-        }
+            slider.value = PlayerPrefs.GetFloat(volumeParameter, 7);
+            toggle.isOn = PlayerPrefs.GetInt(toggle.gameObject.name.ToString(), 1) > 0;    
     }
 
     private void HandleToggleValueChange(bool enableSound)

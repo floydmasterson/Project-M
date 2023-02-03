@@ -15,6 +15,7 @@ public class Enemys : MonoBehaviourPun
         T3,
     }
 
+
     [BoxGroup]
     [Tooltip("0= target dummy 1 = Chase & Melee 2 = Avoid & Ranged 3 = Chase & Boom !4 = hybrid! not set")]
     [Range(0, 4)] public int typeSetting = 0;
@@ -136,7 +137,7 @@ public class Enemys : MonoBehaviourPun
         yield return new WaitForSeconds(3);
         int chance;
         chance = Random.Range(1, 10);
-        if (chance > 6)
+        if (chance > 7)
             PhotonNetwork.Instantiate(possibleBags.GetRandom().name, transform.position, Quaternion.identity);
     }
 
@@ -285,15 +286,13 @@ public class Enemys : MonoBehaviourPun
                 }
 
             }
-
             StartCoroutine(TRangedAttack());
         }
     }
     [PunRPC]
-    private bool rangedCoroutineCheckRPC(bool state)
+    private  void rangedCoroutineCheckRPC(bool state)
     {
         isTRangedAttackExecuting = state;
-        return isTRangedAttackExecuting;
     }
     #endregion
     #region Type 3 IEnumerators 
@@ -320,11 +319,17 @@ public class Enemys : MonoBehaviourPun
     }
     #endregion
     #region Mono
-    private void OnDestroy()
+    private void OnEnable()
+    {
+        SettingMenu.DmgNumberToggle += toggleDmgNumber;
+        if (GameManger.Instance != null && EnemyTier == Tier.T1)
+            Destroy(gameObject, GameManger.Instance.gameTime);
+    }
+    private void onEnable()
     {
         SettingMenu.DmgNumberToggle -= toggleDmgNumber;
     }
-    private void Awake()
+    private void Awake()  
     {
         if (typeSetting != 0)
         {
@@ -341,9 +346,7 @@ public class Enemys : MonoBehaviourPun
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
-        SettingMenu.DmgNumberToggle += toggleDmgNumber;
-        if (GameManger.Instance != null)
-            Destroy(gameObject, GameManger.Instance.gameTime);
+     
       
     }
     void Start()
@@ -356,10 +359,6 @@ public class Enemys : MonoBehaviourPun
         {
             showDmgNumber = SettingMenu.instance.DmgToggle;
             showIsDirty = true;
-        }
-        else if(SettingMenu.instance == null)
-        {
-            Debug.LogWarning("No setting Menu yet");
         }
     }
     private void FixedUpdate()

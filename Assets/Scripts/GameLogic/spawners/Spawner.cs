@@ -6,13 +6,14 @@ public abstract class Spawner : MonoBehaviourPun
     [HideInInspector]
     public int spawnChance;
     #region Events
+
     public void OnEnable()
     {
-        GameManger.spawnMobs += Spawn;
+        GameManger.Instance.spawnMobs += Spawn;
     }
     public void OnDisable()
     {
-        GameManger.spawnMobs -= Spawn;
+        GameManger.Instance.spawnMobs -= Spawn;
     }
     #endregion
     public abstract void Spawn();

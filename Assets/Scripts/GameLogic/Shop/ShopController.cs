@@ -44,6 +44,7 @@ public class ShopController : ItemContainer
     InventoryUi currentPlayerUI;
     Inventory currentPlayer;
     Character currentCharacter;
+    private bool firstSwap = true;
 
     private void Awake()
     {
@@ -97,6 +98,7 @@ public class ShopController : ItemContainer
         currentCharacter = null;
         isOpen = false;
     }
+
     public void swapMenu()
     {
         if (gameObject.transform.GetChild(0).gameObject.activeInHierarchy)
@@ -120,12 +122,16 @@ public class ShopController : ItemContainer
                 slot.OnPointerEnterEvent += ShowTooltip;
                 slot.OnPointerExitEvent += HideTooltip;
             }
-            foreach (Item item in itemsForSale)
+            if (firstSwap)
             {
-                GameObject shopItemPrefab = Instantiate(ShopItemPrefab, Vector3.zero, Quaternion.identity);
-                shopItemPrefab.transform.SetParent(scrollArea, false);
-                ShopItem ShopItem = shopItemPrefab.GetComponent<ShopItem>();
-                ShopItem.Setup(this, item, inCart, scrollArea);
+                firstSwap = false;
+                foreach (Item item in itemsForSale)
+                {
+                    GameObject shopItemPrefab = Instantiate(ShopItemPrefab, Vector3.zero, Quaternion.identity);
+                    shopItemPrefab.transform.SetParent(scrollArea, false);
+                    ShopItem ShopItem = shopItemPrefab.GetComponent<ShopItem>();
+                    ShopItem.Setup(this, item, inCart, scrollArea);
+                }
             }
             #endregion
             playerStartingGold = currentPlayerUI.CheckGold();
@@ -135,8 +141,15 @@ public class ShopController : ItemContainer
         }
         else if (!gameObject.transform.GetChild(0).gameObject.activeInHierarchy)
         {
-            gameObject.transform.GetChild(0).gameObject.SetActive(true);
-            currentCharacter.OpenItemContainer(SellInventory);
+            #region Buy Event Off
+            foreach (ItemSlot slot in BuyInventory.ItemSlots)
+            {
+                slot.OnLeftClickEvent -= RemoveFromCart;
+                slot.OnPointerEnterEvent -= ShowTooltip;
+                slot.OnPointerExitEvent -= HideTooltip;
+            } 
+            #endregion
+            gameObject.transform.GetChild(1).gameObject.SetActive(false);
             #region Sell Events On
             SellInventory.OnRightClickEvent += slot => UpdateSellAmount();
             SellInventory.OnBeginDragEvent += slot => UpdateSellAmount();
@@ -147,20 +160,8 @@ public class ShopController : ItemContainer
             currentPlayer.OnEndDragEvent += slot => UpdateSellAmount();
             currentPlayer.OnRightClickEvent += slot => UpdateSellAmount();
             #endregion
-            #region Buy Event Off
-            foreach (ItemSlot slot in BuyInventory.ItemSlots)
-            {
-                slot.OnLeftClickEvent -= RemoveFromCart;
-                slot.OnPointerEnterEvent -= ShowTooltip;
-                slot.OnPointerExitEvent -= HideTooltip;
-            }
-            for (int i = 0; i < scrollArea.childCount; i++)
-            {
-                Destroy(scrollArea.GetChild(i).gameObject);
-
-            }
-            #endregion
-            gameObject.transform.GetChild(1).gameObject.SetActive(false);
+            currentCharacter.OpenItemContainer(SellInventory);
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
     void EmptyCheck(Inventory invToCheck)
@@ -217,6 +218,11 @@ public class ShopController : ItemContainer
                     BuyInventory.ItemSlots[i].Item = null;
                     BuyInventory.ItemSlots[i].Amount = 0;
                 }
+            }
+            for (int i = 0; i < inCart.childCount; i++)
+            {
+                Destroy(inCart.GetChild(i).gameObject);
+
             }
             BuyText.text = "Buy Price: " + BuyAmount.ToString() + "G";
             RunningGoldText.text = "Current Gold: " + currentPlayerUI.CheckGold().ToString() + "G";

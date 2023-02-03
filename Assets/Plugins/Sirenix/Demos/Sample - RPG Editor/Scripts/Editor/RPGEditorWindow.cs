@@ -53,7 +53,7 @@ namespace Sirenix.OdinInspector.Demos.RPGEditor
 
             // Add icons to characters and items.
             tree.EnumerateTree().AddIcons<Character>(x => x.Icon);
-            tree.EnumerateTree().AddIcons<Item>(x => x.Icon);
+            tree.EnumerateTree().AddIcons<ItemDemo>(x => x.Icon);
 
             return tree;
         }
@@ -78,7 +78,7 @@ namespace Sirenix.OdinInspector.Demos.RPGEditor
 
                 if (SirenixEditorGUI.ToolbarButton(new GUIContent("Create Item")))
                 {
-                    ScriptableObjectCreator.ShowDialog<Item>("Assets/Plugins/Sirenix/Demos/Sample - RPG Editor/Items", obj =>
+                    ScriptableObjectCreator.ShowDialog<ItemDemo>("Assets/Plugins/Sirenix/Demos/Sample - RPG Editor/Items", obj =>
                     {
                         obj.Name = obj.name;
                         base.TrySelectMenuItemWithObject(obj); // Selects the newly created item in the editor

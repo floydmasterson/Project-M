@@ -1,0 +1,136 @@
+1- Basic Gold Ring
+2- Tattered Robes
+3- Wooden Staff
+4- Chain Vest
+5- Leather Bracer
+6- Training Sword
+7- Crimson Templar Belt
+8- Crimson Templar Cape
+9- Crimson Templar Gambeson
+10- Crimson Templar Gloves
+11- Crimson Templar Hood
+12- Crimson Templar Leggings
+13- Crimson Templar Sholder Wraps
+14- Crimson Templar Wraps
+15- Cultist Belt
+16- Cultist Boots
+17- Cultist Bracers
+18- Cultist Gloves
+19- Cultist Hood
+20- Cultist Pants
+21- Cultist Robes
+22- Cultist Sholder Guard
+23- Cultist Staff
+24- Cultist Tome
+25- Iron Hunter Belt
+26- Iron Hunter Blade
+27- Iron Hunter Bracers
+28- Iron Hunter Chest Plate
+29- Iron Hunter Cloak
+30- Iron Hunter Gauntlets
+31- Iron Hunter Greaves
+32- Iron Hunter Helm
+33- Iron Hunter Leggings
+34- Iron Hunter Shield
+35- Iron Hunter Sholder Guards
+36- Renegade Belt
+37- Renegade Boots
+38- Renegade Bracers
+39- Renegade Cloak
+40- Renegade Gloves
+41- Renegade Helm
+42- Renegade Pantaloons
+43- Renegade Sholder Pad 
+44- Renegade Tunic
+45- Armguards of Faded Vengeance
+46- Atuned Cloth Shroud
+47- Elated Orb Brooch
+48- Elegant Wing
+49- Feral Mantle
+50- The Gentle Will
+51- Gifted Life Amulet
+52- Golden Visage
+53- Guardian's Grimoire
+54- The Heaven Hymn Ring
+55- Honor's Cloth Mantle
+56- Lonely Seal
+57- Loyal Blessings
+58- Scaled Cuffs
+59- The Ambassador
+60- Tinted Petal
+61- Tormented Shroud of the Blessed
+62- Woeful Ward
+63- Wristguards of Fleeting Protection
+64- Wristwraps of the Moonwalker
+65- Abyssal Belt
+66- Celestial Guardian
+67- Crown of Deflection
+68- Eclipse Belt
+69- Hood of Lost Magic
+70- Lost Voices
+71- Ritual Hide Vestment
+72- Soldier's Iron Armor
+73- Tunic of Dawn
+74- Twisted Chestguard of Clarity
+75- Ashwood Spirtstaff
+76- Moonlit Axe
+77- Ocular Lens
+78- Pride's Protector
+79- Pure Spire
+80- Warped Blade
+81- Barbaric Linen Greatcloak
+82- Beads of Movment
+83- Cryomancer Mantle
+84- Devoted Grace
+85- Dream Whisper Tome
+86- Fury Gem Ring
+87- Grips of Fallen Nights
+88- Honor's End
+89- Ocean Clover
+90- Primal Aegis
+91- Challenger Chestguard
+92- Gift of the Void
+93- Helm of Souls
+94- Scaled Greaves
+95- Windsong Silk Treads
+96- Flux Ring
+97- Gatecrasher
+98- Malificent Scepter
+99- Piece Maker
+100- Spectral Cane
+101- Beads of Restoration
+102- Heart Band
+103- Paladins Wall
+104- Raw Mana Gem
+105- Shield Ring
+106- Arch Mage Leggings 
+107- Binding Mask
+108- Rhino Guard
+109- Swifties
+110- Titans Belt
+111- Acrid Staff
+112- Fallen Warrior
+113- Forge Gods Hammer
+114- Ram Rod
+115- Tracers Rod
+116- Gold Coin
+117- Bing Qi Lin
+118- God Mode
+119- Rage Mode
+120- Small Health Potion
+121- Small Mana Potion
+122- Medium Health Potion
+123- Medium Mana Potion
+124- Magic Aura Potion
+125- Medium Agility Potion
+126- Rage Potion
+127- Icarus Potion
+128- Max Health Potion
+129- Large Mana Potion
+130- Large White Potion
+131- Magic Surge Potion
+132- Primal Rage Potion
+133- Boot of Mobility
+134- Floyds Locket
+135- Noah's Tighty Whiteys 
+136- Very Angry Gloves

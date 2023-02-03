@@ -1,6 +1,8 @@
 ﻿using Kryz.CharacterStats;
 using Photon.Pun;
 using SmartConsole;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +11,7 @@ public class ProjectMCommands : CommandBehaviour
     [SerializeField] PlayerManger localPlayer;
     [SerializeField] GameManger gameManger;
     [SerializeField] PhotonView photonView;
+    [SerializeField] TextAsset database;
     #region SetUp
 
     protected override void Start()
@@ -150,16 +153,6 @@ public class ProjectMCommands : CommandBehaviour
             Debug.LogWarning("Local Player is not set. Try setup");
     }
     [Command]
-    private void tp_id_list()
-    {
-        Debug.Log("0:Debug Shop");
-        Debug.Log("1:Sector 1 spawn");
-        Debug.Log("2:Sector 3 temp spawn");
-        Debug.Log("3:Sector 5 temp spawn");
-        Debug.Log("4:Shop Spawn");
-
-    }
-    [Command]
     private void tp(float xCord, float yCord, float zCord)
     {
         if (localPlayer != null)
@@ -169,6 +162,25 @@ public class ProjectMCommands : CommandBehaviour
         else
             Debug.LogWarning("Local Player is not set. Try setup");
     }
+    [Command]
+    private void give(int itemId)
+    {
+        if (localPlayer != null)
+        {
+            Character character = InventoryUi.Instance.gameObject.GetComponent<Character>();
+            if (character != null)
+            {
+                character.Inventory.AddItem(DataBaseCache.instance.GetItem(itemId));
+                Debug.Log("Added " + DataBaseCache.instance.GetItem(itemId).ItemName + " to inventory");
+            }
+            else
+                throw new NullReferenceException("Character is missing on local player");
+        }
+        else
+            Debug.LogWarning("Local Player is not set. Try setup");
+    }
+   
+
     #endregion
     #region Spawn Things
     [Command]
@@ -238,6 +250,23 @@ public class ProjectMCommands : CommandBehaviour
     private void bing_qi_lin()
     {
         Debug.LogError("Zǎoshang hǎo zhōngguó xiànzài wǒ yǒu BING CHILLING  wǒ hěn xǐhuān BING CHILLING  dànshì sùdù yǔ jīqíng 9 bǐ BING CHILLING  sùdù yǔ jīqíng sùdù yǔ jīqíng 9 wǒ zuì xǐhuān suǒyǐ…xiànzài shì yīnyuè shíjiān zhǔnbèi 1 2 3 liǎng gè lǐbài yǐhòu sùdù yǔ jīqíng 9 ×3 bùyào wàngjì bùyào cu òguò jìdé qù diànyǐngyuàn kàn sùdù yǔ jīqíng 9 yīn wéi fēicháng hǎo diànyǐng dòngzuò fēicháng hǎo chàbùduō yīyàng BING CHILLING zàijiàn ");
+    }
+    #endregion
+    #region Lists 
+    [Command]
+    private void tp_id_list()
+    {
+        Debug.Log("0:Debug Shop");
+        Debug.Log("1:Sector 1 spawn");
+        Debug.Log("2:Sector 3 temp spawn");
+        Debug.Log("3:Sector 5 temp spawn");
+        Debug.Log("4:Shop Spawn");
+
+    }
+    [Command]
+    private void item_id_list()
+    {
+        Debug.Log(database);
     }
     #endregion
     #endregion

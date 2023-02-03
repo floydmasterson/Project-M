@@ -6,6 +6,14 @@ public class RespawnPoint : MonoBehaviour
     [SerializeField] ParticleSystem ps;
     [SerializeField] SFX Respawn;
     Collider col;
+    private void OnEnable()
+    {  
+        GameManger.Instance.TimerOver += () => { Destroy(gameObject); };
+    }
+    private void OnDestroy()
+    {   
+        GameManger.Instance.TimerOver -= () => { Destroy(gameObject); };
+    }
     private void Awake()
     {
         col= GetComponent<Collider>();

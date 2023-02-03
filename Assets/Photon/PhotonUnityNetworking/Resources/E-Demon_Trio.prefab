@@ -3618,7 +3618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeSetting: 1
-  EnemyTier: 0
+  EnemyTier: 1
   Vitality: 70
   Defense: 0
   currentHealth: 0
@@ -5469,7 +5469,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeSetting: 1
-  EnemyTier: 0
+  EnemyTier: 1
   Vitality: 70
   Defense: 0
   currentHealth: 0
@@ -7268,7 +7268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   typeSetting: 1
-  EnemyTier: 0
+  EnemyTier: 1
   Vitality: 70
   Defense: 0
   currentHealth: 0

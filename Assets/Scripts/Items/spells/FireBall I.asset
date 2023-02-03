@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68fd2dc7d5c11848b366d461cff7f7e, type: 3}
   m_Name: FireBall I
   m_EditorClassIdentifier: 
-  dmgAmt: 2
-  ManaCost: 5
+  dmgAmt: 5
+  ManaCost: 6
   lifeTime: 2
   speed: 30
   spellRadius: 0.5

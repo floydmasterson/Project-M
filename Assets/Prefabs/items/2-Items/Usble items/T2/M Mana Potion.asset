@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2700d015c6462f048ac79e3404dd457a, type: 3}
+  m_Name: M Mana Potion
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: 6a75c99f48687db46a0570b6e6ba9c93, type: 3}
+  ItemName: Medium Mana Potion
+  itemId: 123
+  ItemTier: 2
+  BuyPrice: 33
+  SellValue: 21
+  MaximumStacks: 10
+  IsConsumable: 1
+  Notes: 
+  id: 4eb855ba292208a4a8321a0738496a94
+  Effects:
+  - {fileID: 11400000, guid: dfa05cdef84a26743b99adb6c100e39c, type: 2}

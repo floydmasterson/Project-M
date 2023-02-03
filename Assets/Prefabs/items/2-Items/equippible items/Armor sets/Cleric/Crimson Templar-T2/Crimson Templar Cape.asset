@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
+  m_Name: Crimson Templar Cape
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: 6fae972dfbead37429511642fd1b7113, type: 3}
+  ItemName: Crimson Templar Cape
+  itemId: 8
+  ItemTier: 2
+  BuyPrice: 600
+  SellValue: 375
+  MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
+  id: 453c92a8b893fd64ba65574562187b24
+  StrengthBonus: 0
+  AgilityBonus: 0
+  IntelligenceBonus: 7
+  VitalityBonus: 2
+  StrengthPercentBonus: 0
+  AgilityPercentBonus: 0
+  IntelligencePercentBonus: 0
+  VitalityPercentBonus: 0
+  Passives: []
+  EquipmentType: 9
+  BoundSpell: {fileID: 0}

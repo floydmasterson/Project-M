@@ -12,8 +12,6 @@ public class PlayerManger : MonoBehaviourPun
 {
     #region Vars
     //Partds
-    [TabGroup("Components"), Required]
-    public CinemachineFreeLook cineCamera;
 
     [TabGroup("Components"), SerializeField, Required]
     CinemachineVirtualCamera lockCamera;
@@ -200,6 +198,9 @@ public class PlayerManger : MonoBehaviourPun
     SFX run;
     [TabGroup("Audio"), Required, SerializeField]
     SFX hurt;
+
+    private const string Keybaord_Sensativity = "KS";
+    private const string Gamepad_Sensativity = "GS";
     #endregion
     #region Ienumerators
     IEnumerator ExecuteAfterTime()
@@ -283,14 +284,30 @@ public class PlayerManger : MonoBehaviourPun
     #region Mono
     private void OnEnable()
     {
-        GameManger.PvPon += EnbalePvpCombat;
+        GameManger.Instance.TimerOver += () =>
+        {
+            if (!inShop)
+            {
+                transform.position = new Vector3(1753, -107, -592);
+                inShop = true;
+
+            }
+        };
         ConsoleSystem.ConsoleOpenClose += UiLockOut;
         SettingMenu.HealNumberToggle += toggleHealNumber;
         SettingMenu.DmgNumberToggle += toggleDmgNumber;
     }
     private void OnDisable()
     {
-        GameManger.PvPon -= EnbalePvpCombat;
+        GameManger.Instance.TimerOver -= () =>
+        {
+            if (!inShop)
+            {
+                transform.position = new Vector3(1753, -107, -592);
+                inShop = true;
+
+            }
+        };
         ConsoleSystem.ConsoleOpenClose -= UiLockOut;
         SettingMenu.HealNumberToggle -= toggleHealNumber;
         SettingMenu.DmgNumberToggle -= toggleDmgNumber;
@@ -331,7 +348,6 @@ public class PlayerManger : MonoBehaviourPun
         }
         else
         {
-            cineCamera.Priority = 0;
             lockCamera.Priority = 0;
         }
 
@@ -364,7 +380,7 @@ public class PlayerManger : MonoBehaviourPun
                 velocity.y += _gravity * Time.fixedDeltaTime;
                 characterController.Move(velocity * Time.fixedDeltaTime);
             }
-            if (canMove && locked)
+            if (locked)
             {
                 if (turnSens == 0)
                     updateSens();
@@ -760,11 +776,13 @@ public class PlayerManger : MonoBehaviourPun
             return;
         Gizmos.DrawSphere(attackPoint.position, attackRange);
     }
-    private void EnbalePvpCombat()
+    private void TimerUp()
     {
-        enemyLayers |= LayerMask.GetMask("enenmyMask") | LayerMask.GetMask("target");
         if (!inShop)
+        {
             transform.position = new Vector3(1753, -107, -592);
+            inShop = true;
+        }
     }
 
     [PunRPC]
@@ -790,9 +808,9 @@ public class PlayerManger : MonoBehaviourPun
     public void updateSens()
     {
         if (playerInput.currentControlScheme == "Keyboard")
-            turnSens = PlayerPrefs.GetFloat("KS");
+            turnSens = PlayerPrefs.GetFloat(Keybaord_Sensativity, 7);
         if (playerInput.currentControlScheme == "Controller")
-            turnSens = PlayerPrefs.GetFloat("KS");
+            turnSens = PlayerPrefs.GetFloat(Gamepad_Sensativity, 7);
     }
 }
 #endregion

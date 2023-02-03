@@ -43,7 +43,7 @@ namespace Sirenix.OdinInspector.Demos.RPGEditor
             }
 
             value = DragAndDropUtilities.DropZone(rect, value);                                     // Drop zone for ItemSlot structs.
-            value.Item = DragAndDropUtilities.DropZone<Item>(rect, value.Item);                     // Drop zone for Item types.
+            value.Item = DragAndDropUtilities.DropZone<ItemDemo>(rect, value.Item);                     // Drop zone for Item types.
             value = DragAndDropUtilities.DragZone(rect, value, true, true);                         // Enables dragging of the ItemSlot
 
             return value;

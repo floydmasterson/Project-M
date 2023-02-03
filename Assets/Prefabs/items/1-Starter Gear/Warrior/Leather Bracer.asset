@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
+  m_Name: Leather Bracer
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: e55b602af861b2c4596b62477c7e9c09, type: 3}
+  ItemName: Leather Bracer
+  itemId: 5
+  ItemTier: 0
+  BuyPrice: 0
+  SellValue: 0
+  MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
+  id: d7dd9d1482473654097dcfe5b9eaf1bd
+  StrengthBonus: 0
+  AgilityBonus: 0
+  IntelligenceBonus: 0
+  VitalityBonus: 0
+  StrengthPercentBonus: 0.02
+  AgilityPercentBonus: 0
+  IntelligencePercentBonus: 0
+  VitalityPercentBonus: 0
+  Passives: []
+  EquipmentType: 10
+  BoundSpell: {fileID: 0}

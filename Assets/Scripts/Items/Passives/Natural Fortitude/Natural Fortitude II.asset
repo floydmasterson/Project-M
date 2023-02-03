@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 797ce04ac07701146aacd257627df871, type: 3}
   m_Name: Natural Fortitude II
   m_EditorClassIdentifier: 
-  regenAmount: 2
+  regenAmount: 1
   regenRate: 1
   PassiveLvl: 2

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
+  m_Name: Cultist Belt
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: 994e0aa9ecb8c9f4baa6d02726d5ad36, type: 3}
+  ItemName: Cultist Belt
+  itemId: 15
+  ItemTier: 3
+  BuyPrice: 900
+  SellValue: 563
+  MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
+  id: 9d698af9ea8218e4b9c7c96a38446c54
+  StrengthBonus: 0
+  AgilityBonus: 0
+  IntelligenceBonus: 6
+  VitalityBonus: 1
+  StrengthPercentBonus: 0
+  AgilityPercentBonus: 0
+  IntelligencePercentBonus: 0
+  VitalityPercentBonus: 0
+  Passives: []
+  EquipmentType: 4
+  BoundSpell: {fileID: 0}

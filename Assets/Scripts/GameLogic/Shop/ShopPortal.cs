@@ -15,13 +15,24 @@ public class ShopPortal : MonoBehaviourPun
     Vector3 shopSpawn;
     Collider col;
     GameObject GFX;
+
     private IEnumerator OpenPortal(float time)
     {
         yield return new WaitForSecondsRealtime(time);
         OpenShopPortal();
     }
 
-
+    private void Awake()
+    {
+        if (toShop)
+        {
+            GameManger.Instance.TimerOver += () => { Destroy(gameObject); };
+        }
+    }
+    private void OnDestroy()
+    {
+        GameManger.Instance.TimerOver -= () => { Destroy(gameObject); };
+    }
     private void Start()
     {
         shopSpawn = new Vector3(1753, -107, -592);
@@ -32,13 +43,11 @@ public class ShopPortal : MonoBehaviourPun
         if (!toShop)
             StartCoroutine(OpenPortal(GameManger.Instance.gameTime + 60));
         else if (toShop)
-        {
             StartCoroutine(OpenPortal(GameManger.Instance.gameTime / 3));
-            Destroy(gameObject, GameManger.Instance.gameTime);
-        }
+
     }
 
-    private void OpenShopPortal()
+    public void OpenShopPortal()
     {
         col.enabled = true;
         GFX.SetActive(true);
@@ -59,13 +68,13 @@ public class ShopPortal : MonoBehaviourPun
             if (manger != null)
                 manger.inShop = true;
             player.transform.position = shopSpawn;
-            Destroy(gameObject);
         }
         else if (!toShop)
         {
             PlayerManger manger = player.GetComponent<PlayerManger>();
             if (manger != null)
             {
+                manger.enemyLayers |= LayerMask.GetMask("enenmyMask") | LayerMask.GetMask("target");
                 manger.pvp = true;
                 manger.inShop = false;
             }

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68fd2dc7d5c11848b366d461cff7f7e, type: 3}
   m_Name: Mana Bolt I
   m_EditorClassIdentifier: 
-  dmgAmt: 1
-  ManaCost: 5
+  dmgAmt: 6
+  ManaCost: 4
   lifeTime: 2.5
   speed: 40
   spellRadius: 0.5

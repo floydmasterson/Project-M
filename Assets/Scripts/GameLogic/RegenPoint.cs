@@ -1,36 +1,32 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
 public class RegenPoint : MonoBehaviour
 {
-    PlayerManger Player;
-    MagicController MagicController;
+    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] private float detectRadius = 5f;
+    private float detectTime;
     [SerializeField] ParticleSystem ParticleSystem;
     [SerializeField] SFX Regen;
     AudioSource audioSource;
     [SerializeField]
     float fadeTime = 1f;
     private float startVolume;
+    bool playing;
+    private void OnEnable()
+    {
+        GameManger.Instance.TimerOver += () => Destroy(gameObject);
+    }
+    private void OnDestroy()
+    {
+        GameManger.Instance.TimerOver -= () => Destroy(gameObject);
+    }
     private void Awake()
     {
-        audioSource= GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         startVolume = audioSource.volume;
     }
-    private IEnumerator HealOT()
-    {
-        if (Player != null)
-        {
-            Player.Heal(1);
-            if (MagicController != null)
-                MagicController.CurrMana += 1;
-            yield return new WaitForSecondsRealtime(1);
-            StartCoroutine("HealOT");
-        }
-        else if (Player == null)
-            StopCoroutine("HealOT");
-      
-    }
+
     IEnumerator FadeOut()
     {
         float t = 0;
@@ -40,28 +36,40 @@ public class RegenPoint : MonoBehaviour
             audioSource.volume = Mathf.Lerp(startVolume, 0, t / fadeTime);
             yield return null;
         }
+        Regen.StopSFX();
     }
-    private void OnTriggerEnter(Collider other)
+    void Update()
     {
-        if (other.gameObject.CompareTag("Player"))
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectRadius, playerLayer);
+        if (hitColliders.Length > 0 && Time.time >= detectTime)
         {
-            Player = other.gameObject.GetComponent<PlayerManger>();
-            MagicController = other.gameObject.GetComponent<MagicController>();
-            StartCoroutine("HealOT");
-            if(audioSource.volume == 0)
+            if (playing == false)
+            {
                 audioSource.volume = startVolume;
-            Regen.PlaySFX();
-            ParticleSystem.Play();
+                Regen.PlaySFX();
+                ParticleSystem.Play();
+                playing = true;
+            }
+            foreach (Collider collider in hitColliders)
+            {
+                PlayerManger player = collider.gameObject.GetComponent<PlayerManger>();
+                MagicController MagicController = collider.gameObject.GetComponent<MagicController>();
+                player.Heal(1);
+                if (MagicController != null)
+                    MagicController.CurrMana += 1;
+            }
+            detectTime = Time.time + 1f;
+        }
+        else if (hitColliders.Length == 0)
+        {
+            StartCoroutine(FadeOut());
+            ParticleSystem.Stop();
+            playing = false;
         }
     }
-    private void OnTriggerExit(Collider other)
+    private void OnDrawGizmosSelected()
     {
-        Player = null;
-        MagicController = null;
-        ParticleSystem.Stop();
-        ParticleSystem.Clear();
-        StartCoroutine(FadeOut());
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, detectRadius);
     }
-
-
 }

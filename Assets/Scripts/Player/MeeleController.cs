@@ -94,12 +94,12 @@ public class MeeleController : MonoBehaviourPun, IAttack
         photonView.RPC("swingSFX", RpcTarget.All);
         yield return new WaitForSecondsRealtime(0.15f);
         Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
-        if (hitEnemins.Length != 0)
+        for (int i = 0; i < hitEnemins.Length; i++)
         {
-            Transform target = hitEnemins[0].transform;
+            Transform target = hitEnemins[i].transform;
             PlayerManger player = target.GetComponent<PlayerManger>();
             Enemys Etarget = target.GetComponent<Enemys>();
-            if (player != null && player != PlayerUi.Instance.target && player.pvp)
+            if (player != null && player != PlayerUi.Instance.target)
             {
                 player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
             }
@@ -160,18 +160,19 @@ public class MeeleController : MonoBehaviourPun, IAttack
                 if (CurrentRage == 2)
                 {
                     manger.Heal(15);
-                    StartCoroutine(RageMode(0.05f, 0.05f, 3));
+                    StartCoroutine(RageMode(0.05f, 0.8f, 5));
                 }
                 if (CurrentRage == 3)
                 {
                     manger.Heal(20);
-                    StartCoroutine(RageMode(0.08f, 0.08f, 5));
+                    manger.LifeSteal = true;
+                    StartCoroutine(RageMode(0.08f, 0.1f, 8));
                 }
                 if (CurrentRage == 4)
                 {
                     manger.Heal(30);
                     manger.LifeSteal = true;
-                    StartCoroutine(RageMode(0.1f, 0.1f, 8));
+                    StartCoroutine(RageMode(0.1f, 0.20f, 10));
                 }
                 if (CurrentRage >= 5)
                 {
@@ -180,7 +181,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
                     if (CurrentRage > 5)
                         manger.Heal(40 + (10 * (CurrentRage - 5)));
                     manger.LifeSteal = true;
-                    StartCoroutine(RageMode(0.15f, 0.2f, 10));
+                    StartCoroutine(RageMode(0.15f, 0.30f, 13));
 
                 }
             }
@@ -189,7 +190,12 @@ public class MeeleController : MonoBehaviourPun, IAttack
     {
         if (raging == false)
         {
-            CurrentRage++;
+            if (recivedDamaged >= 15)
+            {
+                CurrentRage += Mathf.RoundToInt(recivedDamaged / 15);
+            }
+            else if (recivedDamaged < 15)
+                CurrentRage++;
             damaged = true;
             currentRageFallOffTimer = 0;
         }

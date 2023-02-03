@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c68fd2dc7d5c11848b366d461cff7f7e, type: 3}
   m_Name: Mana Bolt II
   m_EditorClassIdentifier: 
-  dmgAmt: 3
+  dmgAmt: 8
   ManaCost: 10
   lifeTime: 3
   speed: 45

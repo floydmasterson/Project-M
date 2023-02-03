@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Natural Fortitude I
   m_EditorClassIdentifier: 
   regenAmount: 1
-  regenRate: 1
+  regenRate: 2
   PassiveLvl: 1

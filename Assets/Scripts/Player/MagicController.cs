@@ -268,8 +268,8 @@ public class MagicController : MonoBehaviourPun, IAttack
     }
     private void OnDrawGizmosSelected()
     {
-
-        Gizmos.DrawSphere(transform.position, pulseRange);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, pulseRange);
     }
 }
 

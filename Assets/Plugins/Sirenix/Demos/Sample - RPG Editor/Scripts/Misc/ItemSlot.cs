@@ -7,7 +7,7 @@ namespace Sirenix.OdinInspector.Demos.RPGEditor
     public struct ItemSlot
     {
         public int ItemCount;
-        public Item Item;
+        public ItemDemo Item;
     }
 }
 #endif

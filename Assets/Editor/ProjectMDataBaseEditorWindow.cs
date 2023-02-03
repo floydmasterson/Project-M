@@ -26,10 +26,11 @@ public class ProjectMDataBaseEditorWindow : OdinMenuEditorWindow
         
 
 
-        tree.AddAllAssetsAtPath("Items/Equippable Items", "Assets/Prefabs/items/Items/equippible items", typeof(EquippableItem), includeSubDirectories: true).SortMenuItemsByName();
-        tree.AddAllAssetsAtPath("Items/Starter Items", "Assets/Prefabs/items/Starter Gear", typeof(EquippableItem), includeSubDirectories: true).SortMenuItemsByName();
-        tree.AddAllAssetsAtPath("Items/Useable Items", "Assets/Prefabs/items/Items/Usble items", typeof(UsableItem), includeSubDirectories: true).SortMenuItemsByName();
-        tree.AddAllAssetsAtPath("Items/Addons/Item Effects", "Assets/Prefabs/items/Items/Usble items/Effects", typeof(UseableItemEffect), includeSubDirectories: true).SortMenuItemsByName();
+        tree.AddAllAssetsAtPath("Items/Equippable Items", "Assets/Prefabs/items/2-Items/equippible items", typeof(EquippableItem), includeSubDirectories: true).SortMenuItemsByName();
+        tree.AddAllAssetsAtPath("Items/Starter Items", "Assets/Prefabs/items/1-Starter Gear", typeof(EquippableItem), includeSubDirectories: true).SortMenuItemsByName();
+        tree.AddAllAssetsAtPath("Items/Useable Items", "Assets/Prefabs/items/2-Items/Usble items", typeof(UsableItem), includeSubDirectories: true).SortMenuItemsByName();
+        tree.AddAllAssetsAtPath("Items/Addons/Item Effects", "Assets/Prefabs/items/2-Items/Usble items/Effects", typeof(UseableItemEffect), includeSubDirectories: true).SortMenuItemsByName();
+        tree.AddAllAssetsAtPath("Items/Addons/Spells", "Assets/Scripts/Items/spells", typeof(SpellScriptableObject), includeSubDirectories: true).SortMenuItemsByName();
         tree.AddAllAssetsAtPath("Items/Addons/Status Effects", "Assets/Scripts/Items/Status Effects", typeof(StatusEffectSO), includeSubDirectories: true).SortMenuItemsByName();
         tree.AddAllAssetsAtPath("Items/Addons/Passives", "Assets/Scripts/Items/Passives", typeof(PassiveSO), includeSubDirectories: true).SortMenuItemsByName();
         tree.AddAllAssetsAtPath("Classes", "Assets/Photon/PhotonUnityNetworking/Resources", typeof(PlayerManger)).SortMenuItemsByName().AddThumbnailIcons();

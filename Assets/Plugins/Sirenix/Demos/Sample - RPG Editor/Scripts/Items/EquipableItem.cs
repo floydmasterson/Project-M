@@ -1,7 +1,7 @@
 #if UNITY_EDITOR
 namespace Sirenix.OdinInspector.Demos.RPGEditor
 {
-    public abstract class EquipableItem : Item
+    public abstract class EquipableItem : ItemDemo
     {
         [BoxGroup(STATS_BOX_GROUP)]
         public float Durability;

@@ -1,59 +1,63 @@
 using Photon.Pun;
 using Photon.Realtime;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManger : MonoBehaviourPunCallbacks
 {
-    public static GameManger Instance;
+    public static GameManger Instance { get; private set; }
     [TabGroup("Prefabs")]
     public GameObject[] playerPrefab;
-    [TabGroup("Prefabs")]
-    public GameObject Sector3;
-    [TabGroup("Prefabs")]
-    public GameObject Sector1;
-    [TabGroup("Prefabs")]
-    public GameObject Sector5;
-    public static GameObject LocalPlayerInstance;
-    [TabGroup("Spawning")]
-    public bool spawnEnemys;
-    [TabGroup("Spawning")]
-    public bool spawnPlayersTogther;
-    [TabGroup("Spawning")]
-    [SerializeField] List<RespawnPoint> playerSpawnPoints = new List<RespawnPoint>();
-    public delegate void PvPEnable();
-    public static event PvPEnable PvPon;
-    public delegate void spawn();
-    public static event spawn spawnMobs;
+    [TabGroup("Prefabs"), SerializeField]
+    private GameObject Sector3;
+    [TabGroup("Prefabs"), SerializeField]
+    private GameObject Sector1;
+    [TabGroup("Prefabs"), SerializeField]
+    private GameObject Sector5;
+    [TabGroup("Spawning"), SerializeField]
+    private bool spawnEnemys;
+    [TabGroup("Spawning"), SerializeField]
+    private bool spawnPlayersTogther;
     [TabGroup("Game Time")]
     public float GameTimeLeft = 0f;
-    [TabGroup("Game Time")]
-    [SerializeField] public int gameTime;
-    public bool timerOn = false;
-    bool[] picked = new bool[2];
-    [TabGroup("Audio")]
-    public SFX dungonAmbient;
+    [TabGroup("Game Time"), SerializeField]
+    public int gameTime;
+    [TabGroup("Audio"), SerializeField]
+    private SFX dungonAmbient;
+    [SerializeField]
+    private List<RespawnPoint> playerSpawnPoints = new List<RespawnPoint>();
 
+    public event Action TimerOver;
+    public event Action spawnMobs;
+    private bool timerOn = false;
 
 
     private void Awake()
     {
         Instance = this;
     }
-    private void TimesUp()
+    public override void OnEnable()
     {
-        Debug.Log("time is up");
-        GameTimeLeft = 0;
+        base.OnEnable();
+        VotingSystem.Instance.timeSkip += T2Load;
+    }
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        VotingSystem.Instance.timeSkip -= T2Load;
+    }
+    private void T2Load()
+    {
         timerOn = false;
-        PvPon();
+        GameTimeLeft = 0;
         Sector1.SetActive(false);
         Sector5.SetActive(false);
         Sector3.SetActive(true);
-        if (spawnEnemys == true && spawnMobs != null)
-            spawnMobs();
+        if (spawnEnemys == true && PhotonNetwork.IsMasterClient)
+            spawnMobs?.Invoke();
     }
-
     void Start()
     {
         if (MusicClass.Instance != null)
@@ -65,19 +69,20 @@ public class GameManger : MonoBehaviourPunCallbacks
             {
                 if (!spawnPlayersTogther)
                 {
-                    int selctedSpawn = Random.Range(0, playerSpawnPoints.Count);
+                    int selctedSpawn = UnityEngine.Random.Range(0, playerSpawnPoints.Count);
                     photonView.RPC("InstantiationPlayer", player, selctedSpawn);
-                    photonView.RPC("Removepoint", RpcTarget.All, selctedSpawn);
+                    photonView.RPC("Removepoint", RpcTarget.AllBuffered, selctedSpawn); 
                 }
-                else if(spawnPlayersTogther)
+                else if (spawnPlayersTogther)
                 {
                     int selctedSpawn = 0;
                     photonView.RPC("InstantiationPlayer", player, selctedSpawn);
-                    photonView.RPC("Removepoint", RpcTarget.All, selctedSpawn);
+                    photonView.RPC("Removepoint", RpcTarget.AllBuffered, selctedSpawn); 
                 }
             }
-            if (spawnEnemys == true && spawnMobs != null)
-                spawnMobs();
+            if (spawnEnemys == true)
+                spawnMobs?.Invoke();
+
             SetGameTime(gameTime);
         }
     }
@@ -92,6 +97,7 @@ public class GameManger : MonoBehaviourPunCallbacks
     {
         playerSpawnPoints.Remove(playerSpawnPoints[spawnPoint]);
     }
+  
 
 
     private void Update()
@@ -104,7 +110,12 @@ public class GameManger : MonoBehaviourPunCallbacks
             }
             else if (GameTimeLeft < 0)
             {
-                TimesUp();
+
+                Debug.Log("time is up");
+                timerOn = false;
+                TimerOver?.Invoke();
+                GameTimeLeft = 0;
+                T2Load();
             }
         }
     }

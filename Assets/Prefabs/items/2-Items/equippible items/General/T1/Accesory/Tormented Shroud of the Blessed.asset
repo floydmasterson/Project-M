@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
+  m_Name: Tormented Shroud of the Blessed
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: 40d54cb7224ba2540aa96fe7107bda53, type: 3}
+  ItemName: Tormented Shroud of the Blessed
+  itemId: 61
+  ItemTier: 1
+  BuyPrice: 244
+  SellValue: 153
+  MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
+  id: 90aa8baec2c3e0943aea1d22d10db7c8
+  StrengthBonus: 0
+  AgilityBonus: 0
+  IntelligenceBonus: 3
+  VitalityBonus: 0
+  StrengthPercentBonus: 0
+  AgilityPercentBonus: 0.05
+  IntelligencePercentBonus: 0
+  VitalityPercentBonus: 0
+  Passives:
+  - {fileID: 11400000, guid: 5a5866b95a315074280760266b9487d3, type: 2}
+  EquipmentType: 9
+  BoundSpell: {fileID: 0}

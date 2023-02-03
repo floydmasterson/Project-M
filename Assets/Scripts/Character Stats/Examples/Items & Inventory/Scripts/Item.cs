@@ -1,7 +1,8 @@
-﻿using System.Text;
-using UnityEngine;
-using Sirenix.OdinInspector;
+﻿using Sirenix.OdinInspector;
+using System;
+using System.Text;
 using UnityEditor;
+using UnityEngine;
 
 
 
@@ -23,6 +24,8 @@ public class Item : ScriptableObject
     [VerticalGroup("Item/Right"), LabelWidth(65)]
     public string ItemName;
     [VerticalGroup("Item/Right"), LabelWidth(65)]
+    public int itemId;
+    [VerticalGroup("Item/Right"), LabelWidth(65)]
     [EnumToggleButtons]
     public Tier ItemTier;
     [VerticalGroup("Item/Right"), LabelWidth(65)]
@@ -43,8 +46,7 @@ public class Item : ScriptableObject
     public string Notes;
     [HideIf("@1 == 1")]
     [SerializeField] string id;
-
-
+  
 
 
 

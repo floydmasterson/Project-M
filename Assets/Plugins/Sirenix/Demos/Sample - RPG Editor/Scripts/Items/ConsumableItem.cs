@@ -1,7 +1,7 @@
 #if UNITY_EDITOR
 namespace Sirenix.OdinInspector.Demos.RPGEditor
 {
-    public class ConsumableItem : Item
+    public class ConsumableItem : ItemDemo
     {
         [SuffixLabel("seconds ", true)]
         [BoxGroup(STATS_BOX_GROUP)]

@@ -14,7 +14,7 @@ namespace Sirenix.OdinInspector.Demos.RPGEditor
     //
 
     public class ItemDrawer<TItem> : OdinValueDrawer<TItem>
-        where TItem : Item
+        where TItem : ItemDemo
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
@@ -29,7 +29,7 @@ namespace Sirenix.OdinInspector.Demos.RPGEditor
                 rect = EditorGUI.IndentedRect(rect);
             }
 
-            Item item = this.ValueEntry.SmartValue;
+            ItemDemo item = this.ValueEntry.SmartValue;
             Texture texture = null;
 
             if (item)

@@ -1,17 +1,41 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Photon.Pun;
 using TMPro;
+using UnityEngine;
 
-public class timeToText : MonoBehaviour
+public class timeToText : MonoBehaviourPun
 {
-    TextMeshPro timeText;
+    [SerializeField] private TextMeshPro timeText;
+    [SerializeField] private TextMeshPro voteText;
     float time;
+    int players;
+    int votes = 0;
+
+    private void Start()
+    {
+        if (PhotonNetwork.InRoom)
+            players = PhotonNetwork.CurrentRoom.PlayerCount;
+        updateVote(0);
+    }
+
+    private void OnEnable()
+    {
+        VotingSystem.Instance.timeSkip += () => Destroy(gameObject);
+        VotingSystem.Instance.voteCast += updateVote;
+    }
+    private void OnDestroy()
+    {
+        VotingSystem.Instance.timeSkip -= () => Destroy(gameObject);
+        VotingSystem.Instance.voteCast -= updateVote;
+
+    }
+
     private void Awake()
     {
-        timeText= GetComponent<TextMeshPro>();
         time = GameManger.Instance.gameTime + 60;
+
     }
+
+
     private void Update()
     {
         if (time > 0)
@@ -23,6 +47,13 @@ public class timeToText : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        if (PhotonNetwork.InRoom && players != PhotonNetwork.CurrentRoom.PlayerCount)
+        {
+            players = PhotonNetwork.CurrentRoom.PlayerCount;
+            updateVote(votes);
+        }
+
+
     }
     private void updateTimer(float currentTime)
     {
@@ -33,4 +64,10 @@ public class timeToText : MonoBehaviour
 
         timeText.text = string.Format("{0:00} : {1:00}", min, sec);
     }
+    private void updateVote(int recivedVotes)
+    {
+        voteText.text = recivedVotes.ToString() + "/" + players + " Votes";
+        votes = recivedVotes;
+    }
+
 }
