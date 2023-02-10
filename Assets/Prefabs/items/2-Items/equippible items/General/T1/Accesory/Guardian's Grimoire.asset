@@ -14,15 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 793066c8b05402b48ace94a1542d1203, type: 3}
   ItemName: Guardian's Grimoire
+  itemId: 53
   ItemTier: 1
-  cost: 234
+  BuyPrice: 295
+  SellValue: 185
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: 0931daf1fbf07db47aee909fc68adb04
   StrengthBonus: 0
   AgilityBonus: 0
-  IntelligenceBonus: 2
+  IntelligenceBonus: 4
   VitalityBonus: 0
   StrengthPercentBonus: 0
   AgilityPercentBonus: 0.05

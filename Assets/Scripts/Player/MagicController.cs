@@ -223,12 +223,12 @@ public class MagicController : MonoBehaviourPun, IAttack
             {
 
                 manger.StartCoroutine(manger.IFrames(.8f));
+                EffectVisualContol.EnableEffect(2);
                 isCasting = true;
                 currentPulseTimer = pulseCooldown;
                 currentCastTimer = 0;
                 _currMana -= ManaPulseCost;
                 photonView.RPC("ManaPulseSFX", RpcTarget.All);
-                EffectVisualContol.EnableEffect(2);
                 Collider[] hitenemines = Physics.OverlapSphere(transform.position, pulseRange, manger.enemyLayers);
                 for (int i = 0; i < hitenemines.Length; i++)
                 {

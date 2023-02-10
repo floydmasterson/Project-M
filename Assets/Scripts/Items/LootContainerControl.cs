@@ -176,13 +176,13 @@ public class LootContainerControl : ItemContainer
         switch (containerTier)
         {
             case ContainerTier.T1:
-                gold = Random.Range(15, 30);
+                gold = Random.Range(40, 60);
                 break;
             case ContainerTier.T2:
-                gold = Random.Range(50, 80);
+                gold = Random.Range(70, 110);
                 break;
             case ContainerTier.T3:
-                gold = Random.Range(90, 150);
+                gold = Random.Range(120, 200);
                 break;
             default: break;
         }

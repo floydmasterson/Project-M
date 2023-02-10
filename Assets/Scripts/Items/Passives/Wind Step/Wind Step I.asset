@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51f032d6cc80844b819f698c442fdff, type: 3}
   m_Name: Wind Step I
   m_EditorClassIdentifier: 
-  pushAmount: 1
+  pushAmount: 2
   PassiveLvl: 1

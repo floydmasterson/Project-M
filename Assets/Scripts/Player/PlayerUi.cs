@@ -1,6 +1,7 @@
 using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
+using System.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,31 +10,31 @@ using UnityEngine.UI;
 public class PlayerUi : MonoBehaviourPun
 {
     [SerializeField] private Vector3 screenOffset = new Vector3(0f, 30f, 0f);
-    [TabGroup("Player Health")]
+    [TabGroup("Player"), TabGroup("Player Health")]
     [SerializeField] private Slider playerHealthSlider;
-    [TabGroup("Player Health")]
+    [TabGroup("Player"), TabGroup("Player Health")]
     [SerializeField] private Slider playerHealthSliderInv;
-    [TabGroup("Player Health")]
+    [TabGroup("Player"), TabGroup("Player Health")]
     [SerializeField] private TextMeshProUGUI HealthText;
-    [TabGroup("Player Health")]
+    [TabGroup("Player"), TabGroup("Player Health")]
     [SerializeField] private TextMeshProUGUI HealthTextInv;
 
-    [TabGroup("Player Mana")]
+    [TabGroup("Player"), TabGroup("Player Mana")]
     [SerializeField] Slider playerManaSlider;
-    [TabGroup("Player Mana")]
+    [TabGroup("Player"), TabGroup("Player Mana")]
     [SerializeField] Slider playerManaSliderInv;
-    [TabGroup("Player Mana")]
+    [TabGroup("Player"), TabGroup("Player Mana")]
     [SerializeField] private TextMeshProUGUI ManaText;
-    [TabGroup("Player Mana")]
+    [TabGroup("Player"), TabGroup("Player Mana")]
     [SerializeField] private TextMeshProUGUI ManaTextInv;
 
-    [TabGroup("Player Rage")]
+    [TabGroup("Player"), TabGroup("Player Rage")]
     [SerializeField] public Slider playerRageSlider;
-    [TabGroup("Player Rage")]
+    [TabGroup("Player"), TabGroup("Player Rage")]
     [SerializeField] public Slider playerRageSliderInv;
-    [TabGroup("Player Rage")]
+    [TabGroup("Player"), TabGroup("Player Rage")]
     [SerializeField] private TextMeshProUGUI RageText;
-    [TabGroup("Player Rage")]
+    [TabGroup("Player"), TabGroup("Player Rage")]
     [SerializeField] private TextMeshProUGUI RageTextInv;
 
 
@@ -60,9 +61,17 @@ public class PlayerUi : MonoBehaviourPun
     [TabGroup("MiniMap")]
     public Canvas UiCanvas;
     [TabGroup("Escape Menu"), SerializeField, Required]
-    EscapeMenu escapeMenu;
+    private EscapeMenu escapeMenu;
     [TabGroup("Escape Menu"), SerializeField, Required]
-    sensitivityControler[] controllers;
+    private sensitivityControler[] controllers;
+    [TabGroup("Loading Menu"), SerializeField, Required]
+    private Image loadingShield;
+    [TabGroup("Loading Menu"), SerializeField, Required]
+    private TextMeshProUGUI toShop;
+    [TabGroup("Player"), SerializeField, Required]
+    private TextMeshProUGUI timeText;
+    [TabGroup("PLayer"), SerializeField, Required]
+    private TextMeshProUGUI timeTextInv;
     [HideInInspector]
     public PlayerInput playerInput;
     int quickAmount;
@@ -77,6 +86,8 @@ public class PlayerUi : MonoBehaviourPun
     GameObject Health;
     GameObject Mana;
     GameObject Rage;
+    GameObject Timer;
+    GameObject TimerInv;
     GameObject RageInv;
     GameObject ManaInv;
     GameObject HealthInv;
@@ -89,13 +100,13 @@ public class PlayerUi : MonoBehaviourPun
     private bool toggle = true;
     GamepadCursor gamepadCursor;
     public bool Sick = false;
-    IEnumerator ApplyPotionSickness(float time)
+   private IEnumerator ApplyPotionSickness(float time)
     {
         Sick = true;
         yield return new WaitForSeconds(time);
         Sick = false;
     }
-    IEnumerator applyCooldown(float time)
+   private IEnumerator applyCooldown(float time)
     {
         cooldownTimer -= Time.deltaTime;
         if (cooldownTimer < 0f)
@@ -115,6 +126,19 @@ public class PlayerUi : MonoBehaviourPun
             StartCoroutine(applyCooldown(cooldownTimer));
         }
     }
+   private IEnumerator Fadeout(float time, bool showShopText)
+    {
+        if(showShopText)
+        {
+            toShop.gameObject.SetActive(true);
+            yield return new WaitForSecondsRealtime(1f);
+            loadingShield.CrossFadeAlpha(255, time, false);
+        }
+        yield return new WaitForSecondsRealtime(.5f);
+        loadingShield.CrossFadeAlpha(0, time, false);
+        yield return new WaitForSecondsRealtime(time);
+        toShop.gameObject.SetActive(false);
+    }
 
     // Start is called before the first frame update
     void Awake()
@@ -128,6 +152,8 @@ public class PlayerUi : MonoBehaviourPun
         RageInv = gameObject.transform.GetChild(5).gameObject;
         ManaInv = gameObject.transform.GetChild(6).gameObject;
         HealthInv = gameObject.transform.GetChild(7).gameObject;
+        Timer = gameObject.transform.GetChild(12).gameObject;
+        TimerInv = gameObject.transform.GetChild(11).gameObject;
         QSlotCooldown = quickSlot.transform.GetChild(3).GetComponent<Image>();
         QSlotCooldownText = quickSlot.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
         UiCooldownIcon = Health.transform.GetChild(4).GetComponent<Image>();
@@ -144,7 +170,6 @@ public class PlayerUi : MonoBehaviourPun
         PlayerManger.onInventoryClose += OpenUi;
         PlayerManger.escapeMenu += toggleUi;
     }
-
     private void OnDisable()
     {
         PlayerManger.onInventoryOpen -= CloseUi;
@@ -234,7 +259,6 @@ public class PlayerUi : MonoBehaviourPun
                 RageTextInv.text = (Mathf.RoundToInt(MeleeController.CurrentRage) + "/" + MeleeController.MaxRage);
             }
         }
-
         if (target == null)
         {
             Destroy(this.gameObject);
@@ -251,6 +275,15 @@ public class PlayerUi : MonoBehaviourPun
             if (!quickSlot.activeInHierarchy && Health.activeInHierarchy)
                 quickSlot.SetActive(true);
         }
+        if (GameManger.Instance != null && GameManger.Instance.GameTimeLeft > 0)
+        {
+            updateTimer(GameManger.Instance.GameTimeLeft);
+        }
+        else
+        {
+            updateTimer(-1);
+        }
+       
 
     }
     void LateUpdate()
@@ -263,12 +296,13 @@ public class PlayerUi : MonoBehaviourPun
             targetPosition.y += characterControllerHeight;
         }
     }
-
     public void OpenUi()
     {
         Health.SetActive(true);
         HealthInv.SetActive(false);
         Minimap.SetActive(true);
+        Timer.SetActive(true);
+        TimerInv.SetActive(false);
         if (quickSlotImage.sprite != null)
         {
             quickSlot.SetActive(true);
@@ -297,6 +331,8 @@ public class PlayerUi : MonoBehaviourPun
         Health.SetActive(false);
         HealthInv.SetActive(true);
         Minimap.SetActive(false);
+        Timer.SetActive(false);
+        TimerInv.SetActive(true);
         if (quickSlotImage.sprite != null)
         {
             quickSlot.SetActive(false);
@@ -344,7 +380,7 @@ public class PlayerUi : MonoBehaviourPun
             quickSlotAmountText.text = quickAmount.ToString();
 
         }
-        else if(quickAmount <= 1)
+        else if (quickAmount <= 1)
         {
             quickSlotAmountText.gameObject.SetActive(false);
         }
@@ -366,7 +402,7 @@ public class PlayerUi : MonoBehaviourPun
             controler.playerInput = playerInput;
         }
         gamepadCursor.playerInput = playerInput;
-        OnTargetSet();
+        OnTargetSet?.Invoke();
         gamepadCursor.player = target;
         gamepadCursor.enabled = true;
         CharacterController characterController = _target.GetComponent<CharacterController>();
@@ -375,6 +411,21 @@ public class PlayerUi : MonoBehaviourPun
         {
             characterControllerHeight = characterController.height;
         }
+        StartCoroutine(Fadeout(.6f, false));
 
+    }
+    public void ShopTime()
+    {
+        StartCoroutine(Fadeout(2f, true));
+    }
+    private void updateTimer(float currentTime)
+    {
+        currentTime += 1;
+
+        float min = Mathf.FloorToInt(currentTime / 60);
+        float sec = Mathf.FloorToInt(currentTime % 60);
+
+        timeText.text = string.Format("{0:00} : {1:00}", min, sec);
+        timeTextInv.text = string.Format("{0:00} : {1:00}", min, sec);
     }
 }

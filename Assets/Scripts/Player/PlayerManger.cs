@@ -14,34 +14,34 @@ public class PlayerManger : MonoBehaviourPun
     //Partds
 
     [TabGroup("Components"), SerializeField, Required]
-    CinemachineVirtualCamera lockCamera;
+    private CinemachineVirtualCamera lockCamera;
 
     [TabGroup("Components"), SerializeField, Required]
-    GameObject player;
+    private GameObject player;
 
     [TabGroup("Components"), SerializeField, Required]
-    Collider col;
+    private Collider col;
 
     [TabGroup("Components"), Required]
     public PlayerInput playerInput;
 
     [TabGroup("Components"), SerializeField, Required]
-    CharacterController characterController;
+    private CharacterController characterController;
 
     [TabGroup("Components"), SerializeField, Required]
-    Animator animator;
+    private Animator animator;
 
     [TabGroup("Components"), SerializeField, Required]
-    Rigidbody Rb;
+    private Rigidbody Rb;
 
     [TabGroup("Components"), SerializeField]
-    GameObject FloatingText;
+    private GameObject FloatingText;
 
     [TabGroup("Components"), SerializeField]
-    Transform DmgTextspawn;
+    private Transform DmgTextspawn;
 
     [TabGroup("Components"), SerializeField]
-    Transform HealTextspawn;
+    private Transform HealTextspawn;
 
     [TabGroup("Components"), Required]
     public bool IsLocal = false;
@@ -104,11 +104,10 @@ public class PlayerManger : MonoBehaviourPun
 
 
     //Movment
-
     [TabGroup("Movement")]
-    [SerializeField] float SprintSpeed = 12f;
+    [SerializeField] private float SprintSpeed = 12f;
     [TabGroup("Movement")]
-    [SerializeField] float speed = 6f;
+    [SerializeField] private float speed = 6f;
     [TabGroup("Movement")]
     public float pushAmt = 6f;
     [TabGroup("Movement")]
@@ -117,7 +116,7 @@ public class PlayerManger : MonoBehaviourPun
     [SerializeField] Vector2 turn;
     readonly float _groundDistance = .0001f;
     readonly float _gravity = -9.81f;
-    readonly float turnSmoothVelc;
+    private float turnSmoothVelc;
     [Space]
     [TabGroup("Movement")]
     public Transform groundCheck;
@@ -130,19 +129,19 @@ public class PlayerManger : MonoBehaviourPun
     [HideInInspector]
     public float currentCameraSpeed = 250;
 
-    Vector2 inputMove;
-    Vector2 inputTurn;
-    Vector3 velocity;
-    Vector3 Direction;
-    float ActCooldown;
-    bool isRollExecuting = false;
+    private Vector2 inputMove;
+    private Vector2 inputTurn;
+    private Vector3 velocity;
+    private Vector3 Direction;
+    private float ActCooldown;
+    private bool isRollExecuting = false;
     private float turnSens = 0.025f;
 
 
     //attacking
     [TabGroup("Attack")]
     [SerializeField] float attackCoolDown = 1f;
-    bool isAttackSetExecuting = false;
+    private bool isAttackSetExecuting = false;
     [TabGroup("Attack")]
     public float attackRange = .5f;
     [TabGroup("Attack")]
@@ -162,24 +161,24 @@ public class PlayerManger : MonoBehaviourPun
 
     //PLayer UI
     [TabGroup("Ui"), Required, SerializeField]
-    GameObject UiPrefab;
+    private GameObject UiPrefab;
     [TabGroup("Ui"), Required, SerializeField]
-    GameObject InventoryPrefab;
+    private GameObject InventoryPrefab;
     [TabGroup("Ui"), Required, SerializeField]
-    GameObject MiniMapIcon;
+    private GameObject MiniMapIcon;
     [TabGroup("Ui")]
     public bool InvIsOpen = false;
     [TabGroup("Ui")]
     public bool inChest = false;
-    Character character;
+    private Character character;
     [HideInInspector]
     public ShopController shop;
 
-    bool escapeMenuOpen;
-    const string gamepadScheme = "Controller";
-    bool locked;
-    bool showHealingNumber;
-    bool showDmgNumber;
+    private bool escapeMenuOpen;
+    private const string gamepadScheme = "Controller";
+    private bool locked;
+    private bool showHealingNumber;
+    private bool showDmgNumber;
     public bool inShop;
 
     public delegate void EscapeMenu();
@@ -193,17 +192,17 @@ public class PlayerManger : MonoBehaviourPun
 
     //Audio 
     [TabGroup("Audio"), Required, SerializeField]
-    SFX walk;
+    private SFX walk;
     [TabGroup("Audio"), Required, SerializeField]
-    SFX run;
+    private SFX run;
     [TabGroup("Audio"), Required, SerializeField]
-    SFX hurt;
+    private SFX hurt;
 
     private const string Keybaord_Sensativity = "KS";
     private const string Gamepad_Sensativity = "GS";
     #endregion
     #region Ienumerators
-    IEnumerator ExecuteAfterTime()
+   private IEnumerator ExecuteAfterTime()
     {
         if (lifes > 0)
         {
@@ -221,7 +220,7 @@ public class PlayerManger : MonoBehaviourPun
             Destroy(photonView);
         }
     }
-    IEnumerator AttackSet()
+   private IEnumerator AttackSet()
     {
         if (photonView.IsMine)
         {
@@ -263,7 +262,7 @@ public class PlayerManger : MonoBehaviourPun
         yield return new WaitForSeconds(.001f);
         onInventoryClose();
     }
-    IEnumerator StartRoll()
+    private IEnumerator StartRoll()
     {
         if (isRollExecuting)
             yield break;
@@ -280,6 +279,18 @@ public class PlayerManger : MonoBehaviourPun
         canMove = true;
         isRollExecuting = false;
     }
+    private IEnumerator shopTimer()
+    {
+        canMove = false;
+        UpdateMoving(false);
+        UpdateRun(false);
+        StartCoroutine(IFrames(2));
+        PlayerUi.Instance.ShopTime();
+        yield return new WaitForSecondsRealtime(1.8f);
+        transform.position = new Vector3(1753, -107, -592);
+        inShop = true;
+        canMove = true;
+    }
     #endregion
     #region Mono
     private void OnEnable()
@@ -287,10 +298,8 @@ public class PlayerManger : MonoBehaviourPun
         GameManger.Instance.TimerOver += () =>
         {
             if (!inShop)
-            {
-                transform.position = new Vector3(1753, -107, -592);
-                inShop = true;
-
+            {  
+                StartCoroutine(shopTimer());
             }
         };
         ConsoleSystem.ConsoleOpenClose += UiLockOut;
@@ -299,13 +308,11 @@ public class PlayerManger : MonoBehaviourPun
     }
     private void OnDisable()
     {
-        GameManger.Instance.TimerOver -= () =>
+        GameManger.Instance.TimerOver += () =>
         {
             if (!inShop)
             {
-                transform.position = new Vector3(1753, -107, -592);
-                inShop = true;
-
+                StartCoroutine(shopTimer());
             }
         };
         ConsoleSystem.ConsoleOpenClose -= UiLockOut;
@@ -324,15 +331,6 @@ public class PlayerManger : MonoBehaviourPun
             MiniMapIcon.SetActive(true);
             lockCamera.Priority = 10;
             locked = true;
-            if (UiPrefab != null)
-            {
-                GameObject _uiGo = Instantiate(UiPrefab) as GameObject;
-                _uiGo.GetComponent<PlayerUi>().SetTarget(this);
-            }
-            else
-            {
-                Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
-            }
             if (InventoryPrefab != null)
             {
                 GameObject _uiGoi = Instantiate(InventoryPrefab) as GameObject;
@@ -342,6 +340,15 @@ public class PlayerManger : MonoBehaviourPun
             else
             {
                 Debug.LogWarning("<Color=Red><a>Missing</a></Color> IventoryPrefab reference on player Prefab.", this);
+            }
+            if (UiPrefab != null)
+            {
+                GameObject _uiGo = Instantiate(UiPrefab) as GameObject;
+                _uiGo.GetComponent<PlayerUi>().SetTarget(this);
+            }
+            else
+            {
+                Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
             }
             GamepadCursor.Instance.playerInput = playerInput;
 
@@ -363,12 +370,12 @@ public class PlayerManger : MonoBehaviourPun
     }
     private void FixedUpdate()
     {
-        if (photonView.IsMine && isAlive == true)
+        if (photonView.IsMine && isAlive == true && canMove == true)
         {
+
             float x = inputMove.x;
             float y = inputMove.y;
             Vector3 direction = new Vector3(x, 0f, y).normalized;
-
             //gravity
             isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
             if (isGrounded && velocity.y < 0)
@@ -380,7 +387,7 @@ public class PlayerManger : MonoBehaviourPun
                 velocity.y += _gravity * Time.fixedDeltaTime;
                 characterController.Move(velocity * Time.fixedDeltaTime);
             }
-            if (locked)
+            if (locked )
             {
                 if (turnSens == 0)
                     updateSens();
@@ -724,7 +731,6 @@ public class PlayerManger : MonoBehaviourPun
                 text.GetComponent<TextMesh>().color = Color.green;
                 text.GetComponent<TextMesh>().text = amount.ToString();
             }
-            Debug.Log(this + " healed for " + amount);
         }
     }
     private void Respawn()
@@ -744,7 +750,6 @@ public class PlayerManger : MonoBehaviourPun
 
     #endregion
     #region StatChecks
-
     public void CheckMaxHealth()
     {
         _maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (Character.Instance.Vitality.Value / 2f)));
@@ -770,20 +775,14 @@ public class PlayerManger : MonoBehaviourPun
 
     #endregion
     #region Misc
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         if (attackPoint == null)
             return;
         Gizmos.DrawSphere(attackPoint.position, attackRange);
     }
-    private void TimerUp()
-    {
-        if (!inShop)
-        {
-            transform.position = new Vector3(1753, -107, -592);
-            inShop = true;
-        }
-    }
+#endif
 
     [PunRPC]
     public void PlaySFXRPC(SFX sFX)
@@ -793,24 +792,33 @@ public class PlayerManger : MonoBehaviourPun
 
     void toggleHealNumber(bool state)
     {
-        if (state)
-            showHealingNumber = true;
-        else if (!state)
-            showHealingNumber = false;
+        if (photonView.IsMine)
+        {
+            if (state)
+                showHealingNumber = true;
+            else if (!state)
+                showHealingNumber = false;
+        }
     }
     void toggleDmgNumber(bool state)
     {
-        if (state)
-            showDmgNumber = true;
-        else if (!state)
-            showDmgNumber = false;
+        if (photonView.IsMine)
+        {
+            if (state)
+                showDmgNumber = true;
+            else if (!state)
+                showDmgNumber = false;
+        }
     }
     public void updateSens()
     {
-        if (playerInput.currentControlScheme == "Keyboard")
-            turnSens = PlayerPrefs.GetFloat(Keybaord_Sensativity, 7);
-        if (playerInput.currentControlScheme == "Controller")
-            turnSens = PlayerPrefs.GetFloat(Gamepad_Sensativity, 7);
+        if (photonView.IsMine)
+        {
+            if (playerInput.currentControlScheme == "Keyboard")
+                turnSens = PlayerPrefs.GetFloat(Keybaord_Sensativity, 7);
+            if (playerInput.currentControlScheme == "Controller")
+                turnSens = PlayerPrefs.GetFloat(Gamepad_Sensativity, 7);
+        }
     }
+    #endregion
 }
-#endregion

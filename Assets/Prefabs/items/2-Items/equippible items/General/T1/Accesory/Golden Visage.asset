@@ -16,15 +16,15 @@ MonoBehaviour:
   ItemName: Golden Visage
   itemId: 52
   ItemTier: 1
-  BuyPrice: 302
-  SellValue: 189
+  BuyPrice: 280
+  SellValue: 176
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: 70a4735b9902d9540b7cee6a9ac9fd99
   StrengthBonus: 0
   AgilityBonus: 0
-  IntelligenceBonus: 4
+  IntelligenceBonus: 3
   VitalityBonus: 1
   StrengthPercentBonus: 0
   AgilityPercentBonus: 0

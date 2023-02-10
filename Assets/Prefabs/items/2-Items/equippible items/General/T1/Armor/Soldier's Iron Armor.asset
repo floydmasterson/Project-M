@@ -16,8 +16,8 @@ MonoBehaviour:
   ItemName: Soldier's Iron Armor
   itemId: 72
   ItemTier: 1
-  BuyPrice: 273
-  SellValue: 171
+  BuyPrice: 261
+  SellValue: 164
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
@@ -25,11 +25,11 @@ MonoBehaviour:
   StrengthBonus: 4
   AgilityBonus: 0
   IntelligenceBonus: 0
-  VitalityBonus: 1
+  VitalityBonus: 0
   StrengthPercentBonus: 0
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
-  VitalityPercentBonus: 0
+  VitalityPercentBonus: 0.02
   Passives:
   - {fileID: 11400000, guid: af30f775828cdc64e8c5c126d4120b11, type: 2}
   EquipmentType: 1

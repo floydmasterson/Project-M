@@ -7,7 +7,6 @@ public class InventoryUi : MonoBehaviourPun
 {
     public static InventoryUi Instance;
     private PlayerManger target;
-    public TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI goldText;
     private int gold;
     public Image[] hearts;
@@ -67,17 +66,6 @@ public class InventoryUi : MonoBehaviourPun
             characterControllerHeight = characterController.height;
         }
     }
-    private void Update()
-    {
-        if (GameManger.Instance != null && GameManger.Instance.GameTimeLeft > 0)
-        {
-            updateTimer(GameManger.Instance.GameTimeLeft);
-        }
-        else
-        {
-            updateTimer(-1);
-        }
-    }
     void UpdateLifes(PlayerManger player)
     {
         int lifes = PlayerUi.Instance.target.lifes;
@@ -104,14 +92,6 @@ public class InventoryUi : MonoBehaviourPun
         return gold;
     }
 
-    private void updateTimer(float currentTime)
-    {
-        currentTime += 1;
-
-        float min = Mathf.FloorToInt(currentTime / 60);
-        float sec = Mathf.FloorToInt(currentTime % 60);
-
-        timeText.text = string.Format("{0:00} : {1:00}", min, sec);
-    }
+    
 }
 

@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 394936cf86ea20a4991122c2d6e07262, type: 3}
   ItemName: Gatecrasher
+  itemId: 97
   ItemTier: 2
-  cost: 500
+  BuyPrice: 584
+  SellValue: 366
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: ce2581e6484d6514f9aadccdb2758416
-  StrengthBonus: 6
+  StrengthBonus: 7
   AgilityBonus: 0
   IntelligenceBonus: 0
   VitalityBonus: 0

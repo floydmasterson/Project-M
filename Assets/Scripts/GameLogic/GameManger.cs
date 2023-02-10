@@ -2,6 +2,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,17 +42,20 @@ public class GameManger : MonoBehaviourPunCallbacks
     public override void OnEnable()
     {
         base.OnEnable();
-        VotingSystem.Instance.timeSkip += T2Load;
+        VotingSystem.Instance.timeSkip += T2Start;
     }
     public override void OnDisable()
     {
         base.OnDisable();
-        VotingSystem.Instance.timeSkip -= T2Load;
+        VotingSystem.Instance.timeSkip -= T2Start;
     }
-    private void T2Load()
+    private void T2Start()
     {
-        timerOn = false;
-        GameTimeLeft = 0;
+       StartCoroutine(T2Load());
+    }
+    private IEnumerator T2Load()
+    {
+        yield return new WaitForSecondsRealtime(2f);
         Sector1.SetActive(false);
         Sector5.SetActive(false);
         Sector3.SetActive(true);
@@ -60,8 +64,6 @@ public class GameManger : MonoBehaviourPunCallbacks
     }
     void Start()
     {
-        if (MusicClass.Instance != null)
-            MusicClass.Instance.StopMusic();
         dungonAmbient.PlaySFX();
         if (PhotonNetwork.IsMasterClient)
         {
@@ -115,7 +117,7 @@ public class GameManger : MonoBehaviourPunCallbacks
                 timerOn = false;
                 TimerOver?.Invoke();
                 GameTimeLeft = 0;
-                T2Load();
+                T2Start();
             }
         }
     }

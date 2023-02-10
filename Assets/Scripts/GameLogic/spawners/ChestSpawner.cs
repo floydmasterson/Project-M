@@ -15,7 +15,7 @@ public class ChestSpawner : Spawner
             GameObject chestToSpawn = chestTable.GetRandom();
             PhotonNetwork.Instantiate(chestToSpawn.name, gameObject.transform.position, gameObject.transform.rotation);
         }
-        this.photonView.RPC("deleteSpawner", RpcTarget.All);
+        photonView.RPC("deleteSpawner", RpcTarget.AllViaServer);
 
     }
 

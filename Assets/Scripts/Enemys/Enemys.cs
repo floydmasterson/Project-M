@@ -1,6 +1,7 @@
 using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.AI;
 using Time = UnityEngine.Time;
@@ -123,22 +124,26 @@ public class Enemys : MonoBehaviourPun
     #region Base IEnumerators 
     IEnumerator ExecuteAfterTime()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(4.1f);
         //Particl
         Transform[] allChildren = GetComponentsInChildren<Transform>();
         foreach (Transform t in allChildren)
         {
             Destroy(t.gameObject);
         }
-   
+
     }
     IEnumerator Dropbag()
     {
-        yield return new WaitForSeconds(3);
-        int chance;
-        chance = Random.Range(1, 10);
-        if (chance > 7)
+     
+        yield return new WaitForSecondsRealtime(3.8f);
+        float chance;
+        chance = Random.Range(1f, 10f);
+        if (chance > 6.5f)
+        {
             PhotonNetwork.Instantiate(possibleBags.GetRandom().name, transform.position, Quaternion.identity);
+        }
+      
     }
 
     private IEnumerator FOVRoutine()
@@ -183,7 +188,7 @@ public class Enemys : MonoBehaviourPun
         Target = null;
         firstAttack = true;
         agent.SetDestination(agent.transform.position);
-        Debug.Log(this + " is lost");
+        UnityEngine.Debug.Log(this + " is lost");
         animator.SetTrigger("lost");
         UpdateMoving(false);
         isLoseTargetExecuting = false;
@@ -290,7 +295,7 @@ public class Enemys : MonoBehaviourPun
         }
     }
     [PunRPC]
-    private  void rangedCoroutineCheckRPC(bool state)
+    private void rangedCoroutineCheckRPC(bool state)
     {
         isTRangedAttackExecuting = state;
     }
@@ -319,17 +324,22 @@ public class Enemys : MonoBehaviourPun
     }
     #endregion
     #region Mono
+    private void OnValidate()
+    {
+        Defense = Mathf.RoundToInt(Vitality * 1.1f / 2f);
+    }
     private void OnEnable()
     {
         SettingMenu.DmgNumberToggle += toggleDmgNumber;
         if (GameManger.Instance != null && EnemyTier == Tier.T1)
             Destroy(gameObject, GameManger.Instance.gameTime);
     }
-    private void onEnable()
+    private void OnDisable()
     {
         SettingMenu.DmgNumberToggle -= toggleDmgNumber;
+
     }
-    private void Awake()  
+    private void Awake()
     {
         if (typeSetting != 0)
         {
@@ -346,8 +356,8 @@ public class Enemys : MonoBehaviourPun
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
-     
-      
+
+
     }
     void Start()
     {
@@ -486,7 +496,7 @@ public class Enemys : MonoBehaviourPun
             var text = Instantiate(FloatingText, FloatingTextspawn.position, Quaternion.Euler(0, 180, 0), FloatingTextspawn);
             text.GetComponent<TextMesh>().text = damage.ToString();
         }
-        Debug.Log(this + "takes " + damage + " damage.");
+        UnityEngine.Debug.Log(this + "takes " + damage + " damage.");
         photonView.RPC("Hit", RpcTarget.All);
         if (isDead == false)
             StartCoroutine(RangeExpand());

@@ -16,13 +16,13 @@ MonoBehaviour:
   ItemName: Renegade Helm
   itemId: 41
   ItemTier: 2
-  BuyPrice: 488
-  SellValue: 306
+  BuyPrice: 512
+  SellValue: 321
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: 01b62c03a2db3de458f5813fcff35c11
-  StrengthBonus: 3
+  StrengthBonus: 4
   AgilityBonus: 0
   IntelligenceBonus: 0
   VitalityBonus: 1

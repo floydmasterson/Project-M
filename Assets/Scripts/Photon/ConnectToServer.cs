@@ -10,6 +10,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 {
     public TMP_InputField usernameInput;
     public TextMeshProUGUI buttonText;
+    public Canvas canvas;
 
     public void OnClickConnect()
     {
@@ -25,7 +26,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
-        SceneManager.LoadScene("Lobby");
+        canvas.enabled = false;
     }
     private void Update()
     {

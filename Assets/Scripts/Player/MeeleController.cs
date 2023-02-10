@@ -3,8 +3,6 @@ using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class MeeleController : MonoBehaviourPun, IAttack
 {
@@ -21,19 +19,25 @@ public class MeeleController : MonoBehaviourPun, IAttack
     [TabGroup("Setup")]
     [SerializeField] float _timeToWaitForFalloff = 10f;
     [TabGroup("Setup")]
-    [SerializeField] float _timeToWaitForDecay = 3f;
+    [SerializeField] float _timeToWaitForDecay = 2f;
     [TabGroup("Setup")]
     [SerializeField] Item Rage;
     [TabGroup("Rage")]
+#pragma warning disable IDE0052 // Remove unread private members
     [SerializeField] bool raging = false;
+#pragma warning restore IDE0052 // Remove unread private members
     [TabGroup("Rage")]
     [SerializeField] private bool damaged;
     [TabGroup("Rage")]
-    [SerializeField] public float lifeStealAmount = .25f;
+    [SerializeField] private int currentDefenseMod;
     [TabGroup("Rage")]
-    [SerializeField] EffectVisualController effectVisualController;
+    [SerializeField] public float lifeStealAmount = .25f;
     [TabGroup("Audio"), SerializeField]
     SFX attackSwish;
+    private float timeBetweenHeal;
+    private int RageHealAmount;
+    private float healDelay;
+
     public int MaxRage
     {
         get { return _maxRage; }
@@ -58,36 +62,6 @@ public class MeeleController : MonoBehaviourPun, IAttack
             }
         }
     }
-    IEnumerator RageMode(float StrengthMod, float AgilityMod, int DefenseMod)
-    {
-        if (raging)
-            yield break;
-        currentRageDecayTimer = 0;
-        damaged = false;
-        raging = true;
-        int startingRage = CurrentRage;
-        Color rageColor = new Color32(170, 38, 64, 255);
-        effectVisualController.EnableEffect(2);
-        Character.Instance.Strength.AddModifier(new StatModifier(StrengthMod, StatModType.PercentMult, Rage));
-        Character.Instance.Agility.AddModifier(new StatModifier(AgilityMod, StatModType.PercentMult, Rage));
-        manger.DefenseMod += DefenseMod;
-        manger.CheckDefense();
-        Character.Instance.statPanel.UpdateStatValues();
-        PlayerUi.Instance.playerRageSlider.GetComponentInChildren<Image>().color = rageColor;
-        for (int i = 0; i < startingRage; i++)
-        {
-            CurrentRage--;
-            if (CurrentRage > 0)
-                yield return new WaitForSecondsRealtime(2);
-        }
-        PlayerUi.Instance.playerRageSlider.GetComponentInChildren<Image>().color = Color.white;
-        manger.LifeSteal = false;
-        Character.Instance.Strength.RemoveAllModifiersFromSource(Rage);
-        Character.Instance.Agility.RemoveAllModifiersFromSource(Rage);
-        PlayerUi.Instance.target.DefenseMod -= DefenseMod;
-        Character.Instance.statPanel.UpdateStatValues();
-        raging = false;
-    }
     IEnumerator AttackSync()
     {
         yield return new WaitForSecondsRealtime(0.08f);
@@ -96,23 +70,27 @@ public class MeeleController : MonoBehaviourPun, IAttack
         Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
         for (int i = 0; i < hitEnemins.Length; i++)
         {
+            bool didDmg = false;
             Transform target = hitEnemins[i].transform;
             PlayerManger player = target.GetComponent<PlayerManger>();
             Enemys Etarget = target.GetComponent<Enemys>();
             if (player != null && player != PlayerUi.Instance.target)
             {
                 player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
+                didDmg = true;
             }
             if (Etarget != null)
             {
                 Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
+                didDmg = true;
             }
+            if (didDmg == true)
+                GainRage(1);
         }
     }
     private void Start()
     {
         manger = GetComponent<PlayerManger>();
-        effectVisualController = GetComponent<EffectVisualController>();
         CurrentRage = 0;
     }
     private void OnEnable()
@@ -127,78 +105,117 @@ public class MeeleController : MonoBehaviourPun, IAttack
     }
     private void Update()
     {
-
-        if (damaged == true && raging == false)
+        if (Time.time >= timeBetweenHeal && CurrentRage > 0)
         {
+            manger.Heal(RageHealAmount);
+            timeBetweenHeal = Time.time + healDelay;
+        }
+
+        if (damaged == true)
+        {
+
             currentRageFallOffTimer += Time.deltaTime;
             if (currentRageFallOffTimer >= _timeToWaitForFalloff)
             {
                 damaged = false;
             }
         }
-        else if (damaged == false && CurrentRage > 0 && raging == false)
+        else if (damaged == false && CurrentRage > 0)
         {
             currentRageDecayTimer += Time.deltaTime;
             if (currentRageDecayTimer >= _timeToWaitForDecay)
             {
                 CurrentRage--;
                 currentRageDecayTimer = 0;
+                RagePassive(CurrentRage);
 
             }
         }
     }
-    public void RageMode(InputAction.CallbackContext context)
+    void RagePassive(int stackCount)
     {
-        if (context.performed && photonView.IsMine)
-            if (CurrentRage > 0 && raging == false && PlayerUi.Instance.target.isAlive)
+        float StrengthMod = 0;
+        float AgilityMod = 0;
+        int DefenseMod = 0;
+        currentRageDecayTimer = 0;
+        switch (stackCount)
+        {
+            case 1:
+                {
+                    healDelay = 3f;
+                    RageHealAmount = 1;
+                    DefenseMod = 1;
+                }
+                break;
+            case 2:
+                {
+                    StrengthMod = .05f;
+                    AgilityMod = .08f;
+                    DefenseMod = 2;
+                    healDelay = 2.5f;
+                    RageHealAmount = 1;
+                }
+                break;
+            case 3:
+                {
+                    StrengthMod = .08f;
+                    AgilityMod = .1f;
+                    DefenseMod = 3;
+                    healDelay = 2f;
+                    RageHealAmount = 1;
+                }
+                break;
+            case 4:
+                {
+                    StrengthMod = .1f;
+                    AgilityMod = .2f;
+                    DefenseMod = 5;
+                    healDelay = 1.7f;
+                    RageHealAmount = 1;
+                }
+                break;
+            case 5:
+                {
+                    StrengthMod = .15f;
+                    AgilityMod = .3f;
+                    DefenseMod = 7;
+                    healDelay = 1.5f;
+                    RageHealAmount = 2;
+                }
+                break;
+        }
+        Character.Instance.Strength.RemoveAllModifiersFromSource(Rage);
+        Character.Instance.Agility.RemoveAllModifiersFromSource(Rage);
+        PlayerUi.Instance.target.DefenseMod -= currentDefenseMod;
+        currentDefenseMod = 0;
+        manger.CheckDefense();
+        Character.Instance.statPanel.UpdateStatValues();
+        if (stackCount > 0)
+        {
+            if (stackCount > 1)
             {
-                if (CurrentRage == 1)
-                {
-                    manger.Heal(5);
-                    CurrentRage = 0;
-                }
-                if (CurrentRage == 2)
-                {
-                    manger.Heal(15);
-                    StartCoroutine(RageMode(0.05f, 0.8f, 5));
-                }
-                if (CurrentRage == 3)
-                {
-                    manger.Heal(20);
-                    manger.LifeSteal = true;
-                    StartCoroutine(RageMode(0.08f, 0.1f, 8));
-                }
-                if (CurrentRage == 4)
-                {
-                    manger.Heal(30);
-                    manger.LifeSteal = true;
-                    StartCoroutine(RageMode(0.1f, 0.20f, 10));
-                }
-                if (CurrentRage >= 5)
-                {
-                    if (CurrentRage == 5)
-                        manger.Heal(40);
-                    if (CurrentRage > 5)
-                        manger.Heal(40 + (10 * (CurrentRage - 5)));
-                    manger.LifeSteal = true;
-                    StartCoroutine(RageMode(0.15f, 0.30f, 13));
 
-                }
+                Character.Instance.Strength.AddModifier(new StatModifier(StrengthMod, StatModType.PercentMult, Rage));
+                Character.Instance.Agility.AddModifier(new StatModifier(AgilityMod, StatModType.PercentMult, Rage));
             }
+            manger.DefenseMod += DefenseMod;
+            currentDefenseMod = DefenseMod;
+            Character.Instance.statPanel.UpdateStatValues();
+            manger.CheckDefense();
+        }
+        raging = false;
     }
     private void GainRage(int recivedDamaged)
     {
-        if (raging == false)
+        if (recivedDamaged >= 15)
         {
-            if (recivedDamaged >= 15)
-            {
-                CurrentRage += Mathf.RoundToInt(recivedDamaged / 15);
-            }
-            else if (recivedDamaged < 15)
-                CurrentRage++;
-            damaged = true;
-            currentRageFallOffTimer = 0;
+            CurrentRage += Mathf.RoundToInt(recivedDamaged / 15);
         }
+        else if (recivedDamaged < 15)
+            CurrentRage++;
+        damaged = true;
+        currentRageFallOffTimer = 0;
+        RagePassive(CurrentRage);
     }
     public void Attack()
     {

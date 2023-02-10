@@ -34,15 +34,10 @@ public class ProjectMCommands : CommandBehaviour
     #region Defulat Commands
 
     [Command]
-    public void load_scene(int index)
-    {
-        SceneManager.LoadScene(index);
-    }
-    [Command]
     public void main_menu()
     {
         PhotonNetwork.Disconnect();
-        SceneManager.LoadScene(0);
+        Loader.Load(Loader.Scene.Lobby);
     }
     [Command]
     public void help()
@@ -124,7 +119,7 @@ public class ProjectMCommands : CommandBehaviour
             switch (POIid)
             {
                 case 0:
-                    localPlayer.transform.position = new Vector3(-66, 0, 28); // Debug Shop
+                    localPlayer.transform.position = new Vector3(-147, 0, 180); // Debug Shop
                     Debug.Log("TP to Debug Shop");
                     break;
                 case 1:
@@ -179,7 +174,6 @@ public class ProjectMCommands : CommandBehaviour
         else
             Debug.LogWarning("Local Player is not set. Try setup");
     }
-   
 
     #endregion
     #region Spawn Things

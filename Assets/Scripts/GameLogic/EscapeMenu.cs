@@ -19,10 +19,8 @@ public class EscapeMenu : MonoBehaviour
     IEnumerator PreLoad()
     {
         GameObject settings = gameObject.transform.GetChild(1).gameObject;
-        GameObject control = settings.gameObject.transform.GetChild(2).gameObject;
         yield return new WaitForSecondsRealtime(0.2f);
         gamepad.SetActive(false);
-        control.SetActive(false);
         settings.SetActive(false);
     }
 
@@ -61,12 +59,7 @@ public class EscapeMenu : MonoBehaviour
     public void MainMenu()
     {
         PhotonNetwork.Disconnect();
-        SceneManager.LoadScene(0);
-    }
-    public void Lobby()
-    {
-        PhotonNetwork.LeaveRoom();
-        SceneManager.LoadScene(1);
+        Loader.Load(Loader.Scene.Lobby);
     }
     public void SwitchScheme()
     {

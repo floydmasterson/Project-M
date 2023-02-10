@@ -543,8 +543,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeSetting: 2
   EnemyTier: 1
-  Vitality: 68
-  Defense: 0
+  Vitality: 75
+  Defense: 41
   currentHealth: 0
   isDead: 0
   FloatingText: {fileID: 4078760753962606565, guid: bd8d06d988c3af347aafaef02c98e4bc, type: 3}
@@ -573,7 +573,7 @@ MonoBehaviour:
   possibleBags:
     list:
     - item: {fileID: 8880091359569570710, guid: 38dc6ef9591616441aeda61f628f78ef, type: 3}
-      weight: 9
+      weight: 15
     - item: {fileID: 8880091359569570710, guid: 4d1ba8d93bb5c0845861dd37101eea4b, type: 3}
       weight: 1
   AttackSounds:

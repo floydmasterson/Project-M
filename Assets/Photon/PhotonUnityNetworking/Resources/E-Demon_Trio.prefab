@@ -3619,8 +3619,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeSetting: 1
   EnemyTier: 1
-  Vitality: 70
-  Defense: 0
+  Vitality: 80
+  Defense: 44
   currentHealth: 0
   isDead: 0
   FloatingText: {fileID: 4078760753962606565, guid: bd8d06d988c3af347aafaef02c98e4bc, type: 3}
@@ -4326,7 +4326,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 296147275811256799, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
-  - {fileID: -1580535799172915004, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
+  - {fileID: 2100000, guid: 2257698604064f14988da4cd29c9f997, type: 2}
   - {fileID: -2845260874595373743, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
   - {fileID: 4542641088041586163, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
   m_StaticBatchInfo:
@@ -5268,7 +5268,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 296147275811256799, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
-  - {fileID: -1580535799172915004, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
+  - {fileID: 2100000, guid: 2257698604064f14988da4cd29c9f997, type: 2}
   - {fileID: -2845260874595373743, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
   - {fileID: 4542641088041586163, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
   m_StaticBatchInfo:
@@ -5470,8 +5470,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeSetting: 1
   EnemyTier: 1
-  Vitality: 70
-  Defense: 0
+  Vitality: 80
+  Defense: 44
   currentHealth: 0
   isDead: 0
   FloatingText: {fileID: 4078760753962606565, guid: bd8d06d988c3af347aafaef02c98e4bc, type: 3}
@@ -7269,8 +7269,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeSetting: 1
   EnemyTier: 1
-  Vitality: 70
-  Defense: 0
+  Vitality: 80
+  Defense: 44
   currentHealth: 0
   isDead: 0
   FloatingText: {fileID: 4078760753962606565, guid: bd8d06d988c3af347aafaef02c98e4bc, type: 3}
@@ -8039,7 +8039,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 296147275811256799, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
-  - {fileID: -1580535799172915004, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
+  - {fileID: 2100000, guid: 2257698604064f14988da4cd29c9f997, type: 2}
   - {fileID: -2845260874595373743, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
   - {fileID: 4542641088041586163, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
   m_StaticBatchInfo:

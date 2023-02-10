@@ -103,9 +103,9 @@ MonoBehaviour:
   chestTable:
     list:
     - item: {fileID: 1447595565522781464, guid: 0911e243020f61a43888ff8e33c30cb4, type: 3}
-      weight: 8
+      weight: 9
     - item: {fileID: 1447595565522781464, guid: 2f5b2825136ff5041a131df4db4f6890, type: 3}
-      weight: 2
+      weight: 1
 --- !u!65 &2897176854776269626
 BoxCollider:
   m_ObjectHideFlags: 0

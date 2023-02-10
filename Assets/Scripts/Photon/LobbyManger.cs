@@ -55,7 +55,7 @@ public class LobbyManger : MonoBehaviourPunCallbacks
 
     public void OnClickPlayButton()
     {
-        PhotonNetwork.LoadLevel("Game");
+        Loader.Load(Loader.Scene.Game);
         playButton.SetActive(false);
     }
 

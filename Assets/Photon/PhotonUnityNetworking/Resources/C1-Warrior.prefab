@@ -979,10 +979,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae7069f16d4fa9b4aacf9596ab4f035e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cineCamera: {fileID: 8226536733148169854}
   lockCamera: {fileID: 4154674173261169487}
   player: {fileID: 2951597269558399559}
   col: {fileID: 8226536732763159447}
+  playerInput: {fileID: 0}
+  characterController: {fileID: 0}
+  animator: {fileID: 0}
+  Rb: {fileID: 0}
+  FloatingText: {fileID: 0}
+  DmgTextspawn: {fileID: 0}
+  HealTextspawn: {fileID: 0}
+  IsLocal: 0
   _currentHealth: 0
   _defense: 0
   DefenseMod: 0
@@ -1002,6 +1009,7 @@ MonoBehaviour:
     m_Bits: 8
   isGrounded: 0
   canMove: 1
+  currentCameraSpeed: 250
   attackCoolDown: 1.35
   attackRange: 1.25
   LifeSteal: 0
@@ -1011,10 +1019,40 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 128
-  IsLocal: 0
   UiPrefab: {fileID: 8443476667934544336, guid: b141b3a8020372548b5513d5146efa28, type: 3}
   InventoryPrefab: {fileID: 3739851515273236426, guid: 50a588a86166d58478a61a04b2a274e8, type: 3}
   MiniMapIcon: {fileID: 1772679886139300683}
+  InvIsOpen: 0
+  inChest: 0
+  shop: {fileID: 0}
+  inShop: 0
+  walk:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 1
+    editSettings: 1
+    _sfxBase: {fileID: 0}
+    waitToPlay: 0
+    useDefualt: 0
+    audioSource: {fileID: 0}
+  run:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 1
+    editSettings: 1
+    _sfxBase: {fileID: 0}
+    waitToPlay: 0
+    useDefualt: 0
+    audioSource: {fileID: 0}
+  hurt:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 1
+    editSettings: 1
+    _sfxBase: {fileID: 0}
+    waitToPlay: 0
+    useDefualt: 0
+    audioSource: {fileID: 0}
 --- !u!114 &6132935923249197628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1035,6 +1073,16 @@ MonoBehaviour:
   raging: 0
   damaged: 0
   lifeStealAmount: 0.25
+  effectVisualController: {fileID: 0}
+  attackSwish:
+    sfxType: 0
+    sfxToPlay: {fileID: 0}
+    showSettings: 1
+    editSettings: 1
+    _sfxBase: {fileID: 0}
+    waitToPlay: 0
+    useDefualt: 0
+    audioSource: {fileID: 0}
 --- !u!114 &5390224437594940564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2645,7 +2693,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8024760268945827698}
-  - component: {fileID: 1806225896334169142}
+  - component: {fileID: 639307814833534835}
   m_Layer: 9
   m_Name: Attack Point
   m_TagString: Untagged
@@ -2668,19 +2716,22 @@ Transform:
   m_Father: {fileID: 2575494630547835133}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &1806225896334169142
-SphereCollider:
+--- !u!114 &639307814833534835
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8028491359422178543}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.005
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 683b5350d5ddd2f4eb850f61cbe4cc3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crosshairImage: {fileID: 2800000, guid: cc6c862fea4ca7d4ba0db2e5df1e75eb, type: 3}
+  size: 32
+  maxAngle: 0
+  minAngle: 0
 --- !u!1 &8063972464050869643
 GameObject:
   m_ObjectHideFlags: 0
@@ -2924,7 +2975,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8226536733450629783}
-  m_LocalRotation: {x: -0.028341712, y: 0.9679965, z: -0.21381189, w: -0.12831233}
+  m_LocalRotation: {x: -0.028341714, y: 0.9679965, z: -0.21381189, w: -0.12831235}
   m_LocalPosition: {x: -9.094946e-13, y: 0.0000009536749, z: 0.0000019073483}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3176,7 +3227,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8226536734151661654}
-  m_LocalRotation: {x: -0.025689032, y: 0.9722008, z: -0.19379984, w: -0.12886967}
+  m_LocalRotation: {x: -0.025689034, y: 0.9722008, z: -0.19379984, w: -0.12886965}
   m_LocalPosition: {x: -9.094946e-13, y: 0.0000009536749, z: 0.0000019073483}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
