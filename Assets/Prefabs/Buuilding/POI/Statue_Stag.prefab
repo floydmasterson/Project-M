@@ -113,7 +113,7 @@ MonoBehaviour:
     waitToPlay: 0
     useDefualt: 0
     audioSource: {fileID: 7415729572357682764}
-  fadeTime: 1.5
+  fadeTime: 2.5
 --- !u!82 &7415729572357682764
 AudioSource:
   m_ObjectHideFlags: 0

@@ -3725,7 +3725,7 @@ GameObject:
   - component: {fileID: 3955399381413224965}
   - component: {fileID: 3955399381413225018}
   - component: {fileID: 3955399381413225019}
-  - component: {fileID: 3955399381413224964}
+  - component: {fileID: 2029981616793837977}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -3799,7 +3799,7 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 0
---- !u!114 &3955399381413224964
+--- !u!114 &2029981616793837977
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3815,7 +3815,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65535
 --- !u!1 &3955399381429796714
 GameObject:
   m_ObjectHideFlags: 0

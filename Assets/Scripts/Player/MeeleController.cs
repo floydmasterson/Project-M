@@ -3,12 +3,17 @@ using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.InputSystem;
 
 public class MeeleController : MonoBehaviourPun, IAttack
 {
 
     private float currentRageFallOffTimer;
     private float currentRageDecayTimer;
+
+    private EffectVisualController EffectVisualContol;
+
     private PlayerManger manger;
 
     [TabGroup("Rage")]
@@ -22,6 +27,10 @@ public class MeeleController : MonoBehaviourPun, IAttack
     [SerializeField] float _timeToWaitForDecay = 2f;
     [TabGroup("Setup")]
     [SerializeField] Item Rage;
+    [TabGroup("Setup")]
+    [SerializeField] Item Aura;
+    [TabGroup("Setup")]
+    public Sprite ragePulseImage;
     [TabGroup("Rage")]
 #pragma warning disable IDE0052 // Remove unread private members
     [SerializeField] bool raging = false;
@@ -31,12 +40,19 @@ public class MeeleController : MonoBehaviourPun, IAttack
     [TabGroup("Rage")]
     [SerializeField] private int currentDefenseMod;
     [TabGroup("Rage")]
-    [SerializeField] public float lifeStealAmount = .25f;
+    [SerializeField] public float lifeStealAmount = 0f;
+    [TabGroup("Rage"), SerializeField]
+    private float auraRange;
+    [TabGroup("Rage"), SerializeField]
+    private float auraCooldown;
+    [TabGroup("Rage"), SerializeField]
+    private bool auraOnCooldown = false;
     [TabGroup("Audio"), SerializeField]
     SFX attackSwish;
     private float timeBetweenHeal;
     private int RageHealAmount;
     private float healDelay;
+    private float currentAuraTimer;
 
     public int MaxRage
     {
@@ -62,7 +78,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
             }
         }
     }
-    IEnumerator AttackSync()
+    private IEnumerator AttackSync()
     {
         yield return new WaitForSecondsRealtime(0.08f);
         photonView.RPC("swingSFX", RpcTarget.All);
@@ -88,8 +104,81 @@ public class MeeleController : MonoBehaviourPun, IAttack
                 GainRage(1);
         }
     }
+    private IEnumerator RageAuraDebuff(PlayerManger player, Enemys enemy, int stacks)
+    {
+        float slowAmount = 0;
+        float damageReduction = 0;
+        float duration = 0;
+        switch (stacks)
+        {
+            case 0:
+                break;
+            case 1:
+                slowAmount = .05f;
+                damageReduction = .05f;
+                duration = 1f;
+                break;
+            case 2:
+                slowAmount = .10f;
+                damageReduction = .08f;
+                duration = 1.5f;
+                break;
+            case 3:
+                slowAmount = .15f;
+                damageReduction = .1f;
+                duration = 2f;
+                break;
+            case 4:
+                slowAmount = .2f;
+                damageReduction = .15f;
+                duration = 2.5f;
+                break;
+            case 5:
+                slowAmount = .25f;
+                damageReduction = .2f;
+                duration = 3f;
+                break;
+            default:
+                slowAmount = .25f;
+                damageReduction = .2f;
+                duration = 3.5f;
+                break;
+        }
+        if (player != null)
+        {
+            EffectVisualController EVC = player.gameObject.GetComponent<EffectVisualController>();
+            EVC.EnableEffect(EffectVisualController.Effects.Slowed);
+            player.character.Strength.AddModifier(new StatModifier(damageReduction, StatModType.PercentMult, Aura));
+            player.character.Intelligence.AddModifier(new StatModifier(damageReduction, StatModType.PercentMult, Aura));
+            player.character.Agility.AddModifier(new StatModifier(slowAmount, StatModType.PercentMult, Aura));
+            player.character.statPanel.UpdateStatValues();
+            yield return new WaitForSecondsRealtime(duration);
+            EVC.DisableEffect(EffectVisualController.Effects.Slowed);
+            player.character.Strength.RemoveAllModifiersFromSource(Aura);
+            player.character.Intelligence.RemoveAllModifiersFromSource(Aura);
+            player.character.Agility.RemoveAllModifiersFromSource(Aura);
+            player.character.statPanel.UpdateStatValues();
+        }
+        else if (enemy != null)
+        {
+            EffectVisualController EVC = enemy.gameObject.GetComponent<EffectVisualController>();
+            EVC.EnableEffect(EffectVisualController.Effects.Slowed);
+            NavMeshAgent enemyAgent = enemy.gameObject.GetComponent<NavMeshAgent>();
+            float enemyStartSpeed = enemyAgent.speed;
+            int enemyStartingPower = enemy.Power;
+            enemyAgent.speed = enemyAgent.speed - (enemyAgent.speed * slowAmount);
+            enemy.Power = Mathf.RoundToInt(enemy.Power - (enemy.Power * damageReduction));
+            yield return new WaitForSecondsRealtime(duration);
+            EVC.DisableEffect(EffectVisualController.Effects.Slowed);
+            enemyAgent.speed = enemyStartSpeed;
+            enemy.Power = enemyStartingPower;
+        }
+
+    }
+
     private void Start()
     {
+        EffectVisualContol = GetComponent<EffectVisualController>();
         manger = GetComponent<PlayerManger>();
         CurrentRage = 0;
     }
@@ -128,8 +217,17 @@ public class MeeleController : MonoBehaviourPun, IAttack
                 CurrentRage--;
                 currentRageDecayTimer = 0;
                 RagePassive(CurrentRage);
-
             }
+        }
+        if (currentAuraTimer > 0)
+        {
+            auraOnCooldown = true;
+            currentAuraTimer -= Time.deltaTime;
+        }
+        else if (currentAuraTimer < 0)
+        {
+            auraOnCooldown = false;
+            currentAuraTimer = 0;
         }
     }
     void RagePassive(int stackCount)
@@ -205,6 +303,35 @@ public class MeeleController : MonoBehaviourPun, IAttack
         }
         raging = false;
     }
+    public void RageAura(InputAction.CallbackContext context)
+    {
+        if (context.performed && photonView.IsMine)
+            if (CurrentRage >= 1 && auraOnCooldown == false)
+            {
+                EffectVisualContol.EnableEffect(EffectVisualController.Effects.Rage_Aura);
+                Collider[] hitenemines = Physics.OverlapSphere(transform.position, auraRange, manger.enemyLayers);
+                for (int i = 0; i < hitenemines.Length; i++)
+                {
+                    Transform target = hitenemines[i].transform;
+                    PlayerManger player = target.GetComponent<PlayerManger>();
+                    Enemys Etarget = target.GetComponent<Enemys>();
+
+                    if (player != null && player != PlayerUi.Instance.target)
+                    {
+                        player.StartCoroutine(RageAuraDebuff(player, null, CurrentRage));
+                    }
+                    if (Etarget != null)
+                    {
+                        Etarget.StartCoroutine(RageAuraDebuff(null, Etarget, CurrentRage));
+                    }
+
+                }
+                CurrentRage = 0;
+                auraOnCooldown = true;
+                currentAuraTimer = auraCooldown;
+                PlayerUi.Instance.SecondaryCooldownGFX(auraCooldown);
+            }
+    }
     private void GainRage(int recivedDamaged)
     {
         if (recivedDamaged >= 15)
@@ -257,4 +384,10 @@ public class MeeleController : MonoBehaviourPun, IAttack
     {
         attackSwish.PlaySFX();
     }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, auraRange);
+    }
+
 }

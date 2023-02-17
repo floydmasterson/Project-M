@@ -3,6 +3,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MagicController : MonoBehaviourPun, IAttack
 {
@@ -41,6 +42,8 @@ public class MagicController : MonoBehaviourPun, IAttack
     [SerializeField] float pulseCooldown = 10f;
     [TabGroup("Setup")]
     [SerializeField] float pulseRange = 10f;
+    [TabGroup("Setup")]
+    public Sprite manaPulseImage;
 
     EffectVisualController EffectVisualContol;
 
@@ -223,7 +226,7 @@ public class MagicController : MonoBehaviourPun, IAttack
             {
 
                 manger.StartCoroutine(manger.IFrames(.8f));
-                EffectVisualContol.EnableEffect(2);
+                EffectVisualContol.EnableEffect(EffectVisualController.Effects.Mana_Pulse);
                 isCasting = true;
                 currentPulseTimer = pulseCooldown;
                 currentCastTimer = 0;
@@ -249,6 +252,7 @@ public class MagicController : MonoBehaviourPun, IAttack
 
                 currentManaRechargeTimer = 0;
                 isCasting = false;
+                PlayerUi.Instance.SecondaryCooldownGFX(pulseCooldown);
             }
         }
     }

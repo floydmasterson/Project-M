@@ -1,42 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
 using Photon.Pun;
+using Sirenix.OdinInspector;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EffectVisualController : MonoBehaviourPun
 {
-    public GameObject[] Effects = new GameObject[2];
+    [SerializeField]
+ private List<GameObject> effect = new List<GameObject>();
+    [SerializeField, HideIf("@EffectParent != null")] private Transform EffectParent;
     public bool posioned = false;
-    public void EnableEffect(int number)
+    public bool slowed = false;
+    public enum Effects
     {
-        photonView.RPC("EnableEffectRPC", RpcTarget.All, number);
+        Invincible,
+        Poisoned,
+        Slowed,
+        Mana_Pulse,
+        Rage_Aura,
     }
-    public void DisableEffect(int number)
+    private void OnValidate()
     {
-        photonView.RPC("DisableEffectRPC", RpcTarget.All, number);
+        if (EffectParent != null)
+        {
+            effect.Clear();
+            for (int i = 0; i < EffectParent.childCount; i++)
+            {
+                effect.Add(EffectParent.GetChild(i).gameObject);
+            }
+        }
     }
-    public void PlayParticleEffect(int number)
+    public void EnableEffect(Effects effectNum)
     {
-        photonView.RPC("PlayParticleEffectRPC", RpcTarget.All, number);
+        photonView.RPC("EnableEffectRPC", RpcTarget.All, (int)effectNum);
+    }
+    public void DisableEffect(Effects effectNum)
+    {
+        photonView.RPC("DisableEffectRPC", RpcTarget.All, (int)effectNum);
     }
 
     [PunRPC]
-    public void EnableEffectRPC(int number)
+    public void EnableEffectRPC(Effects effectNum)
     {
-        Effects[number].SetActive(true);
+        effect[(int)effectNum].SetActive(true);
     }
 
     [PunRPC]
-    public void DisableEffectRPC(int number)
+    public void DisableEffectRPC(Effects effectNum)
     {
-        Effects[number].SetActive(false);
+        effect[(int)effectNum].SetActive(false);
     }
 
-    [PunRPC]
-    public void PlayParticleEffectRPC(int number)
-    {
-        ParticleSystem ps = Effects[number].GetComponent<ParticleSystem>();
-        if (ps != null)
-            ps.Play();
-    }
+
 }

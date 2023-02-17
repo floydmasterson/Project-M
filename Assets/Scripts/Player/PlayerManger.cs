@@ -88,6 +88,9 @@ public class PlayerManger : MonoBehaviourPun
         get { return _maxHealth; }
         set { _maxHealth = value; }
     }
+
+    public bool noClip;
+
     [TabGroup("Health")]
     public bool isAlive = true;
     [TabGroup("Health")]
@@ -108,6 +111,8 @@ public class PlayerManger : MonoBehaviourPun
     [SerializeField] private float SprintSpeed = 12f;
     [TabGroup("Movement")]
     [SerializeField] private float speed = 6f;
+    [TabGroup("Movement")]
+    [SerializeField] public float speedMod = 0;
     [TabGroup("Movement")]
     public float pushAmt = 6f;
     [TabGroup("Movement")]
@@ -170,7 +175,7 @@ public class PlayerManger : MonoBehaviourPun
     public bool InvIsOpen = false;
     [TabGroup("Ui")]
     public bool inChest = false;
-    private Character character;
+    public Character character;
     [HideInInspector]
     public ShopController shop;
 
@@ -201,8 +206,8 @@ public class PlayerManger : MonoBehaviourPun
     private const string Keybaord_Sensativity = "KS";
     private const string Gamepad_Sensativity = "GS";
     #endregion
-    #region Ienumerators
-   private IEnumerator ExecuteAfterTime()
+    #region enumerators
+    private IEnumerator ExecuteAfterTime()
     {
         if (lifes > 0)
         {
@@ -220,7 +225,7 @@ public class PlayerManger : MonoBehaviourPun
             Destroy(photonView);
         }
     }
-   private IEnumerator AttackSet()
+    private IEnumerator AttackSet()
     {
         if (photonView.IsMine)
         {
@@ -298,7 +303,7 @@ public class PlayerManger : MonoBehaviourPun
         GameManger.Instance.TimerOver += () =>
         {
             if (!inShop)
-            {  
+            {
                 StartCoroutine(shopTimer());
             }
         };
@@ -331,6 +336,15 @@ public class PlayerManger : MonoBehaviourPun
             MiniMapIcon.SetActive(true);
             lockCamera.Priority = 10;
             locked = true;
+            if (UiPrefab != null)
+            {
+                GameObject _uiGo = Instantiate(UiPrefab) as GameObject;
+                _uiGo.GetComponent<PlayerUi>().SetTarget(this);
+            }
+            else
+            {
+                Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
+            }
             if (InventoryPrefab != null)
             {
                 GameObject _uiGoi = Instantiate(InventoryPrefab) as GameObject;
@@ -340,15 +354,6 @@ public class PlayerManger : MonoBehaviourPun
             else
             {
                 Debug.LogWarning("<Color=Red><a>Missing</a></Color> IventoryPrefab reference on player Prefab.", this);
-            }
-            if (UiPrefab != null)
-            {
-                GameObject _uiGo = Instantiate(UiPrefab) as GameObject;
-                _uiGo.GetComponent<PlayerUi>().SetTarget(this);
-            }
-            else
-            {
-                Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
             }
             GamepadCursor.Instance.playerInput = playerInput;
 
@@ -377,17 +382,20 @@ public class PlayerManger : MonoBehaviourPun
             float y = inputMove.y;
             Vector3 direction = new Vector3(x, 0f, y).normalized;
             //gravity
-            isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
-            if (isGrounded && velocity.y < 0)
+            if (noClip == false)
             {
-                velocity.y = -2f;
+                isGrounded = Physics.CheckSphere(groundCheck.position, _groundDistance, groundMask);
+                if (isGrounded && velocity.y < 0)
+                {
+                    velocity.y = -2f;
+                }
+                else
+                {
+                    velocity.y += _gravity * Time.fixedDeltaTime;
+                    characterController.Move(velocity * Time.fixedDeltaTime);
+                }
             }
-            else
-            {
-                velocity.y += _gravity * Time.fixedDeltaTime;
-                characterController.Move(velocity * Time.fixedDeltaTime);
-            }
-            if (locked )
+            if (locked)
             {
                 if (turnSens == 0)
                     updateSens();
@@ -762,7 +770,9 @@ public class PlayerManger : MonoBehaviourPun
 
     public float CheckSpeed()
     {
-        speed = (6 + Character.Instance.Agility.Value / 2);
+        float baseSpeed = (6 + Character.Instance.Agility.Value / 2);
+        float modSpeed = baseSpeed + (baseSpeed * speedMod);
+        speed = modSpeed;
         return speed;
     }
 
@@ -815,9 +825,9 @@ public class PlayerManger : MonoBehaviourPun
         if (photonView.IsMine)
         {
             if (playerInput.currentControlScheme == "Keyboard")
-                turnSens = PlayerPrefs.GetFloat(Keybaord_Sensativity, 7);
+                turnSens = PlayerPrefs.GetFloat(Keybaord_Sensativity, .3f);
             if (playerInput.currentControlScheme == "Controller")
-                turnSens = PlayerPrefs.GetFloat(Gamepad_Sensativity, 7);
+                turnSens = PlayerPrefs.GetFloat(Gamepad_Sensativity, 3.85f);
         }
     }
     #endregion

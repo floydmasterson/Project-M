@@ -2,9 +2,7 @@
 using Photon.Pun;
 using SmartConsole;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class ProjectMCommands : CommandBehaviour
 {
@@ -138,7 +136,7 @@ public class ProjectMCommands : CommandBehaviour
                     localPlayer.transform.position = new Vector3(1753, -107, -592); // Shop Spawn
                     Debug.Log("TP to Shop Spawn");
                     break;
-                    
+
                 default:
                     Debug.LogWarning("Unknown or unassiged ID");
                     break;
@@ -170,6 +168,28 @@ public class ProjectMCommands : CommandBehaviour
             }
             else
                 throw new NullReferenceException("Character is missing on local player");
+        }
+        else
+            Debug.LogWarning("Local Player is not set. Try setup");
+    }
+    [Command]
+    private void no_clip()
+    {
+        if (localPlayer != null)
+        {        
+            if (localPlayer.noClip == false)
+            {
+                localPlayer.gameObject.layer = 31;
+                localPlayer.noClip = true;
+                Debug.Log("No clip On");
+
+            }
+            else
+            {
+                localPlayer.gameObject.layer = 9;
+                localPlayer.noClip = false;
+                Debug.Log("No clip Off");
+            }
         }
         else
             Debug.LogWarning("Local Player is not set. Try setup");

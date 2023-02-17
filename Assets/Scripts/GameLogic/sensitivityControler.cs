@@ -52,7 +52,7 @@ public class sensitivityControler : MonoBehaviour
         {
             if (scaleMode == Scheme.Keyboard)
             {
-                    PlayerPrefs.SetFloat(Keybaord_Sensativity, value * .3f / 3.4f);            
+                    PlayerPrefs.SetFloat(Keybaord_Sensativity, value * .15f / 3.4f);            
                 valueText.text = "Locked Camera: " + value.ToString();
 
             }
@@ -61,90 +61,6 @@ public class sensitivityControler : MonoBehaviour
                 PlayerPrefs.SetFloat(Gamepad_Sensativity, value * 1.1f / 2f);
                 valueText.text = "Locked Camera: " + value.ToString();
             }
-        //}
-        //else if (scale == Scale.Unlocked)
-        //{
-        //    PlayerManger player = PlayerUi.Instance.target;
-        //    if (player != null)
-        //        switch (value)
-        //        {
-        //            case 1:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 100;
-        //                player.currentCameraSpeed = 100;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-        //            case 2:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 125;
-        //                player.currentCameraSpeed = 125;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-        //            case 3:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 150;
-        //                player.currentCameraSpeed = 150;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-        //            case 4:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 175;
-        //                player.currentCameraSpeed = 175;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-        //            case 5:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 200;
-        //                player.currentCameraSpeed = 200;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-        //            case 6:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 225;
-        //                player.currentCameraSpeed = 225;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-        //            case 7:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 250;
-        //                player.currentCameraSpeed = 250;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-        //            case 8:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 275;
-        //                player.currentCameraSpeed = 275;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-        //            case 9:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 300;
-        //                player.currentCameraSpeed = 300;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-        //            case 10:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 325;
-        //                player.currentCameraSpeed = 325;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-        //            case 11:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 350;
-        //                player.currentCameraSpeed = 350;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-        //            case 12:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 375;
-        //                player.currentCameraSpeed = 375;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-        //            case 13:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 400;
-        //                player.currentCameraSpeed = 400;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-        //            case 14:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 425;
-        //                player.currentCameraSpeed = 425;
-        //                valueText.text = "Unlocked Camera: " + value.ToString();
-        //                break;
-
-        //            default:
-        //                player.cineCamera.m_XAxis.m_MaxSpeed = 250;
-        //                player.currentCameraSpeed = 250;
-        //                valueText.text = "Unlocked Camera: 7";
-        //                break;
-        //        }
         }
         else if (scale == Scale.Cursor)
         {

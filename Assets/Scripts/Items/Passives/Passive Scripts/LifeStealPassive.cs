@@ -4,13 +4,18 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Passives/Life Steal Passive")]
 public class LifeStealPassive : PassiveSO
 {
+    public float LifeStealAmount;
+    public int PassiveLvl;
     PlayerManger player;
     MeeleController MC;
     StringBuilder sb = new StringBuilder();
     public override void Passive()
     {
         if (MC != null)
-            MC.lifeStealAmount += .10f;
+        {
+            MC.lifeStealAmount += LifeStealAmount;
+            player.LifeSteal = true;
+        }
     }
     public override void ApplyPassive()
     {
@@ -21,15 +26,27 @@ public class LifeStealPassive : PassiveSO
     public override void RemovePassive()
     {
         if (MC != null)
-            MC.lifeStealAmount -= .10f;
+        {
+            MC.lifeStealAmount -= LifeStealAmount;
+            player.LifeSteal = false;
+        }
     }
 
 
     public override string GetDescription()
     {
         sb.Length = 0;
-        sb.Append("Life Drain: Increase rage mode life steal by 10%.");
-        return sb.ToString();
+        if (PassiveLvl > 0)
+        {
+            sb.Append("Life Drain " + RomanNumerals.RomanNumeralGenerator(PassiveLvl) + ": Life steal for " + LifeStealAmount * 100 + "% of melee damage.");
+            return sb.ToString();
+        }
+        else
+        {
+
+            sb.Append("Life Drain: Life steal for "+ LifeStealAmount * 100 + "% of melee damage.");
+            return sb.ToString();
+        }
 
     }
 

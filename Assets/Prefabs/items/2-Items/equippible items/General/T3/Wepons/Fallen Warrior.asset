@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: ac28e9096c93b9243b10f4f9c0661e0f, type: 3}
   ItemName: Fallen Warrior
+  itemId: 112
   ItemTier: 3
-  cost: 690
+  BuyPrice: 981
+  SellValue: 614
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
@@ -29,7 +31,7 @@ MonoBehaviour:
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
   Passives:
-  - {fileID: 11400000, guid: cc01029acf5928c429958e6638b70715, type: 2}
+  - {fileID: 11400000, guid: 2eb6e7b899c0efb46b9725ea23b9292e, type: 2}
   - {fileID: 11400000, guid: 01b30b3f02f7f494e92fe060df649984, type: 2}
   EquipmentType: 5
   BoundSpell: {fileID: 0}

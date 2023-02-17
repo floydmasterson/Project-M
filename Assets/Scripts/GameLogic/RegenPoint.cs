@@ -12,7 +12,7 @@ public class RegenPoint : MonoBehaviour
     [SerializeField]
     float fadeTime = 1f;
     private float startVolume;
-    bool playing;
+    bool playing = false;
     private void OnEnable()
     {
         GameManger.Instance.TimerOver += () => Destroy(gameObject);
@@ -60,7 +60,7 @@ public class RegenPoint : MonoBehaviour
             }
             detectTime = Time.time + 1f;
         }
-        else if (hitColliders.Length == 0)
+        else if (hitColliders.Length == 0 && playing)
         {
             StartCoroutine(FadeOut());
             ParticleSystem.Stop();

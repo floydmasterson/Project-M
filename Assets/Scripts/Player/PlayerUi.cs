@@ -1,7 +1,6 @@
 using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
-using System.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,126 +8,127 @@ using UnityEngine.UI;
 
 public class PlayerUi : MonoBehaviourPun
 {
-    [SerializeField] private Vector3 screenOffset = new Vector3(0f, 30f, 0f);
-    [TabGroup("Player"), TabGroup("Player Health")]
-    [SerializeField] private Slider playerHealthSlider;
-    [TabGroup("Player"), TabGroup("Player Health")]
-    [SerializeField] private Slider playerHealthSliderInv;
-    [TabGroup("Player"), TabGroup("Player Health")]
-    [SerializeField] private TextMeshProUGUI HealthText;
-    [TabGroup("Player"), TabGroup("Player Health")]
-    [SerializeField] private TextMeshProUGUI HealthTextInv;
+    private Vector3 screenOffset = new Vector3(0f, 30f, 0f);
+    [TitleGroup("Health & Resource")]
+    [HorizontalGroup("Health & Resource/Split")]
+    [TabGroup("Health & Resource/Split/Player", "Health"), SerializeField]
+    private Slider playerHealthSlider;
+    [TabGroup("Health & Resource/Split/Player", "Health"), SerializeField]
+    private Slider playerHealthSliderInv;
+    [TabGroup("Health & Resource/Split/Player", "Health"), SerializeField]
+    private TextMeshProUGUI HealthText;
+    [TabGroup("Health & Resource/Split/Player", "Health"), SerializeField]
+    private TextMeshProUGUI HealthTextInv;
 
-    [TabGroup("Player"), TabGroup("Player Mana")]
-    [SerializeField] Slider playerManaSlider;
-    [TabGroup("Player"), TabGroup("Player Mana")]
-    [SerializeField] Slider playerManaSliderInv;
-    [TabGroup("Player"), TabGroup("Player Mana")]
-    [SerializeField] private TextMeshProUGUI ManaText;
-    [TabGroup("Player"), TabGroup("Player Mana")]
-    [SerializeField] private TextMeshProUGUI ManaTextInv;
+    [TabGroup("Health & Resource/Split/Player", "Mana"), SerializeField]
+    private Slider playerManaSlider;
+    [TabGroup("Health & Resource/Split/Player", "Mana"), SerializeField]
+    private Slider playerManaSliderInv;
+    [TabGroup("Health & Resource/Split/Player", "Mana"), SerializeField]
+    private TextMeshProUGUI ManaText;
+    [TabGroup("Health & Resource/Split/Player", "Mana"), SerializeField]
+    private TextMeshProUGUI ManaTextInv;
 
-    [TabGroup("Player"), TabGroup("Player Rage")]
-    [SerializeField] public Slider playerRageSlider;
-    [TabGroup("Player"), TabGroup("Player Rage")]
-    [SerializeField] public Slider playerRageSliderInv;
-    [TabGroup("Player"), TabGroup("Player Rage")]
-    [SerializeField] private TextMeshProUGUI RageText;
-    [TabGroup("Player"), TabGroup("Player Rage")]
-    [SerializeField] private TextMeshProUGUI RageTextInv;
+    [TabGroup("Health & Resource/Split/Player", "Rage"), SerializeField]
+    public Slider playerRageSlider;
+    [TabGroup("Health & Resource/Split/Player", "Rage"), SerializeField]
+    public Slider playerRageSliderInv;
+    [TabGroup("Health & Resource/Split/Player", "Rage"), SerializeField]
+    private TextMeshProUGUI RageText;
+    [TabGroup("Health & Resource/Split/Player", "Rage"), SerializeField]
+    private TextMeshProUGUI RageTextInv;
+
+    [TitleGroup("HUD")]
+    [HorizontalGroup("HUD/Split")]
+    [TabGroup("HUD/Split/Player", "Quick Slot"), SerializeField, Required]
+    private Image quickSlotImage;
+    [TabGroup("HUD/Split/Player", "Quick Slot"), SerializeField, Required]
+    private TextMeshProUGUI quickSlotAmountText;
+    [TabGroup("HUD/Split/Player", "Quick Slot"), SerializeField, Required]
+    private Image QSlotCooldown;
+    [TabGroup("HUD/Split/Player", "Quick Slot"), SerializeField, Required]
+    private TextMeshProUGUI QSlotCooldownText;
+    [TabGroup("HUD/Split/Player", "Quick Slot"), SerializeField, Required]
+    private TextMeshProUGUI SecondaryCooldownText;
+    [TabGroup("HUD/Split/Player", "Quick Slot"), SerializeField, Required]
+    private Image SecondaryCooldown;
+    [TabGroup("HUD/Split/Player", "Quick Slot"), SerializeField, Required]
+    private Image SecondaryCooldownIcon;
 
 
-    [TabGroup("Quick Slot")]
-    [SerializeField] Image quickSlotImage;
-    [TabGroup("Quick Slot")]
-    [SerializeField] GameObject quickSlot;
-    [TabGroup("Quick Slot")]
-    [SerializeField] TextMeshProUGUI quickSlotAmountText;
-    [TabGroup("Quick Slot")]
-    Image QSlotCooldown;
-    [TabGroup("Quick Slot")]
-    TextMeshProUGUI QSlotCooldownText;
-    [TabGroup("Quick Slot")]
-    Image UiSlotCooldown;
-    [TabGroup("Quick Slot")]
-    Image UiCooldownIcon;
-
-    private float cooldownTime;
-    private float cooldownTimer = 0f;
-
-    [TabGroup("MiniMap")]
+    [TabGroup("HUD/Split/Player", "Minimap")]
     public GameObject Minimap;
-    [TabGroup("MiniMap")]
+    [TabGroup("HUD/Split/Player", "Minimap")]
     public Canvas UiCanvas;
-    [TabGroup("Escape Menu"), SerializeField, Required]
-    private EscapeMenu escapeMenu;
-    [TabGroup("Escape Menu"), SerializeField, Required]
-    private sensitivityControler[] controllers;
-    [TabGroup("Loading Menu"), SerializeField, Required]
-    private Image loadingShield;
-    [TabGroup("Loading Menu"), SerializeField, Required]
-    private TextMeshProUGUI toShop;
-    [TabGroup("Player"), SerializeField, Required]
+    [TabGroup("HUD/Split/Player", "Timers"), SerializeField, Required]
     private TextMeshProUGUI timeText;
-    [TabGroup("PLayer"), SerializeField, Required]
+    [TabGroup("HUD/Split/Player", "Timers"), SerializeField, Required]
     private TextMeshProUGUI timeTextInv;
+    [TitleGroup("Menus")]
+    [HorizontalGroup("Menus/Split")]
+    [TabGroup("Menus/Split/Player", "Escape Menu"), SerializeField, Required]
+    private EscapeMenu escapeMenu;
+    [TabGroup("Menus/Split/Player", "Escape Menu"), SerializeField, Required]
+    private sensitivityControler[] controllers;
+    [TabGroup("Menus/Split/Player", "Loading Menu"), SerializeField, Required]
+    private Image loadingShield;
+    [TabGroup("Menus/Split/Player", "Loading Menu"), SerializeField, Required]
+    private TextMeshProUGUI toShop;
+
+
+    [TabGroup("HUD/Split/Player", "Quick Slot"), SerializeField, Required]
+    private GameObject quickSlot;
+    [TabGroup("Health & Resource/Split/Player", "Health"), SerializeField, Required]
+    private GameObject Health;
+    [TabGroup("Health & Resource/Split/Player", "Mana"), SerializeField, Required]
+    private GameObject Mana;
+    [TabGroup("Health & Resource/Split/Player", "Rage"), SerializeField, Required]
+    private GameObject Rage;
+    [TabGroup("HUD/Split/Player", "Timers"), SerializeField, Required]
+    private GameObject Timer;
+    [TabGroup("HUD/Split/Player", "Timers"), SerializeField, Required]
+    private GameObject TimerInv;
+    [TabGroup("Health & Resource/Split/Player", "Rage"), SerializeField, Required]
+    private GameObject RageInv;
+    [TabGroup("Health & Resource/Split/Player", "Mana"), SerializeField, Required]
+    private GameObject ManaInv;
+    [TabGroup("Health & Resource/Split/Player", "Health"), SerializeField, Required]
+    private GameObject HealthInv;
+    [TabGroup("HUD/Split/Player", "Quick Slot"), SerializeField, Required]
+    private GameObject Secondary;
+
     [HideInInspector]
     public PlayerInput playerInput;
-    int quickAmount;
+
+    private int quickAmount;
     private MagicController MagicController;
     private MeeleController MeleeController;
     public static PlayerUi Instance;
-    [Tooltip("Set at runtime")]
-    public PlayerManger target;
+
     public delegate void TargetSet();
     public static event TargetSet OnTargetSet;
 
-    GameObject Health;
-    GameObject Mana;
-    GameObject Rage;
-    GameObject Timer;
-    GameObject TimerInv;
-    GameObject RageInv;
-    GameObject ManaInv;
-    GameObject HealthInv;
-
-    float characterControllerHeight = 0f;
-    Transform targetTransform;
-    Renderer targetRenderer;
-    CanvasGroup _canvasGroup;
-    Vector3 targetPosition;
+    private float characterControllerHeight = 0f;
+    private Transform targetTransform;
+    private Vector3 targetPosition;
     private bool toggle = true;
-    GamepadCursor gamepadCursor;
+    private GamepadCursor gamepadCursor;
+    private float cooldownTime;
+    private float cooldownTimer = 0f;
+
+    [Tooltip("Set at runtime")]
+    public PlayerManger target;
     public bool Sick = false;
-   private IEnumerator ApplyPotionSickness(float time)
+    private IEnumerator ApplyPotionSickness(float time)
     {
         Sick = true;
         yield return new WaitForSeconds(time);
         Sick = false;
     }
-   private IEnumerator applyCooldown(float time)
+
+    private IEnumerator Fadeout(float time, bool showShopText)
     {
-        cooldownTimer -= Time.deltaTime;
-        if (cooldownTimer < 0f)
-        {
-            QSlotCooldownText.gameObject.SetActive(false);
-            UiCooldownIcon.gameObject.SetActive(false);
-            QSlotCooldown.fillAmount = 0f;
-            UiSlotCooldown.fillAmount = 0f;
-            cooldownTime = 0f;
-        }
-        else
-        {
-            QSlotCooldownText.text = Mathf.RoundToInt(cooldownTimer).ToString();
-            QSlotCooldown.fillAmount = cooldownTimer / cooldownTime;
-            UiSlotCooldown.fillAmount = cooldownTimer / cooldownTime;
-            yield return new WaitForEndOfFrame();
-            StartCoroutine(applyCooldown(cooldownTimer));
-        }
-    }
-   private IEnumerator Fadeout(float time, bool showShopText)
-    {
-        if(showShopText)
+        if (showShopText)
         {
             toShop.gameObject.SetActive(true);
             yield return new WaitForSecondsRealtime(1f);
@@ -144,24 +144,11 @@ public class PlayerUi : MonoBehaviourPun
     void Awake()
     {
         Instance = this;
-        _canvasGroup = this.GetComponent<CanvasGroup>();
-        gamepadCursor = GetComponentInChildren<GamepadCursor>();
-        Health = gameObject.transform.GetChild(2).gameObject;
-        Mana = gameObject.transform.GetChild(3).gameObject;
-        Rage = gameObject.transform.GetChild(4).gameObject;
-        RageInv = gameObject.transform.GetChild(5).gameObject;
-        ManaInv = gameObject.transform.GetChild(6).gameObject;
-        HealthInv = gameObject.transform.GetChild(7).gameObject;
-        Timer = gameObject.transform.GetChild(12).gameObject;
-        TimerInv = gameObject.transform.GetChild(11).gameObject;
-        QSlotCooldown = quickSlot.transform.GetChild(3).GetComponent<Image>();
-        QSlotCooldownText = quickSlot.transform.GetChild(4).GetComponent<TextMeshProUGUI>();
-        UiCooldownIcon = Health.transform.GetChild(4).GetComponent<Image>();
-        UiSlotCooldown = UiCooldownIcon.gameObject.transform.GetChild(0).GetComponent<Image>();
+        gamepadCursor = GetComponentInChildren<GamepadCursor>(); 
         QSlotCooldown.fillAmount = 0f;
-        UiSlotCooldown.fillAmount = 0f;
+        SecondaryCooldown.fillAmount = 0f;
+        SecondaryCooldownText.gameObject.SetActive(false);
         QSlotCooldownText.gameObject.SetActive(false);
-        UiCooldownIcon.gameObject.SetActive(false);
     }
     private void OnEnable()
     {
@@ -201,19 +188,15 @@ public class PlayerUi : MonoBehaviourPun
         }
     }
     // Update is called once per frame
-    private void CooldownGFX(float time)
-    {
-        cooldownTime = time;
-        cooldownTimer = cooldownTime;
-        CheckAmount();
-        QSlotCooldownText.gameObject.SetActive(true);
-        UiCooldownIcon.gameObject.SetActive(true);
-        StartCoroutine(applyCooldown(time));
-    }
+
     private void PotionSickness(float time)
     {
-        StartCoroutine("ApplyPotionSickness", time);
-        CooldownGFX(time);
+        StartCoroutine("ApplyPotionSickness", time);   
+        CooldownManager.CooldownGFX(QSlotCooldown, QSlotCooldownText, time, this);
+    }
+    public void SecondaryCooldownGFX(float time)
+    {
+        CooldownManager.CooldownGFX(SecondaryCooldown, SecondaryCooldownText, time, this);
     }
     void Update()
     {
@@ -283,7 +266,7 @@ public class PlayerUi : MonoBehaviourPun
         {
             updateTimer(-1);
         }
-       
+
 
     }
     void LateUpdate()
@@ -299,9 +282,10 @@ public class PlayerUi : MonoBehaviourPun
     public void OpenUi()
     {
         Health.SetActive(true);
-        HealthInv.SetActive(false);
         Minimap.SetActive(true);
         Timer.SetActive(true);
+        Secondary.SetActive(true);
+        HealthInv.SetActive(false);
         TimerInv.SetActive(false);
         if (quickSlotImage.sprite != null)
         {
@@ -329,9 +313,10 @@ public class PlayerUi : MonoBehaviourPun
     {
         quickSlot.SetActive(false);
         Health.SetActive(false);
-        HealthInv.SetActive(true);
         Minimap.SetActive(false);
         Timer.SetActive(false);
+        Secondary.SetActive(false);
+        HealthInv.SetActive(true);
         TimerInv.SetActive(true);
         if (quickSlotImage.sprite != null)
         {
@@ -394,8 +379,7 @@ public class PlayerUi : MonoBehaviourPun
         }
         // Cache references for efficiency
         target = _target;
-        targetTransform = this.target.GetComponent<Transform>();
-        targetRenderer = this.target.GetComponentInChildren<Renderer>();
+        targetTransform = target.GetComponent<Transform>();
         playerInput = target.GetComponent<PlayerInput>();
         foreach (sensitivityControler controler in controllers)
         {
@@ -406,6 +390,16 @@ public class PlayerUi : MonoBehaviourPun
         gamepadCursor.player = target;
         gamepadCursor.enabled = true;
         CharacterController characterController = _target.GetComponent<CharacterController>();
+        MeeleController meeleController = target.GetComponent<MeeleController>();
+        MagicController magicController = target.GetComponent<MagicController>();
+        if (meeleController != null)
+        {
+            SecondaryCooldownIcon.sprite = meeleController.ragePulseImage;
+        }
+        else if (magicController != null)
+        {
+            SecondaryCooldownIcon.sprite = magicController.manaPulseImage;
+        }
         // Get data from the Player that won't change during the lifetime of this Component
         if (characterController != null)
         {

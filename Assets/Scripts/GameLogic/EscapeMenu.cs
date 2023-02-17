@@ -2,31 +2,34 @@ using Photon.Pun;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class EscapeMenu : MonoBehaviour
 {
-    PlayerController controls;
-    bool open = false;
+    private bool open = false;
     [SerializeField]
-    GameObject Keyboard;
+    private GameObject Keyboard;
     [SerializeField]
-    GameObject gamepad;
+    private GameObject gamepad;
+    [SerializeField]
+    private GameObject settings;
+    [SerializeField]
+    private GameObject buttons;
+    [SerializeField]
+    private GameObject controls;
+
     [SerializeField]
     TextMeshProUGUI schemeButton;
-    bool toggle = false;
+    private bool toggle = false;
     IEnumerator PreLoad()
     {
-        GameObject settings = gameObject.transform.GetChild(1).gameObject;
         yield return new WaitForSecondsRealtime(0.2f);
         gamepad.SetActive(false);
         settings.SetActive(false);
+        controls.SetActive(false);
     }
 
     private void OnEnable()
     {
-        controls = new PlayerController();
         PlayerUi.OnTargetSet += preLoad;
     }
     private void OnDisable()
@@ -40,21 +43,21 @@ public class EscapeMenu : MonoBehaviour
     public void toggleMenu()
     {
         if (!open)
-        {   
-            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        {
+            buttons.SetActive(true);
             open = true;
         }
         else if (open)
         {
-            gameObject.transform.GetChild(0).gameObject.SetActive(false);
-            gameObject.transform.GetChild(1).gameObject.SetActive(false);
+            buttons.SetActive(false);
+            settings.SetActive(false);
             open = false;
         }
     }
     public void SettingMenu()
     {
-        gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        buttons.SetActive(false);
+        settings.SetActive(true);
     }
     public void MainMenu()
     {

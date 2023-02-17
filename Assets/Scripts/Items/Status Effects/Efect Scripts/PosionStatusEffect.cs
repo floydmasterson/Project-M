@@ -56,7 +56,7 @@ public class PosionStatusEffect : StatusEffectSO
             if (Ptarget != null && Etarget == null)
             {
                 Debug.Log("effect over");
-                EffectVFX.DisableEffect(1);
+                EffectVFX.DisableEffect(EffectVisualController.Effects.Poisoned);
                 EffectVFX.posioned = false;
                 stop = false;
                 Ptarget.StopCoroutine(EffectApplication());
@@ -64,7 +64,7 @@ public class PosionStatusEffect : StatusEffectSO
             else if (Ptarget == null && Etarget != null)
             {
                 Debug.Log("effect over");
-                EffectVFX.DisableEffect(1);
+                EffectVFX.DisableEffect(EffectVisualController.Effects.Poisoned);
                 EffectVFX.posioned = false;
                 stop = false;
                 Etarget.StopCoroutine(EffectApplication());
@@ -73,7 +73,6 @@ public class PosionStatusEffect : StatusEffectSO
     }
     public override void StatusEffect()
     {
-        Debug.Log("Status Effect: Enemy = " + Etarget + " Player = " + Ptarget);
         if (Ptarget != null)
             Ptarget.TakeDamge(tickDamage, PlayerUi.Instance.target);
         if (Etarget != null)
@@ -95,7 +94,7 @@ public class PosionStatusEffect : StatusEffectSO
 
         if (EffectVFX.posioned == false)
         {
-            EffectVFX.EnableEffect(1);
+            EffectVFX.EnableEffect(EffectVisualController.Effects.Poisoned);
             EffectVFX.posioned = true;
             if (Etarget != null)
                 Etarget.StartCoroutine(DecayTimer(debuffDuration, null, Etarget));
