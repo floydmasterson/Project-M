@@ -10,6 +10,7 @@ public class EffectVisualController : MonoBehaviourPun
     [SerializeField, HideIf("@EffectParent != null")] private Transform EffectParent;
     public bool posioned = false;
     public bool slowed = false;
+    public bool burning = false;
     public enum Effects
     {
         Invincible,
@@ -17,6 +18,7 @@ public class EffectVisualController : MonoBehaviourPun
         Slowed,
         Mana_Pulse,
         Rage_Aura,
+        Burned,
     }
     private void OnValidate()
     {

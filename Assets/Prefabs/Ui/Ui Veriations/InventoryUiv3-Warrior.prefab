@@ -5394,11 +5394,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Strength:
-    BaseValue: 26
+    BaseValue: 35
   Agility:
     BaseValue: 3
   Intelligence:
-    BaseValue: 10
+    BaseValue: 5
   Vitality:
     BaseValue: 72
   Inventory: {fileID: 6256542304894679118}

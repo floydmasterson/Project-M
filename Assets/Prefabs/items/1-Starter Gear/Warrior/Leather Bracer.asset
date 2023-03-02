@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: e55b602af861b2c4596b62477c7e9c09, type: 3}
   ItemName: Leather Bracer
-  itemId: 5
+  itemId: 8
   ItemTier: 0
   BuyPrice: 0
   SellValue: 0
@@ -33,3 +33,4 @@ MonoBehaviour:
   Passives: []
   EquipmentType: 10
   BoundSpell: {fileID: 0}
+  BoundArrow: {fileID: 0}

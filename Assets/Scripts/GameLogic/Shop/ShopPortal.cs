@@ -19,7 +19,7 @@ public class ShopPortal : MonoBehaviourPun
     private IEnumerator OpenPortal(float time)
     {
         yield return new WaitForSecondsRealtime(time);
-        OpenShopPortal();
+        StartCoroutine(OpenShopPortal());
     }
 
     private void Awake()
@@ -47,11 +47,12 @@ public class ShopPortal : MonoBehaviourPun
 
     }
 
-    public void OpenShopPortal()
+    public IEnumerator OpenShopPortal()
     {
-        col.enabled = true;
         GFX.SetActive(true);
         portalDrone.PlaySFX();
+        yield return new WaitForSeconds(2.5f);
+        col.enabled = true;
     }
     private void OnTriggerEnter(Collider other)
     {

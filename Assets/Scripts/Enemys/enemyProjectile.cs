@@ -38,7 +38,7 @@ public class enemyProjectile : MonoBehaviourPun
             PlayerManger target = other.GetComponent<PlayerManger>();
             Poof();
             if (!hit)
-                target.TakeDamge(Mathf.RoundToInt(origin.Power / Mathf.Pow(2, (target.Defense / origin.Power))), origin);
+                target.TakeDamge(Mathf.RoundToInt(origin.Power / Mathf.Pow(2, (target.Defense / origin.Power))));
             hit = true;
             return;
         }

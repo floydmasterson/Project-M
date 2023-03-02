@@ -5,6 +5,7 @@ public class RegenPoint : MonoBehaviour
 {
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private float detectRadius = 5f;
+    [SerializeField] private bool protectedFromDestory = false;
     private float detectTime;
     [SerializeField] ParticleSystem ParticleSystem;
     [SerializeField] SFX Regen;
@@ -15,7 +16,8 @@ public class RegenPoint : MonoBehaviour
     bool playing = false;
     private void OnEnable()
     {
-        GameManger.Instance.TimerOver += () => Destroy(gameObject);
+        if (!protectedFromDestory)
+            GameManger.Instance.TimerOver += () => Destroy(gameObject);
     }
     private void OnDestroy()
     {

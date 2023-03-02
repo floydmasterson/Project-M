@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2700d015c6462f048ac79e3404dd457a, type: 3}
+  m_Name: Rage Aura
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 0}
+  ItemName: Rage Aura
+  itemId: 174
+  ItemTier: 0
+  BuyPrice: 0
+  SellValue: 0
+  MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 'Ghost item for rage aura tooltip
+
+'
+  id: 320e71524210925478c0c0931865d590
+  Effects: []

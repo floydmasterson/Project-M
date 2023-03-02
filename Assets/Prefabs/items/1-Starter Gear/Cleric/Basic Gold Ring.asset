@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Basic Gold Ring
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 852e8a047e5a3914cbe3df82c5a422d4, type: 3}
-  ItemName: Basic Gold Ring
+  ItemName: Gold Ring
   itemId: 1
   ItemTier: 0
   BuyPrice: 0
@@ -33,3 +33,4 @@ MonoBehaviour:
   Passives: []
   EquipmentType: 10
   BoundSpell: {fileID: 0}
+  BoundArrow: {fileID: 0}

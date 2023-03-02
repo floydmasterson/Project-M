@@ -49,7 +49,7 @@ public class ItemDatabase : MonoBehaviour
     [Button]
     private void TableToFile()
     {
-        using (StreamWriter file = new StreamWriter("E:/Project-M/Assets/Editor/ItemDatabase.txt"))
+        using (StreamWriter file = new StreamWriter("Assets/Photon/PhotonUnityNetworking/Resources/ItemDataBase.txt"))
         {
             foreach (KeyValuePair<int, Item> pair in items)
             {

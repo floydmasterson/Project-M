@@ -235,9 +235,11 @@ MonoBehaviour:
   - {fileID: 6937003290233758515}
   - {fileID: 1996227116310924079}
   - {fileID: 8879648469337400711}
+  - {fileID: 3296732135796026884}
   EffectParent: {fileID: 6689553094506985635}
   posioned: 0
   slowed: 0
+  burning: 0
 --- !u!195 &1348464936593482610
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1256,6 +1258,11 @@ PrefabInstance:
 --- !u!1 &1996227116310924079 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7826774723407519737, guid: dad347394b847a848bef8a2c83aae5f3, type: 3}
+  m_PrefabInstance: {fileID: 8586763432072647894}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3296732135796026884 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6551074660878760658, guid: dad347394b847a848bef8a2c83aae5f3, type: 3}
   m_PrefabInstance: {fileID: 8586763432072647894}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &3628653849121642461 stripped

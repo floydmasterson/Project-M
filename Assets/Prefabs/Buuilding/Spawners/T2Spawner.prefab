@@ -99,9 +99,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnChance: 0
   enemys:
-  - {fileID: 7805774187989588748, guid: 7f62602e07fa8ab45a3c13954798169a, type: 3}
+  - {fileID: 6439233276092174367, guid: 36ebdcab49920b242a234d1f5a005d2b, type: 3}
   - {fileID: 5217242961852479576, guid: a170ecd883a9a0f468b4a24d3471bfd3, type: 3}
   - {fileID: 1348464936593482623, guid: d6ba3f759da1d494385a5cbaf1ac84d4, type: 3}
+  - {fileID: 7721054806970601559, guid: 5069ac91b91b2c84f9640a2469ba10b1, type: 3}
 --- !u!114 &332267924482791896
 MonoBehaviour:
   m_ObjectHideFlags: 0

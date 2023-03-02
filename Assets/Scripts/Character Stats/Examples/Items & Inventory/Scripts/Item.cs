@@ -59,7 +59,7 @@ public class Item : ScriptableObject
         id = AssetDatabase.AssetPathToGUID(path);
         value = FindCost(this);
         SellValue = GetSellValue();
-        BuyPrice = GetBuyValue();
+        BuyPrice = GetBuyPrice();
     }
 #endif
 
@@ -87,11 +87,11 @@ public class Item : ScriptableObject
     }
     public virtual int GetSellValue()
     {
-        return value - (int)(value * .25f);
+        return value - (int)(value * .40f);
     }
-    public virtual int GetBuyValue()
+    public virtual int GetBuyPrice()
     {
-        return value + (int)(value * .2f);
+        return value + (int)(value * .50f);
     }
 
     public virtual int FindCost(Item Item)

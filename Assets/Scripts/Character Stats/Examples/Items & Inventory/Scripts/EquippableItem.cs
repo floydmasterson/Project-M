@@ -18,6 +18,7 @@ public enum EquipmentType
     Major_Accessory,
     Minor_Accessory,
     Sholder_Guard,
+    Ranged_Weapon,
 }
 
 [CreateAssetMenu(menuName = "Items/Equippable Item")]
@@ -51,7 +52,12 @@ public class EquippableItem : Item
 
     [HorizontalGroup("Equipment Type/Right")]
     [ShowIf("EquipmentType", EquipmentType.Magic_Weapon)]
-    public Spell BoundSpell;
+    public Projectile BoundSpell;
+
+    [HorizontalGroup("Equipment Type/Right")]
+    [ShowIf("EquipmentType", EquipmentType.Off_Hand)]
+    public Projectile BoundArrow;
+
 
 
 
@@ -85,7 +91,17 @@ public class EquippableItem : Item
         if (VitalityPercentBonus != 0)
             c.Vitality.AddModifier(new StatModifier(VitalityPercentBonus, StatModType.PercentMult, this));
         if (BoundSpell != null)
-            PlayerUi.Instance.target.gameObject.GetComponent<MagicController>().selectedSpell = BoundSpell;
+        {
+            MagicController MC = PlayerUi.Instance.target.gameObject.GetComponent<MagicController>();
+            if (MC != null)
+                MC.selectedSpell = BoundSpell;
+        }
+        if (BoundArrow != null)
+        {
+            ArrowController AC = PlayerUi.Instance.target.gameObject.GetComponent<ArrowController>();
+            if (AC != null)
+                AC.currentArrow = BoundArrow;
+        }
         if (Passives != null)
         {
             foreach (PassiveSO passive in Passives)
@@ -104,7 +120,17 @@ public class EquippableItem : Item
         c.Intelligence.RemoveAllModifiersFromSource(this);
         c.Vitality.RemoveAllModifiersFromSource(this);
         if (BoundSpell != null)
-            PlayerUi.Instance.target.gameObject.GetComponent<MagicController>().selectedSpell = null;
+        {
+            MagicController MC = PlayerUi.Instance.target.gameObject.GetComponent<MagicController>();
+            if (MC != null)
+                MC.selectedSpell = null;
+        }
+        if (BoundArrow != null)
+        {
+            ArrowController AC = PlayerUi.Instance.target.gameObject.GetComponent<ArrowController>();
+            if (AC != null)
+                AC.currentArrow = null;
+        }
         if (Passives != null)
         {
 
@@ -141,7 +167,13 @@ public class EquippableItem : Item
         if (BoundSpell != null)
         {
             sb.AppendLine();
-            sb.Append(BoundSpell + "is bound to this weapon").Replace("(Spell)", "").Replace("S-", "");
+            sb.Append(BoundSpell + "is bound to this weapon").Replace("(Projectile)", "").Replace("S-", "");
+
+        }
+        if (BoundArrow != null)
+        {
+            sb.AppendLine();
+            sb.Append("This quiver holds " + BoundArrow).Replace("(Projectile)", "").Replace("A-", "");
 
         }
         if (Passives != null)
@@ -158,7 +190,7 @@ public class EquippableItem : Item
             sb.AppendLine();
             if (sell)
                 sb.Append("Sell Value: " + SellValue + "G");
-            else if(!sell)
+            else if (!sell)
                 sb.Append("Buy Price: " + BuyPrice + "G");
         }
 

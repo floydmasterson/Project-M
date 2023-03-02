@@ -30,7 +30,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
     [TabGroup("Setup")]
     [SerializeField] Item Aura;
     [TabGroup("Setup")]
-    public Sprite ragePulseImage;
+    public Sprite rageAuraImage;
     [TabGroup("Rage")]
 #pragma warning disable IDE0052 // Remove unread private members
     [SerializeField] bool raging = false;
@@ -92,12 +92,12 @@ public class MeeleController : MonoBehaviourPun, IAttack
             Enemys Etarget = target.GetComponent<Enemys>();
             if (player != null && player != PlayerUi.Instance.target)
             {
-                player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
+                player.TakeDamge(DamageCaculator.MeleeDamage(manger.character, (int)DamageCaculator.Reciver.Player, null, player));
                 didDmg = true;
             }
             if (Etarget != null)
             {
-                Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
+                Etarget.TakeDamge(DamageCaculator.MeleeDamage(manger.character, (int)DamageCaculator.Reciver.Mob, Etarget, null)); ;
                 didDmg = true;
             }
             if (didDmg == true)
@@ -282,23 +282,23 @@ public class MeeleController : MonoBehaviourPun, IAttack
                 }
                 break;
         }
-        Character.Instance.Strength.RemoveAllModifiersFromSource(Rage);
-        Character.Instance.Agility.RemoveAllModifiersFromSource(Rage);
+        manger.character.Strength.RemoveAllModifiersFromSource(Rage);
+        manger.character.Agility.RemoveAllModifiersFromSource(Rage);
         PlayerUi.Instance.target.DefenseMod -= currentDefenseMod;
         currentDefenseMod = 0;
         manger.CheckDefense();
-        Character.Instance.statPanel.UpdateStatValues();
+        manger.character.statPanel.UpdateStatValues();
         if (stackCount > 0)
         {
             if (stackCount > 1)
             {
 
-                Character.Instance.Strength.AddModifier(new StatModifier(StrengthMod, StatModType.PercentMult, Rage));
-                Character.Instance.Agility.AddModifier(new StatModifier(AgilityMod, StatModType.PercentMult, Rage));
+                manger.character.Strength.AddModifier(new StatModifier(StrengthMod, StatModType.PercentMult, Rage));
+                manger.character.Agility.AddModifier(new StatModifier(AgilityMod, StatModType.PercentMult, Rage));
             }
             manger.DefenseMod += DefenseMod;
             currentDefenseMod = DefenseMod;
-            Character.Instance.statPanel.UpdateStatValues();
+            manger.character.statPanel.UpdateStatValues();
             manger.CheckDefense();
         }
         raging = false;
@@ -354,6 +354,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
     public void AttackLifeSteal()
     {
         manger.photonView.RPC("UpdateAttack", RpcTarget.All);
+        bool didDmg = false;
         Collider[] hitEnemins = Physics.OverlapSphere(manger.attackPoint.position, manger.attackRange, manger.enemyLayers);
         if (hitEnemins.Length != 0)
         {
@@ -362,18 +363,22 @@ public class MeeleController : MonoBehaviourPun, IAttack
             Enemys Etarget = target.GetComponent<Enemys>();
             if (player != null && player != PlayerUi.Instance.target)
             {
-                int damage = Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2.6f, (player.Defense / Character.Instance.Strength.Value)));
-                player.TakeDamge(damage, manger);
+                int damage = DamageCaculator.MeleeDamage(manger.character, (int)DamageCaculator.Reciver.Player, null, player);
+                player.TakeDamge(damage);
                 manger.Heal(Mathf.RoundToInt(damage * lifeStealAmount));
+                didDmg = true;
 
             }
             if (Etarget != null)
             {
-                int damage = Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2.6f, (Etarget.Defense / Character.Instance.Strength.Value)));
+                int damage = DamageCaculator.MeleeDamage(manger.character, (int)DamageCaculator.Reciver.Mob, Etarget, null);
                 Etarget.TakeDamge(damage);
                 manger.Heal(Mathf.RoundToInt(damage * lifeStealAmount));
+                didDmg = true;
             }
         }
+        if (didDmg == true)
+            GainRage(1);
     }
     private void onDeath(PlayerManger player)
     {

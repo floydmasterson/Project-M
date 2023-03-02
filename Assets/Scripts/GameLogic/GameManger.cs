@@ -59,6 +59,8 @@ public class GameManger : MonoBehaviourPunCallbacks
         Sector1.SetActive(false);
         Sector5.SetActive(false);
         Sector3.SetActive(true);
+        timerOn = false;
+        SetGameTime(0);
         if (spawnEnemys == true && PhotonNetwork.IsMasterClient)
             spawnMobs?.Invoke();
     }
@@ -92,6 +94,7 @@ public class GameManger : MonoBehaviourPunCallbacks
     void InstantiationPlayer(int spawnPoint)
     {
         GameObject playerToSpawn = playerPrefab[(int)PhotonNetwork.LocalPlayer.CustomProperties["playerAvatar"]];
+        playerSpawnPoints[spawnPoint].Selcted(playerToSpawn);
         PhotonNetwork.Instantiate(playerToSpawn.name, playerSpawnPoints[spawnPoint].spawnPoint.transform.position, Quaternion.identity);
     }
     [PunRPC]

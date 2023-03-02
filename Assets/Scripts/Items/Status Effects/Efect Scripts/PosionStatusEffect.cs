@@ -10,9 +10,9 @@ public class PosionStatusEffect : StatusEffectSO
     bool stop = false;
     public int tickDamage;
     public float timeBetweenTicks;
-    public int debuffDuration;
+    public float debuffDuration;
 
-    public override IEnumerator DecayTimer(int time, PlayerManger player, Enemys enemy)
+    public override IEnumerator DecayTimer(float time, PlayerManger player, Enemys enemy)
     {
         if (enemy != null)
             enemy.StartCoroutine(EffectApplication());
@@ -23,7 +23,6 @@ public class PosionStatusEffect : StatusEffectSO
     }
     public override IEnumerator EffectApplication()
     {
-        Debug.Log("Effect Apllication: Enemy = " + Etarget + " Player = " + Ptarget);
         if (stop == false)
         {
 
@@ -55,7 +54,6 @@ public class PosionStatusEffect : StatusEffectSO
         {
             if (Ptarget != null && Etarget == null)
             {
-                Debug.Log("effect over");
                 EffectVFX.DisableEffect(EffectVisualController.Effects.Poisoned);
                 EffectVFX.posioned = false;
                 stop = false;
@@ -63,7 +61,6 @@ public class PosionStatusEffect : StatusEffectSO
             }
             else if (Ptarget == null && Etarget != null)
             {
-                Debug.Log("effect over");
                 EffectVFX.DisableEffect(EffectVisualController.Effects.Poisoned);
                 EffectVFX.posioned = false;
                 stop = false;
@@ -74,7 +71,7 @@ public class PosionStatusEffect : StatusEffectSO
     public override void StatusEffect()
     {
         if (Ptarget != null)
-            Ptarget.TakeDamge(tickDamage, PlayerUi.Instance.target);
+            Ptarget.TakeDamge(tickDamage);
         if (Etarget != null)
             Etarget.TakeDamge(tickDamage);
     }
@@ -100,10 +97,6 @@ public class PosionStatusEffect : StatusEffectSO
                 Etarget.StartCoroutine(DecayTimer(debuffDuration, null, Etarget));
             else if (Ptarget != null)
                 Ptarget.StartCoroutine(DecayTimer(debuffDuration, Ptarget, null));
-        }
-        else
-        {
-            Debug.Log("already posioned");
         }
     }
     private void Reset()

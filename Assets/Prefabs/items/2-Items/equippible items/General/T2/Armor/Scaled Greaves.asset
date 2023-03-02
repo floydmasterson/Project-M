@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 7966701381d39804c8e92c94f6297f59, type: 3}
   ItemName: Scaled Greaves
+  itemId: 103
   ItemTier: 2
-  cost: 320
+  BuyPrice: 504
+  SellValue: 315
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: be5adf0f38c779a488ba7fe0b463901f
-  StrengthBonus: 2
+  StrengthBonus: 3
   AgilityBonus: 0
   IntelligenceBonus: 0
   VitalityBonus: 2
@@ -31,3 +33,4 @@ MonoBehaviour:
   Passives: []
   EquipmentType: 8
   BoundSpell: {fileID: 0}
+  BoundArrow: {fileID: 0}

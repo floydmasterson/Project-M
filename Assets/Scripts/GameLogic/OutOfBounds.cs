@@ -9,7 +9,7 @@ public class OutOfBounds : MonoBehaviour
         if(other.CompareTag("Player"))
         {
            PlayerManger player = other.GetComponent<PlayerManger>();
-            player.TakeDamge(9999, null);
+            player.TakeDamge(9999);
         }
     }
 }

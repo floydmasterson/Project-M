@@ -38,6 +38,21 @@ public class PlayerUi : MonoBehaviourPun
     [TabGroup("Health & Resource/Split/Player", "Rage"), SerializeField]
     private TextMeshProUGUI RageTextInv;
 
+    [TabGroup("Health & Resource/Split/Player", "Arrow"), SerializeField]
+    public Slider playerArrowSlider;
+    [TabGroup("Health & Resource/Split/Player", "Arrow"), SerializeField]
+    public Slider playerArrowSliderInv;
+    [TabGroup("Health & Resource/Split/Player", "Arrow"), SerializeField]
+    public Slider playerArrowPullSlider;
+    [TabGroup("Health & Resource/Split/Player", "Arrow"), SerializeField]
+    private TextMeshProUGUI ArrowText;
+    [TabGroup("Health & Resource/Split/Player", "Arrow"), SerializeField]
+    private TextMeshProUGUI ArrowTextInv;
+    [TabGroup("Health & Resource/Split/Player", "Arrow"), SerializeField]
+    private Image ArrowReload;
+    [TabGroup("Health & Resource/Split/Player", "Arrow"), SerializeField]
+    private Image ArrowPullFill;
+
     [TitleGroup("HUD")]
     [HorizontalGroup("HUD/Split")]
     [TabGroup("HUD/Split/Player", "Quick Slot"), SerializeField, Required]
@@ -84,8 +99,14 @@ public class PlayerUi : MonoBehaviourPun
     private GameObject Mana;
     [TabGroup("Health & Resource/Split/Player", "Rage"), SerializeField, Required]
     private GameObject Rage;
+    [TabGroup("Health & Resource/Split/Player", "Arrow"), SerializeField, Required]
+    private GameObject Arrow;
     [TabGroup("HUD/Split/Player", "Timers"), SerializeField, Required]
     private GameObject Timer;
+    [TabGroup("Health & Resource/Split/Player", "Arrow"), SerializeField, Required]
+    private GameObject ArrowInv;
+    [TabGroup("Health & Resource/Split/Player", "Arrow"), SerializeField, Required]
+    private GameObject ArrowEquiped;
     [TabGroup("HUD/Split/Player", "Timers"), SerializeField, Required]
     private GameObject TimerInv;
     [TabGroup("Health & Resource/Split/Player", "Rage"), SerializeField, Required]
@@ -96,6 +117,8 @@ public class PlayerUi : MonoBehaviourPun
     private GameObject HealthInv;
     [TabGroup("HUD/Split/Player", "Quick Slot"), SerializeField, Required]
     private GameObject Secondary;
+    [TabGroup("Health & Resource/Split/Player", "Arrow"), SerializeField, Required]
+    private GameObject ArrowPull;
 
     [HideInInspector]
     public PlayerInput playerInput;
@@ -103,6 +126,7 @@ public class PlayerUi : MonoBehaviourPun
     private int quickAmount;
     private MagicController MagicController;
     private MeeleController MeleeController;
+    private ArrowController ArrowController;
     public static PlayerUi Instance;
 
     public delegate void TargetSet();
@@ -113,8 +137,10 @@ public class PlayerUi : MonoBehaviourPun
     private Vector3 targetPosition;
     private bool toggle = true;
     private GamepadCursor gamepadCursor;
-    private float cooldownTime;
-    private float cooldownTimer = 0f;
+    private float elaspedTime;
+    private float reloadTime;
+
+
 
     [Tooltip("Set at runtime")]
     public PlayerManger target;
@@ -144,7 +170,7 @@ public class PlayerUi : MonoBehaviourPun
     void Awake()
     {
         Instance = this;
-        gamepadCursor = GetComponentInChildren<GamepadCursor>(); 
+        gamepadCursor = GetComponentInChildren<GamepadCursor>();
         QSlotCooldown.fillAmount = 0f;
         SecondaryCooldown.fillAmount = 0f;
         SecondaryCooldownText.gameObject.SetActive(false);
@@ -168,18 +194,27 @@ public class PlayerUi : MonoBehaviourPun
     {
         MagicController = target.gameObject.GetComponent<MagicController>();
         MeleeController = target.gameObject.GetComponent<MeeleController>();
+        ArrowController = target.gameObject.GetComponent<ArrowController>();
 
         if (MagicController != null)
         {
             Mana.SetActive(true);
+            SecondaryCooldownIcon.sprite = MagicController.manaPulseImage;
         }
         if (MeleeController != null)
         {
             Rage.SetActive(true);
+            SecondaryCooldownIcon.sprite = MeleeController.rageAuraImage;
+        }
+        if (ArrowController != null)
+        {
+            Arrow.SetActive(true);
+            ArrowPull.SetActive(true);
+            SecondaryCooldownIcon.sprite = ArrowController.bombArrowIcon;
         }
         if (InventoryUi.Instance.GetComponentInChildren<QuickSlot>(true).Item != null)
         {
-            quickSlotImage.sprite = Character.Instance.currentQuickItem.sprite;
+            quickSlotImage.sprite = target.character.currentQuickItem.sprite;
             if (quickAmount > 0)
             {
                 quickSlot.transform.GetChild(2).gameObject.SetActive(true);
@@ -191,12 +226,24 @@ public class PlayerUi : MonoBehaviourPun
 
     private void PotionSickness(float time)
     {
-        StartCoroutine("ApplyPotionSickness", time);   
+        StartCoroutine("ApplyPotionSickness", time);
         CooldownManager.CooldownGFX(QSlotCooldown, QSlotCooldownText, time, this);
     }
     public void SecondaryCooldownGFX(float time)
     {
         CooldownManager.CooldownGFX(SecondaryCooldown, SecondaryCooldownText, time, this);
+    }
+    public void SecondaryEquipped(bool state)
+    {
+        if (state)
+        {
+            ArrowEquiped.SetActive(true);
+
+        }
+        else if (!state)
+        {
+            ArrowEquiped.SetActive(false);
+        }
     }
     void Update()
     {
@@ -242,15 +289,71 @@ public class PlayerUi : MonoBehaviourPun
                 RageTextInv.text = (Mathf.RoundToInt(MeleeController.CurrentRage) + "/" + MeleeController.MaxRage);
             }
         }
+        if (ArrowController != null)
+        {
+            if (playerArrowSlider != null)
+            {
+                playerArrowSlider.maxValue = ArrowController.MaxArrows;
+                playerArrowSlider.value = ArrowController.CurrArrows;
+                ArrowText.text = (Mathf.RoundToInt(ArrowController.CurrArrows) + "/" + ArrowController.MaxArrows);
+            }
+            if (playerArrowSliderInv != null)
+            {
+                playerArrowSliderInv.maxValue = ArrowController.MaxArrows;
+                playerArrowSliderInv.value = ArrowController.CurrArrows;
+                ArrowTextInv.text = (Mathf.RoundToInt(ArrowController.CurrArrows) + "/" + ArrowController.MaxArrows);
+            }
+            if (playerArrowPullSlider != null)
+            {
+                if (ArrowController.isDrawing)
+                {
+                    elaspedTime += Time.deltaTime;
+                    float percentComplete = elaspedTime / ArrowController.DrawTime;
+                    playerArrowPullSlider.value = Mathf.Lerp(0, 1, percentComplete);
+                    if (ArrowController.readyToFire())
+                    {
+                        ArrowPullFill.color = Color.yellow;
+                    }
+                }
+                else if (!ArrowController.isDrawing)
+                {
+                    playerArrowPullSlider.value = 0;
+                    elaspedTime = 0;
+                    ArrowPullFill.color = Color.white;
+                }
+                
+
+
+            }
+            if (ArrowReload != null)
+            {
+                if (ArrowController.isReloading)
+                {
+                    reloadTime += Time.deltaTime;
+                    if (reloadTime <= ArrowController.timeBetweenReload)
+                        ArrowReload.fillAmount = reloadTime / ArrowController.timeBetweenReload;
+                    else if (reloadTime >= ArrowController.timeBetweenReload)
+                    {
+                        reloadTime = 0;
+                        ArrowReload.fillAmount = 0;
+                    }
+                }
+                else if (!ArrowController.isReloading)
+                {
+                    ArrowReload.fillAmount = 0;
+                    reloadTime = 0;
+                }
+            }
+        }
         if (target == null)
         {
             Destroy(this.gameObject);
             return;
         }
-        if (Character.Instance.currentQuickItem.sprite != null)
+        if (target.character.currentQuickItem.sprite != null)
         {
             quickSlotImage.color = new Color(1, 1, 1, 1);
-            quickSlotImage.sprite = Character.Instance.currentQuickItem.sprite;
+            quickSlotImage.sprite = target.character.currentQuickItem.sprite;
         }
         else
         {
@@ -308,6 +411,11 @@ public class PlayerUi : MonoBehaviourPun
             Rage.SetActive(true);
             RageInv.SetActive(false);
         }
+        if (ArrowController != null)
+        {
+            Arrow.SetActive(true);
+            ArrowInv.SetActive(false);
+        }
     }
     public void CloseUi()
     {
@@ -336,6 +444,11 @@ public class PlayerUi : MonoBehaviourPun
         {
             Rage.SetActive(false);
             RageInv.SetActive(true);
+        }
+        if (ArrowController != null)
+        {
+            Arrow.SetActive(false);
+            ArrowInv.SetActive(true);
         }
     }
     void toggleUi()
@@ -390,16 +503,6 @@ public class PlayerUi : MonoBehaviourPun
         gamepadCursor.player = target;
         gamepadCursor.enabled = true;
         CharacterController characterController = _target.GetComponent<CharacterController>();
-        MeeleController meeleController = target.GetComponent<MeeleController>();
-        MagicController magicController = target.GetComponent<MagicController>();
-        if (meeleController != null)
-        {
-            SecondaryCooldownIcon.sprite = meeleController.ragePulseImage;
-        }
-        else if (magicController != null)
-        {
-            SecondaryCooldownIcon.sprite = magicController.manaPulseImage;
-        }
         // Get data from the Player that won't change during the lifetime of this Component
         if (characterController != null)
         {

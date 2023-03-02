@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
+  m_Name: Blessing of Salvation
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: fd2ce0d4ce9164242a04edc6dd720a0b, type: 3}
+  ItemName: Blessing of Salvation
+  itemId: 0
+  ItemTier: 3
+  BuyPrice: 818
+  SellValue: 512
+  MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
+  id: 1f4956a1589ffa248823f07de73cd257
+  StrengthBonus: 0
+  AgilityBonus: 0
+  IntelligenceBonus: 0
+  VitalityBonus: 2
+  StrengthPercentBonus: 0
+  AgilityPercentBonus: 0.15
+  IntelligencePercentBonus: 0
+  VitalityPercentBonus: 0
+  Passives:
+  - {fileID: 11400000, guid: 217c7bafb8bd49142a31e6dafd4b55bf, type: 2}
+  EquipmentType: 11
+  BoundSpell: {fileID: 0}
+  BoundArrow: {fileID: 0}

@@ -45,7 +45,7 @@ public class UsableItem : Item
         if (sell)
             sb.Append("Sell Value: " + GetSellValue() + "G");
         else if (!sell)
-            sb.Append("Buy Price: " + GetBuyValue() + "G");
+            sb.Append("Buy Price: " + GetBuyPrice() + "G");
         return sb.ToString();
     }
 }

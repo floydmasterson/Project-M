@@ -34,3 +34,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5a5866b95a315074280760266b9487d3, type: 2}
   EquipmentType: 1
   BoundSpell: {fileID: 0}
+  BoundArrow: {fileID: 0}

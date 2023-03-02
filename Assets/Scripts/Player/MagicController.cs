@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
+using UnityEngine.TextCore.Text;
 
 public class MagicController : MonoBehaviourPun, IAttack
 {
@@ -15,7 +15,7 @@ public class MagicController : MonoBehaviourPun, IAttack
     private bool pulseOnCooldown;
 
     [TabGroup("Spell and Mana")]
-    public Spell selectedSpell;
+    public Projectile selectedSpell;
     [TabGroup("Spell and Mana")]
     [SerializeField] private bool isCasting = false;
     [TabGroup("Spell and Mana")]
@@ -171,13 +171,13 @@ public class MagicController : MonoBehaviourPun, IAttack
     {
         if (selectedSpell != null)
         {
-            bool hasEnoughMana = _currMana - selectedSpell.spellToCast.ManaCost >= 0f;
+            bool hasEnoughMana = _currMana - selectedSpell.ProjectileToUse.ManaCost >= 0f;
             if (!isCasting && hasEnoughMana)
             {
 
                 isCasting = true;
                 currentCastTimer = 0;
-                _currMana -= selectedSpell.spellToCast.ManaCost;
+                _currMana -= selectedSpell.ProjectileToUse.ManaCost;
                 StartCoroutine(AttackSpell());
                 currentManaRechargeTimer = 0;
                 isCasting = false;
@@ -196,7 +196,8 @@ public class MagicController : MonoBehaviourPun, IAttack
     void CastSpell()
     {
         photonView.RPC("spellCastSFX", RpcTarget.All);
-        PhotonNetwork.Instantiate(selectedSpell.name, castPoint.position, castPoint.rotation);
+        GameObject spell = PhotonNetwork.Instantiate(selectedSpell.name, castPoint.position, castPoint.rotation);
+        spell.GetComponent<Projectile>().Setup(manger.character, manger, null);
     }
     void MeeleAttack()
     {
@@ -209,11 +210,11 @@ public class MagicController : MonoBehaviourPun, IAttack
             Enemys Etarget = target.GetComponent<Enemys>();
             if (player != null && player != PlayerUi.Instance.target)
             {
-                player.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Strength.Value))), manger); ;
+                player.TakeDamge(DamageCaculator.MeleeDamage(manger.character, (int)DamageCaculator.Reciver.Player, null, player));
             }
             if (Etarget != null)
             {
-                Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Strength.Value / Mathf.Pow(2, (Etarget.Defense / Character.Instance.Strength.Value)))); ;
+                player.TakeDamge(DamageCaculator.MeleeDamage(manger.character, (int)DamageCaculator.Reciver.Mob, Etarget, null));
             }
         }
     }
@@ -240,11 +241,11 @@ public class MagicController : MonoBehaviourPun, IAttack
                     Enemys Etarget = target.GetComponent<Enemys>();
                     if (player != null && player != PlayerUi.Instance.target)
                     {
-                        player.TakeDamge(Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2f, (player.Defense / Character.Instance.Intelligence.Value))), manger); ;
+                        player.TakeDamge(DamageCaculator.MagicDamage(manger.character, (int)DamageCaculator.Reciver.Player, Etarget, null));
                     }
                     if (Etarget != null)
                     {
-                        Etarget.TakeDamge(Mathf.RoundToInt(Character.Instance.Intelligence.Value / Mathf.Pow(2, (Etarget.Defense / Character.Instance.Intelligence.Value)))); ;
+                        Etarget.TakeDamge(DamageCaculator.MagicDamage(manger.character, (int)DamageCaculator.Reciver.Mob, Etarget, null)); ;
                     }
                     Vector3 pushDirection = (target.transform.position - transform.position).normalized;
                     StartCoroutine(ManaPulsePush(target, pushDirection, PushForce));

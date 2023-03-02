@@ -5590,7 +5590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Strength:
-    BaseValue: 15
+    BaseValue: 10
   Agility:
     BaseValue: 4
   Intelligence:

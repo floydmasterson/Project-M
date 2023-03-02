@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
+  m_Name: Warpwood Crossbow
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: cc402fd1cab634044a4738e327f3cf5d, type: 3}
+  ItemName: Warpwood Crossbow
+  itemId: 0
+  ItemTier: 2
+  BuyPrice: 584
+  SellValue: 366
+  MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
+  id: c72bcfb94bdfdca43b14cc63f98aaa9d
+  StrengthBonus: 6
+  AgilityBonus: 0
+  IntelligenceBonus: 0
+  VitalityBonus: 0
+  StrengthPercentBonus: 0
+  AgilityPercentBonus: 0.05
+  IntelligencePercentBonus: 0
+  VitalityPercentBonus: 0
+  Passives:
+  - {fileID: 11400000, guid: 028096e9a3931b2488f88492d1029f2e, type: 2}
+  EquipmentType: 12
+  BoundSpell: {fileID: 0}
+  BoundArrow: {fileID: 0}

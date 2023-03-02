@@ -2150,9 +2150,11 @@ MonoBehaviour:
   - {fileID: 1225754737080601772}
   - {fileID: 7706761983648818352}
   - {fileID: 755821824794298904}
+  - {fileID: 6667498590393647515}
   EffectParent: {fileID: 3283686896799864636}
   posioned: 0
   slowed: 0
+  burning: 0
 --- !u!82 &5656496435505378225
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2891,6 +2893,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6551074660878760658, guid: dad347394b847a848bef8a2c83aae5f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8137596079102542236, guid: dad347394b847a848bef8a2c83aae5f3, type: 3}
       propertyPath: m_Name
       value: Effects Controller
@@ -2920,6 +2926,11 @@ Transform:
 --- !u!1 &4835880554796136514 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5004025489199645451, guid: dad347394b847a848bef8a2c83aae5f3, type: 3}
+  m_PrefabInstance: {fileID: 463203451315780425}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6667498590393647515 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6551074660878760658, guid: dad347394b847a848bef8a2c83aae5f3, type: 3}
   m_PrefabInstance: {fileID: 463203451315780425}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7706761983648818352 stripped

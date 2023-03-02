@@ -51,7 +51,7 @@ public class ProjectMCommands : CommandBehaviour
     private void kill()
     {
         if (localPlayer != null)
-            localPlayer.TakeDamge(999, null);
+            localPlayer.TakeDamge(999);
         else
             Debug.LogWarning("Local Player is not set. Try setup");
     }
@@ -59,7 +59,7 @@ public class ProjectMCommands : CommandBehaviour
     private void damage_player(int damage)
     {
         if (localPlayer != null)
-            localPlayer.TakeDamge(damage, null);
+            localPlayer.TakeDamge(damage);
         else
             Debug.LogWarning("Local Player is not set. Try setup");
     }
@@ -80,16 +80,16 @@ public class ProjectMCommands : CommandBehaviour
             if (state == true)
             {
                 localPlayer.DefenseMod += 100000;
-                Character.Instance.Strength.AddModifier((new StatModifier(1000, StatModType.Flat, godMode)));
-                Character.Instance.Intelligence.AddModifier((new StatModifier(1000, StatModType.Flat, godMode)));
+                localPlayer.character.Strength.AddModifier((new StatModifier(1000, StatModType.Flat, godMode)));
+                localPlayer.character.Intelligence.AddModifier((new StatModifier(1000, StatModType.Flat, godMode)));
                 localPlayer.CheckDefense();
             }
             else if (state == false)
             {
 
                 localPlayer.DefenseMod -= 100000;
-                Character.Instance.Strength.RemoveAllModifiersFromSource(godMode);
-                Character.Instance.Intelligence.RemoveAllModifiersFromSource(godMode);
+                localPlayer.character.Strength.RemoveAllModifiersFromSource(godMode);
+                localPlayer.character.Intelligence.RemoveAllModifiersFromSource(godMode);
                 localPlayer.CheckDefense();
             }
         }

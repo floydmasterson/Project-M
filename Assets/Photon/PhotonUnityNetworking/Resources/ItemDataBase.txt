@@ -1,0 +1,195 @@
+1- Gold Ring
+2- Tattered Robes
+3- Wooden Staff
+4- Stone Arrows
+5- Cloth Tunic
+6- Light Wood Bow
+7- Chain Vest
+8- Leather Bracer
+9- Training Sword
+10- Crimson Templar Belt
+11- Crimson Templar Bracers
+12- Crimson Templar Cape
+13- Crimson Templar Gambeson
+14- Crimson Templar Gloves
+15- Crimson Templar Hood
+16- Crimson Templar Leggings
+17- Crimson Templar Sholder Wraps
+18- Crimson Templar Wraps
+19- Cultist Belt
+20- Cultist Boots
+21- Cultist Bracers
+22- Cultist Gloves
+23- Cultist Hood
+24- Cultist Pants
+25- Cultist Robes
+26- Cultist Sholder Guard
+27- Cultist Staff
+28- Cultist Tome
+29- Gatekeeper Belt
+30- Gatekeeper Bolter
+31- Gatekeeper Bracers
+32- Gatekeeper Breastplate
+33- Gatekeeper Gloves
+34- Gatekeeper Hood
+35- Gatekeeper Legwraps
+36- Gatekeeper Quiver
+37- Gatekeeper Sholderplate
+38- Gatekeeper Shroud
+39- Gatekeeper Wraps
+40- Sharpshooter Belt
+41- Sharpshooter Boots
+42- Sharpshooter Bracers
+43- Sharpshooter Cap
+44- Sharpshooter Gloves
+45- Sharpshooter Leggings
+46- Sharpshooter Shaw
+47- Sharpshooter Sholderpad
+48- Sharpshooter Tunic
+49- Iron Hunter Belt
+50- Iron Hunter Blade
+51- Iron Hunter Bracers
+52- Iron Hunter Chest Plate
+53- Iron Hunter Cloak
+54- Iron Hunter Gauntlets
+55- Iron Hunter Greaves
+56- Iron Hunter Helm
+57- Iron Hunter Leggings
+58- Iron Hunter Shield
+59- Iron Hunter Sholder Guards
+60- Renegade Belt
+61- Renegade Boots
+62- Renegade Bracers
+63- Renegade Cloak
+64- Renegade Gloves
+65- Renegade Helm
+66- Renegade Pantaloons
+67- Renegade Sholder Pad 
+68- Renegade Tunic
+69- Amulet of Archery
+70- Armguards of Faded Vengeance
+71- Atuned Cloth Shroud
+72- Bone Arrows
+73- Bracers of Fallen Torment
+74- Elated Orb Brooch
+75- Elegant Wing
+76- Feral Mantle
+77- The Gentle Will
+78- Gifted Life Amulet
+79- Golden Visage
+80- Guardian's Grimoire
+81- Hatred's Sting
+82- The Heaven Hymn Ring
+83- Honor's Cloth Mantle
+84- Links of Speed
+85- Lonely Seal
+86- Loyal Blessings
+87- Malevolent Silk Cloak
+88- Scaled Cuffs
+89- The Ambassador
+90- The Pure Star
+91- Tinted Petal
+92- Tormented Shroud of the Blessed
+93- Woeful Ward
+94- Wristguards of Fleeting Protection
+95- Wristwraps of the Moonwalker
+96- Abyssal Belt
+97- Celestial Guardian
+98- Cord of Hallowed Misery
+99- Crown of Deflection
+100- Destroyer of Blessings
+101- Eclipse Belt
+102- Garments of Ancestors
+103- Hood of Lost Magic
+104- Lonely Cap of the Gargoyle
+105- Lost Voices
+106- Ritual Hide Vestment
+107- Soldier's Iron Armor
+108- Spectral Grasps
+109- Tunic of Dawn
+110- Twisted Chestguard of Clarity
+111- Ashwood Spirtstaff
+112- Bronzed Flatbow
+113- Ebon Compound Crossbow
+114- Moonlit Axe
+115- Ocular Lens
+116- Pride's Protector
+117- Pure Spire
+118- Warped Blade
+119- Willow Piercer
+120- Barbaric Linen Greatcloak
+121- Beads of Movment
+122- Cryomancer Mantle
+123- Devil's Kiss
+124- Devoted Grace
+125- Dream Whisper Tome
+126- Fury Gem Ring
+127- Grips of Fallen Nights
+128- Honor's End
+129- Linen Shroud of Lost Worlds
+130- Ocean Clover
+131- Primal Aegis
+132- Rain Maker
+133- The Gentle Drop
+134- The Onyx Moon
+135- Challenger Chestguard
+136- Defiler of Fury
+137- Gift of the Void
+138- Helm of Souls
+139- Knightly Quilted Britches
+140- Scaled Greaves
+141- Windsong Silk Treads
+142- Flux Ring
+143- Gatecrasher
+144- Malificent Scepter
+145- Piece Maker
+146- Spectral Cane
+147- The Messenger
+148- Warpwood Crossbow
+149- Beads of Restoration
+150- Death's Kiss
+151- Falling Star
+152- Final Voyage
+153- Heart Band
+154- Paladins Wall
+155- Raw Mana Gem
+156- Shield Ring
+157- The Elegant Resolve
+158- Arch Mage Leggings 
+159- Binding Mask
+160- Blessing of Salvation
+161- Rhino Guard
+162- Swifties
+163- Titans Belt
+164- Acrid Staff
+165- Fallen Warrior
+166- Final Whisper
+167- Forge Gods Hammer
+168- Hell's Whistle
+169- Ram Rod
+170- Tracers Rod
+171- Gold Coin
+172- Bing Qi Lin
+173- God Mode
+174- Rage Aura
+175- Rage Mode
+176- Slowed
+177- Small Health Potion
+178- Small Mana Potion
+179- Medium Health Potion
+180- Medium Mana Potion
+181- Magic Aura Potion
+182- Medium Agility Potion
+183- Rage Potion
+184- Icarus Potion
+185- Max Health Potion
+186- Large Mana Potion
+187- Large White Potion
+188- Magic Surge Potion
+189- Primal Rage Potion
+190- Bag of Holding
+191- Boot of Mobility
+192- Floyds Locket
+193- Noah's Tighty Whiteys 
+194- Velocity Gloves
+195- Very Angry Gloves

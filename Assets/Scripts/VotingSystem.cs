@@ -29,6 +29,10 @@ public class VotingSystem : MonoBehaviourPunCallbacks
         PlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
         popup = GetComponentInChildren<Canvas>(true);
         SkipButton.performed += ctx => CastVote(PlayerId);
+   
+    }
+    private void Start()
+    {
         if (GameManger.Instance != null)
             Destroy(gameObject, GameManger.Instance.gameTime + 60);
     }
@@ -50,8 +54,8 @@ public class VotingSystem : MonoBehaviourPunCallbacks
 
             if (votesReceived >= requiredVotes)
             {
-                shopPortal.OpenShopPortal();
                 timeSkip?.Invoke();
+                shopPortal.StartCoroutine(shopPortal.OpenShopPortal());
                 voteTracker.Clear();
                 votesReceived = 0;
             }

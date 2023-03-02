@@ -110,7 +110,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8de1501de4a19342aca851d8cf72678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellToCast: {fileID: 11400000, guid: b8cf2dc9f2e69c544a3629cca6e1ebf0, type: 2}
+  damageType: 0
+  ProjectileToUse: {fileID: 11400000, guid: b8cf2dc9f2e69c544a3629cca6e1ebf0, type: 2}
   ps: {fileID: 0}
   statusEffects: []
   homing: 1

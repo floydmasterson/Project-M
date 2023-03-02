@@ -29,7 +29,7 @@ public class PlayerManger : MonoBehaviourPun
     private CharacterController characterController;
 
     [TabGroup("Components"), SerializeField, Required]
-    private Animator animator;
+  private Animator animator;
 
     [TabGroup("Components"), SerializeField, Required]
     private Rigidbody Rb;
@@ -139,7 +139,8 @@ public class PlayerManger : MonoBehaviourPun
     private Vector3 velocity;
     private Vector3 Direction;
     private float ActCooldown;
-    private bool isRollExecuting = false;
+    [HideInInspector]
+    public bool isRollExecuting = false;
     private float turnSens = 0.025f;
 
 
@@ -274,11 +275,12 @@ public class PlayerManger : MonoBehaviourPun
         Vector3 initalDirection = Direction.normalized;
         isRollExecuting = true;
         float startTime = Time.time;
-        animator.SetTrigger("roll");
+        animator.ResetTrigger("Attack 0");
+        animator.Play("CharacterArmature|Roll");
         while (Time.time < startTime + .6f)
         {
             canMove = false;
-            characterController.Move((pushAmt + Character.Instance.Agility.Value) * Time.deltaTime * initalDirection);
+            characterController.Move((pushAmt + character.Agility.Value) * Time.deltaTime * initalDirection);
             yield return null;
         }
         canMove = true;
@@ -608,7 +610,6 @@ public class PlayerManger : MonoBehaviourPun
             animator.SetBool("moving", moving);
         }
     }
-
     private void UpdateRun(bool running)
     {
         animator.SetBool("running", running);
@@ -656,39 +657,20 @@ public class PlayerManger : MonoBehaviourPun
     }
     #endregion
     #region Damage and Healing
-    public void TakeDamge(int damage, object attacker)
+    public void TakeDamge(int damage)
     {
-        if (attacker is Enemys)
+        if (photonView.IsMine)
         {
-            if (photonView.IsMine)
-            {
-                animator.SetTrigger("wasHurt");
-                photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
-            }
-        }
-        else if (attacker is PlayerManger)
-        {
-            if (photonView.IsMine)
-                animator.SetTrigger("wasHurt");
             photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
         }
-        else if (attacker is null)
-        {
-            if (photonView.IsMine)
-            {
-                animator.SetTrigger("wasHurt");
-
-                photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
-            }
-        }
-
     }
 
     [PunRPC]
     public void TakeDamge_Rpc(int damage)
     {
-        if (isInvulnerable == false)
+        if (isInvulnerable == false && damage > 0)
         {
+            animator.Play("CharacterArmature|RecieveHit_2");
             hurt.PlaySFX();
             StartCoroutine(IFrames(0.5f));
             Debug.Log(this + "takes " + damage + " damage.");
@@ -760,17 +742,17 @@ public class PlayerManger : MonoBehaviourPun
     #region StatChecks
     public void CheckMaxHealth()
     {
-        _maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (Character.Instance.Vitality.Value / 2f)));
+        _maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (character.Vitality.Value / 2f)));
     }
     public float CheckDefense()
     {
-        _defense = Mathf.RoundToInt(Character.Instance.Vitality.Value * 1.1f / 2f) + DefenseMod;
+        _defense = Mathf.RoundToInt(character.Vitality.Value * 1.1f / 2f) + DefenseMod;
         return _defense;
     }
 
     public float CheckSpeed()
     {
-        float baseSpeed = (6 + Character.Instance.Agility.Value / 2);
+        float baseSpeed = (6 + character.Agility.Value / 2);
         float modSpeed = baseSpeed + (baseSpeed * speedMod);
         speed = modSpeed;
         return speed;
@@ -778,7 +760,7 @@ public class PlayerManger : MonoBehaviourPun
 
     public float CheckSprintSpeed()
     {
-        speed = (12 + Character.Instance.Agility.Value / 2);
+        speed = (12 + character.Agility.Value / 2);
         SprintSpeed = speed;
         return SprintSpeed;
     }

@@ -14,23 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 6a28a5c550e590a4ba9519a8d477b9d7, type: 3}
   ItemName: Cultist Robes
-  itemId: 21
+  itemId: 24
   ItemTier: 3
-  BuyPrice: 1026
-  SellValue: 642
+  BuyPrice: 1062
+  SellValue: 664
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: 466625d219c014940a8905c180836a01
   StrengthBonus: 0
   AgilityBonus: 0
-  IntelligenceBonus: 8
+  IntelligenceBonus: 9
   VitalityBonus: 2
   StrengthPercentBonus: 0
-  AgilityPercentBonus: 0.1
+  AgilityPercentBonus: 0.15
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
   Passives:
   - {fileID: 11400000, guid: 5a5866b95a315074280760266b9487d3, type: 2}
   EquipmentType: 1
   BoundSpell: {fileID: 0}
+  BoundArrow: {fileID: 0}

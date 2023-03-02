@@ -1343,6 +1343,30 @@ MonoBehaviour:
   BetterRandomAmount: 0
   lootTable:
     list:
+    - item: {fileID: 11400000, guid: 66f287925d3dd4e4799637f3c17b90d9, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 2d235cd1bc9f84e4088c691e92d49ea3, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 5a47938748235784b96fd3ed7510cefe, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 9f4cf4b144bce1e4494222bd00352e34, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 8699f36e88f150c4a9bc14b62cbd7cbb, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 9ae790ca39654ba4b9006e1668f1753b, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 440bb9cd4c9fba7439385b697606b220, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: ded431143bf87f44b8cede4a5bde7cb4, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: d6b5c46c9ff8c674b9e4a68f544cdf00, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 3401096e0d0113047bb5f274be991d2b, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 4a96d31548e11084fbef11bceb8ea3f2, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: b7d96a515f3064f4cbebe46a66fb732d, type: 2}
+      weight: 1
     - item: {fileID: 11400000, guid: 41b476013a2bedf41ab0c0f4d43790b0, type: 2}
       weight: 2
     - item: {fileID: 11400000, guid: eec6cc6f804d9fb4e8aca342d03329cc, type: 2}
@@ -1387,6 +1411,28 @@ MonoBehaviour:
       weight: 1
     - item: {fileID: 11400000, guid: f925ecce9f3501d40945cf5cf3ba1e16, type: 2}
       weight: 1
+    - item: {fileID: 11400000, guid: b7d96a515f3064f4cbebe46a66fb732d, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 4a96d31548e11084fbef11bceb8ea3f2, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 3401096e0d0113047bb5f274be991d2b, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: d6b5c46c9ff8c674b9e4a68f544cdf00, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: ded431143bf87f44b8cede4a5bde7cb4, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 440bb9cd4c9fba7439385b697606b220, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 9ae790ca39654ba4b9006e1668f1753b, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 8699f36e88f150c4a9bc14b62cbd7cbb, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 5a47938748235784b96fd3ed7510cefe, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 2d235cd1bc9f84e4088c691e92d49ea3, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 66f287925d3dd4e4799637f3c17b90d9, type: 2}
+      weight: 3
     - item: {fileID: 11400000, guid: 3fe165998f2be6d4ea3a0c2a6e73d02e, type: 2}
       weight: 3
     - item: {fileID: 11400000, guid: a4f629126af176b4bb98064859226ecb, type: 2}
@@ -1401,6 +1447,12 @@ MonoBehaviour:
       weight: 3
     - item: {fileID: 11400000, guid: dc9e45904fde3ac4e8989c343fd6bf8c, type: 2}
       weight: 2
+    - item: {fileID: 11400000, guid: e2db1bf75a1c09b488cbd3a3e68d244f, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: a2ce9a9d293b67f47939a52b8ac879b7, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: d96d98b946445594390cf28be0d34d99, type: 2}
+      weight: 2
     - item: {fileID: 11400000, guid: 1c1f4cbf0c9933542bd79423a561e179, type: 2}
       weight: 2
     - item: {fileID: 11400000, guid: f3f5166697a1b004aad276434cbd51c9, type: 2}
@@ -1409,11 +1461,15 @@ MonoBehaviour:
       weight: 2
     - item: {fileID: 11400000, guid: 468992fb2b51e6f4ba0cdccefab2c8f3, type: 2}
       weight: 2
+    - item: {fileID: 11400000, guid: 02a42d0ed537fd64a992047394322aef, type: 2}
+      weight: 2
     - item: {fileID: 11400000, guid: 8fd91becf5bce09408fd129374d8a011, type: 2}
       weight: 2
     - item: {fileID: 11400000, guid: 1d639a663fc2b4541bdb13f09341970b, type: 2}
       weight: 1
     - item: {fileID: 11400000, guid: c163f742b21d71949bc005c0f9334cc5, type: 2}
+      weight: 2
+    - item: {fileID: 11400000, guid: 1f4956a1589ffa248823f07de73cd257, type: 2}
       weight: 2
     - item: {fileID: 11400000, guid: 80ea5cda5b9a37c4596bf25b651544e2, type: 2}
       weight: 1
@@ -1422,6 +1478,10 @@ MonoBehaviour:
     - item: {fileID: 11400000, guid: 85b4068574efc7b49852d27c0aff1d78, type: 2}
       weight: 2
     - item: {fileID: 11400000, guid: 7c17528e1dcd72748a40f28e8edb3419, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: f3ffb854d2187d14f8c0673825abbaa7, type: 2}
+      weight: 1
+    - item: {fileID: 11400000, guid: 12e62f295855dc043a62a4cc6875acd0, type: 2}
       weight: 2
     - item: {fileID: 11400000, guid: 31981f503a35fc04ba4674648d121434, type: 2}
       weight: 2
@@ -1511,8 +1571,42 @@ MonoBehaviour:
       weight: 1
     - item: {fileID: 11400000, guid: 002486eb6fc80f343a2ab2a98cc6151a, type: 2}
       weight: 1
-    - item: {fileID: 11400000, guid: 63d96bf34e2cb3843a0b50c08ff871d8, type: 2}
-      weight: 1
+    - item: {fileID: 11400000, guid: 888ae38b118898e45b4cde2b0a9cb74d, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: c72bcfb94bdfdca43b14cc63f98aaa9d, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: 2a8b31bfd9ef8044c93e3b2a1dffb19d, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: 0b9f01bdbf0508749b5bb72778160c43, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: 4bb10a2051956094580b0d7a49be40b4, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: 895290802c9f4f642bc2713743d9b7fb, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: e7ad09861cd80d34aa31f7a8f51a3609, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: e918da34dfb033b44bd63f01eb27bab9, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: f3dd654ba9c43ec4c8fe48d27357c12c, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: dbccf1b5a560e204dac9e10552aa67c1, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: a74318150f917a64f88cc9cf964830ba, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: 2221b3ea840337a4d9f60caea29195f7, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: 84c0849277b426e40a161ea2dd600394, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: 43683db842826e74eaa1320cfc4393af, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: fce1313665ad67a459f2ef4bc5f506e8, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: 7e00c9bcfc20117458eef3e0ed2d2764, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: 01c4750f353a92b44bf59c8f3a88845c, type: 2}
+      weight: 0
+    - item: {fileID: 11400000, guid: 2cece2624ad6a804caaea183806cbb67, type: 2}
+      weight: 0
   ChestOpen:
     sfxType: 0
     sfxToPlay: {fileID: 11400000, guid: d515be3d2a981764591575f71f392fea, type: 2}

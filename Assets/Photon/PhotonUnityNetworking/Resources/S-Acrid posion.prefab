@@ -78,7 +78,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8de1501de4a19342aca851d8cf72678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellToCast: {fileID: 11400000, guid: 2dfaafff4c4d72f4d99ab222f9cef836, type: 2}
+  damageType: 0
+  ProjectileToUse: {fileID: 11400000, guid: 2dfaafff4c4d72f4d99ab222f9cef836, type: 2}
   ps: {fileID: 0}
   statusEffects:
   - {fileID: 11400000, guid: 5be3890a1adb2e947a2eb81d103fa184, type: 2}
@@ -91,6 +92,9 @@ MonoBehaviour:
   homingRange: 0
   rotForce: 0
   force: 0
+  willExpload: 0
+  exploasionDmg: 0
+  exploasionRange: 0
 --- !u!114 &-2581630659162678018
 MonoBehaviour:
   m_ObjectHideFlags: 0

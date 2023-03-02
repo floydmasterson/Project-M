@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 9c0039c84e5c49b4b9ba046ac33c6db5, type: 3}
   ItemName: Medium Health Potion
-  itemId: 122
+  itemId: 179
   ItemTier: 2
-  BuyPrice: 33
-  SellValue: 21
+  BuyPrice: 42
+  SellValue: 17
   MaximumStacks: 10
   IsConsumable: 1
   Notes: 

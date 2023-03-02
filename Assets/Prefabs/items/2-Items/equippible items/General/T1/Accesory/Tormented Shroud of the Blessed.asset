@@ -14,23 +14,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 40d54cb7224ba2540aa96fe7107bda53, type: 3}
   ItemName: Tormented Shroud of the Blessed
-  itemId: 61
+  itemId: 66
   ItemTier: 1
-  BuyPrice: 244
-  SellValue: 153
+  BuyPrice: 192
+  SellValue: 120
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
   id: 90aa8baec2c3e0943aea1d22d10db7c8
-  StrengthBonus: 0
+  StrengthBonus: 2
   AgilityBonus: 0
-  IntelligenceBonus: 3
+  IntelligenceBonus: 0
   VitalityBonus: 0
   StrengthPercentBonus: 0
-  AgilityPercentBonus: 0.05
+  AgilityPercentBonus: 0.03
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
-  Passives:
-  - {fileID: 11400000, guid: 5a5866b95a315074280760266b9487d3, type: 2}
+  Passives: []
   EquipmentType: 9
   BoundSpell: {fileID: 0}
+  BoundArrow: {fileID: 0}

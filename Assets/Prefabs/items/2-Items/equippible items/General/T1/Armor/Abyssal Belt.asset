@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: beaf54de19a9c18449330368daee0b27, type: 3}
   ItemName: Abyssal Belt
+  itemId: 96
   ItemTier: 1
-  cost: 236
+  BuyPrice: 306
+  SellValue: 123
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
@@ -25,9 +27,10 @@ MonoBehaviour:
   IntelligenceBonus: 0
   VitalityBonus: 1
   StrengthPercentBonus: 0
-  AgilityPercentBonus: 0.02
+  AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
   Passives: []
   EquipmentType: 4
   BoundSpell: {fileID: 0}
+  BoundArrow: {fileID: 0}

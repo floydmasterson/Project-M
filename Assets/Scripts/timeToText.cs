@@ -19,12 +19,10 @@ public class timeToText : MonoBehaviourPun
 
     private void OnEnable()
     {
-        VotingSystem.Instance.timeSkip += () => Destroy(gameObject);
         VotingSystem.Instance.voteCast += updateVote;
     }
     private void OnDestroy()
     {
-        VotingSystem.Instance.timeSkip -= () => Destroy(gameObject);
         VotingSystem.Instance.voteCast -= updateVote;
 
     }

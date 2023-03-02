@@ -225,7 +225,7 @@ public class Enemys : MonoBehaviourPun
             {
                 photonView.RPC("UpdateAttack", RpcTarget.All);
                 yield return new WaitForSecondsRealtime(.5f);
-                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2.2f, (player.Defense / Power))), this); ;
+                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2.2f, (player.Defense / Power)))); ;
                 if (player.CurrentHealth <= 0)
                 {
                     Target = null;
@@ -318,7 +318,7 @@ public class Enemys : MonoBehaviourPun
             PlayerManger player = target.GetComponent<PlayerManger>();
             if (player.isAlive == true)
             {
-                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2.6f, (player.Defense / Power))), this); ;
+                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2.6f, (player.Defense / Power)))); ;
             }
         }
     }

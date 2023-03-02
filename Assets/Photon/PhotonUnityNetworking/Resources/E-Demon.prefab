@@ -1991,9 +1991,11 @@ MonoBehaviour:
   - {fileID: 4689481704980048392}
   - {fileID: 4243877949208068628}
   - {fileID: 6515464298572836028}
+  - {fileID: 905528192895461183}
   EffectParent: {fileID: 9045299970259431832}
   posioned: 0
   slowed: 0
+  burning: 0
 --- !u!195 &6814886940248751542
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3032,8 +3034,17 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: -0.13
       objectReference: {fileID: 0}
+    - target: {fileID: 6551074660878760658, guid: dad347394b847a848bef8a2c83aae5f3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dad347394b847a848bef8a2c83aae5f3, type: 3}
+--- !u!1 &905528192895461183 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6551074660878760658, guid: dad347394b847a848bef8a2c83aae5f3, type: 3}
+  m_PrefabInstance: {fileID: 6231577421739400685}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1372150987424390886 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5004025489199645451, guid: dad347394b847a848bef8a2c83aae5f3, type: 3}

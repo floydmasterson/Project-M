@@ -35,6 +35,8 @@ public class ShopController : ItemContainer
     int amount;
     [TabGroup("Setup")]
     [SerializeField] ItemTooltip itemTooltip;
+    [TabGroup("Setup")]
+    [SerializeField] GameObject popup;
 
     public event Action<Item> RemovedFromCart;
     int playerStartingGold;
@@ -72,6 +74,7 @@ public class ShopController : ItemContainer
         currentPlayer.OnDropEvent += slot => UpdateSellAmount();
         currentPlayer.OnEndDragEvent += slot => UpdateSellAmount();
         currentPlayer.OnRightClickEvent += slot => UpdateSellAmount();
+        ShowPopup(false);
         #endregion
 
         isOpen = true;
@@ -97,6 +100,7 @@ public class ShopController : ItemContainer
         currentPlayerUI = null;
         currentCharacter = null;
         isOpen = false;
+        ShowPopup(true);
     }
 
     public void swapMenu()
@@ -281,12 +285,21 @@ public class ShopController : ItemContainer
             itemTooltip.HideTooltip();
         }
     }
+    private void ShowPopup(bool state)
+    {
+        if (state)
+            popup.SetActive(true);
+        else if (!state)
+            popup.SetActive(false);
+
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             PlayerManger player = other.GetComponent<PlayerManger>();
             player.shop = this;
+            ShowPopup(true);
         }
     }
     private void OnTriggerExit(Collider other)
@@ -295,6 +308,7 @@ public class ShopController : ItemContainer
         {
             PlayerManger player = other.GetComponent<PlayerManger>();
             player.shop = null;
+            ShowPopup(false);
         }
     }
 }

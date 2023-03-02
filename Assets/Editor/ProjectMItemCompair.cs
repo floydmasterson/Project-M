@@ -107,10 +107,10 @@ public class ProjectMItemCompair : OdinEditorWindow
     [HorizontalGroup("Spells and Passives/Split")]
     [VerticalGroup("Spells and Passives/Split/Left")]
     [BoxGroup("Spells and Passives/Split/Left/Item 1", showLabel: false), InlineEditor, SerializeField, HideLabel, HideIf("@item1Spell == null"), ListDrawerSettings(Expanded = true, ShowIndexLabels = true, HideAddButton = true, HideRemoveButton = true, IsReadOnly = true)]
-    private SpellScriptableObject item1Spell;
+    private ProjectileSO item1Spell;
     [VerticalGroup("Spells and Passives/Split/Right")]
     [BoxGroup("Spells and Passives/Split/Right/Item 2", showLabel: false), InlineEditor, SerializeField, HideLabel, HideIf("@item2Spell == null"), ListDrawerSettings(Expanded = true, ShowIndexLabels = true, HideAddButton = true, HideRemoveButton = true, IsReadOnly = true)]
-    private SpellScriptableObject item2Spell;
+    private ProjectileSO item2Spell;
     [BoxGroup("Spells and Passives/Split/Left/Item 1", showLabel: false), SerializeField, HideLabel, ListDrawerSettings(Expanded = true, ShowIndexLabels = true, HideAddButton = true, HideRemoveButton = true, IsReadOnly = true)]
     private PassiveSO[] Item1passives;
     [BoxGroup("Spells and Passives/Split/Right/Item 2", showLabel: false), SerializeField, HideLabel, ListDrawerSettings(Expanded = true, ShowIndexLabels = true, HideAddButton = true, HideRemoveButton = true, IsReadOnly = true)]
@@ -177,7 +177,7 @@ public class ProjectMItemCompair : OdinEditorWindow
         {
             EquippableItem item = item1 as EquippableItem;
             if (item.BoundSpell != null)
-                item1Spell = item.BoundSpell.spellToCast;
+                item1Spell = item.BoundSpell.ProjectileToUse;
             if (!item.Passives.IsNullOrEmpty())
                 Item1passives = item.Passives.ToArray();
             statCheck(item, 1);
@@ -187,7 +187,7 @@ public class ProjectMItemCompair : OdinEditorWindow
         {
             EquippableItem item = item2 as EquippableItem;
             if (item.BoundSpell != null)
-                item2Spell = item.BoundSpell.spellToCast;
+                item2Spell = item.BoundSpell.ProjectileToUse;
 
             if (!item.Passives.IsNullOrEmpty())
                 Item2passives = item.Passives.ToArray();

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
+  m_Name: Gatekeeper Wraps
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: 73f5548a883862044a366eb54ae21674, type: 3}
+  ItemName: Gatekeeper Wraps
+  itemId: 0
+  ItemTier: 3
+  BuyPrice: 864
+  SellValue: 540
+  MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
+  id: 66f287925d3dd4e4799637f3c17b90d9
+  StrengthBonus: 3
+  AgilityBonus: 0
+  IntelligenceBonus: 0
+  VitalityBonus: 0
+  StrengthPercentBonus: 0
+  AgilityPercentBonus: 0.15
+  IntelligencePercentBonus: 0
+  VitalityPercentBonus: 0
+  Passives:
+  - {fileID: 11400000, guid: ea0c12f00f020bc44967847e7146580d, type: 2}
+  EquipmentType: 3
+  BoundSpell: {fileID: 0}
+  BoundArrow: {fileID: 0}

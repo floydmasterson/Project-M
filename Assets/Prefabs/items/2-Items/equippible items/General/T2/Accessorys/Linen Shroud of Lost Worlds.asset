@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7a67ee28b6adf441814e60bcb404307, type: 3}
+  m_Name: Linen Shroud of Lost Worlds
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: 56b0229e69716934487523ea9cdc5956, type: 3}
+  ItemName: Linen Shroud of Lost Worlds
+  itemId: 0
+  ItemTier: 2
+  BuyPrice: 504
+  SellValue: 315
+  MaximumStacks: 1
+  IsConsumable: 0
+  Notes: 
+  id: 895290802c9f4f642bc2713743d9b7fb
+  StrengthBonus: 2
+  AgilityBonus: 0
+  IntelligenceBonus: 0
+  VitalityBonus: 0
+  StrengthPercentBonus: 0
+  AgilityPercentBonus: 0.15
+  IntelligencePercentBonus: 0
+  VitalityPercentBonus: 0
+  Passives:
+  - {fileID: 11400000, guid: 722a3c7a36d2c1d439d0157a03d48f9f, type: 2}
+  EquipmentType: 9
+  BoundSpell: {fileID: 0}
+  BoundArrow: {fileID: 0}

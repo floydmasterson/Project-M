@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 46efe880fe4adc44697ceb4b88778f38, type: 3}
   ItemName: Iron Hunter Belt
-  itemId: 25
+  itemId: 28
   ItemTier: 3
-  BuyPrice: 882
-  SellValue: 552
+  BuyPrice: 900
+  SellValue: 563
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
@@ -25,7 +25,7 @@ MonoBehaviour:
   StrengthBonus: 6
   AgilityBonus: 0
   IntelligenceBonus: 0
-  VitalityBonus: 0
+  VitalityBonus: 1
   StrengthPercentBonus: 0
   AgilityPercentBonus: 0
   IntelligencePercentBonus: 0
@@ -33,3 +33,4 @@ MonoBehaviour:
   Passives: []
   EquipmentType: 4
   BoundSpell: {fileID: 0}
+  BoundArrow: {fileID: 0}
