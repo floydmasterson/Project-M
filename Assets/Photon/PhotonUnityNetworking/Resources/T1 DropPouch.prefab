@@ -2638,7 +2638,6 @@ GameObject:
   - component: {fileID: 4241361436811412870}
   - component: {fileID: 6060858752418257350}
   - component: {fileID: 8880091359569570710}
-  - component: {fileID: -562863663172890622}
   - component: {fileID: 4860510866368125536}
   - component: {fileID: 1942934937522772241}
   m_Layer: 0
@@ -2719,7 +2718,7 @@ MonoBehaviour:
   meshFilter: {fileID: 0}
   close: {fileID: 0}
   open: {fileID: 0}
-  outline: {fileID: -562863663172890622}
+  outline: {fileID: 0}
   pickUpAllowed: 0
   playerInRange: 0
   isOpen: 0
@@ -2824,24 +2823,6 @@ MonoBehaviour:
     waitToPlay: 1
     useDefualt: 0
     audioSource: {fileID: 4860510866368125536}
---- !u!114 &-562863663172890622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3573473735180492604}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 0.83482486, g: 0.8773585, b: 0.19450872, a: 1}
-  outlineWidth: 10
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!82 &4860510866368125536
 AudioSource:
   m_ObjectHideFlags: 0

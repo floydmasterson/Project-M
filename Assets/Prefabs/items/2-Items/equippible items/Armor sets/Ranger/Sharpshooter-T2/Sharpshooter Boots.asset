@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: a861bcfdad0cf904aa87ac390c096fa7, type: 3}
   ItemName: Sharpshooter Boots
-  itemId: 0
+  itemId: 41
   ItemTier: 2
-  BuyPrice: 512
-  SellValue: 321
+  BuyPrice: 630
+  SellValue: 252
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
@@ -27,7 +27,7 @@ MonoBehaviour:
   IntelligenceBonus: 0
   VitalityBonus: 0
   StrengthPercentBonus: 0
-  AgilityPercentBonus: 0.2
+  AgilityPercentBonus: 0.15
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
   Passives:

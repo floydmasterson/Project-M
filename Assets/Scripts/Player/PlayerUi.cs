@@ -171,6 +171,7 @@ public class PlayerUi : MonoBehaviourPun
     {
         Instance = this;
         gamepadCursor = GetComponentInChildren<GamepadCursor>();
+     
         QSlotCooldown.fillAmount = 0f;
         SecondaryCooldown.fillAmount = 0f;
         SecondaryCooldownText.gameObject.SetActive(false);
@@ -195,6 +196,7 @@ public class PlayerUi : MonoBehaviourPun
         MagicController = target.gameObject.GetComponent<MagicController>();
         MeleeController = target.gameObject.GetComponent<MeeleController>();
         ArrowController = target.gameObject.GetComponent<ArrowController>();
+        StartCoroutine(Fadeout(3f, false));
 
         if (MagicController != null)
         {
@@ -508,7 +510,7 @@ public class PlayerUi : MonoBehaviourPun
         {
             characterControllerHeight = characterController.height;
         }
-        StartCoroutine(Fadeout(.6f, false));
+        StartCoroutine(Fadeout(.8f, false));
 
     }
     public void ShopTime()

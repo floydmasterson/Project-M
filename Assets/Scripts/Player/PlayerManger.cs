@@ -29,7 +29,7 @@ public class PlayerManger : MonoBehaviourPun
     private CharacterController characterController;
 
     [TabGroup("Components"), SerializeField, Required]
-  private Animator animator;
+    private Animator animator;
 
     [TabGroup("Components"), SerializeField, Required]
     private Rigidbody Rb;
@@ -141,7 +141,7 @@ public class PlayerManger : MonoBehaviourPun
     private float ActCooldown;
     [HideInInspector]
     public bool isRollExecuting = false;
-    private float turnSens = 0.025f;
+    public float turnSens;
 
 
     //attacking
@@ -195,6 +195,7 @@ public class PlayerManger : MonoBehaviourPun
     public static event inventoryO onInventoryOpen;
     public delegate void inventoryC();
     public static event inventoryC onInventoryClose;
+    private GameObject invPrefab;
 
     //Audio 
     [TabGroup("Audio"), Required, SerializeField]
@@ -249,13 +250,6 @@ public class PlayerManger : MonoBehaviourPun
 
 
     }
-    public IEnumerator MoveLock(float time)
-    {
-        canMove = false;
-        yield return new WaitForSecondsRealtime(time);
-        canMove = true;
-
-    }
     public IEnumerator IFrames(float time)
     {
         isInvulnerable = true;
@@ -291,8 +285,8 @@ public class PlayerManger : MonoBehaviourPun
         canMove = false;
         UpdateMoving(false);
         UpdateRun(false);
-        StartCoroutine(IFrames(2));
         PlayerUi.Instance.ShopTime();
+        StartCoroutine(IFrames(2));
         yield return new WaitForSecondsRealtime(1.8f);
         transform.position = new Vector3(1753, -107, -592);
         inShop = true;
@@ -329,6 +323,18 @@ public class PlayerManger : MonoBehaviourPun
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        if (InventoryPrefab != null)
+        {
+            invPrefab = Instantiate(InventoryPrefab);
+            invPrefab.GetComponent<InventoryUi>().SetTargetI(this);
+            character = invPrefab.GetComponent<Character>();
+            if (!photonView.IsMine)
+                invPrefab.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("<Color=Red><a>Missing</a></Color> IventoryPrefab reference on player Prefab.", this);
+        }
         if (photonView.IsMine)
         {
             IsLocal = true;
@@ -347,32 +353,28 @@ public class PlayerManger : MonoBehaviourPun
             {
                 Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
             }
-            if (InventoryPrefab != null)
-            {
-                GameObject _uiGoi = Instantiate(InventoryPrefab) as GameObject;
-                _uiGoi.GetComponent<InventoryUi>().SetTargetI(this);
-                character = _uiGoi.GetComponent<Character>();
-            }
-            else
-            {
-                Debug.LogWarning("<Color=Red><a>Missing</a></Color> IventoryPrefab reference on player Prefab.", this);
-            }
             GamepadCursor.Instance.playerInput = playerInput;
-
+            Debug.Log("This Client is " + PhotonNetwork.NickName);
         }
         else
         {
             lockCamera.Priority = 0;
         }
 
+
     }
+
+
     private void Start()
     {
-        CheckMaxHealth();
-        CheckDefense();
-        StartCoroutine(PreLoad());
-        CurrentHealth = MaxHealth;
-        updateSens();
+        if (photonView.IsMine)
+        {
+            CheckMaxHealth();
+            CheckDefense();
+            StartCoroutine(PreLoad());
+            CurrentHealth = MaxHealth;
+            updateSens();
+        }
 
     }
     private void FixedUpdate()
@@ -479,65 +481,71 @@ public class PlayerManger : MonoBehaviourPun
     }
     public void InventorySwitch(InputAction.CallbackContext context)
     {
-        if (!context.started)
-            return;
-        if (inChest == false && isAlive == true)
+        if (photonView.IsMine)
         {
-            if (InvIsOpen == false)
+            if (!context.started)
+                return;
+            if (inChest == false && isAlive == true)
             {
-                UpdateMoving(false);
-                UpdateRun(false);
-                InvIsOpen = true;
-                onInventoryOpen();
-                CursorToggle(true);
+                if (InvIsOpen == false)
+                {
+                    UpdateMoving(false);
+                    UpdateRun(false);
+                    InvIsOpen = true;
+                    onInventoryOpen();
+                    CursorToggle(true);
 
-            }
-            else if (InvIsOpen == true)
-            {
-                onInventoryClose();
-                CursorToggle(false);
-                InvIsOpen = false;
+                }
+                else if (InvIsOpen == true)
+                {
+                    onInventoryClose();
+                    CursorToggle(false);
+                    InvIsOpen = false;
 
+                }
             }
         }
     }
     public void ContainerSwitch(InputAction.CallbackContext context)
     {
-        if (!context.started)
-            return;
-        if (lootContainerManager.CanBeOpened() && inChest == false)
+        if (photonView.IsMine)
         {
-            UpdateMoving(false);
-            UpdateRun(false);
-            lootContainerManager.OpenContiner(character);
-            onInventoryOpen();
-            inChest = true;
-            playerInput.SwitchCurrentActionMap("Container");
-            CursorToggle(true);
-        }
-        else if (lootContainerManager.CanBeClosed() && inChest == true)
-        {
-            lootContainerManager.CloseContiner(character);
-            onInventoryClose();
-            inChest = false;
-            playerInput.SwitchCurrentActionMap("Player");
-            CursorToggle(false);
-        }
-        else if (shop != null && !shop.isOpen)
-        {
-            UpdateMoving(false);
-            UpdateRun(false);
-            onInventoryOpen();
-            shop.Open(character);
-            playerInput.SwitchCurrentActionMap("Container");
-            CursorToggle(true);
-        }
-        else if (shop != null && shop.isOpen)
-        {
-            shop.Close(character);
-            onInventoryClose();
-            playerInput.SwitchCurrentActionMap("Player");
-            CursorToggle(false);
+            if (!context.started)
+                return;
+            if (lootContainerManager.CanBeOpened() && inChest == false)
+            {
+                UpdateMoving(false);
+                UpdateRun(false);
+                lootContainerManager.OpenContiner(character);
+                onInventoryOpen();
+                inChest = true;
+                playerInput.SwitchCurrentActionMap("Container");
+                CursorToggle(true);
+            }
+            else if (lootContainerManager.CanBeClosed() && inChest == true)
+            {
+                lootContainerManager.CloseContiner(character);
+                onInventoryClose();
+                inChest = false;
+                playerInput.SwitchCurrentActionMap("Player");
+                CursorToggle(false);
+            }
+            else if (shop != null && !shop.isOpen)
+            {
+                UpdateMoving(false);
+                UpdateRun(false);
+                onInventoryOpen();
+                shop.Open(character);
+                playerInput.SwitchCurrentActionMap("Container");
+                CursorToggle(true);
+            }
+            else if (shop != null && shop.isOpen)
+            {
+                shop.Close(character);
+                onInventoryClose();
+                playerInput.SwitchCurrentActionMap("Player");
+                CursorToggle(false);
+            }
         }
     }
     public void Menu(InputAction.CallbackContext context)
@@ -584,15 +592,18 @@ public class PlayerManger : MonoBehaviourPun
     }
     public void Sprint(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (photonView.IsMine)
         {
-            speed = CheckSprintSpeed();
-            UpdateRun(true);
-        }
-        if (context.canceled)
-        {
-            CheckSpeed();
-            UpdateRun(false);
+            if (context.performed)
+            {
+                speed = CheckSprintSpeed();
+                UpdateRun(true);
+            }
+            if (context.canceled)
+            {
+                CheckSpeed();
+                UpdateRun(false);
+            }
         }
     }
 
@@ -659,10 +670,7 @@ public class PlayerManger : MonoBehaviourPun
     #region Damage and Healing
     public void TakeDamge(int damage)
     {
-        if (photonView.IsMine)
-        {
-            photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
-        }
+        photonView.RPC("TakeDamge_Rpc", RpcTarget.All, damage);
     }
 
     [PunRPC]
@@ -674,17 +682,16 @@ public class PlayerManger : MonoBehaviourPun
             hurt.PlaySFX();
             StartCoroutine(IFrames(0.5f));
             Debug.Log(this + "takes " + damage + " damage.");
+            if (showDmgNumber)
+            {
+                var text = Instantiate(FloatingText, DmgTextspawn.position, Quaternion.Euler(0, 180, 0), DmgTextspawn);
+                text.GetComponent<TextMesh>().text = damage.ToString();
+            }
             if (photonView.IsMine)
             {
                 if (gameObject.GetComponent<MeeleController>() != null)
                     OnDamaged(damage);
                 CurrentHealth -= damage;
-                if (showDmgNumber)
-                {
-                    var text = Instantiate(FloatingText, DmgTextspawn.position, Quaternion.Euler(0, 180, 0), DmgTextspawn);
-                    text.GetComponent<TextMesh>().text = damage.ToString();
-
-                }
                 if (CurrentHealth <= 0 && isAlive == true)
                 {
                     CurrentHealth = 0;
@@ -742,26 +749,39 @@ public class PlayerManger : MonoBehaviourPun
     #region StatChecks
     public void CheckMaxHealth()
     {
-        _maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (character.Vitality.Value / 2f)));
+        if (photonView.IsMine)
+            _maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, character.Vitality.Value / 2f));
     }
     public float CheckDefense()
     {
-        _defense = Mathf.RoundToInt(character.Vitality.Value * 1.1f / 2f) + DefenseMod;
+        if (photonView.IsMine)
+        {
+            _defense = Mathf.RoundToInt(character.Vitality.Value * 1.1f / 2f) + DefenseMod;
+            return _defense;
+        }
         return _defense;
     }
 
     public float CheckSpeed()
     {
-        float baseSpeed = (6 + character.Agility.Value / 2);
-        float modSpeed = baseSpeed + (baseSpeed * speedMod);
-        speed = modSpeed;
+        if (photonView.IsMine)
+        {
+            float baseSpeed = 6 + character.Agility.Value / 2;
+            float modSpeed = baseSpeed + (baseSpeed * speedMod);
+            speed = modSpeed;
+            return speed;
+        }
         return speed;
     }
 
     public float CheckSprintSpeed()
     {
-        speed = (12 + character.Agility.Value / 2);
-        SprintSpeed = speed;
+        if (photonView.IsMine)
+        {
+            speed = (12 + character.Agility.Value / 2);
+            SprintSpeed = speed;
+            return SprintSpeed;
+        }
         return SprintSpeed;
     }
 
@@ -776,11 +796,6 @@ public class PlayerManger : MonoBehaviourPun
     }
 #endif
 
-    [PunRPC]
-    public void PlaySFXRPC(SFX sFX)
-    {
-        sFX.PlaySFX();
-    }
 
     void toggleHealNumber(bool state)
     {
@@ -807,9 +822,15 @@ public class PlayerManger : MonoBehaviourPun
         if (photonView.IsMine)
         {
             if (playerInput.currentControlScheme == "Keyboard")
+            {
                 turnSens = PlayerPrefs.GetFloat(Keybaord_Sensativity, .3f);
+                Debug.Log("Sens update");
+            }
             if (playerInput.currentControlScheme == "Controller")
+            {
                 turnSens = PlayerPrefs.GetFloat(Gamepad_Sensativity, 3.85f);
+                Debug.Log("Sens update");
+            }
         }
     }
     #endregion

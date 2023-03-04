@@ -180,7 +180,7 @@ public class Outline : MonoBehaviour {
   void LoadSmoothNormals() {
 
     // Retrieve or generate smooth normals
-    foreach (var meshFilter in GetComponentsInChildren<MeshFilter>()) {
+    foreach (var meshFilter in GetComponents<MeshFilter>()) {
 
       // Skip if smooth normals have already been adopted
       if (!registeredMeshes.Add(meshFilter.sharedMesh)) {
@@ -203,7 +203,7 @@ public class Outline : MonoBehaviour {
     }
 
     // Clear UV3 on skinned mesh renderers
-    foreach (var skinnedMeshRenderer in GetComponentsInChildren<SkinnedMeshRenderer>()) {
+    foreach (var skinnedMeshRenderer in GetComponents<SkinnedMeshRenderer>()) {
 
       // Skip if UV3 has already been reset
       if (!registeredMeshes.Add(skinnedMeshRenderer.sharedMesh)) {

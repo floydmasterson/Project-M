@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 21300000, guid: 351c0a16750e6ed4090ddcc9fa9d709d, type: 3}
   ItemName: Sharpshooter Bracers
-  itemId: 0
+  itemId: 42
   ItemTier: 2
-  BuyPrice: 440
-  SellValue: 276
+  BuyPrice: 540
+  SellValue: 216
   MaximumStacks: 1
   IsConsumable: 0
   Notes: 
@@ -27,7 +27,7 @@ MonoBehaviour:
   IntelligenceBonus: 0
   VitalityBonus: 0
   StrengthPercentBonus: 0.05
-  AgilityPercentBonus: 0.15
+  AgilityPercentBonus: 0.1
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
   Passives: []

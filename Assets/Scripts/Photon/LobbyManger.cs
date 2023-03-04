@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine.UI;
+using System.Collections.Generic;
 using TMPro;
-using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class LobbyManger : MonoBehaviourPunCallbacks
 {
@@ -50,20 +47,27 @@ public class LobbyManger : MonoBehaviourPunCallbacks
         {
             playButton.SetActive(false);
         }
-      
+
     }
 
     public void OnClickPlayButton()
     {
-        Loader.Load(Loader.Scene.Game);
+        photonView.RPC("LoadGame", RpcTarget.All) ;
         playButton.SetActive(false);
     }
+
+    [PunRPC]
+    public void LoadGame()
+    {
+        Loader.Load(Loader.Scene.Game);
+    }
+
 
     public void OnClickCreate()
     {
         if (roomName.text.Length >= 1)
         {
-            PhotonNetwork.CreateRoom(roomInput.text, new RoomOptions() { MaxPlayers = 4, BroadcastPropsChangeToAll = true});
+            PhotonNetwork.CreateRoom(roomInput.text, new RoomOptions() { MaxPlayers = 4, BroadcastPropsChangeToAll = true });
         }
     }
 
@@ -82,14 +86,14 @@ public class LobbyManger : MonoBehaviourPunCallbacks
         {
             UpdateRoomList(roomList);
             nextUpdate = Time.time + timeBUpdate;
-        } 
+        }
     }
 
     public void UpdateRoomList(List<RoomInfo> list)
     {
         foreach (RoomItem item in roomItemsList)
         {
-           Destroy(item.gameObject);
+            Destroy(item.gameObject);
         }
         roomItemsList.Clear();
 
@@ -131,7 +135,7 @@ public class LobbyManger : MonoBehaviourPunCallbacks
             Destroy(item.gameObject);
         }
         playerItemsList.Clear();
-        
+
         if (PhotonNetwork.CurrentRoom == null)
         {
             return;
@@ -160,5 +164,5 @@ public class LobbyManger : MonoBehaviourPunCallbacks
         UpdatePlayerList();
     }
 
-    
+
 }

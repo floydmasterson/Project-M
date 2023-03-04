@@ -195,6 +195,15 @@ public class ProjectMCommands : CommandBehaviour
             Debug.LogWarning("Local Player is not set. Try setup");
     }
 
+    [Command]
+    private void sens()
+    {
+        if (localPlayer != null)
+            Debug.Log(localPlayer.turnSens);
+        else
+            Debug.LogWarning("Local Player is not set. Try setup");
+    }
+
     #endregion
     #region Spawn Things
     [Command]

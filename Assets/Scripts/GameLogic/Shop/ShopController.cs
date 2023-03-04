@@ -1,3 +1,4 @@
+using Photon.Pun;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -295,7 +296,7 @@ public class ShopController : ItemContainer
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && other.GetComponent<PhotonView>().IsMine)
         {
             PlayerManger player = other.GetComponent<PlayerManger>();
             player.shop = this;
@@ -304,7 +305,7 @@ public class ShopController : ItemContainer
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") && other.GetComponent<PhotonView>().IsMine)
         {
             PlayerManger player = other.GetComponent<PlayerManger>();
             player.shop = null;

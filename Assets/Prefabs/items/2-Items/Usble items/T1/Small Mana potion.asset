@@ -16,7 +16,7 @@ MonoBehaviour:
   ItemName: Small Mana Potion
   itemId: 178
   ItemTier: 1
-  BuyPrice: 16
+  BuyPrice: 17
   SellValue: 7
   MaximumStacks: 20
   IsConsumable: 1

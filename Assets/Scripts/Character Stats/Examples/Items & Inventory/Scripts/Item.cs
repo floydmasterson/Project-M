@@ -91,7 +91,7 @@ public class Item : ScriptableObject
     }
     public virtual int GetBuyPrice()
     {
-        return value + (int)(value * .50f);
+        return value + (int)(value * .60f);
     }
 
     public virtual int FindCost(Item Item)

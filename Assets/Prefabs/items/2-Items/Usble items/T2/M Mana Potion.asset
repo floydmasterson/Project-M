@@ -16,7 +16,7 @@ MonoBehaviour:
   ItemName: Medium Mana Potion
   itemId: 180
   ItemTier: 2
-  BuyPrice: 42
+  BuyPrice: 44
   SellValue: 17
   MaximumStacks: 10
   IsConsumable: 1

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PortalDrone
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: d4e15999d041f4bba890a97ff7f0c230, type: 3}
-  volume: 0.1
+  volume: 0.066
   volumeVariation: 0
   pitch: 1
   pitchVariation: 0.05

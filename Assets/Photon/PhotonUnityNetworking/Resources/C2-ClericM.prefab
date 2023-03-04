@@ -200,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1633790731590478546}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 302.4207, y: 0.235, z: -1095.3656}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -652,6 +652,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: bc100b41-28da-4fea-8aad-6a6c01387520
     m_ActionName: Player/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f973a4f7-bbe2-4c2d-95b1-d7e342563344
+    m_ActionName: Player/Reload[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -702,6 +706,7 @@ MonoBehaviour:
   canMove: 1
   currentCameraSpeed: 0
   isRollExecuting: 0
+  turnSens: 0.3
   attackCoolDown: 1
   attackRange: 0.83
   LifeSteal: 0

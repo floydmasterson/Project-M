@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class VotingSystem : MonoBehaviourPunCallbacks
 {
     public static VotingSystem Instance { get; private set; }
-    private int requiredVotes = PhotonNetwork.CountOfPlayers;
+    private int requiredVotes;
     private int votesReceived = 0;
     private Dictionary<int, bool> voteTracker = new Dictionary<int, bool>();
     public event Action timeSkip;
@@ -22,6 +22,8 @@ public class VotingSystem : MonoBehaviourPunCallbacks
     [SerializeField]
     private GameObject Light;
     private int PlayerId;
+    [SerializeField]
+    private timeToText display;
 
     private void Awake()
     {
@@ -29,7 +31,14 @@ public class VotingSystem : MonoBehaviourPunCallbacks
         PlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
         popup = GetComponentInChildren<Canvas>(true);
         SkipButton.performed += ctx => CastVote(PlayerId);
-   
+
+    }
+    private void Update()
+    {
+        if (requiredVotes != PhotonNetwork.CurrentRoom.PlayerCount)
+        {
+            requiredVotes = PhotonNetwork.CurrentRoom.PlayerCount;
+        }
     }
     private void Start()
     {
@@ -50,7 +59,7 @@ public class VotingSystem : MonoBehaviourPunCallbacks
         {
             voteTracker[playerId] = true;
             votesReceived++;
-            voteCast?.Invoke(votesReceived);
+            display.updateVote(votesReceived);
 
             if (votesReceived >= requiredVotes)
             {
@@ -68,6 +77,14 @@ public class VotingSystem : MonoBehaviourPunCallbacks
         {
             popup.gameObject.SetActive(true);
             SkipButton.Enable();
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player") && voteTracker.ContainsKey(PlayerId) && other.GetComponent<PhotonView>().IsMine)
+        {
+            popup.gameObject.SetActive(false);
+            SkipButton.Disable();
         }
     }
     private void OnTriggerExit(Collider other)

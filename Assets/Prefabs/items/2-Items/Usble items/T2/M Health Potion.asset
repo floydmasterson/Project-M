@@ -16,7 +16,7 @@ MonoBehaviour:
   ItemName: Medium Health Potion
   itemId: 179
   ItemTier: 2
-  BuyPrice: 42
+  BuyPrice: 44
   SellValue: 17
   MaximumStacks: 10
   IsConsumable: 1

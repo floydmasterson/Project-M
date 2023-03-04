@@ -56,7 +56,7 @@ public class ShopPortal : MonoBehaviourPun
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && other.GetComponent<PhotonView>().IsMine)
         {
             Teleport(other.gameObject);
         }
@@ -81,7 +81,7 @@ public class ShopPortal : MonoBehaviourPun
             }
             int selctedSpawn = Random.Range(0, respawnPoints.Count);
             respawnPoints[selctedSpawn].Selcted(player);
-            photonView.RPC("RemoveSpawn", RpcTarget.All, selctedSpawn);
+            photonView.RPC("RemoveSpawn", RpcTarget.AllBuffered, selctedSpawn);
         }
     }
     [PunRPC]

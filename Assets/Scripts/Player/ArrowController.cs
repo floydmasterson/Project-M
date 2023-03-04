@@ -64,7 +64,7 @@ public class ArrowController : MonoBehaviourPun
     private WeightedRandomList<SFX> ReloadSounds;
 
 
-    private string currentState;
+
     public int MaxArrows
     {
         get { return maxArrows; }
@@ -134,6 +134,7 @@ public class ArrowController : MonoBehaviourPun
             animator.ResetTrigger("shoot");
             animator.ResetTrigger("Attack 0");
         }
+       
     }
     private void OnShootPerformed(InputAction.CallbackContext ctx)
     {

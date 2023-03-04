@@ -7,16 +7,16 @@ public class RespawnPoint : MonoBehaviour
     [SerializeField] SFX Respawn;
     Collider col;
     private void OnEnable()
-    {  
+    {
         GameManger.Instance.TimerOver += () => { Destroy(gameObject); };
     }
     private void OnDestroy()
-    {   
+    {
         GameManger.Instance.TimerOver -= () => { Destroy(gameObject); };
     }
     private void Awake()
     {
-        col= GetComponent<Collider>();
+        col = GetComponent<Collider>();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -26,7 +26,8 @@ public class RespawnPoint : MonoBehaviour
             player.spawnPoint = spawnPoint.transform;
             if (ps != null)
                 ps.Play();
-            Respawn.PlaySFX();
+            if (Respawn.sfxToPlay != null)
+                Respawn.PlaySFX();
         }
     }
 
@@ -38,7 +39,7 @@ public class RespawnPoint : MonoBehaviour
             player.spawnPoint = spawnPoint.transform;
             inplayer.transform.position = spawnPoint.transform.position;
             col.enabled = false;
-           
+
         }
     }
 }

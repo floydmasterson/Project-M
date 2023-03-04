@@ -17,16 +17,6 @@ public class timeToText : MonoBehaviourPun
         updateVote(0);
     }
 
-    private void OnEnable()
-    {
-        VotingSystem.Instance.voteCast += updateVote;
-    }
-    private void OnDestroy()
-    {
-        VotingSystem.Instance.voteCast -= updateVote;
-
-    }
-
     private void Awake()
     {
         time = GameManger.Instance.gameTime + 60;
@@ -62,7 +52,7 @@ public class timeToText : MonoBehaviourPun
 
         timeText.text = string.Format("{0:00} : {1:00}", min, sec);
     }
-    private void updateVote(int recivedVotes)
+   public void updateVote(int recivedVotes)
     {
         voteText.text = recivedVotes.ToString() + "/" + players + " Votes";
         votes = recivedVotes;
