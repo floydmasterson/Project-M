@@ -323,18 +323,6 @@ public class PlayerManger : MonoBehaviourPun
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        if (InventoryPrefab != null)
-        {
-            invPrefab = Instantiate(InventoryPrefab);
-            invPrefab.GetComponent<InventoryUi>().SetTargetI(this);
-            character = invPrefab.GetComponent<Character>();
-            if (!photonView.IsMine)
-                invPrefab.SetActive(false);
-        }
-        else
-        {
-            Debug.LogWarning("<Color=Red><a>Missing</a></Color> IventoryPrefab reference on player Prefab.", this);
-        }
         if (photonView.IsMine)
         {
             IsLocal = true;
@@ -360,11 +348,21 @@ public class PlayerManger : MonoBehaviourPun
         {
             lockCamera.Priority = 0;
         }
+        if (InventoryPrefab != null)
+        {
+            invPrefab = Instantiate(InventoryPrefab);
+            invPrefab.GetComponent<InventoryUi>().SetTargetI(this);
+            character = invPrefab.GetComponent<Character>();
+            if (!photonView.IsMine)
+                invPrefab.SetActive(false);
+        }
+        else
+        {
+            Debug.LogWarning("<Color=Red><a>Missing</a></Color> IventoryPrefab reference on player Prefab.", this);
+        }
 
 
     }
-
-
     private void Start()
     {
         if (photonView.IsMine)
@@ -508,45 +506,43 @@ public class PlayerManger : MonoBehaviourPun
     }
     public void ContainerSwitch(InputAction.CallbackContext context)
     {
-        if (photonView.IsMine)
+        if (!context.started)
+            return;
+        if (lootContainerManager.CanBeOpened() && inChest == false)
         {
-            if (!context.started)
-                return;
-            if (lootContainerManager.CanBeOpened() && inChest == false)
-            {
-                UpdateMoving(false);
-                UpdateRun(false);
-                lootContainerManager.OpenContiner(character);
-                onInventoryOpen();
-                inChest = true;
-                playerInput.SwitchCurrentActionMap("Container");
-                CursorToggle(true);
-            }
-            else if (lootContainerManager.CanBeClosed() && inChest == true)
-            {
-                lootContainerManager.CloseContiner(character);
-                onInventoryClose();
-                inChest = false;
-                playerInput.SwitchCurrentActionMap("Player");
-                CursorToggle(false);
-            }
-            else if (shop != null && !shop.isOpen)
-            {
-                UpdateMoving(false);
-                UpdateRun(false);
-                onInventoryOpen();
-                shop.Open(character);
-                playerInput.SwitchCurrentActionMap("Container");
-                CursorToggle(true);
-            }
-            else if (shop != null && shop.isOpen)
-            {
-                shop.Close(character);
-                onInventoryClose();
-                playerInput.SwitchCurrentActionMap("Player");
-                CursorToggle(false);
-            }
+            UpdateMoving(false);
+            UpdateRun(false);
+            lootContainerManager.OpenContiner(character);
+            onInventoryOpen();
+            inChest = true;
+            playerInput.SwitchCurrentActionMap("Container");
+            CursorToggle(true);
         }
+        else if (lootContainerManager.CanBeClosed() && inChest == true)
+        {
+            lootContainerManager.CloseContiner(character);
+            onInventoryClose();
+            inChest = false;
+            playerInput.SwitchCurrentActionMap("Player");
+            CursorToggle(false);
+        }
+        else if (shop != null && !shop.isOpen)
+        {
+            UpdateMoving(false);
+            UpdateRun(false);
+            onInventoryOpen();
+            shop.Open(character);
+            playerInput.SwitchCurrentActionMap("Container");
+            CursorToggle(true);
+        }
+        else if (shop != null && shop.isOpen)
+        {
+            shop.Close(character);
+            onInventoryClose();
+            playerInput.SwitchCurrentActionMap("Player");
+            CursorToggle(false);
+        }
+
     }
     public void Menu(InputAction.CallbackContext context)
     {
@@ -574,20 +570,17 @@ public class PlayerManger : MonoBehaviourPun
     }
     public void Map(InputAction.CallbackContext context)
     {
-        if (photonView.IsMine)
+        if (!context.started)
+            return;
+        if (!MapManager.Instance.mapOpen)
         {
-            if (!context.started)
-                return;
-            if (!MapManager.Instance.mapOpen)
-            {
-                MapManager.Instance.MapChange();
-                CursorToggle(true);
-            }
-            else if (MapManager.Instance.mapOpen)
-            {
-                MapManager.Instance.MapChange();
-                CursorToggle(false);
-            }
+            MapManager.Instance.MapChange();
+            CursorToggle(true);
+        }
+        else if (MapManager.Instance.mapOpen)
+        {
+            MapManager.Instance.MapChange();
+            CursorToggle(false);
         }
     }
     public void Sprint(InputAction.CallbackContext context)

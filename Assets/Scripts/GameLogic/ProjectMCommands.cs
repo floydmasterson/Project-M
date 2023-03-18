@@ -136,6 +136,10 @@ public class ProjectMCommands : CommandBehaviour
                     localPlayer.transform.position = new Vector3(1753, -107, -592); // Shop Spawn
                     Debug.Log("TP to Shop Spawn");
                     break;
+                case 5:
+                    localPlayer.transform.position = new Vector3(662, 3, -422); // Shop Spawn
+                    Debug.Log("TP to Sector 4 temp spawn");
+                    break;
 
                 default:
                     Debug.LogWarning("Unknown or unassiged ID");

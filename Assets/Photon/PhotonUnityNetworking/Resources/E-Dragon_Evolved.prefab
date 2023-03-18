@@ -1197,7 +1197,7 @@ MonoBehaviour:
   runRadius: 18
   runTime: 4
   canSeePlayer: 0
-  Power: 40
+  Power: 45
   attackPoint: {fileID: 5112651366664207226}
   attackRange: 0.1
   attackCooldown: 1.3
@@ -1321,9 +1321,11 @@ MonoBehaviour:
   - {fileID: 1787914093753770662}
   - {fileID: 7151390909483305658}
   - {fileID: 265717758236337170}
+  - {fileID: 6145871636869312401}
   EffectParent: {fileID: 2620194212107712822}
   posioned: 0
   slowed: 0
+  burning: 0
 --- !u!82 &-7290338798491209888
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2930,6 +2932,11 @@ Transform:
 --- !u!1 &5391174528120198728 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5004025489199645451, guid: dad347394b847a848bef8a2c83aae5f3, type: 3}
+  m_PrefabInstance: {fileID: 1126060439499953475}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6145871636869312401 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6551074660878760658, guid: dad347394b847a848bef8a2c83aae5f3, type: 3}
   m_PrefabInstance: {fileID: 1126060439499953475}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7151390909483305658 stripped

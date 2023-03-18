@@ -4,7 +4,6 @@ using System.Collections;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.AI;
-using Time = UnityEngine.Time;
 
 public class Enemys : MonoBehaviourPun
 {
@@ -18,8 +17,8 @@ public class Enemys : MonoBehaviourPun
 
 
     [BoxGroup]
-    [Tooltip("0= target dummy 1 = Chase & Melee 2 = Avoid & Ranged 3 = Chase & Boom !4 = hybrid! not set")]
-    [Range(0, 4)] public int typeSetting = 0;
+    [Tooltip("0= target dummy 1 = Chase & Melee 2 = Avoid & Ranged 3 = Chase & Boom !4 = hybrid! not set !5 = summoner! not set !6= buffer! not set")]
+    [Range(0, 6)] public int typeSetting = 0;
 
     [EnumToggleButtons]
     public Tier EnemyTier;
@@ -225,7 +224,7 @@ public class Enemys : MonoBehaviourPun
             {
                 photonView.RPC("UpdateAttack", RpcTarget.All);
                 yield return new WaitForSecondsRealtime(.5f);
-                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2.2f, (player.Defense / Power)))); ;
+                player.TakeDamge(DamageCaculator.MobDamage(player, Power));
                 if (player.CurrentHealth <= 0)
                 {
                     Target = null;
@@ -318,7 +317,7 @@ public class Enemys : MonoBehaviourPun
             PlayerManger player = target.GetComponent<PlayerManger>();
             if (player.isAlive == true)
             {
-                player.TakeDamge(Mathf.RoundToInt(Power / Mathf.Pow(2.6f, (player.Defense / Power)))); ;
+                player.TakeDamge(DamageCaculator.MobDamage(player, Power));
             }
         }
     }

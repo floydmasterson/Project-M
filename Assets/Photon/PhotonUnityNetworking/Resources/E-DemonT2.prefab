@@ -1166,10 +1166,10 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 296147275811256799, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
+  - {fileID: 2100000, guid: e411e2c403becbf4899edb416d3b1394, type: 2}
   - {fileID: 2100000, guid: 2257698604064f14988da4cd29c9f997, type: 2}
-  - {fileID: -2845260874595373743, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
-  - {fileID: 4542641088041586163, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
+  - {fileID: 2100000, guid: 3e4faa96a6e744b4b9137628930a6178, type: 2}
+  - {fileID: 2100000, guid: 2257698604064f14988da4cd29c9f997, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1809,7 +1809,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -1580535799172915004, guid: 8b7222de09b93c44dac0d137e26f1d5e, type: 3}
+  - {fileID: 2100000, guid: bb4c11627d373d745a1cc35e7e53bc51, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2039,9 +2039,9 @@ MonoBehaviour:
   possibleBags:
     list:
     - item: {fileID: 8880091359569570710, guid: 45d3c064a985fb44dba2c5aa8e682bfd, type: 3}
-      weight: 7
-    - item: {fileID: 8880091359569570710, guid: 38dc6ef9591616441aeda61f628f78ef, type: 3}
       weight: 2
+    - item: {fileID: 8880091359569570710, guid: 38dc6ef9591616441aeda61f628f78ef, type: 3}
+      weight: 7
     - item: {fileID: 8880091359569570710, guid: 4d1ba8d93bb5c0845861dd37101eea4b, type: 3}
       weight: 1
   AttackSounds:

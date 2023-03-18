@@ -18,3 +18,4 @@ MonoBehaviour:
   IntelligenceBuff: 0
   VitalityBuff: 0
   Duration: 30
+  hasDuration: 0

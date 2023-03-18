@@ -162,6 +162,11 @@ public class Character : MonoBehaviour
     {
         if (dragItemSlot == null) return;
 
+        if (dragItemSlot.Item != null && dragItemSlot.Item.ID == "f6b9d006392af6f49b4db9574b8a1088")
+        {
+            inventoryUi.UpdateGold(dragItemSlot.Amount);
+            openItemContainer.RemoveItem(dragItemSlot.Item, dragItemSlot.Amount);
+        }
         if (dropItemSlot.CanAddStack(dragItemSlot.Item))
         {
             AddStacks(dropItemSlot);

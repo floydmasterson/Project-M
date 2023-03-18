@@ -12,9 +12,13 @@ public class GameManger : MonoBehaviourPunCallbacks
     [TabGroup("Prefabs")]
     public GameObject[] playerPrefab;
     [TabGroup("Prefabs"), SerializeField]
+    private GameObject Sector1;
+    [TabGroup("Prefabs"), SerializeField]
+    private GameObject Sector2;
+    [TabGroup("Prefabs"), SerializeField]
     private GameObject Sector3;
     [TabGroup("Prefabs"), SerializeField]
-    private GameObject Sector1;
+    private GameObject Sector4;
     [TabGroup("Prefabs"), SerializeField]
     private GameObject Sector5;
     [TabGroup("Spawning"), SerializeField]
@@ -58,6 +62,7 @@ public class GameManger : MonoBehaviourPunCallbacks
         yield return new WaitForSecondsRealtime(2f);
         Sector1.SetActive(false);
         Sector5.SetActive(false);
+        Sector4.SetActive(false);
         Sector3.SetActive(true);
         timerOn = false;
         SetGameTime(0);

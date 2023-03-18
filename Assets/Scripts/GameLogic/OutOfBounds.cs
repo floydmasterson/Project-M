@@ -11,5 +11,10 @@ public class OutOfBounds : MonoBehaviour
            PlayerManger player = other.GetComponent<PlayerManger>();
             player.TakeDamge(9999);
         }
+        if(other.CompareTag("enemy"))
+        {
+            Enemys mob = other.GetComponent<Enemys>();
+            mob.TakeDamge(9999);
+        }
     }
 }

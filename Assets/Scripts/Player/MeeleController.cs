@@ -32,10 +32,6 @@ public class MeeleController : MonoBehaviourPun, IAttack
     [TabGroup("Setup")]
     public Sprite rageAuraImage;
     [TabGroup("Rage")]
-#pragma warning disable IDE0052 // Remove unread private members
-    [SerializeField] bool raging = false;
-#pragma warning restore IDE0052 // Remove unread private members
-    [TabGroup("Rage")]
     [SerializeField] private bool damaged;
     [TabGroup("Rage")]
     [SerializeField] private int currentDefenseMod;
@@ -92,12 +88,12 @@ public class MeeleController : MonoBehaviourPun, IAttack
             Enemys Etarget = target.GetComponent<Enemys>();
             if (player != null && player != PlayerUi.Instance.target)
             {
-                player.TakeDamge(DamageCaculator.MeleeDamage(manger.character, (int)DamageCaculator.Reciver.Player, null, player));
+                player.TakeDamge(DamageCaculator.MeleeDamage(manger.character, DamageCaculator.Reciver.Player, null, player));
                 didDmg = true;
             }
             if (Etarget != null)
             {
-                Etarget.TakeDamge(DamageCaculator.MeleeDamage(manger.character, (int)DamageCaculator.Reciver.Mob, Etarget, null)); ;
+                Etarget.TakeDamge(DamageCaculator.MeleeDamage(manger.character, DamageCaculator.Reciver.Mob, Etarget, null)); ;
                 didDmg = true;
             }
             if (didDmg == true)
@@ -301,7 +297,6 @@ public class MeeleController : MonoBehaviourPun, IAttack
             manger.character.statPanel.UpdateStatValues();
             manger.CheckDefense();
         }
-        raging = false;
     }
     public void RageAura(InputAction.CallbackContext context)
     {
@@ -363,7 +358,7 @@ public class MeeleController : MonoBehaviourPun, IAttack
             Enemys Etarget = target.GetComponent<Enemys>();
             if (player != null && player != PlayerUi.Instance.target)
             {
-                int damage = DamageCaculator.MeleeDamage(manger.character, (int)DamageCaculator.Reciver.Player, null, player);
+                int damage = DamageCaculator.MeleeDamage(manger.character, DamageCaculator.Reciver.Player, null, player);
                 player.TakeDamge(damage);
                 manger.Heal(Mathf.RoundToInt(damage * lifeStealAmount));
                 didDmg = true;

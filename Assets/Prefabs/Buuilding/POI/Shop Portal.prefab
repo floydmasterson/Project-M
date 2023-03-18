@@ -66,8 +66,8 @@ MonoBehaviour:
   portalDrone:
     sfxType: 0
     sfxToPlay: {fileID: 11400000, guid: 336fabeebdfbc98409950bc7dff9d2d7, type: 2}
-    showSettings: 0
-    editSettings: 0
+    showSettings: 1
+    editSettings: 1
     _sfxBase: {fileID: 11400000, guid: 336fabeebdfbc98409950bc7dff9d2d7, type: 2}
     waitToPlay: 0
     useDefualt: 0

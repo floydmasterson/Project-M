@@ -11,7 +11,6 @@ public class VotingSystem : MonoBehaviourPunCallbacks
     private int votesReceived = 0;
     private Dictionary<int, bool> voteTracker = new Dictionary<int, bool>();
     public event Action timeSkip;
-    public event Action<int> voteCast;
 
     private Canvas popup;
     [SerializeField] private ShopPortal shopPortal;
@@ -35,7 +34,7 @@ public class VotingSystem : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        if (requiredVotes != PhotonNetwork.CurrentRoom.PlayerCount)
+        if (PhotonNetwork.InRoom && requiredVotes != PhotonNetwork.CurrentRoom.PlayerCount)
         {
             requiredVotes = PhotonNetwork.CurrentRoom.PlayerCount;
         }

@@ -557,10 +557,10 @@ MonoBehaviour:
   runRadius: 15.91
   runTime: 4
   canSeePlayer: 0
-  Power: 25
+  Power: 35
   attackPoint: {fileID: 4946701736036220586}
   attackRange: 0.1
-  attackCooldown: 2
+  attackCooldown: 1.7
   rangedProjectile: {fileID: 1478796144478312848, guid: 13e7c51123dfd53438ee003f1c1a6bdd, type: 3}
   timeToBlow: 0
   explosionGFX: {fileID: 0}

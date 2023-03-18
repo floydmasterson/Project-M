@@ -137,9 +137,9 @@ public class Projectile : MonoBehaviourPun
                     if (enemy.IsLocal == false)
                     {
                         if (damageType == DamageType.Magic)
-                            enemy.TakeDamge(DamageCaculator.MagicDamage(character, (int)DamageCaculator.Reciver.Player, null, enemy, ProjectileToUse.dmgAmt));
+                            enemy.TakeDamge(DamageCaculator.MagicDamage(character, DamageCaculator.Reciver.Player, null, enemy, ProjectileToUse.dmgAmt));
                         if (damageType == DamageType.Ranged)
-                            enemy.TakeDamge(DamageCaculator.RangedDamage(character, (int)DamageCaculator.Reciver.Player, null, enemy, ProjectileToUse.dmgAmt));
+                            enemy.TakeDamge(DamageCaculator.RangedDamage(character, DamageCaculator.Reciver.Player, null, enemy, ProjectileToUse.dmgAmt));
                         if (statusEffects != null)
                         {
                             foreach (StatusEffectSO effect in statusEffects)

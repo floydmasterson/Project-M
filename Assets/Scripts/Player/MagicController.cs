@@ -210,11 +210,11 @@ public class MagicController : MonoBehaviourPun, IAttack
             Enemys Etarget = target.GetComponent<Enemys>();
             if (player != null && player != PlayerUi.Instance.target)
             {
-                player.TakeDamge(DamageCaculator.MeleeDamage(manger.character, (int)DamageCaculator.Reciver.Player, null, player));
+                player.TakeDamge(DamageCaculator.MeleeDamage(manger.character, DamageCaculator.Reciver.Player, null, player));
             }
             if (Etarget != null)
             {
-                player.TakeDamge(DamageCaculator.MeleeDamage(manger.character, (int)DamageCaculator.Reciver.Mob, Etarget, null));
+                player.TakeDamge(DamageCaculator.MeleeDamage(manger.character, DamageCaculator.Reciver.Mob, Etarget, null));
             }
         }
     }
@@ -241,7 +241,7 @@ public class MagicController : MonoBehaviourPun, IAttack
                     Enemys Etarget = target.GetComponent<Enemys>();
                     if (player != null && player != PlayerUi.Instance.target)
                     {
-                        player.TakeDamge(DamageCaculator.MagicDamage(manger.character, (int)DamageCaculator.Reciver.Player, Etarget, null));
+                        player.TakeDamge(DamageCaculator.MagicDamage(manger.character, DamageCaculator.Reciver.Player, Etarget, null));
                     }
                     if (Etarget != null)
                     {

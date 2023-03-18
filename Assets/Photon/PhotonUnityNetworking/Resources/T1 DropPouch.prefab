@@ -2718,7 +2718,7 @@ MonoBehaviour:
   meshFilter: {fileID: 0}
   close: {fileID: 0}
   open: {fileID: 0}
-  outline: {fileID: 0}
+  outline: {fileID: 4989011361050135033}
   pickUpAllowed: 0
   playerInRange: 0
   isOpen: 0

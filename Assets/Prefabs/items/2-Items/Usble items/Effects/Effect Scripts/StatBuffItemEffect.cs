@@ -1,4 +1,5 @@
 using Kryz.CharacterStats;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Text;
 using UnityEngine;
@@ -10,7 +11,9 @@ public class StatBuffItemEffect : UseableItemEffect
     public int AgilityBuff;
     public int IntelligenceBuff;
     public int VitalityBuff;
+    [HideIf("@!hasDuration")]
     public float Duration;
+    public bool hasDuration;
 
     StringBuilder sb = new StringBuilder();
     public IEnumerator RemoveBuff(Character character, StatModifier statModifier, float duration)
@@ -51,25 +54,29 @@ public class StatBuffItemEffect : UseableItemEffect
         if (StrengthBuff != 0)
         {
             character.Strength.AddModifier(statModifierS);
-            character.StartCoroutine(RemoveBuff(character, statModifierS, Duration));
+            if (hasDuration)
+                character.StartCoroutine(RemoveBuff(character, statModifierS, Duration));
 
         }
         if (AgilityBuff != 0)
         {
             character.Agility.AddModifier(statModifierA);
-            character.StartCoroutine(RemoveBuff(character, statModifierA, Duration));
+            if (hasDuration)
+                character.StartCoroutine(RemoveBuff(character, statModifierA, Duration));
 
         }
         if (IntelligenceBuff != 0)
         {
             character.Intelligence.AddModifier(statModifierI);
-            character.StartCoroutine(RemoveBuff(character, statModifierI, Duration));
+            if (hasDuration)
+                character.StartCoroutine(RemoveBuff(character, statModifierI, Duration));
 
         }
         if (VitalityBuff != 0)
         {
             character.Vitality.AddModifier(statModifierV);
-            character.StartCoroutine(RemoveBuff(character, statModifierV, Duration));
+            if (hasDuration)
+                character.StartCoroutine(RemoveBuff(character, statModifierV, Duration));
 
         }
         character.statPanel.UpdateStatValues();
@@ -80,7 +87,10 @@ public class StatBuffItemEffect : UseableItemEffect
     public override string GetDescription()
     {
         sb.Length = 0;
-        sb.Append("Gain the following for " + Duration + " seconds. ");
+        if (hasDuration)
+            sb.Append("Gain the following for " + Duration + " seconds. ");
+        else
+            sb.Append("Gain the following");
         sb.AppendLine();
         AddStat(StrengthBuff, "Strength");
         AddStat(AgilityBuff, "Agility");
