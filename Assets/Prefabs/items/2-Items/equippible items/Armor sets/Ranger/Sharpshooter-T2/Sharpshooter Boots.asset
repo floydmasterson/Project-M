@@ -16,10 +16,11 @@ MonoBehaviour:
   ItemName: Sharpshooter Boots
   itemId: 41
   ItemTier: 2
-  BuyPrice: 630
-  SellValue: 252
+  BuyPrice: 657
+  SellValue: 247
   MaximumStacks: 1
   IsConsumable: 0
+  IsFood: 0
   Notes: 
   id: a74318150f917a64f88cc9cf964830ba
   StrengthBonus: 2
@@ -27,11 +28,11 @@ MonoBehaviour:
   IntelligenceBonus: 0
   VitalityBonus: 0
   StrengthPercentBonus: 0
-  AgilityPercentBonus: 0.15
+  AgilityPercentBonus: 0.08
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
   Passives:
-  - {fileID: 11400000, guid: 05ea2bd583d455f42acfb183cbeb9255, type: 2}
+  - {fileID: 11400000, guid: ea0c12f00f020bc44967847e7146580d, type: 2}
   EquipmentType: 3
   BoundSpell: {fileID: 0}
   BoundArrow: {fileID: 0}

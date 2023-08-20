@@ -219,9 +219,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   typeSetting: 1
   EnemyTier: 0
-  Vitality: 63
-  Defense: 35
-  currentHealth: 0
+  Vitality: 62
+  Defense: 34
+  currentHealth: 29
   isDead: 0
   FloatingText: {fileID: 4078760753962606565, guid: bd8d06d988c3af347aafaef02c98e4bc, type: 3}
   FloatingTextspawn: {fileID: 2201258763734105170}

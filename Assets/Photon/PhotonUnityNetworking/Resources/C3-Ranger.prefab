@@ -75,7 +75,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 325086135065028085}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 302.4207, y: 0.235, z: -1095.3656}
+  m_LocalPosition: {x: 25.0157, y: 0.1019, z: -45.0646}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -547,6 +547,7 @@ MonoBehaviour:
   DmgTextspawn: {fileID: 8671387199672871454}
   HealTextspawn: {fileID: 8671387200290422031}
   IsLocal: 0
+  _sacrificedHealth: 0
   _currentHealth: 0
   _defense: 0
   DefenseMod: 0
@@ -586,6 +587,7 @@ MonoBehaviour:
   inChest: 0
   character: {fileID: 0}
   shop: {fileID: 0}
+  Alter: {fileID: 0}
   inShop: 0
   walk:
     sfxType: 0
@@ -3051,8 +3053,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8671387200743106367}
-  m_LocalRotation: {x: 0.036896024, y: 0.8102395, z: -0.58268213, w: 0.051305618}
-  m_LocalPosition: {x: 0.23420952, y: 7.6200767, z: 16.096169}
+  m_LocalRotation: {x: 0.03689915, y: 0.81023765, z: -0.58268416, w: 0.051309668}
+  m_LocalPosition: {x: 0.23420021, y: 7.6200767, z: 16.096151}
   m_LocalScale: {x: 0.44444448, y: 0.4444444, z: 0.44444442}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3124,8 +3126,8 @@ MonoBehaviour:
   m_CameraRadius: 0.001
   m_Strategy: 0
   m_MaximumEffort: 1
-  m_SmoothingTime: 0.15
-  m_Damping: 0.15
+  m_SmoothingTime: 0.18
+  m_Damping: 0
   m_DampingWhenOccluded: 0
   m_OptimalTargetDistance: 0
 --- !u!1 &8671387200806405064

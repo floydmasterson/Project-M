@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SickTime: 15
   StrengthBuff: 0
-  AgilityBuff: 1
+  AgilityBuff: 0.1
   IntelligenceBuff: 0
   VitalityBuff: 0
   Duration: 30

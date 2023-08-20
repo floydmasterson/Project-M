@@ -1,4 +1,5 @@
 using Cinemachine;
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Sirenix.OdinInspector;
 using SmartConsole.Components;
@@ -14,7 +15,7 @@ public class PlayerManger : MonoBehaviourPun
     //Partds
 
     [TabGroup("Components"), SerializeField, Required]
-    private CinemachineVirtualCamera lockCamera;
+    public CinemachineVirtualCamera lockCamera;
 
     [TabGroup("Components"), SerializeField, Required]
     private GameObject player;
@@ -52,6 +53,8 @@ public class PlayerManger : MonoBehaviourPun
 
     //hp
     float _maxHealth;
+    //[HideInInspector]
+    public float _sacrificedHealth;
     [TabGroup("Health")]
     [ProgressBar(0, "MaxHealth", 0, 1, 0)]
     [SerializeField] float _currentHealth;
@@ -177,8 +180,11 @@ public class PlayerManger : MonoBehaviourPun
     [TabGroup("Ui")]
     public bool inChest = false;
     public Character character;
+    private PlayerUi PlayerUi;
     [HideInInspector]
     public ShopController shop;
+    [HideInInspector]
+    public BloodAlter Alter;
 
     private bool escapeMenuOpen;
     private const string gamepadScheme = "Controller";
@@ -285,7 +291,7 @@ public class PlayerManger : MonoBehaviourPun
         canMove = false;
         UpdateMoving(false);
         UpdateRun(false);
-        PlayerUi.Instance.ShopTime();
+        PlayerUi.ShopTime();
         StartCoroutine(IFrames(2));
         yield return new WaitForSecondsRealtime(1.8f);
         transform.position = new Vector3(1753, -107, -592);
@@ -296,26 +302,12 @@ public class PlayerManger : MonoBehaviourPun
     #region Mono
     private void OnEnable()
     {
-        GameManger.Instance.TimerOver += () =>
-        {
-            if (!inShop)
-            {
-                StartCoroutine(shopTimer());
-            }
-        };
         ConsoleSystem.ConsoleOpenClose += UiLockOut;
         SettingMenu.HealNumberToggle += toggleHealNumber;
         SettingMenu.DmgNumberToggle += toggleDmgNumber;
     }
     private void OnDisable()
     {
-        GameManger.Instance.TimerOver += () =>
-        {
-            if (!inShop)
-            {
-                StartCoroutine(shopTimer());
-            }
-        };
         ConsoleSystem.ConsoleOpenClose -= UiLockOut;
         SettingMenu.HealNumberToggle -= toggleHealNumber;
         SettingMenu.DmgNumberToggle -= toggleDmgNumber;
@@ -323,6 +315,7 @@ public class PlayerManger : MonoBehaviourPun
     void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        PhotonNetwork.AddCallbackTarget(this);
         if (photonView.IsMine)
         {
             IsLocal = true;
@@ -336,6 +329,7 @@ public class PlayerManger : MonoBehaviourPun
             {
                 GameObject _uiGo = Instantiate(UiPrefab) as GameObject;
                 _uiGo.GetComponent<PlayerUi>().SetTarget(this);
+                PlayerUi = _uiGo.GetComponent<PlayerUi>();
             }
             else
             {
@@ -542,6 +536,10 @@ public class PlayerManger : MonoBehaviourPun
             playerInput.SwitchCurrentActionMap("Player");
             CursorToggle(false);
         }
+        else if (Alter != null)
+        {
+            Alter.Sacrafice(GetComponent<IAttack>(), this);
+        }
 
     }
     public void Menu(InputAction.CallbackContext context)
@@ -743,7 +741,7 @@ public class PlayerManger : MonoBehaviourPun
     public void CheckMaxHealth()
     {
         if (photonView.IsMine)
-            _maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, character.Vitality.Value / 2f));
+            _maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, character.Vitality.Value / 2f) - _sacrificedHealth);
     }
     public float CheckDefense()
     {
@@ -789,7 +787,16 @@ public class PlayerManger : MonoBehaviourPun
     }
 #endif
 
-
+    public void OnEvent(EventData photonEvent)
+    {
+        if (photonEvent.Code == EventCodes.ShopTime && photonView.IsMine)
+        {
+            if (!inShop)
+            {
+                StartCoroutine(shopTimer());
+            }
+        }
+    }
     void toggleHealNumber(bool state)
     {
         if (photonView.IsMine)

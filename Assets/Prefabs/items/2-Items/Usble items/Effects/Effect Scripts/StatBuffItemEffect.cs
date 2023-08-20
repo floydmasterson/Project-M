@@ -8,7 +8,7 @@ using UnityEngine;
 public class StatBuffItemEffect : UseableItemEffect
 {
     public int StrengthBuff;
-    public int AgilityBuff;
+    public float AgilityBuff;
     public int IntelligenceBuff;
     public int VitalityBuff;
     [HideIf("@!hasDuration")]

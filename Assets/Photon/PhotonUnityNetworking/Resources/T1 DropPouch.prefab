@@ -1292,7 +1292,7 @@ GameObject:
   m_Name: Torus.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 1
+  m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8497912113531078885
@@ -2254,7 +2254,7 @@ GameObject:
   m_Name: Pouch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 1
+  m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7296491438250717252
@@ -2777,9 +2777,9 @@ MonoBehaviour:
       weight: 2
     - item: {fileID: 11400000, guid: 4eb855ba292208a4a8321a0738496a94, type: 2}
       weight: 2
-    - item: {fileID: 11400000, guid: 55304758ed5ef3146b7982dc8b7d4e04, type: 2}
+    - item: {fileID: 11400000, guid: 4c0856302ee49924cb7d1d069231957d, type: 2}
       weight: 1
-    - item: {fileID: 11400000, guid: 2ee42e65b61b2eb45b924a061d64c678, type: 2}
+    - item: {fileID: 11400000, guid: 9fd3ffb846cc2514983d012a620b9b7c, type: 2}
       weight: 1
     - item: {fileID: 11400000, guid: 96d75646e81e70c4794983ed62a533ce, type: 2}
       weight: 1

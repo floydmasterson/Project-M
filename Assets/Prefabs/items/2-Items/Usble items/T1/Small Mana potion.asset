@@ -20,6 +20,7 @@ MonoBehaviour:
   SellValue: 7
   MaximumStacks: 20
   IsConsumable: 1
+  IsFood: 0
   Notes: 
   id: 36f161c307c86bb4c8ea024aa1bf2688
   Effects:

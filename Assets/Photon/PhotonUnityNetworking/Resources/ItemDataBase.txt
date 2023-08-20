@@ -176,20 +176,21 @@
 176- Slowed
 177- Small Health Potion
 178- Small Mana Potion
-179- Medium Health Potion
-180- Medium Mana Potion
-181- Magic Aura Potion
-182- Medium Agility Potion
-183- Rage Potion
-184- Icarus Potion
-185- Max Health Potion
-186- Large Mana Potion
-187- Large White Potion
-188- Magic Surge Potion
-189- Primal Rage Potion
+179- Garlic Chicken
+180- Grilled Shrimp
+181- Honey Ham
+182- Medium Health Potion
+183- Medium Mana Potion
+184- Garlic Chicken Feast
+185- Grilled Shrimp Feast
+186- Honey Ham Feast
+187- Max Health Potion
+188- Large Mana Potion
+189- Large White Potion
 190- Bag of Holding
 191- Boot of Mobility
-192- Floyds Locket
-193- Noah's Tighty Whiteys 
-194- Velocity Gloves
-195- Very Angry Gloves
+192- Drake item
+193- Floyds Locket
+194- Noah's Tighty Whiteys 
+195- Velocity Gloves
+196- Very Angry Gloves

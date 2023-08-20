@@ -1,4 +1,6 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +8,9 @@ using UnityEngine.InputSystem;
 
 public class VotingSystem : MonoBehaviourPunCallbacks
 {
-    public static VotingSystem Instance { get; private set; }
     private int requiredVotes;
     private int votesReceived = 0;
     private Dictionary<int, bool> voteTracker = new Dictionary<int, bool>();
-    public event Action timeSkip;
 
     private Canvas popup;
     [SerializeField] private ShopPortal shopPortal;
@@ -26,7 +26,6 @@ public class VotingSystem : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        Instance = this;
         PlayerId = PhotonNetwork.LocalPlayer.ActorNumber;
         popup = GetComponentInChildren<Canvas>(true);
         SkipButton.performed += ctx => CastVote(PlayerId);
@@ -62,7 +61,13 @@ public class VotingSystem : MonoBehaviourPunCallbacks
 
             if (votesReceived >= requiredVotes)
             {
-                timeSkip?.Invoke();
+                object[] eventData = new object[] { "Vote Replay Event Data" }; // Event data to send
+                RaiseEventOptions raiseEventOptions = new RaiseEventOptions { Receivers = ReceiverGroup.MasterClient };
+                PhotonNetwork.RaiseEvent(EventCodes.VoteToSkip, eventData, raiseEventOptions, SendOptions.SendReliable);
+
+                PhotonNetwork.SendAllOutgoingCommands();
+                Debug.LogWarning("Shop time was skipped");
+                display.gameObject.SetActive(false);
                 shopPortal.StartCoroutine(shopPortal.OpenShopPortal());
                 voteTracker.Clear();
                 votesReceived = 0;
@@ -97,3 +102,6 @@ public class VotingSystem : MonoBehaviourPunCallbacks
 
 
 }
+
+
+

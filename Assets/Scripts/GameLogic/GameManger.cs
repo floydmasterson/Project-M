@@ -1,12 +1,12 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using Sirenix.OdinInspector;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManger : MonoBehaviourPunCallbacks
+public class GameManger : MonoBehaviourPunCallbacks, IOnEventCallback
 {
     public static GameManger Instance { get; private set; }
     [TabGroup("Prefabs")]
@@ -31,10 +31,18 @@ public class GameManger : MonoBehaviourPunCallbacks
     public int gameTime;
     [TabGroup("Audio"), SerializeField]
     private SFX dungonAmbient;
-    [SerializeField]
+    [TabGroup("Spawning"), SerializeField]
     private List<RespawnPoint> playerSpawnPoints = new List<RespawnPoint>();
-
-    public event Action TimerOver;
+    [TabGroup("Hidden Rooms"), SerializeField]
+    private WeightedRandomList<HiddenRoom> Sector1HiddenRooms = new WeightedRandomList<HiddenRoom>();
+    [TabGroup("Hidden Rooms"), SerializeField]
+    private WeightedRandomList<HiddenRoom> Sector2HiddenRooms = new WeightedRandomList<HiddenRoom>();
+    [TabGroup("Hidden Rooms"), SerializeField]
+    private WeightedRandomList<HiddenRoom> Sector3HiddenRooms = new WeightedRandomList<HiddenRoom>();
+    [TabGroup("Hidden Rooms"), SerializeField]
+    private WeightedRandomList<HiddenRoom> Sector4HiddenRooms = new WeightedRandomList<HiddenRoom>();
+    [TabGroup("Hidden Rooms"), SerializeField]
+    private WeightedRandomList<HiddenRoom> Sector5HiddenRooms = new WeightedRandomList<HiddenRoom>();
     public event Action spawnMobs;
     private bool timerOn = false;
 
@@ -42,32 +50,15 @@ public class GameManger : MonoBehaviourPunCallbacks
     private void Awake()
     {
         Instance = this;
+        PhotonNetwork.AddCallbackTarget(this);
     }
-    public override void OnEnable()
+    public void OnEvent(EventData photonEvent)
     {
-        base.OnEnable();
-        VotingSystem.Instance.timeSkip += T2Start;
-    }
-    public override void OnDisable()
-    {
-        base.OnDisable();
-        VotingSystem.Instance.timeSkip -= T2Start;
-    }
-    private void T2Start()
-    {
-       StartCoroutine(T2Load());
-    }
-    private IEnumerator T2Load()
-    {
-        yield return new WaitForSecondsRealtime(2f);
-        Sector1.SetActive(false);
-        Sector5.SetActive(false);
-        Sector4.SetActive(false);
-        Sector3.SetActive(true);
-        timerOn = false;
-        SetGameTime(0);
-        if (spawnEnemys == true && PhotonNetwork.IsMasterClient)
-            spawnMobs?.Invoke();
+        if (photonEvent.Code == EventCodes.VoteToSkip && PhotonNetwork.IsMasterClient)
+        {
+            timerOn = false;
+            SetGameTime(0);
+        }
     }
     void Start()
     {
@@ -80,21 +71,39 @@ public class GameManger : MonoBehaviourPunCallbacks
                 {
                     int selctedSpawn = UnityEngine.Random.Range(0, playerSpawnPoints.Count);
                     photonView.RPC("InstantiationPlayer", player, selctedSpawn);
-                    photonView.RPC("Removepoint", RpcTarget.AllBuffered, selctedSpawn); 
+                    photonView.RPC("Removepoint", RpcTarget.AllBuffered, selctedSpawn);
                 }
                 else if (spawnPlayersTogther)
                 {
                     int selctedSpawn = 0;
                     photonView.RPC("InstantiationPlayer", player, selctedSpawn);
-                    photonView.RPC("Removepoint", RpcTarget.AllBuffered, selctedSpawn); 
+                    photonView.RPC("Removepoint", RpcTarget.AllBuffered, selctedSpawn);
                 }
             }
             if (spawnEnemys == true)
                 spawnMobs?.Invoke();
-
+            SelectHiddenRooms();
             SetGameTime(gameTime);
         }
     }
+
+    private void SelectHiddenRooms()
+    {
+        HiddenRoom room1 = Sector1HiddenRooms.GetRandom();
+        HiddenRoom room2 = Sector2HiddenRooms.GetRandom();
+        HiddenRoom room3 = Sector3HiddenRooms.GetRandom();
+        HiddenRoom room4 = Sector4HiddenRooms.GetRandom();
+        HiddenRoom room5 = Sector5HiddenRooms.GetRandom();
+        room1.Selected();
+        if (1 == 2)
+        {
+        room2.Selected();
+        room3.Selected();
+        room4.Selected();
+        room5.Selected();         
+        }
+    }
+
     [PunRPC]
     void InstantiationPlayer(int spawnPoint)
     {
@@ -107,8 +116,6 @@ public class GameManger : MonoBehaviourPunCallbacks
     {
         playerSpawnPoints.Remove(playerSpawnPoints[spawnPoint]);
     }
-  
-
 
     private void Update()
     {
@@ -123,16 +130,14 @@ public class GameManger : MonoBehaviourPunCallbacks
 
                 Debug.Log("time is up");
                 timerOn = false;
-                TimerOver?.Invoke();
                 GameTimeLeft = 0;
-                T2Start();
             }
         }
     }
-
     public void SetGameTime(float time)
     {
         photonView.RPC("SetGameTimeRPC", RpcTarget.AllBuffered, time);
+        PhotonNetwork.SendAllOutgoingCommands();
     }
     [PunRPC]
     public void SetGameTimeRPC(float time)

@@ -1,4 +1,5 @@
-﻿using Kryz.CharacterStats;
+﻿using Cinemachine;
+using Kryz.CharacterStats;
 using Photon.Pun;
 using SmartConsole;
 using System;
@@ -10,12 +11,21 @@ public class ProjectMCommands : CommandBehaviour
     [SerializeField] GameManger gameManger;
     [SerializeField] PhotonView photonView;
     [SerializeField] TextAsset database;
+    const string MISSING_PLAYER = "Local Player is not set. Try setup first";
     #region SetUp
 
     protected override void Start()
     {
         base.Start();
         photonView = gameObject.GetComponent<PhotonView>();
+
+    }
+    private void Update()
+    {
+        if (localPlayer == null && PlayerUi.Instance != null && PlayerUi.Instance.target != null)
+        {
+            setup();
+        }
     }
     [Command]
     private void setup()
@@ -24,7 +34,7 @@ public class ProjectMCommands : CommandBehaviour
         gameManger = GameManger.Instance;
         if (localPlayer != null && gameManger != null)
             Debug.Log("Setup has succeeded");
-        else if (localPlayer == null || gameManger != null)
+        else if (localPlayer == null || gameManger == null)
             Debug.LogError("Setup failed: Localplayer = " + localPlayer + " Game Manager = " + gameManger);
     }
     #endregion
@@ -53,7 +63,7 @@ public class ProjectMCommands : CommandBehaviour
         if (localPlayer != null)
             localPlayer.TakeDamge(999);
         else
-            Debug.LogWarning("Local Player is not set. Try setup");
+            Debug.LogWarning(MISSING_PLAYER);
     }
     [Command]
     private void damage_player(int damage)
@@ -61,7 +71,7 @@ public class ProjectMCommands : CommandBehaviour
         if (localPlayer != null)
             localPlayer.TakeDamge(damage);
         else
-            Debug.LogWarning("Local Player is not set. Try setup");
+            Debug.LogWarning(MISSING_PLAYER);
     }
     [Command]
     private void max_heal()
@@ -69,7 +79,7 @@ public class ProjectMCommands : CommandBehaviour
         if (localPlayer != null)
             localPlayer.CurrentHealth = localPlayer.MaxHealth;
         else
-            Debug.LogWarning("Local Player is not set. Try setup");
+            Debug.LogWarning(MISSING_PLAYER);
     }
     [SerializeField] Item godMode;
     [Command]
@@ -94,7 +104,7 @@ public class ProjectMCommands : CommandBehaviour
             }
         }
         else
-            Debug.LogWarning("Local Player is not set. Try setup");
+            Debug.LogWarning(MISSING_PLAYER);
     }
     [Command]
     private void set_spawn_to_self()
@@ -106,7 +116,7 @@ public class ProjectMCommands : CommandBehaviour
             Debug.Log("Spawn has been set to current location");
         }
         else
-            Debug.LogWarning("Local Player is not set. Try setup");
+            Debug.LogWarning(MISSING_PLAYER);
     }
 
     [Command]
@@ -117,28 +127,28 @@ public class ProjectMCommands : CommandBehaviour
             switch (POIid)
             {
                 case 0:
-                    localPlayer.transform.position = new Vector3(-147, 0, 180); // Debug Shop
+                    localPlayer.transform.position = new Vector3(-147, 0, 180);
                     Debug.Log("TP to Debug Shop");
                     break;
                 case 1:
-                    localPlayer.transform.position = new Vector3(25, 3, -45); // Sector 1 Spawn
+                    localPlayer.transform.position = new Vector3(25, 3, -45);
                     Debug.Log("TP to Sector 1 spawn");
                     break;
                 case 2:
-                    localPlayer.transform.position = new Vector3(286, 3, -744); // Sector 3  TempSpawn
-                    Debug.Log("TP to Sector 3 temp spawn");
+                    localPlayer.transform.position = new Vector3(286, 3, -744);
+                    Debug.Log("TP to Sector 3 spawn");
                     break;
                 case 3:
-                    localPlayer.transform.position = new Vector3(302, 3, -1095); // Sector 3  TempSpawn
-                    Debug.Log("TP to Sector 5 temp spawn");
+                    localPlayer.transform.position = new Vector3(302, 3, -1095);
+                    Debug.Log("TP to Sector 5 spawn");
                     break;
                 case 4:
-                    localPlayer.transform.position = new Vector3(1753, -107, -592); // Shop Spawn
+                    localPlayer.transform.position = new Vector3(1753, -107, -592);
                     Debug.Log("TP to Shop Spawn");
                     break;
                 case 5:
-                    localPlayer.transform.position = new Vector3(662, 3, -422); // Shop Spawn
-                    Debug.Log("TP to Sector 4 temp spawn");
+                    localPlayer.transform.position = new Vector3(662, 3, -422);
+                    Debug.Log("TP to Sector 4 = spawn");
                     break;
 
                 default:
@@ -147,7 +157,7 @@ public class ProjectMCommands : CommandBehaviour
             }
         }
         else
-            Debug.LogWarning("Local Player is not set. Try setup");
+            Debug.LogWarning(MISSING_PLAYER);
     }
     [Command]
     private void tp(float xCord, float yCord, float zCord)
@@ -174,17 +184,18 @@ public class ProjectMCommands : CommandBehaviour
                 throw new NullReferenceException("Character is missing on local player");
         }
         else
-            Debug.LogWarning("Local Player is not set. Try setup");
+            Debug.LogWarning(MISSING_PLAYER);
     }
     [Command]
     private void no_clip()
     {
         if (localPlayer != null)
-        {        
+        {
             if (localPlayer.noClip == false)
             {
                 localPlayer.gameObject.layer = 31;
                 localPlayer.noClip = true;
+                localPlayer.lockCamera.GetComponent<CinemachineCollider>().enabled = false;
                 Debug.Log("No clip On");
 
             }
@@ -192,11 +203,12 @@ public class ProjectMCommands : CommandBehaviour
             {
                 localPlayer.gameObject.layer = 9;
                 localPlayer.noClip = false;
+                localPlayer.lockCamera.GetComponent<CinemachineCollider>().enabled = true;
                 Debug.Log("No clip Off");
             }
         }
         else
-            Debug.LogWarning("Local Player is not set. Try setup");
+            Debug.LogWarning(MISSING_PLAYER);
     }
 
     [Command]
@@ -205,8 +217,24 @@ public class ProjectMCommands : CommandBehaviour
         if (localPlayer != null)
             Debug.Log(localPlayer.turnSens);
         else
-            Debug.LogWarning("Local Player is not set. Try setup");
+            Debug.LogWarning(MISSING_PLAYER);
     }
+
+
+    [Command]
+    private void give_gold(int amount)
+    {
+        if (localPlayer != null)
+        {
+            InventoryUi player = localPlayer.character.GetComponent<InventoryUi>();
+            player.UpdateGold(amount);
+            Debug.Log("Added " + amount + " gold.");
+        }
+        else
+            Debug.LogWarning(MISSING_PLAYER);
+
+    }
+
 
     #endregion
     #region Spawn Things
@@ -219,7 +247,7 @@ public class ProjectMCommands : CommandBehaviour
             PhotonNetwork.Instantiate("T" + chesttier + " Chest", spawnPoint, Quaternion.Euler(-90, 0, 0));
         }
         else
-            Debug.LogWarning("Local Player is not set. Try setup");
+            Debug.LogWarning(MISSING_PLAYER);
     }
     [Command]
     private void spawn_dropbag(string bagtier)
@@ -230,7 +258,7 @@ public class ProjectMCommands : CommandBehaviour
             PhotonNetwork.Instantiate("T" + bagtier + " DropPouch", spawnPoint, Quaternion.identity);
         }
         else
-            Debug.LogWarning("Local Player is not set. Try setup");
+            Debug.LogWarning(MISSING_PLAYER);
     }
     [Command]
     private void spawn_enemy(string enemyname)
@@ -241,7 +269,7 @@ public class ProjectMCommands : CommandBehaviour
             PhotonNetwork.Instantiate("E-" + enemyname, spawnPoint, Quaternion.identity);
         }
         else
-            Debug.LogWarning("Local Player is not set. Try setup");
+            Debug.LogWarning(MISSING_PLAYER);
     }
     #endregion
     #region Game Manger
@@ -285,9 +313,10 @@ public class ProjectMCommands : CommandBehaviour
     {
         Debug.Log("0:Debug Shop");
         Debug.Log("1:Sector 1 spawn");
-        Debug.Log("2:Sector 3 temp spawn");
-        Debug.Log("3:Sector 5 temp spawn");
+        Debug.Log("2:Sector 3 spawn");
+        Debug.Log("3:Sector 5 spawn");
         Debug.Log("4:Shop Spawn");
+        Debug.Log("3:Sector 4 spawn");
 
     }
     [Command]

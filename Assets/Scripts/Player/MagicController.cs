@@ -214,7 +214,7 @@ public class MagicController : MonoBehaviourPun, IAttack
             }
             if (Etarget != null)
             {
-                player.TakeDamge(DamageCaculator.MeleeDamage(manger.character, DamageCaculator.Reciver.Mob, Etarget, null));
+                Etarget.TakeDamge(DamageCaculator.MeleeDamage(manger.character, DamageCaculator.Reciver.Mob, Etarget, null));
             }
         }
     }

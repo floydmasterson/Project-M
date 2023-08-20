@@ -20,6 +20,7 @@ MonoBehaviour:
   SellValue: 0
   MaximumStacks: 1
   IsConsumable: 0
+  IsFood: 0
   Notes: 
   id: 98b14bf10a5ef18489efdb3d720b9351
   StrengthBonus: 0

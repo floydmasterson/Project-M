@@ -18,7 +18,7 @@ namespace SmartConsole
         {
             Target = target;
             MethodInfo = methodInfo;
-        }
+        } 
 
         public void Use()
         {

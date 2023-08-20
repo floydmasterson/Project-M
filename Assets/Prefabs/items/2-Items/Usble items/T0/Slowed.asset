@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Icon: {fileID: 0}
   ItemName: Slowed
-  itemId: 176
+  itemId: 177
   ItemTier: 0
   BuyPrice: 0
   SellValue: 0
   MaximumStacks: 1
   IsConsumable: 0
-  Notes: 
+  IsFood: 0
+  Notes: Ghost item for warrior debuff
   id: 6ead184a50bb78f49ae1eefd299e4a2a
   Effects: []

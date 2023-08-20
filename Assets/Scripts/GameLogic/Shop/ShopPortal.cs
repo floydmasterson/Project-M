@@ -1,5 +1,6 @@
 using Photon.Pun;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,23 +17,15 @@ public class ShopPortal : MonoBehaviourPun
     Collider col;
     GameObject GFX;
 
+    public Action FirstOut;
+    public bool firstHasPassed;
+
     private IEnumerator OpenPortal(float time)
     {
         yield return new WaitForSecondsRealtime(time);
         StartCoroutine(OpenShopPortal());
     }
 
-    private void Awake()
-    {
-        if (toShop)
-        {
-            GameManger.Instance.TimerOver += () => { Destroy(gameObject); };
-        }
-    }
-    private void OnDestroy()
-    {
-        GameManger.Instance.TimerOver -= () => { Destroy(gameObject); };
-    }
     private void Start()
     {
         shopSpawn = new Vector3(1753, -107, -592);
@@ -43,7 +36,10 @@ public class ShopPortal : MonoBehaviourPun
         if (!toShop)
             StartCoroutine(OpenPortal(GameManger.Instance.gameTime + 60));
         else if (toShop)
+        {
             StartCoroutine(OpenPortal(GameManger.Instance.gameTime / 3));
+            FirstOut += () => Destroy(gameObject);
+        }
 
     }
 
@@ -79,10 +75,13 @@ public class ShopPortal : MonoBehaviourPun
                 manger.pvp = true;
                 manger.inShop = false;
             }
-            int selctedSpawn = Random.Range(0, respawnPoints.Count);
+            int selctedSpawn = UnityEngine.Random.Range(0, respawnPoints.Count);
             respawnPoints[selctedSpawn].Selcted(player);
             photonView.RPC("RemoveSpawn", RpcTarget.AllBuffered, selctedSpawn);
+            if (!firstHasPassed)
+                FirstOut?.Invoke();
         }
+        Destroy(gameObject);
     }
     [PunRPC]
     public void RemoveSpawn(int spawnIndex)

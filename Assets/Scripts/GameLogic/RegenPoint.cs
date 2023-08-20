@@ -5,7 +5,6 @@ public class RegenPoint : MonoBehaviour
 {
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private float detectRadius = 5f;
-    [SerializeField] private bool protectedFromDestory = false;
     private float detectTime;
     [SerializeField] ParticleSystem ParticleSystem;
     [SerializeField] SFX Regen;
@@ -14,15 +13,7 @@ public class RegenPoint : MonoBehaviour
     float fadeTime = 1f;
     private float startVolume;
     bool playing = false;
-    private void OnEnable()
-    {
-        if (!protectedFromDestory)
-            GameManger.Instance.TimerOver += () => Destroy(gameObject);
-    }
-    private void OnDestroy()
-    {
-        GameManger.Instance.TimerOver -= () => Destroy(gameObject);
-    }
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();

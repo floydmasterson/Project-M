@@ -545,7 +545,7 @@ MonoBehaviour:
   EnemyTier: 1
   Vitality: 75
   Defense: 41
-  currentHealth: 0
+  currentHealth: 59
   isDead: 0
   FloatingText: {fileID: 4078760753962606565, guid: bd8d06d988c3af347aafaef02c98e4bc, type: 3}
   FloatingTextspawn: {fileID: 8836695451634496577}

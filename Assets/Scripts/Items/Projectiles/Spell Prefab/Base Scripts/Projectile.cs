@@ -105,10 +105,6 @@ public class Projectile : MonoBehaviourPun
         int Obstruction = LayerMask.NameToLayer("Obstruction");
         if (hit == false)
         {
-            if (other.gameObject.layer == Obstruction)
-            {
-                Poof();
-            }
             if (photonView.IsMine)
             {
                 if (other.CompareTag("enemy"))
@@ -151,6 +147,11 @@ public class Projectile : MonoBehaviourPun
                         }
                         Poof();
                     }
+                }
+
+                if (other.gameObject.layer == Obstruction)
+                {
+                    Poof();
                 }
             }
         }

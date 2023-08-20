@@ -1292,7 +1292,7 @@ GameObject:
   m_Name: Torus.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 1
+  m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8497912113531078885
@@ -2254,7 +2254,7 @@ GameObject:
   m_Name: Pouch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 1
+  m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7296491438250717252
@@ -2761,15 +2761,15 @@ MonoBehaviour:
       weight: 1
     - item: {fileID: 11400000, guid: 66f287925d3dd4e4799637f3c17b90d9, type: 2}
       weight: 1
-    - item: {fileID: 11400000, guid: a4f629126af176b4bb98064859226ecb, type: 2}
+    - item: {fileID: 11400000, guid: c2f8a581652f57e478a6b1c99e42a99a, type: 2}
       weight: 2
     - item: {fileID: 11400000, guid: 5358a78e95807cf438acf1e1ca65be94, type: 2}
       weight: 2
     - item: {fileID: 11400000, guid: aa6d6773c86b7ba4d873c41050c5f279, type: 2}
       weight: 2
-    - item: {fileID: 11400000, guid: 9fdfa63eb6a6f3045a9d9f116c149f66, type: 2}
+    - item: {fileID: 11400000, guid: b2f05613b969ceb499186e69dc339089, type: 2}
       weight: 2
-    - item: {fileID: 11400000, guid: a56501d3bed4f6d47b2e8e95ffccc862, type: 2}
+    - item: {fileID: 11400000, guid: ce92dc7b37dc58648bdcfae0b17b46fb, type: 2}
       weight: 2
     - item: {fileID: 11400000, guid: dc9e45904fde3ac4e8989c343fd6bf8c, type: 2}
       weight: 1
@@ -2813,16 +2813,16 @@ MonoBehaviour:
       weight: 2
     - item: {fileID: 11400000, guid: 01c4750f353a92b44bf59c8f3a88845c, type: 2}
       weight: 2
-    - item: {fileID: 11400000, guid: 55304758ed5ef3146b7982dc8b7d4e04, type: 2}
-      weight: 4
-    - item: {fileID: 11400000, guid: 2ee42e65b61b2eb45b924a061d64c678, type: 2}
-      weight: 4
+    - item: {fileID: 11400000, guid: 7ff3c0844b3fe58469dc4b4b11d88e85, type: 2}
+      weight: 3
+    - item: {fileID: 11400000, guid: 4c0856302ee49924cb7d1d069231957d, type: 2}
+      weight: 3
     - item: {fileID: 11400000, guid: 650a55ada548fff4ab057eb4631792ea, type: 2}
       weight: 4
     - item: {fileID: 11400000, guid: 4eb855ba292208a4a8321a0738496a94, type: 2}
       weight: 4
-    - item: {fileID: 11400000, guid: 2393146b0ed524a4fb3c5155a570aef7, type: 2}
-      weight: 4
+    - item: {fileID: 11400000, guid: 9fd3ffb846cc2514983d012a620b9b7c, type: 2}
+      weight: 3
     - item: {fileID: 11400000, guid: d20a4ae3a39dd5545b5887d4a4bcdc54, type: 2}
       weight: 3
     - item: {fileID: 11400000, guid: be5adf0f38c779a488ba7fe0b463901f, type: 2}

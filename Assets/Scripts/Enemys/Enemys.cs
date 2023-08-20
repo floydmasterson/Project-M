@@ -1,7 +1,6 @@
 using Photon.Pun;
 using Sirenix.OdinInspector;
 using System.Collections;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,15 +16,15 @@ public class Enemys : MonoBehaviourPun
 
 
     [BoxGroup]
-    [Tooltip("0= target dummy 1 = Chase & Melee 2 = Avoid & Ranged 3 = Chase & Boom !4 = hybrid! not set !5 = summoner! not set !6= buffer! not set")]
-    [Range(0, 6)] public int typeSetting = 0;
+    [Tooltip("0= target dummy 1 = Chase & Melee 2 = Avoid & Ranged 3 = Chase & Boom !4 = hybrid! not set !5 = summoner! not set !6 = buffer! not set 7 = Hidden Wall")]
+    [Range(0, 7)] public int typeSetting = 0;
 
     [EnumToggleButtons]
     public Tier EnemyTier;
 
     //Health
     [TabGroup("Health")]
-    [Range(50, 100)] public float Vitality;
+    [Range(1, 100), Tooltip("50 is lowest normally")] public float Vitality;
     [TabGroup("Health")]
     public float Defense;
     [TabGroup("Health")]
@@ -123,8 +122,8 @@ public class Enemys : MonoBehaviourPun
     #region Base IEnumerators 
     IEnumerator ExecuteAfterTime()
     {
-        yield return new WaitForSeconds(4.1f);
-        //Particl
+        if (typeSetting != 7)
+            yield return new WaitForSeconds(4.1f);
         Transform[] allChildren = GetComponentsInChildren<Transform>();
         foreach (Transform t in allChildren)
         {
@@ -134,7 +133,7 @@ public class Enemys : MonoBehaviourPun
     }
     IEnumerator Dropbag()
     {
-     
+
         yield return new WaitForSecondsRealtime(3.8f);
         float chance;
         chance = Random.Range(1f, 10f);
@@ -142,7 +141,7 @@ public class Enemys : MonoBehaviourPun
         {
             PhotonNetwork.Instantiate(possibleBags.GetRandom().name, transform.position, Quaternion.identity);
         }
-      
+
     }
 
     private IEnumerator FOVRoutine()
@@ -326,10 +325,15 @@ public class Enemys : MonoBehaviourPun
     private void OnValidate()
     {
         Defense = Mathf.RoundToInt(Vitality * 1.1f / 2f);
+        maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (Vitality) / 2f));
+        currentHealth = maxHealth;
     }
     private void OnEnable()
     {
         SettingMenu.DmgNumberToggle += toggleDmgNumber;
+        if (Vitality > 0 && typeSetting != 7)
+            Vitality = 50;
+
         if (GameManger.Instance != null && EnemyTier == Tier.T1)
             Destroy(gameObject, GameManger.Instance.gameTime);
     }
@@ -344,6 +348,7 @@ public class Enemys : MonoBehaviourPun
         {
             maxHealth = Mathf.RoundToInt(Mathf.Pow(1.115f, (Vitality) / 2f));
             Defense = Mathf.RoundToInt(Vitality * 1.1f / 2f);
+            currentHealth = maxHealth;
         }
         else if (typeSetting == 0)
         {
@@ -354,16 +359,22 @@ public class Enemys : MonoBehaviourPun
         col = GetComponent<Collider>();
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        agent.updateRotation = false;
+        if (agent != null)
+            agent.updateRotation = false;
+        else if (typeSetting != 7)
+            Debug.LogWarning("Missing agent");
 
 
     }
     void Start()
     {
-        agent.updateRotation = false;
-        if (typeSetting != 0)
+        if (typeSetting != 0 && typeSetting != 7)
+        {
+            agent.updateRotation = false;
             StartCoroutine(FOVRoutine());
-        currentHealth = maxHealth;
+        }
+        if (currentHealth < maxHealth)
+            currentHealth = maxHealth;
         if (!showIsDirty && SettingMenu.instance != null)
         {
             showDmgNumber = SettingMenu.instance.DmgToggle;
@@ -490,7 +501,7 @@ public class Enemys : MonoBehaviourPun
     public void TakeDamge(float damage)
     {
         currentHealth -= damage;
-        if (showDmgNumber)
+        if (showDmgNumber && FloatingText != null && FloatingTextspawn != null)
         {
             var text = Instantiate(FloatingText, FloatingTextspawn.position, Quaternion.Euler(0, 180, 0), FloatingTextspawn);
             text.GetComponent<TextMesh>().text = damage.ToString();
@@ -501,7 +512,8 @@ public class Enemys : MonoBehaviourPun
             StartCoroutine(RangeExpand());
         if (currentHealth <= 0)
         {
-            animator.SetBool("Dead", true);
+            if (animator != null)
+                animator.SetBool("Dead", true);
             photonView.RPC("Die", RpcTarget.All);
             StartCoroutine(Dropbag());
         }
@@ -515,11 +527,14 @@ public class Enemys : MonoBehaviourPun
         Target = null;
         StopCoroutine(LookAt());
 #pragma warning disable CS0618 // Type or member is obsolete
-        agent.Stop();
+        if (agent != null)
+            agent.Stop();
 #pragma warning restore CS0618 // Type or member is obsolete
-        animator.SetTrigger("Die");
+        if (animator != null)
+            animator.SetTrigger("Die");
+        if (agent != null)
+            agent.enabled = false;
         col.enabled = false;
-        agent.enabled = false;
         StartCoroutine(ExecuteAfterTime());
     }
     #endregion
@@ -527,10 +542,13 @@ public class Enemys : MonoBehaviourPun
     [PunRPC]
     private void Hit()
     {
-        animator.SetTrigger("wasHurt");
-        hurtSquish.PlaySFX();
-        SFX soundToPlay = HurtSounds.GetRandom();
-        soundToPlay.PlaySFX();
+        if (typeSetting != 7)
+        {
+            animator.SetTrigger("wasHurt");
+            hurtSquish.PlaySFX();
+            SFX soundToPlay = HurtSounds.GetRandom();
+            soundToPlay.PlaySFX();
+        }
     }
     [PunRPC]
     public void StartRotating()

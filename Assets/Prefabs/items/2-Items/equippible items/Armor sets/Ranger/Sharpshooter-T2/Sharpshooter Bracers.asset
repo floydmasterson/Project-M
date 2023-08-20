@@ -16,10 +16,11 @@ MonoBehaviour:
   ItemName: Sharpshooter Bracers
   itemId: 42
   ItemTier: 2
-  BuyPrice: 540
+  BuyPrice: 576
   SellValue: 216
   MaximumStacks: 1
   IsConsumable: 0
+  IsFood: 0
   Notes: 
   id: 2221b3ea840337a4d9f60caea29195f7
   StrengthBonus: 0
@@ -31,6 +32,6 @@ MonoBehaviour:
   IntelligencePercentBonus: 0
   VitalityPercentBonus: 0
   Passives: []
-  EquipmentType: 9
+  EquipmentType: 10
   BoundSpell: {fileID: 0}
   BoundArrow: {fileID: 0}

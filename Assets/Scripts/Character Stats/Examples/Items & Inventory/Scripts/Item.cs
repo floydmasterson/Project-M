@@ -40,13 +40,16 @@ public class Item : ScriptableObject
     [VerticalGroup("Item/Right"), LabelWidth(90)]
     [ShowIf("@MaximumStacks > 1")]
     public bool IsConsumable;
+    [VerticalGroup("Item/Right"), LabelWidth(90)]
+    [ShowIf("@IsConsumable")]
+    public bool IsFood;
     [PropertyOrder(8)]
     [TableColumnWidth(160, resizable: true)]
     [TextArea]
     public string Notes;
     [HideIf("@1 == 1")]
     [SerializeField] string id;
-  
+
 
 
 
@@ -103,19 +106,42 @@ public class Item : ScriptableObject
             return Mathf.RoundToInt(value);
         if (IsConsumable)
         {
-            switch (ItemTier)
+            if (!IsFood)
             {
-                case Tier.T1:
-                    value += 10;
-                    break;
-                case Tier.T2:
-                    value += 25;
-                    break;
-                case Tier.T3:
-                    value += 50;
-                    break;
-            }
+                switch (ItemTier)
+                {
+
+                    case Tier.T1:
+                        value += 10;
+                        break;
+                    case Tier.T2:
+                        value += 25;
+                        break;
+                    case Tier.T3:
+                        value += 50;
+                        break;
+                }
+
             value += value * .1f;
+            }
+            else
+            {
+                switch (ItemTier)
+                {
+
+                    case Tier.T1:
+                        value += 35;
+                        break;
+                    case Tier.T2:
+                        value += 55;
+                        break;
+                    case Tier.T3:
+                        value += 75;
+                        break;
+                }
+
+                value += value * .15f;
+            }
         }
         else if (!IsConsumable)
         {
